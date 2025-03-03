@@ -44,7 +44,7 @@ const Header = ({ onLogout }: HeaderProps) => {
       <div className="container mx-auto px-4 py-3 flex items-center justify-between">
         <div className="flex items-center">
           <Link to="/" className="mr-6">
-            <img src="/midasbuy-logo.png" alt="MidasBuy" className="h-8" />
+            <img src="/lovable-uploads/c6fd77e7-3682-428e-8154-140308b4a06b.png" alt="Logo" className="h-8" />
           </Link>
         </div>
 

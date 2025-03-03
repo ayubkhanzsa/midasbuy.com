@@ -52,7 +52,7 @@ const Login = ({ onLogin }: LoginProps) => {
       
       <div className="relative w-full max-w-md mx-auto p-6 animate-fade-in">
         <div className="flex justify-center mb-8">
-          <img src="/midasbuy-logo.png" alt="MidasBuy" className="h-12" />
+          <img src="/lovable-uploads/c6fd77e7-3682-428e-8154-140308b4a06b.png" alt="Logo" className="h-12" />
         </div>
         
         <div className="glass-effect rounded-xl overflow-hidden shadow-xl border border-midasbuy-blue/20 animate-scale-up p-8">
@@ -120,7 +120,7 @@ const Login = ({ onLogin }: LoginProps) => {
         </div>
         
         <div className="mt-8 text-center text-gray-400 text-sm">
-          <p>© 2023 MidasBuy. All rights reserved.</p>
+          <p>© 2023 All rights reserved.</p>
         </div>
       </div>
     </div>

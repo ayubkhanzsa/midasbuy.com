@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
@@ -57,7 +56,7 @@ const Index = ({ onLogout }: IndexProps) => {
       >
         <div className="sticky top-0 bg-midasbuy-navy/95 backdrop-blur-md p-4 border-b border-gray-700 flex justify-between items-center">
           <div className="flex items-center">
-            <img src="/midasbuy-logo.png" alt="MidasBuy" className="h-8 mr-3" />
+            <img src="/lovable-uploads/c6fd77e7-3682-428e-8154-140308b4a06b.png" alt="Logo" className="h-8 mr-3" />
             <h2 className="text-xl font-bold text-white">Privacy Policy</h2>
           </div>
           <button 
@@ -356,8 +355,8 @@ const Index = ({ onLogout }: IndexProps) => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
             <div>
               <div className="flex items-center mb-4">
-                <img src="/midasbuy-logo.png" alt="MidasBuy" className="h-8 mr-3" />
-                <h3 className="text-lg font-bold text-white">MidasBuy</h3>
+                <img src="/lovable-uploads/c6fd77e7-3682-428e-8154-140308b4a06b.png" alt="Logo" className="h-8 mr-3" />
+                <h3 className="text-lg font-bold text-white">Gaming Platform</h3>
               </div>
               <p className="text-gray-400 text-sm mb-4">
                 The official platform for purchasing in-game currency and items for PUBG Mobile and other popular games.
