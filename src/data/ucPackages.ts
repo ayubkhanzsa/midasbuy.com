@@ -19,7 +19,7 @@ export const ucPackages: UCPackage[] = [
     price: 0.89,
     originalPrice: 0.99,
     bonusPercent: "",
-    image: "/lovable-uploads/f6594fcb-d2eb-4e92-9f21-fe5959fa5360.png"
+    image: "/lovable-uploads/859337a0-31f0-40db-8923-7daa3738f47d.png"
   },
   {
     id: "300uc",
@@ -29,7 +29,7 @@ export const ucPackages: UCPackage[] = [
     price: 4.49,
     originalPrice: 4.99,
     bonusPercent: "8%",
-    image: "/lovable-uploads/f6594fcb-d2eb-4e92-9f21-fe5959fa5360.png"
+    image: "/lovable-uploads/859337a0-31f0-40db-8923-7daa3738f47d.png"
   },
   {
     id: "600uc",
@@ -39,7 +39,7 @@ export const ucPackages: UCPackage[] = [
     price: 8.99,
     originalPrice: 9.99,
     bonusPercent: "10%",
-    image: "/lovable-uploads/f6594fcb-d2eb-4e92-9f21-fe5959fa5360.png"
+    image: "/lovable-uploads/859337a0-31f0-40db-8923-7daa3738f47d.png"
   },
   {
     id: "1500uc",
@@ -49,7 +49,7 @@ export const ucPackages: UCPackage[] = [
     price: 22.49,
     originalPrice: 24.99,
     bonusPercent: "20%",
-    image: "/lovable-uploads/f6594fcb-d2eb-4e92-9f21-fe5959fa5360.png"
+    image: "/lovable-uploads/859337a0-31f0-40db-8923-7daa3738f47d.png"
   },
   {
     id: "3000uc",
@@ -59,7 +59,7 @@ export const ucPackages: UCPackage[] = [
     price: 44.99,
     originalPrice: 49.99,
     bonusPercent: "28%",
-    image: "/lovable-uploads/f6594fcb-d2eb-4e92-9f21-fe5959fa5360.png"
+    image: "/lovable-uploads/859337a0-31f0-40db-8923-7daa3738f47d.png"
   },
   {
     id: "6000uc",
@@ -69,7 +69,7 @@ export const ucPackages: UCPackage[] = [
     price: 89.99,
     originalPrice: 99.99,
     bonusPercent: "35%",
-    image: "/lovable-uploads/f6594fcb-d2eb-4e92-9f21-fe5959fa5360.png"
+    image: "/lovable-uploads/859337a0-31f0-40db-8923-7daa3738f47d.png"
   },
   {
     id: "12000uc",
@@ -79,7 +79,7 @@ export const ucPackages: UCPackage[] = [
     price: 179.99,
     originalPrice: 199.99,
     bonusPercent: "35%",
-    image: "/lovable-uploads/f6594fcb-d2eb-4e92-9f21-fe5959fa5360.png"
+    image: "/lovable-uploads/859337a0-31f0-40db-8923-7daa3738f47d.png"
   },
   {
     id: "18000uc",
@@ -89,7 +89,7 @@ export const ucPackages: UCPackage[] = [
     price: 269.99,
     originalPrice: 299.99,
     bonusPercent: "35%",
-    image: "/lovable-uploads/f6594fcb-d2eb-4e92-9f21-fe5959fa5360.png"
+    image: "/lovable-uploads/859337a0-31f0-40db-8923-7daa3738f47d.png"
   },
   {
     id: "24000uc",
@@ -99,7 +99,7 @@ export const ucPackages: UCPackage[] = [
     price: 359.99,
     originalPrice: 399.99,
     bonusPercent: "35%",
-    image: "/lovable-uploads/f6594fcb-d2eb-4e92-9f21-fe5959fa5360.png"
+    image: "/lovable-uploads/859337a0-31f0-40db-8923-7daa3738f47d.png"
   },
   {
     id: "30000uc",
@@ -109,7 +109,7 @@ export const ucPackages: UCPackage[] = [
     price: 449.99,
     originalPrice: 499.99,
     bonusPercent: "35%",
-    image: "/lovable-uploads/f6594fcb-d2eb-4e92-9f21-fe5959fa5360.png"
+    image: "/lovable-uploads/859337a0-31f0-40db-8923-7daa3738f47d.png"
   },
   {
     id: "60000uc",
@@ -119,7 +119,7 @@ export const ucPackages: UCPackage[] = [
     price: 899.99,
     originalPrice: 999.99,
     bonusPercent: "35%",
-    image: "/lovable-uploads/f6594fcb-d2eb-4e92-9f21-fe5959fa5360.png"
+    image: "/lovable-uploads/859337a0-31f0-40db-8923-7daa3738f47d.png"
   }
 ];
 
