@@ -27,7 +27,6 @@ const CheckoutPage = ({ onLogout }: CheckoutPageProps) => {
   const [cardholderName, setCardholderName] = useState("");
   const [isProcessing, setIsProcessing] = useState(false);
   const [playerID, setPlayerID] = useState("");
-  const [playerName, setPlayerName] = useState("");
   const [showCVV, setShowCVV] = useState(false);
   const [showExpiry, setShowExpiry] = useState(false);
 
@@ -40,15 +39,13 @@ const CheckoutPage = ({ onLogout }: CheckoutPageProps) => {
     }
 
     const storedPlayerID = localStorage.getItem("playerID");
-    const storedPlayerName = localStorage.getItem("playerName");
     
-    if (!storedPlayerID || !storedPlayerName) {
+    if (!storedPlayerID) {
       navigate(`/purchase/${id}`);
       return;
     }
     
     setPlayerID(storedPlayerID);
-    setPlayerName(storedPlayerName);
 
     // Simulate loading
     const timer = setTimeout(() => {
@@ -118,7 +115,6 @@ const CheckoutPage = ({ onLogout }: CheckoutPageProps) => {
           bonusAmount: ucPackage.bonusAmount,
           price: ucPackage.price,
           playerID,
-          playerName,
           paymentMethod: selectedPayment,
           transactionId: "TX" + Math.floor(Math.random() * 1000000000),
           purchaseDate: new Date().toISOString(),
@@ -312,13 +308,9 @@ const CheckoutPage = ({ onLogout }: CheckoutPageProps) => {
                 <div className="mb-4">
                   <div className="text-sm text-gray-300 mb-1">Player Information:</div>
                   <div className="p-3 bg-midasbuy-navy/50 rounded-md">
-                    <div className="flex justify-between mb-1">
+                    <div className="flex justify-between">
                       <span className="text-gray-400">ID:</span>
                       <span className="text-white font-medium">{playerID}</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-gray-400">Name:</span>
-                      <span className="text-midasbuy-gold font-medium">{playerName}</span>
                     </div>
                   </div>
                 </div>

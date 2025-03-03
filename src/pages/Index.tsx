@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
@@ -178,59 +177,56 @@ const Index = ({ onLogout }: IndexProps) => {
       
       <Header onLogout={onLogout} />
       
-      <main className="pt-32 pb-20 relative z-10">
+      <main className="pt-20 pb-20 relative z-10">
         <div className="container mx-auto px-4">
-          <div className="flex flex-col md:flex-row items-center mb-10">
+          <div className="flex flex-col md:flex-row items-start mb-6">
             <div className="flex-grow">
-              {/* Updated heading layout with logo moved to the left of PUBG MOBILE heading */}
-              <div className="flex items-center mb-4">
+              <div className="flex items-center mb-3">
                 <img 
                   src="/lovable-uploads/072f88f4-7402-4591-b3e4-11f57bb0e9ea.png" 
                   alt="PUBG Mobile" 
-                  className="w-[35px] mr-3 rounded-lg"
+                  className="w-[25px] mr-2 rounded-md"
                 />
-                <h1 className="text-3xl md:text-4xl text-white font-bold tracking-wide">PUBG MOBILE</h1>
+                <h1 className="text-2xl md:text-3xl text-white font-bold tracking-wide">PUBG MOBILE</h1>
               </div>
               
-              <div className="flex items-center space-x-3 mb-4">
-                {/* Official and Subscribed badges */}
-                <span className="inline-flex items-center px-4 py-2 rounded-full text-base font-medium bg-white/90 text-black">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" viewBox="0 0 24 24" fill="currentColor">
+              <div className="flex items-center space-x-2 mb-3">
+                <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-white/90 text-black">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" viewBox="0 0 24 24" fill="currentColor">
                     <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
                   </svg>
                   Official
                 </span>
-                <span className="inline-flex items-center px-4 py-2 rounded-full text-base font-medium bg-white/90 text-black">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" viewBox="0 0 24 24" fill="currentColor">
+                <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-white/90 text-black">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" viewBox="0 0 24 24" fill="currentColor">
                     <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
                   </svg>
                   Subscribed
                 </span>
               </div>
               
-              <div className="mt-1 flex items-center">
-                {/* Enter Player ID button without the PUBG logo */}
-                <button className="btn-primary inline-flex items-center">
+              <div className="mt-1">
+                <button className="btn-primary inline-flex items-center text-sm py-1 px-3">
                   <span>Enter Your Player ID Now</span>
-                  <ChevronDown className="ml-1 w-4 h-4" />
+                  <ChevronDown className="ml-1 w-3 h-3" />
                 </button>
               </div>
             </div>
           </div>
           
-          <div className="mb-8 overflow-x-auto pb-1">
+          <div className="mb-6 overflow-x-auto pb-1">
             <div className="flex min-w-max border-b border-gray-700">
-              <button className="text-white font-medium px-6 py-3 relative active">
+              <button className="text-white font-medium px-4 py-2 relative active text-sm">
                 PURCHASE
                 <span className="absolute bottom-0 left-0 w-full h-1 bg-midasbuy-blue"></span>
               </button>
-              <button className="text-gray-400 font-medium px-6 py-3 hover:text-gray-200 transition-colors">
+              <button className="text-gray-400 font-medium px-4 py-2 hover:text-gray-200 transition-colors text-sm">
                 REDEEM
               </button>
-              <button className="text-gray-400 font-medium px-6 py-3 hover:text-gray-200 transition-colors">
+              <button className="text-gray-400 font-medium px-4 py-2 hover:text-gray-200 transition-colors text-sm">
                 SHOP
               </button>
-              <button className="text-gray-400 font-medium px-6 py-3 hover:text-gray-200 transition-colors">
+              <button className="text-gray-400 font-medium px-4 py-2 hover:text-gray-200 transition-colors text-sm">
                 EVENTS
               </button>
             </div>
@@ -240,19 +236,19 @@ const Index = ({ onLogout }: IndexProps) => {
             <motion.div 
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
-              className="mb-8 bg-gradient-to-r from-midasbuy-darkGold/30 to-midasbuy-gold/20 rounded-lg p-4 flex items-center relative overflow-hidden"
+              className="mb-6 bg-gradient-to-r from-midasbuy-darkGold/30 to-midasbuy-gold/20 rounded-lg p-3 flex items-center relative overflow-hidden"
             >
               <div className="absolute left-0 top-0 text-xs text-black font-medium bg-midasbuy-gold py-1 px-2 rounded-br-md">
                 Ends in 2023-03-08
               </div>
               
-              <div className="ml-8 flex-grow py-3">
-                <p className="text-gray-200 font-medium">
+              <div className="ml-8 flex-grow py-2">
+                <p className="text-gray-200 font-medium text-sm">
                   <span className="text-midasbuy-gold font-bold">Recharging 60UC, 300UC, or 600UC</span> will get you the Classic Crate Voucher (30 UC). One purchase per day, three times in total.
                 </p>
               </div>
               
-              <button className="flex-shrink-0 bg-white text-midasbuy-navy font-bold rounded-full h-10 w-10 flex items-center justify-center">
+              <button className="flex-shrink-0 bg-white text-midasbuy-navy font-bold rounded-full h-8 w-8 flex items-center justify-center">
                 GO
               </button>
               
@@ -260,7 +256,7 @@ const Index = ({ onLogout }: IndexProps) => {
                 onClick={() => setShowPromotion(false)}
                 className="absolute top-2 right-2 text-gray-400 hover:text-white"
               >
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
                   <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
                 </svg>
               </button>
@@ -305,9 +301,8 @@ const Index = ({ onLogout }: IndexProps) => {
                 <Link to={`/purchase/${pkg.id}`} className="block">
                   <div className="bg-midasbuy-navy rounded-lg overflow-hidden h-full transition-all duration-300 hover:shadow-[0_0_15px_rgba(0,145,255,0.3)] border border-midasbuy-navy hover:border-midasbuy-blue/50">
                     <div className="p-4 flex justify-center">
-                      {/* Enhanced slower floating animation for UC package icons */}
                       <motion.img 
-                        src={pkg.image} 
+                        src="/lovable-uploads/e9c7e889-4e39-4f7c-beaa-2b4aaff0fc7f.png" 
                         alt="UC Coins" 
                         className="h-24 object-contain"
                         animate={{ 
@@ -362,7 +357,7 @@ const Index = ({ onLogout }: IndexProps) => {
                         {pkg.discount}
                       </div>
                       <div className="bg-white text-black font-semibold py-1 px-3 text-sm flex-grow flex items-center ml-1 justify-between">
-                        <span>Midasbuy Only</span>
+                        <span className="font-bold">Midasbuy Only</span>
                         <img src="/lovable-uploads/7ef942ba-efa8-4e8f-9282-d86c01b1e909.png" alt="Midasbuy Logo" className="h-6 ml-1" />
                       </div>
                     </div>

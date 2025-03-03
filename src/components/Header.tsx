@@ -1,7 +1,7 @@
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X, Bell, ChevronDown, Globe } from "lucide-react";
+import { Menu, X, Bell, Globe, ChevronDown } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 
@@ -9,10 +9,27 @@ interface HeaderProps {
   onLogout: () => void;
 }
 
+const countries = [
+  { name: "United States", code: "us", region: "North America" },
+  { name: "Canada", code: "ca", region: "North America" },
+  { name: "Brazil", code: "br", region: "Latin American and the Caribbean" },
+  { name: "Chile", code: "cl", region: "Latin American and the Caribbean" },
+  { name: "Colombia", code: "co", region: "Latin American and the Caribbean" },
+  { name: "Mexico", code: "mx", region: "Latin American and the Caribbean" },
+  { name: "Peru", code: "pe", region: "Latin American and the Caribbean" },
+  { name: "Slovenia", code: "si", region: "Europe" },
+  { name: "Slovakia", code: "sk", region: "Europe" },
+  { name: "Türkiye", code: "tr", region: "Europe" },
+  { name: "Ukraine", code: "ua", region: "Europe" },
+];
+
 const Header = ({ onLogout }: HeaderProps) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isCountryMenuOpen, setIsCountryMenuOpen] = useState(false);
+  const [currentCountry, setCurrentCountry] = useState({ name: "United States", code: "us" });
   const location = useLocation();
+  const countryMenuRef = useRef<HTMLDivElement>(null);
   
   const navLinks = [
     { name: "PURCHASE", path: "/" },
@@ -34,6 +51,32 @@ const Header = ({ onLogout }: HeaderProps) => {
     setIsMenuOpen(false);
   }, [location.pathname]);
 
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (countryMenuRef.current && !countryMenuRef.current.contains(event.target as Node)) {
+        setIsCountryMenuOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
+  const groupedCountries = countries.reduce((acc, country) => {
+    if (!acc[country.region]) {
+      acc[country.region] = [];
+    }
+    acc[country.region].push(country);
+    return acc;
+  }, {} as Record<string, typeof countries>);
+
+  const handleSelectCountry = (country: { name: string; code: string }) => {
+    setCurrentCountry(country);
+    setIsCountryMenuOpen(false);
+  };
+
   return (
     <header 
       className={cn(
@@ -41,10 +84,10 @@ const Header = ({ onLogout }: HeaderProps) => {
         isScrolled ? "bg-midasbuy-navy/90 backdrop-blur-md shadow-lg" : "bg-transparent"
       )}
     >
-      <div className="container mx-auto px-4 py-3 flex items-center justify-between">
+      <div className="container mx-auto px-4 py-2 flex items-center justify-between">
         <div className="flex items-center">
-          <Link to="/" className="mr-6">
-            <img src="/lovable-uploads/c6fd77e7-3682-428e-8154-140308b4a06b.png" alt="Logo" className="h-8" />
+          <Link to="/" className="mr-4">
+            <img src="/lovable-uploads/c6fd77e7-3682-428e-8154-140308b4a06b.png" alt="Logo" className="h-6" />
           </Link>
         </div>
 
@@ -55,7 +98,7 @@ const Header = ({ onLogout }: HeaderProps) => {
               key={link.name}
               to={link.path}
               className={cn(
-                "nav-link",
+                "nav-link text-sm px-3 py-1",
                 location.pathname === link.path ? "text-white active" : ""
               )}
             >
@@ -65,33 +108,167 @@ const Header = ({ onLogout }: HeaderProps) => {
         </nav>
 
         {/* Right side buttons */}
-        <div className="hidden md:flex items-center space-x-4">
-          <button className="flex items-center text-gray-300 hover:text-white transition-colors">
-            <Globe className="w-5 h-5 mr-1" />
-            <span>EN</span>
-            <ChevronDown className="w-4 h-4 ml-1" />
-          </button>
+        <div className="hidden md:flex items-center space-x-3">
+          <div className="relative" ref={countryMenuRef}>
+            <button 
+              className="flex items-center text-gray-300 hover:text-white transition-colors text-xs px-2 py-1"
+              onClick={() => setIsCountryMenuOpen(!isCountryMenuOpen)}
+            >
+              <img 
+                src={`https://flagcdn.com/w20/${currentCountry.code}.png`} 
+                alt={currentCountry.name} 
+                className="w-4 h-3 mr-1" 
+              />
+              <span className="hidden sm:inline">{currentCountry.name}</span>
+              <ChevronDown className="w-3 h-3 ml-1" />
+            </button>
+            
+            {isCountryMenuOpen && (
+              <div className="absolute right-0 mt-2 w-64 bg-midasbuy-navy border border-gray-700 rounded-md shadow-lg z-50 overflow-hidden">
+                <div className="max-h-96 overflow-y-auto p-2">
+                  <div className="flex justify-between items-center mb-3 p-2 border-b border-gray-700">
+                    <h3 className="text-white font-bold">COUNTRY/REGION</h3>
+                    <button 
+                      onClick={() => setIsCountryMenuOpen(false)}
+                      className="text-gray-400 hover:text-white"
+                    >
+                      <X className="w-5 h-5" />
+                    </button>
+                  </div>
+                  
+                  {Object.entries(groupedCountries).map(([region, countries]) => (
+                    <div key={region} className="mb-4">
+                      <h4 className="text-gray-400 text-sm font-medium mb-2">{region}</h4>
+                      <div className="grid grid-cols-1 gap-2">
+                        {countries.map((country) => (
+                          <button
+                            key={country.code}
+                            className={cn(
+                              "flex items-center p-2 rounded-md text-left",
+                              currentCountry.code === country.code 
+                                ? "bg-midasbuy-blue text-white" 
+                                : "text-gray-300 hover:bg-gray-700/40"
+                            )}
+                            onClick={() => handleSelectCountry(country)}
+                          >
+                            <img 
+                              src={`https://flagcdn.com/w20/${country.code}.png`} 
+                              alt={country.name} 
+                              className="w-5 h-4 mr-2" 
+                            />
+                            <span>{country.name}</span>
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  ))}
+                  
+                  <div className="mt-2 pt-2 border-t border-gray-700">
+                    <button 
+                      className="w-full bg-midasbuy-blue text-white py-2 rounded-md"
+                      onClick={() => setIsCountryMenuOpen(false)}
+                    >
+                      OK
+                    </button>
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
           
           <button className="relative p-1 text-gray-300 hover:text-white transition-colors">
-            <Bell className="w-5 h-5" />
+            <Bell className="w-4 h-4" />
             <span className="absolute top-0 right-0 w-2 h-2 bg-red-500 rounded-full"></span>
           </button>
           
           <button 
             onClick={onLogout} 
-            className="btn-outline text-sm ml-2"
+            className="btn-outline text-xs px-3 py-1"
           >
             Sign Out
           </button>
         </div>
 
         {/* Mobile menu button */}
-        <button 
-          className="md:hidden text-gray-300 hover:text-white" 
-          onClick={() => setIsMenuOpen(!isMenuOpen)}
-        >
-          {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-        </button>
+        <div className="md:hidden flex items-center space-x-3">
+          <button className="relative p-1 text-gray-300 hover:text-white transition-colors">
+            <Bell className="w-4 h-4" />
+            <span className="absolute top-0 right-0 w-1.5 h-1.5 bg-red-500 rounded-full"></span>
+          </button>
+          
+          <div className="relative" ref={countryMenuRef}>
+            <button 
+              className="flex items-center text-gray-300 hover:text-white transition-colors"
+              onClick={() => setIsCountryMenuOpen(!isCountryMenuOpen)}
+            >
+              <img 
+                src={`https://flagcdn.com/w20/${currentCountry.code}.png`} 
+                alt={currentCountry.name} 
+                className="w-4 h-3" 
+              />
+            </button>
+            
+            {isCountryMenuOpen && (
+              <div className="absolute right-0 mt-2 w-64 bg-midasbuy-navy border border-gray-700 rounded-md shadow-lg z-50 overflow-hidden">
+                {/* Same content as desktop country menu */}
+                <div className="max-h-96 overflow-y-auto p-2">
+                  <div className="flex justify-between items-center mb-3 p-2 border-b border-gray-700">
+                    <h3 className="text-white font-bold">COUNTRY/REGION</h3>
+                    <button 
+                      onClick={() => setIsCountryMenuOpen(false)}
+                      className="text-gray-400 hover:text-white"
+                    >
+                      <X className="w-5 h-5" />
+                    </button>
+                  </div>
+                  
+                  {Object.entries(groupedCountries).map(([region, countries]) => (
+                    <div key={region} className="mb-4">
+                      <h4 className="text-gray-400 text-sm font-medium mb-2">{region}</h4>
+                      <div className="grid grid-cols-1 gap-2">
+                        {countries.map((country) => (
+                          <button
+                            key={country.code}
+                            className={cn(
+                              "flex items-center p-2 rounded-md text-left",
+                              currentCountry.code === country.code 
+                                ? "bg-midasbuy-blue text-white" 
+                                : "text-gray-300 hover:bg-gray-700/40"
+                            )}
+                            onClick={() => handleSelectCountry(country)}
+                          >
+                            <img 
+                              src={`https://flagcdn.com/w20/${country.code}.png`} 
+                              alt={country.name} 
+                              className="w-5 h-4 mr-2" 
+                            />
+                            <span>{country.name}</span>
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  ))}
+                  
+                  <div className="mt-2 pt-2 border-t border-gray-700">
+                    <button 
+                      className="w-full bg-midasbuy-blue text-white py-2 rounded-md"
+                      onClick={() => setIsCountryMenuOpen(false)}
+                    >
+                      OK
+                    </button>
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+          
+          <button 
+            className="text-gray-300 hover:text-white" 
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+          >
+            {isMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+          </button>
+        </div>
       </div>
 
       {/* Mobile menu */}
@@ -119,10 +296,6 @@ const Header = ({ onLogout }: HeaderProps) => {
                   </Link>
                 ))}
                 <div className="flex justify-between pt-3 border-t border-gray-700">
-                  <button className="flex items-center text-gray-300 hover:text-white transition-colors">
-                    <Globe className="w-5 h-5 mr-1" />
-                    <span>EN</span>
-                  </button>
                   <button 
                     onClick={onLogout} 
                     className="text-midasbuy-blue hover:text-midasbuy-blue/80 transition-colors"

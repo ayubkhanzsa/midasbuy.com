@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
@@ -17,7 +18,6 @@ const PurchasePage = ({ onLogout }: PurchasePageProps) => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(true);
   const [playerID, setPlayerID] = useState("");
-  const [playerName, setPlayerName] = useState("");
   const [isPlayerIDValid, setIsPlayerIDValid] = useState(false);
   const [isVerifying, setIsVerifying] = useState(false);
 
@@ -53,12 +53,14 @@ const PurchasePage = ({ onLogout }: PurchasePageProps) => {
     setTimeout(() => {
       setIsVerifying(false);
       setIsPlayerIDValid(true);
-      setPlayerName("PUBG_Player" + playerID.slice(-4));
       
       toast({
         title: "Player ID Verified",
-        description: `Successfully verified player: ${playerName}`,
+        description: "ID verification successful",
       });
+      
+      // Store only playerID in localStorage, no name needed
+      localStorage.setItem("playerID", playerID);
     }, 1500);
   };
 
@@ -73,8 +75,6 @@ const PurchasePage = ({ onLogout }: PurchasePageProps) => {
     }
 
     if (id) {
-      localStorage.setItem("playerID", playerID);
-      localStorage.setItem("playerName", playerName);
       navigate(`/checkout/${id}`);
     }
   };
@@ -98,9 +98,9 @@ const PurchasePage = ({ onLogout }: PurchasePageProps) => {
       
       <Header onLogout={onLogout} />
       
-      <main className="pt-24 pb-20 relative z-10">
+      <main className="pt-20 pb-20 relative z-10">
         <div className="container mx-auto px-4">
-          <div className="mb-6">
+          <div className="mb-4">
             <button 
               onClick={() => navigate(-1)}
               className="inline-flex items-center text-gray-300 hover:text-white transition-colors"
@@ -144,12 +144,6 @@ const PurchasePage = ({ onLogout }: PurchasePageProps) => {
                         className="bg-midasbuy-navy/50 border-midasbuy-blue/30 text-white focus:border-midasbuy-blue focus:ring-midasbuy-blue/20"
                         disabled={isPlayerIDValid}
                       />
-                      
-                      {isPlayerIDValid && (
-                        <div className="mt-2 text-sm text-white">
-                          Player Name: <span className="text-midasbuy-gold font-medium">{playerName}</span>
-                        </div>
-                      )}
                     </div>
                     
                     <Button 
