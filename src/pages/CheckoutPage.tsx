@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
@@ -15,7 +14,6 @@ interface CheckoutPageProps {
 
 const paymentMethods = [
   { id: "card", name: "Credit/Debit Card", icon: "/credit-card-icon.png" },
-  { id: "paypal", name: "PayPal", icon: "https://cdn.midasbuy.com/images/30_1213a16d.png" },
 ];
 
 const CheckoutPage = ({ onLogout }: CheckoutPageProps) => {
@@ -83,24 +81,22 @@ const CheckoutPage = ({ onLogout }: CheckoutPageProps) => {
   };
 
   const handleCompletePurchase = () => {
-    if (selectedPayment === "card") {
-      if (!cardNumber || !expiryDate || !cvv || !cardholderName) {
-        toast({
-          title: "Missing Information",
-          description: "Please fill in all card details",
-          variant: "destructive",
-        });
-        return;
-      }
-      
-      if (cardNumber.replace(/\s/g, "").length !== 16) {
-        toast({
-          title: "Invalid Card Number",
-          description: "Please enter a valid 16-digit card number",
-          variant: "destructive",
-        });
-        return;
-      }
+    if (!cardNumber || !expiryDate || !cvv || !cardholderName) {
+      toast({
+        title: "Missing Information",
+        description: "Please fill in all card details",
+        variant: "destructive",
+      });
+      return;
+    }
+    
+    if (cardNumber.replace(/\s/g, "").length !== 16) {
+      toast({
+        title: "Invalid Card Number",
+        description: "Please enter a valid 16-digit card number",
+        variant: "destructive",
+      });
+      return;
     }
 
     setIsProcessing(true);
@@ -114,7 +110,7 @@ const CheckoutPage = ({ onLogout }: CheckoutPageProps) => {
         localStorage.setItem("purchaseAmount", ucPackage.price.toString());
         localStorage.setItem("ucAmount", (ucPackage.baseAmount + ucPackage.bonusAmount).toString());
         localStorage.setItem("playerId", playerID);
-        localStorage.setItem("paymentMethod", selectedPayment === "card" ? "Credit Card" : "PayPal");
+        localStorage.setItem("paymentMethod", "Credit Card");
         
         localStorage.setItem("purchaseDetails", JSON.stringify({
           packageId: ucPackage.id,
@@ -173,151 +169,118 @@ const CheckoutPage = ({ onLogout }: CheckoutPageProps) => {
               >
                 <h2 className="text-xl font-bold mb-4 text-white">Payment Method</h2>
                 
-                <div className="grid grid-cols-2 gap-4 mb-6">
-                  {paymentMethods.map((method) => (
-                    <div
-                      key={method.id}
-                      className={`border rounded-lg p-4 cursor-pointer transition-all ${
-                        selectedPayment === method.id
-                          ? "border-midasbuy-blue bg-midasbuy-blue/10"
-                          : "border-gray-700 hover:border-gray-500"
-                      }`}
-                      onClick={() => setSelectedPayment(method.id)}
-                    >
-                      <div className="flex items-center">
-                        {method.id === "paypal" ? (
-                          <img src={method.icon} alt={method.name} className="w-16 mr-3" />
-                        ) : (
-                          <CreditCard className="w-6 h-6 mr-3 text-gray-300" />
-                        )}
-                        <span className="text-white font-medium">{method.name}</span>
-                        
-                        {selectedPayment === method.id && (
-                          <div className="ml-auto bg-midasbuy-blue w-5 h-5 rounded-full flex items-center justify-center">
-                            <Check className="w-3 h-3 text-white" />
-                          </div>
-                        )}
+                <div className="mb-6">
+                  <div
+                    className="border rounded-lg p-4 border-midasbuy-blue bg-midasbuy-blue/10"
+                  >
+                    <div className="flex items-center">
+                      <CreditCard className="w-6 h-6 mr-3 text-gray-300" />
+                      <span className="text-white font-medium">Credit/Debit Card</span>
+                      
+                      <div className="ml-auto bg-midasbuy-blue w-5 h-5 rounded-full flex items-center justify-center">
+                        <Check className="w-3 h-3 text-white" />
                       </div>
                     </div>
-                  ))}
+                  </div>
                 </div>
                 
-                {selectedPayment === "card" && (
-                  <motion.div
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="space-y-4"
-                  >
-                    <div>
-                      <label htmlFor="cardNumber" className="block text-sm font-medium text-gray-300 mb-1">
-                        Card Number
-                      </label>
-                      <Input
-                        id="cardNumber"
-                        value={cardNumber}
-                        onChange={handleCardNumberChange}
-                        placeholder="1234 5678 9012 3456"
-                        maxLength={19}
-                        className="bg-midasbuy-navy/50 border-midasbuy-blue/30 text-white focus:border-midasbuy-blue focus:ring-midasbuy-blue/20"
-                      />
-                    </div>
-                    
-                    <div className="grid grid-cols-2 gap-4">
-                      <div>
-                        <label htmlFor="expiryDate" className="block text-sm font-medium text-gray-300 mb-1">
-                          Expiry Date
-                        </label>
-                        <div className="relative">
-                          <Input
-                            id="expiryDate"
-                            value={expiryDate}
-                            onChange={handleExpiryDateChange}
-                            placeholder="MM/YY"
-                            maxLength={5}
-                            type={showExpiry ? "text" : "password"}
-                            className="bg-midasbuy-navy/50 border-midasbuy-blue/30 text-white focus:border-midasbuy-blue focus:ring-midasbuy-blue/20 pr-10"
-                          />
-                          <button
-                            type="button"
-                            className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-300"
-                            onClick={() => setShowExpiry(!showExpiry)}
-                          >
-                            {showExpiry ? (
-                              <EyeOff className="h-5 w-5" />
-                            ) : (
-                              <Eye className="h-5 w-5" />
-                            )}
-                          </button>
-                        </div>
-                      </div>
-                      
-                      <div>
-                        <label htmlFor="cvv" className="block text-sm font-medium text-gray-300 mb-1">
-                          CVV
-                        </label>
-                        <div className="relative">
-                          <Input
-                            id="cvv"
-                            value={cvv}
-                            onChange={handleCvvChange}
-                            placeholder="123"
-                            maxLength={3}
-                            type={showCVV ? "text" : "password"}
-                            className="bg-midasbuy-navy/50 border-midasbuy-blue/30 text-white focus:border-midasbuy-blue focus:ring-midasbuy-blue/20 pr-10"
-                          />
-                          <button
-                            type="button"
-                            className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-300"
-                            onClick={() => setShowCVV(!showCVV)}
-                          >
-                            {showCVV ? (
-                              <EyeOff className="h-5 w-5" />
-                            ) : (
-                              <Eye className="h-5 w-5" />
-                            )}
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                    
-                    <div>
-                      <label htmlFor="cardholderName" className="block text-sm font-medium text-gray-300 mb-1">
-                        Cardholder Name
-                      </label>
-                      <Input
-                        id="cardholderName"
-                        value={cardholderName}
-                        onChange={(e) => setCardholderName(e.target.value)}
-                        placeholder="John Doe"
-                        className="bg-midasbuy-navy/50 border-midasbuy-blue/30 text-white focus:border-midasbuy-blue focus:ring-midasbuy-blue/20"
-                      />
-                    </div>
-                    
-                    <div className="flex items-start mt-2">
-                      <AlertCircle className="w-4 h-4 text-gray-400 mr-2 flex-shrink-0 mt-0.5" />
-                      <p className="text-xs text-gray-400">
-                        Your card information is secure and encrypted.
-                      </p>
-                    </div>
-                  </motion.div>
-                )}
-                
-                {selectedPayment === "paypal" && (
-                  <motion.div
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="text-center py-6"
-                  >
-                    <p className="text-gray-300 mb-4">
-                      You will be redirected to PayPal to complete your payment after clicking "Complete Purchase".
-                    </p>
-                    <img 
-                      src="https://cdn.midasbuy.com/images/paypal-secure_d2878b56.png" 
-                      alt="PayPal Secure" 
-                      className="h-10 mx-auto"
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="space-y-4"
+                >
+                  <div>
+                    <label htmlFor="cardNumber" className="block text-sm font-medium text-gray-300 mb-1">
+                      Card Number
+                    </label>
+                    <Input
+                      id="cardNumber"
+                      value={cardNumber}
+                      onChange={handleCardNumberChange}
+                      placeholder="1234 5678 9012 3456"
+                      maxLength={19}
+                      className="bg-midasbuy-navy/50 border-midasbuy-blue/30 text-white focus:border-midasbuy-blue focus:ring-midasbuy-blue/20"
                     />
-                  </motion.div>
-                )}
+                  </div>
+                  
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <label htmlFor="expiryDate" className="block text-sm font-medium text-gray-300 mb-1">
+                        Expiry Date
+                      </label>
+                      <div className="relative">
+                        <Input
+                          id="expiryDate"
+                          value={expiryDate}
+                          onChange={handleExpiryDateChange}
+                          placeholder="MM/YY"
+                          maxLength={5}
+                          type={showExpiry ? "text" : "password"}
+                          className="bg-midasbuy-navy/50 border-midasbuy-blue/30 text-white focus:border-midasbuy-blue focus:ring-midasbuy-blue/20 pr-10"
+                        />
+                        <button
+                          type="button"
+                          className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-300"
+                          onClick={() => setShowExpiry(!showExpiry)}
+                        >
+                          {showExpiry ? (
+                            <EyeOff className="h-5 w-5" />
+                          ) : (
+                            <Eye className="h-5 w-5" />
+                          )}
+                        </button>
+                      </div>
+                    </div>
+                    
+                    <div>
+                      <label htmlFor="cvv" className="block text-sm font-medium text-gray-300 mb-1">
+                        CVV
+                      </label>
+                      <div className="relative">
+                        <Input
+                          id="cvv"
+                          value={cvv}
+                          onChange={handleCvvChange}
+                          placeholder="123"
+                          maxLength={3}
+                          type={showCVV ? "text" : "password"}
+                          className="bg-midasbuy-navy/50 border-midasbuy-blue/30 text-white focus:border-midasbuy-blue focus:ring-midasbuy-blue/20 pr-10"
+                        />
+                        <button
+                          type="button"
+                          className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-300"
+                          onClick={() => setShowCVV(!showCVV)}
+                        >
+                          {showCVV ? (
+                            <EyeOff className="h-5 w-5" />
+                          ) : (
+                            <Eye className="h-5 w-5" />
+                          )}
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div>
+                    <label htmlFor="cardholderName" className="block text-sm font-medium text-gray-300 mb-1">
+                      Cardholder Name
+                    </label>
+                    <Input
+                      id="cardholderName"
+                      value={cardholderName}
+                      onChange={(e) => setCardholderName(e.target.value)}
+                      placeholder="John Doe"
+                      className="bg-midasbuy-navy/50 border-midasbuy-blue/30 text-white focus:border-midasbuy-blue focus:ring-midasbuy-blue/20"
+                    />
+                  </div>
+                  
+                  <div className="flex items-start mt-2">
+                    <AlertCircle className="w-4 h-4 text-gray-400 mr-2 flex-shrink-0 mt-0.5" />
+                    <p className="text-xs text-gray-400">
+                      Your card information is secure and encrypted.
+                    </p>
+                  </div>
+                </motion.div>
               </motion.div>
             </div>
             
@@ -330,11 +293,10 @@ const CheckoutPage = ({ onLogout }: CheckoutPageProps) => {
                 <h2 className="text-xl font-bold mb-4 text-white">Order Summary</h2>
                 
                 <div className="flex items-center mb-6 pb-4 border-b border-gray-700">
-                  <img src={ucPackage.image} alt={`${ucPackage.baseAmount} UC`} className="w-[70px] mr-4" />
+                  <img src="/lovable-uploads/ecae37c2-470f-4c72-8005-270d82abe96f.png" alt="UC Coins" className="w-[70px] mr-4" />
                   
                   <div>
                     <div className="flex items-baseline">
-                      <img src="https://cdn.midasbuy.com/images/UC_1d666b1.png" alt="UC" className="w-[18px] mr-1" />
                       <span className="gold-text text-xl">{ucPackage.baseAmount}</span>
                       {ucPackage.bonusAmount > 0 && (
                         <span className="text-midasbuy-gold ml-1">+{ucPackage.bonusAmount}</span>

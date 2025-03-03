@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
@@ -216,11 +215,10 @@ const PurchasePage = ({ onLogout }: PurchasePageProps) => {
                 <h2 className="text-xl font-bold mb-4 text-white">Order Summary</h2>
                 
                 <div className="flex items-center mb-6 pb-4 border-b border-gray-700">
-                  <img src={ucPackage.image} alt={`${ucPackage.baseAmount} UC`} className="w-[70px] mr-4" />
+                  <img src="/lovable-uploads/ecae37c2-470f-4c72-8005-270d82abe96f.png" alt="UC Coins" className="w-[70px] mr-4" />
                   
                   <div>
                     <div className="flex items-baseline">
-                      <img src="https://cdn.midasbuy.com/images/UC_1d666b1.png" alt="UC" className="w-[18px] mr-1" />
                       <span className="gold-text text-xl">{ucPackage.baseAmount}</span>
                       {ucPackage.bonusAmount > 0 && (
                         <span className="text-midasbuy-gold ml-1">+{ucPackage.bonusAmount}</span>
@@ -285,7 +283,7 @@ const PurchasePage = ({ onLogout }: PurchasePageProps) => {
       <footer className="bg-midasbuy-navy py-6 relative z-10">
         <div className="container mx-auto px-4">
           <div className="text-center text-gray-400 text-sm">
-            <p>© 2023 PUBG MOBILE. All Rights Reserved.</p>
+            <p>© 2025 PUBG MOBILE. All Rights Reserved.</p>
             <div className="mt-2">
               <a href="#" className="text-gray-400 hover:text-gray-300 mx-2">Terms of Service</a>
               <span className="text-gray-600">|</span>

@@ -184,7 +184,7 @@ const Index = ({ onLogout }: IndexProps) => {
               <img 
                 src="/lovable-uploads/072f88f4-7402-4591-b3e4-11f57bb0e9ea.png" 
                 alt="PUBG Mobile" 
-                className="w-[180px]"
+                className="w-[120px] sm:w-[140px] md:w-[160px]" 
               />
             </div>
             
@@ -293,47 +293,42 @@ const Index = ({ onLogout }: IndexProps) => {
               >
                 <Link to={`/purchase/${pkg.id}`} className="block">
                   <div className="uc-card p-5">
-                    {pkg.discount && (
-                      <div className="discount-tag">
+                    <div className="flex justify-between items-start">
+                      <div className="discount-tag bg-white text-black">
                         <span>{pkg.discount}</span>
                       </div>
-                    )}
-                    
-                    <div className="flex items-center mb-3">
-                      <img src={pkg.image} alt={`${pkg.baseAmount} UC`} className="w-[80px] mr-4" />
+                      <div className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-white text-black border border-gray-300">
+                        <span>Midasbuy Only</span>
+                      </div>
                     </div>
                     
-                    <div className="mb-3">
-                      <div className="flex items-baseline">
-                        <img src="https://cdn.midasbuy.com/images/UC_1d666b1.png" alt="UC" className="w-[22px] mr-1" />
-                        <span className="gold-text text-2xl">{pkg.baseAmount}</span>
+                    <div className="flex items-center justify-center my-5">
+                      <img src="/lovable-uploads/ecae37c2-470f-4c72-8005-270d82abe96f.png" alt="UC Coins" className="h-[80px] object-contain" />
+                    </div>
+                    
+                    <div className="mb-3 text-center">
+                      <div className="flex items-center justify-center">
+                        <span className="uc-amount">{pkg.baseAmount}</span>
                         {pkg.bonusAmount > 0 && (
-                          <span className="text-midasbuy-gold ml-1">+{pkg.bonusAmount}</span>
-                        )}
-                        
-                        {pkg.bonusPercent && (
-                          <span className="ml-2 text-xs px-2 py-0.5 rounded bg-midasbuy-gold/20 text-midasbuy-gold">
-                            {pkg.bonusPercent}
-                          </span>
+                          <span className="uc-bonus ml-1">+{pkg.bonusAmount}</span>
                         )}
                       </div>
                       
-                      <div className="mt-3">
-                        <span className="text-midasbuy-gold font-medium text-lg">From {pkg.price.toFixed(2)} USD</span>
+                      {pkg.bonusPercent && (
+                        <div className="mt-1">
+                          <span className="inline-block px-3 py-1 rounded-full bg-midasbuy-gold/20 text-midasbuy-gold text-sm font-medium">
+                            {pkg.bonusPercent} BONUS
+                          </span>
+                        </div>
+                      )}
+                      
+                      <div className="mt-3 flex items-center justify-center space-x-2">
+                        <span className="uc-price">${pkg.price.toFixed(2)}</span>
                         {pkg.originalPrice > pkg.price && (
-                          <span className="text-gray-400 line-through text-sm ml-2">
-                            {pkg.originalPrice.toFixed(2)} USD
+                          <span className="uc-original-price">
+                            ${pkg.originalPrice.toFixed(2)}
                           </span>
                         )}
-                      </div>
-                    </div>
-                    
-                    <div className="absolute bottom-3 right-3">
-                      <div className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-blue-500/20 text-blue-400 border border-blue-500/30">
-                        <span>Midasbuy Only</span>
-                        <svg className="w-4 h-4 ml-1 animate-pulse-subtle" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <path d="M16 8L8 16M8 8L16 16" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                        </svg>
                       </div>
                     </div>
                   </div>
@@ -350,7 +345,7 @@ const Index = ({ onLogout }: IndexProps) => {
             <div>
               <div className="flex items-center mb-4">
                 <img src="/lovable-uploads/c6fd77e7-3682-428e-8154-140308b4a06b.png" alt="Logo" className="h-8 mr-3" />
-                <h3 className="text-lg font-bold text-white">Gaming Platform</h3>
+                <h3 className="text-lg font-bold text-white"></h3>
               </div>
               <p className="text-gray-400 text-sm mb-4">
                 The official platform for purchasing in-game currency and items for PUBG Mobile and other popular games.
