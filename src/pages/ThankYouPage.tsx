@@ -162,7 +162,7 @@ const ThankYouPage = ({ onLogout }: ThankYouPageProps) => {
                 <div className="flex justify-between items-start mb-6 print:mb-8 relative z-10">
                   <div className="flex flex-col items-start">
                     <img 
-                      src="/lovable-uploads/ac939c20-db7c-462e-8bc7-8ef9597fea2e.png" 
+                      src="/lovable-uploads/ef06efa0-0fb0-41e1-9d97-fdcb26ddaea9.png" 
                       alt="Logo" 
                       className="h-12 mb-1" 
                     />
