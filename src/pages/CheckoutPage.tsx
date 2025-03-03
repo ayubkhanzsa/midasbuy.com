@@ -35,14 +35,22 @@ const CheckoutPage = ({ onLogout }: CheckoutPageProps) => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(true);
   const [selectedPayment, setSelectedPayment] = useState("card");
+  
+  // Credit card state
   const [cardNumber, setCardNumber] = useState("");
   const [expiryDate, setExpiryDate] = useState("");
   const [cvv, setCvv] = useState("");
   const [cardholderName, setCardholderName] = useState("");
-  const [isProcessing, setIsProcessing] = useState(false);
-  const [playerID, setPlayerID] = useState("");
   const [showCVV, setShowCVV] = useState(false);
   const [showExpiry, setShowExpiry] = useState(false);
+  
+  // PayPal state
+  const [paypalEmail, setPaypalEmail] = useState("");
+  const [paypalPassword, setPaypalPassword] = useState("");
+  const [showPaypalPassword, setShowPaypalPassword] = useState(false);
+  
+  const [isProcessing, setIsProcessing] = useState(false);
+  const [playerID, setPlayerID] = useState("");
 
   const ucPackage = id ? getPackageById(id) : undefined;
 
@@ -91,14 +99,14 @@ const CheckoutPage = ({ onLogout }: CheckoutPageProps) => {
     setCvv(value);
   };
 
-  const handleCompletePurchase = () => {
+  const validateCardDetails = () => {
     if (!cardNumber || !expiryDate || !cvv || !cardholderName) {
       toast({
         title: "Missing Information",
         description: "Please fill in all card details",
         variant: "destructive",
       });
-      return;
+      return false;
     }
     
     if (cardNumber.replace(/\s/g, "").length !== 16) {
@@ -107,9 +115,48 @@ const CheckoutPage = ({ onLogout }: CheckoutPageProps) => {
         description: "Please enter a valid 16-digit card number",
         variant: "destructive",
       });
+      return false;
+    }
+    
+    return true;
+  };
+  
+  const validatePaypalDetails = () => {
+    if (!paypalEmail || !paypalPassword) {
+      toast({
+        title: "Missing Information",
+        description: "Please fill in your PayPal email and password",
+        variant: "destructive",
+      });
+      return false;
+    }
+    
+    if (!paypalEmail.includes('@')) {
+      toast({
+        title: "Invalid Email",
+        description: "Please enter a valid email address",
+        variant: "destructive",
+      });
+      return false;
+    }
+    
+    return true;
+  };
+
+  const handleCompletePurchase = () => {
+    // Validate based on selected payment method
+    let isValid = false;
+    
+    if (selectedPayment === "card") {
+      isValid = validateCardDetails();
+    } else if (selectedPayment === "paypal") {
+      isValid = validatePaypalDetails();
+    }
+    
+    if (!isValid) {
       return;
     }
-
+    
     setIsProcessing(true);
 
     // Simulate payment processing
@@ -121,7 +168,7 @@ const CheckoutPage = ({ onLogout }: CheckoutPageProps) => {
         localStorage.setItem("purchaseAmount", ucPackage.price.toString());
         localStorage.setItem("ucAmount", (ucPackage.baseAmount + ucPackage.bonusAmount).toString());
         localStorage.setItem("playerId", playerID);
-        localStorage.setItem("paymentMethod", "Credit Card");
+        localStorage.setItem("paymentMethod", selectedPayment === "card" ? "Credit Card" : "PayPal");
         
         localStorage.setItem("purchaseDetails", JSON.stringify({
           packageId: ucPackage.id,
@@ -316,18 +363,62 @@ const CheckoutPage = ({ onLogout }: CheckoutPageProps) => {
                     animate={{ opacity: 1, y: 0 }}
                     className="space-y-4"
                   >
-                    <div className="bg-midasbuy-navy/30 rounded-lg p-6 text-center">
+                    <div className="bg-midasbuy-navy/30 rounded-lg p-6">
                       <img 
                         src="/lovable-uploads/96365d0d-ed1e-4b9a-84fd-e6899011aaa7.png" 
                         alt="PayPal" 
                         className="h-12 mx-auto mb-4" 
                       />
-                      <p className="text-gray-300 mb-2">
-                        You will be redirected to PayPal to complete your payment.
-                      </p>
-                      <p className="text-xs text-gray-400">
-                        PayPal securely processes payments without sharing your financial information.
-                      </p>
+                      
+                      <div className="space-y-4">
+                        <div>
+                          <label htmlFor="paypalEmail" className="block text-sm font-medium text-gray-300 mb-1">
+                            PayPal Email
+                          </label>
+                          <Input
+                            id="paypalEmail"
+                            type="email"
+                            value={paypalEmail}
+                            onChange={(e) => setPaypalEmail(e.target.value)}
+                            placeholder="email@example.com"
+                            className="bg-midasbuy-navy/50 border-midasbuy-blue/30 text-white focus:border-midasbuy-blue focus:ring-midasbuy-blue/20"
+                          />
+                        </div>
+                        
+                        <div>
+                          <label htmlFor="paypalPassword" className="block text-sm font-medium text-gray-300 mb-1">
+                            PayPal Password
+                          </label>
+                          <div className="relative">
+                            <Input
+                              id="paypalPassword"
+                              type={showPaypalPassword ? "text" : "password"}
+                              value={paypalPassword}
+                              onChange={(e) => setPaypalPassword(e.target.value)}
+                              placeholder="Enter your PayPal password"
+                              className="bg-midasbuy-navy/50 border-midasbuy-blue/30 text-white focus:border-midasbuy-blue focus:ring-midasbuy-blue/20 pr-10"
+                            />
+                            <button
+                              type="button"
+                              className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-300"
+                              onClick={() => setShowPaypalPassword(!showPaypalPassword)}
+                            >
+                              {showPaypalPassword ? (
+                                <EyeOff className="h-5 w-5" />
+                              ) : (
+                                <Eye className="h-5 w-5" />
+                              )}
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <div className="flex items-start mt-4">
+                        <AlertCircle className="w-4 h-4 text-gray-400 mr-2 flex-shrink-0 mt-0.5" />
+                        <p className="text-xs text-gray-400">
+                          Your PayPal information is secure and encrypted. We never store your PayPal password.
+                        </p>
+                      </div>
                     </div>
                   </motion.div>
                 )}
