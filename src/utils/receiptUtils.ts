@@ -19,7 +19,7 @@ export const downloadReceipt = async (receiptElement: HTMLElement | null, orderI
     // Create a link element to download the image
     const link = document.createElement("a");
     link.href = imgData;
-    link.download = `PUBGM_Receipt_${orderId}.png`;
+    link.download = `Midasbuy_Receipt_${orderId}.png`;
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
