@@ -197,15 +197,22 @@ const Index = ({ onLogout }: IndexProps) => {
                   <img 
                     src="/lovable-uploads/072f88f4-7402-4591-b3e4-11f57bb0e9ea.png" 
                     alt="PUBG Mobile" 
-                    className="w-[100px] sm:w-[120px]" 
+                    className="w-[80px] sm:w-[100px]"  /* Reduced size */
                   />
                 </div>
               </div>
               
-              <button className="mt-1 btn-primary inline-flex items-center">
-                <span>Enter Your Player ID Now</span>
-                <ChevronDown className="ml-1 w-4 h-4" />
-              </button>
+              <div className="mt-1 flex items-center">
+                <img 
+                  src="/lovable-uploads/072f88f4-7402-4591-b3e4-11f57bb0e9ea.png" 
+                  alt="PUBG Mobile" 
+                  className="w-[40px] mr-2"   /* Small PUBG logo on the left */
+                />
+                <button className="btn-primary inline-flex items-center">
+                  <span>Enter Your Player ID Now</span>
+                  <ChevronDown className="ml-1 w-4 h-4" />
+                </button>
+              </div>
             </div>
           </div>
           
@@ -308,7 +315,7 @@ const Index = ({ onLogout }: IndexProps) => {
                       
                       <div className="flex items-center mb-2">
                         <div className="uc-icon mr-2">
-                          <img src="/lovable-uploads/ecae37c2-470f-4c72-8005-270d82abe96f.png" alt="UC" className="w-5 h-5" />
+                          <img src="/lovable-uploads/f6594fcb-d2eb-4e92-9f21-fe5959fa5360.png" alt="UC" className="w-5 h-5" />
                         </div>
                         <span className="text-2xl font-bold text-midasbuy-gold">{pkg.baseAmount}</span>
                         {pkg.bonusAmount > 0 && (
@@ -433,7 +440,7 @@ const Index = ({ onLogout }: IndexProps) => {
           </div>
           
           <div className="border-t border-gray-700 pt-6 text-center">
-            <p className="text-gray-400 text-sm">© 2025 PUBG MOBILE. All Rights Reserved.</p>
+            <p className="text-gray-400 text-sm">© 2025 Midasbuy. All Rights Reserved.</p>
             <p className="text-gray-500 text-xs mt-2">PUBG MOBILE is a trademark of KRAFTON, Inc.</p>
           </div>
         </div>
