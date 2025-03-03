@@ -170,7 +170,7 @@ const ThankYouPage = ({ onLogout }: ThankYouPageProps) => {
                   </div>
                   <div className="text-right">
                     <h3 className="text-xl font-bold print:text-white">TRANSACTION RECEIPT</h3>
-                    <p className="text-sm text-gray-400 print:text-white">{transactionDetails.date}</p>
+                    <p className="text-sm text-midasbuy-blue print:text-white">{transactionDetails.date}</p>
                     <p className="font-mono text-xs mt-1 text-midasbuy-gold print:text-white">
                       Order #{transactionDetails.orderId}
                     </p>
@@ -209,7 +209,7 @@ const ThankYouPage = ({ onLogout }: ThankYouPageProps) => {
                         </p>
                         <p className="font-medium flex justify-between">
                           <span className="text-gray-400 print:text-white">Date:</span>
-                          <span className="text-white">{transactionDetails.date}</span>
+                          <span className="text-midasbuy-blue">{transactionDetails.date}</span>
                         </p>
                         <p className="font-medium flex justify-between">
                           <span className="text-gray-400 print:text-white">Status:</span>
@@ -246,7 +246,7 @@ const ThankYouPage = ({ onLogout }: ThankYouPageProps) => {
                               </div>
                             </div>
                           </td>
-                          <td className="py-4 text-right font-medium text-white">
+                          <td className="py-4 text-right font-medium text-orange-500">
                             {transactionDetails.ucAmount}
                           </td>
                           <td className="py-4 text-right font-medium text-midasbuy-blue">
@@ -317,9 +317,9 @@ const ThankYouPage = ({ onLogout }: ThankYouPageProps) => {
                           Support Contact
                         </h4>
                       </div>
-                      <div className="text-xs text-white">
+                      <div className="text-xs text-orange-500">
                         <p>Email: support@midasbuy.com</p>
-                        <p>Phone: +1-800-MIDAS-HELP</p>
+                        <p>Phone: +1-800-7349908</p>
                         <p>Website: www.midasbuy.com</p>
                       </div>
                     </div>
