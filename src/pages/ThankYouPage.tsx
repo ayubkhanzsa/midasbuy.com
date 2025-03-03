@@ -122,12 +122,9 @@ const ThankYouPage = ({ onLogout }: ThankYouPageProps) => {
             <div className="print-container">
               <div className="glass-effect p-8 rounded-xl mb-8 border-2 border-midasbuy-blue/30 print:border-gray-300 print:bg-white print:text-black">
                 <div className="flex justify-between items-start mb-6 print:mb-8">
-                  <div className="flex items-center">
-                    <img src="/midasbuy-logo.png" alt="MidasBuy" className="h-12 mr-2" />
-                    <div>
-                      <h2 className="text-lg font-bold text-midasbuy-gold print:text-black">MidasBuy</h2>
-                      <p className="text-xs text-gray-400 print:text-gray-600">Official PUBG Mobile Partner</p>
-                    </div>
+                  <div>
+                    <h2 className="text-lg font-bold text-midasbuy-gold print:text-black">MidasBuy</h2>
+                    <p className="text-xs text-gray-400 print:text-gray-600">Official PUBG Mobile Partner</p>
                   </div>
                   <div className="text-right">
                     <h3 className="text-xl font-bold print:text-black">RECEIPT</h3>
