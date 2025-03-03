@@ -1,9 +1,8 @@
-
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState, useRef } from "react";
 import Header from "@/components/Header";
 import { motion } from "framer-motion";
-import { CheckCircle2, ArrowLeft, Printer, FileText, Shield, QrCode, HelpCircle } from "lucide-react";
+import { CheckCircle2, ArrowLeft, Printer, FileText, Shield, QrCode, HelpCircle, DollarSign } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { downloadReceipt } from "@/utils/receiptUtils";
 
@@ -166,7 +165,7 @@ const ThankYouPage = ({ onLogout }: ThankYouPageProps) => {
                 <div className="flex justify-between items-start mb-6 print:mb-8 relative z-10">
                   <div className="flex flex-col items-start">
                     <img 
-                      src="/lovable-uploads/72a28f0c-54ae-45b1-9cf2-53b1abf4d6e7.jpeg" 
+                      src="/lovable-uploads/2a05dcda-7d0b-4d82-81b3-7c52b40d632c.png" 
                       alt="Logo" 
                       className="h-12 mb-1" 
                     />
@@ -191,15 +190,15 @@ const ThankYouPage = ({ onLogout }: ThankYouPageProps) => {
                       <div className="space-y-2">
                         <p className="font-medium flex justify-between">
                           <span className="text-gray-400 print:text-gray-700">Player ID:</span>
-                          <span className="font-mono font-bold text-black">{transactionDetails.playerId}</span>
+                          <span className="font-mono font-bold text-white">{transactionDetails.playerId}</span>
                         </p>
                         <p className="font-medium flex justify-between">
                           <span className="text-gray-400 print:text-gray-700">Name:</span>
-                          <span className="text-black">{transactionDetails.playerName}</span>
+                          <span className="text-white">{transactionDetails.playerName}</span>
                         </p>
                         <p className="font-medium flex justify-between">
                           <span className="text-gray-400 print:text-gray-700">Contact:</span>
-                          <span className="text-black">User Account</span>
+                          <span className="text-white"></span>
                         </p>
                       </div>
                     </div>
@@ -210,11 +209,11 @@ const ThankYouPage = ({ onLogout }: ThankYouPageProps) => {
                       <div className="space-y-2">
                         <p className="font-medium flex justify-between">
                           <span className="text-gray-400 print:text-gray-700">Transaction ID:</span>
-                          <span className="font-mono font-bold text-black">{transactionDetails.fakeTransactionId}</span>
+                          <span className="font-mono font-bold text-white">{transactionDetails.fakeTransactionId}</span>
                         </p>
                         <p className="font-medium flex justify-between">
                           <span className="text-gray-400 print:text-gray-700">Date:</span>
-                          <span className="text-black">{transactionDetails.date}</span>
+                          <span className="text-white">{transactionDetails.date}</span>
                         </p>
                         <p className="font-medium flex justify-between">
                           <span className="text-gray-400 print:text-gray-700">Status:</span>
@@ -222,7 +221,7 @@ const ThankYouPage = ({ onLogout }: ThankYouPageProps) => {
                         </p>
                         <p className="font-medium flex justify-between">
                           <span className="text-gray-400 print:text-gray-700">Payment Method:</span>
-                          <span className="text-black">{transactionDetails.paymentMethod}</span>
+                          <span className="text-white">{transactionDetails.paymentMethod}</span>
                         </p>
                       </div>
                     </div>
@@ -245,21 +244,17 @@ const ThankYouPage = ({ onLogout }: ThankYouPageProps) => {
                         <tr>
                           <td className="py-4">
                             <div className="flex items-center">
-                              <img 
-                                src="/lovable-uploads/72a28f0c-54ae-45b1-9cf2-53b1abf4d6e7.jpeg" 
-                                alt="UC" 
-                                className="w-8 h-8 mr-3" 
-                              />
+                              <DollarSign className="w-8 h-8 text-midasbuy-gold mr-3" />
                               <div>
-                                <p className="font-medium print:text-black">Unknown Cash (UC)</p>
+                                <p className="font-medium text-white">Unknown Cash (UC)</p>
                                 <p className="text-xs text-gray-400 print:text-gray-600">PUBG Mobile Currency</p>
                               </div>
                             </div>
                           </td>
-                          <td className="py-4 text-right font-medium print:text-black">
+                          <td className="py-4 text-right font-medium text-white">
                             {transactionDetails.ucAmount}
                           </td>
-                          <td className="py-4 text-right font-medium print:text-black">
+                          <td className="py-4 text-right font-medium text-white">
                             ${transactionDetails.amount}
                           </td>
                         </tr>
@@ -269,7 +264,7 @@ const ThankYouPage = ({ onLogout }: ThankYouPageProps) => {
                           <td className="pt-4 pb-1 text-right" colSpan={2}>
                             <span className="text-gray-400 print:text-gray-600">Subtotal</span>
                           </td>
-                          <td className="pt-4 pb-1 text-right font-medium print:text-black">
+                          <td className="pt-4 pb-1 text-right font-medium text-white">
                             ${transactionDetails.amount}
                           </td>
                         </tr>
@@ -277,13 +272,13 @@ const ThankYouPage = ({ onLogout }: ThankYouPageProps) => {
                           <td className="py-1 text-right" colSpan={2}>
                             <span className="text-gray-400 print:text-gray-600">Tax</span>
                           </td>
-                          <td className="py-1 text-right font-medium print:text-black">$0.00</td>
+                          <td className="py-1 text-right font-medium text-white">$0.00</td>
                         </tr>
                         <tr className="border-t border-gray-700 print:border-gray-300">
                           <td className="pt-4 text-right" colSpan={2}>
-                            <span className="text-base font-bold print:text-black">Total</span>
+                            <span className="text-base font-bold text-white">Total</span>
                           </td>
-                          <td className="pt-4 text-right text-midasbuy-gold print:text-black font-bold">
+                          <td className="pt-4 text-right text-midasbuy-gold font-bold">
                             ${transactionDetails.amount}
                           </td>
                         </tr>
@@ -333,7 +328,7 @@ const ThankYouPage = ({ onLogout }: ThankYouPageProps) => {
                           Support Contact
                         </h4>
                       </div>
-                      <div className="text-xs text-gray-400 print:text-gray-600">
+                      <div className="text-xs text-white">
                         <p>Email: support@pubgmobile.com</p>
                         <p>Phone: +1-800-PUBG-HELP</p>
                         <p>Website: www.pubgmobile.com/support</p>
