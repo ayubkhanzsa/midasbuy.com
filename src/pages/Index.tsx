@@ -305,7 +305,7 @@ const Index = ({ onLogout }: IndexProps) => {
                 <Link to={`/purchase/${pkg.id}`} className="block">
                   <div className="bg-midasbuy-navy rounded-lg overflow-hidden h-full transition-all duration-300 hover:shadow-[0_0_15px_rgba(0,145,255,0.3)] border border-midasbuy-navy hover:border-midasbuy-blue/50">
                     <div className="p-4 flex justify-center">
-                      {/* Enhanced slow floating animation for UC package icons */}
+                      {/* Enhanced slower floating animation for UC package icons */}
                       <motion.img 
                         src={pkg.image} 
                         alt="UC Coins" 
@@ -314,7 +314,7 @@ const Index = ({ onLogout }: IndexProps) => {
                           y: [0, -8, 0, 8, 0] 
                         }}
                         transition={{ 
-                          duration: 6,
+                          duration: 8,
                           ease: "easeInOut",
                           repeat: Infinity,
                           repeatType: "reverse"
@@ -333,7 +333,7 @@ const Index = ({ onLogout }: IndexProps) => {
                         <div className="uc-icon mr-2">
                           <img src="/lovable-uploads/f6594fcb-d2eb-4e92-9f21-fe5959fa5360.png" alt="UC" className="w-5 h-5" />
                         </div>
-                        <span className="text-2xl font-bold text-midasbuy-gold">{pkg.baseAmount}</span>
+                        <span className="text-2xl font-bold text-white">{pkg.baseAmount}</span>
                         {pkg.bonusAmount > 0 && (
                           <span className="text-lg font-semibold text-midasbuy-gold ml-1">+{pkg.bonusAmount}</span>
                         )}
@@ -361,8 +361,9 @@ const Index = ({ onLogout }: IndexProps) => {
                       <div className="bg-[#FF9900] text-black font-semibold py-1 px-3 text-sm flex items-center">
                         {pkg.discount}
                       </div>
-                      <div className="bg-white text-black font-semibold py-1 px-3 text-sm flex-grow flex items-center ml-1">
-                        Midasbuy Only
+                      <div className="bg-white text-black font-semibold py-1 px-3 text-sm flex-grow flex items-center ml-1 justify-between">
+                        <span>Midasbuy Only</span>
+                        <img src="/lovable-uploads/7ef942ba-efa8-4e8f-9282-d86c01b1e909.png" alt="Midasbuy Logo" className="h-6 ml-1" />
                       </div>
                     </div>
                   </div>
