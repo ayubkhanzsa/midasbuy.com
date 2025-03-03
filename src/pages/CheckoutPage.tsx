@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { ArrowLeft, CreditCard, Check, AlertCircle, Eye, EyeOff } from "lucide-react";
+import { ArrowLeft, Check, AlertCircle, Eye, EyeOff } from "lucide-react";
 import Header from "@/components/Header";
 import { getPackageById } from "@/data/ucPackages";
 import { Input } from "@/components/ui/input";
@@ -14,8 +14,20 @@ interface CheckoutPageProps {
 }
 
 const paymentMethods = [
-  { id: "card", name: "Credit/Debit Card", icon: "/credit-card-icon.png" },
-  { id: "paypal", name: "PayPal", icon: "/lovable-uploads/96365d0d-ed1e-4b9a-84fd-e6899011aaa7.png" },
+  { 
+    id: "card", 
+    name: "Credit/Debit Card", 
+    logoComponent: (
+      <div className="flex items-center gap-1">
+        <img src="/lovable-uploads/83bab1f5-3ee2-4dd1-ab6e-7baab1fa72d1.png" alt="Payment Cards" className="h-7" />
+      </div>
+    )
+  },
+  { 
+    id: "paypal", 
+    name: "PayPal", 
+    icon: "/lovable-uploads/96365d0d-ed1e-4b9a-84fd-e6899011aaa7.png" 
+  },
 ];
 
 const CheckoutPage = ({ onLogout }: CheckoutPageProps) => {
@@ -180,11 +192,13 @@ const CheckoutPage = ({ onLogout }: CheckoutPageProps) => {
                     >
                       <div className="flex items-center">
                         {method.id === "card" ? (
-                          <CreditCard className="w-6 h-6 mr-3 text-gray-300" />
+                          method.logoComponent
                         ) : (
                           <img src={method.icon} alt={method.name} className="h-6 mr-3" />
                         )}
-                        <span className="text-white font-medium">{method.name}</span>
+                        {method.id !== "card" && (
+                          <span className="text-white font-medium">{method.name}</span>
+                        )}
                         
                         {selectedPayment === method.id && (
                           <div className="ml-auto bg-midasbuy-blue w-5 h-5 rounded-full flex items-center justify-center">
