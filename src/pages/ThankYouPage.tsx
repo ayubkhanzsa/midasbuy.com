@@ -1,3 +1,4 @@
+
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState, useRef } from "react";
 import Header from "@/components/Header";
@@ -85,9 +86,21 @@ const ThankYouPage = ({ onLogout }: ThankYouPageProps) => {
               initial={{ scale: 0 }}
               animate={{ scale: 1 }}
               transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
-              className="w-24 h-24 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-6"
+              className="w-32 h-32 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-6"
             >
-              <CheckCircle2 className="w-12 h-12 text-green-500" />
+              <motion.div
+                animate={{ 
+                  scale: [1, 1.1, 1],
+                  opacity: [1, 0.8, 1]
+                }}
+                transition={{
+                  duration: 2,
+                  repeat: Infinity,
+                  ease: "easeInOut"
+                }}
+              >
+                <CheckCircle2 className="w-20 h-20 text-green-500" />
+              </motion.div>
             </motion.div>
             
             <h1 className="text-3xl md:text-4xl font-bold mb-3">Thank You for Your Purchase!</h1>
@@ -162,11 +175,10 @@ const ThankYouPage = ({ onLogout }: ThankYouPageProps) => {
                 <div className="flex justify-between items-start mb-6 print:mb-8 relative z-10">
                   <div className="flex flex-col items-start">
                     <img 
-                      src="/lovable-uploads/ef06efa0-0fb0-41e1-9d97-fdcb26ddaea9.png" 
+                      src="/lovable-uploads/93d7ba55-9f86-45bc-be91-b93a2a13c0c4.jpeg" 
                       alt="Logo" 
                       className="h-12 mb-1" 
                     />
-                    <p className="text-xs text-gray-400 print:text-white">Official PUBG Mobile Partner</p>
                   </div>
                   <div className="text-right">
                     <h3 className="text-xl font-bold text-orange-500 print:text-orange-500">TRANSACTION RECEIPT</h3>
