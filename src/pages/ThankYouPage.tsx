@@ -1,4 +1,3 @@
-
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Header from "@/components/Header";
@@ -25,15 +24,12 @@ const ThankYouPage = ({ onLogout }: ThankYouPageProps) => {
   const [showReceipt, setShowReceipt] = useState(false);
 
   useEffect(() => {
-    // If user refreshes page or navigates directly to thank you page without checkout
     if (!localStorage.getItem("ucAmount")) {
       navigate("/");
     }
     
-    // Scroll to top
     window.scrollTo(0, 0);
     
-    // Analytics tracking
     console.log("Thank you page viewed", {
       orderId: transactionDetails.orderId,
       timestamp: new Date().toISOString()
@@ -123,7 +119,11 @@ const ThankYouPage = ({ onLogout }: ThankYouPageProps) => {
               <div className="glass-effect p-8 rounded-xl mb-8 border-2 border-midasbuy-blue/30 print:border-gray-300 print:bg-white print:text-black">
                 <div className="flex justify-between items-start mb-6 print:mb-8">
                   <div>
-                    <h2 className="text-lg font-bold text-midasbuy-gold print:text-black">MidasBuy</h2>
+                    <img 
+                      src="/lovable-uploads/63317b35-19fb-42f4-ac10-850eba38acd7.png" 
+                      alt="Midasbuy Logo" 
+                      className="h-8 mb-1" 
+                    />
                     <p className="text-xs text-gray-400 print:text-gray-600">Official PUBG Mobile Partner</p>
                   </div>
                   <div className="text-right">
