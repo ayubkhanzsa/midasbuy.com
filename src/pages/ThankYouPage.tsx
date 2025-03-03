@@ -1,9 +1,11 @@
+
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import Header from "@/components/Header";
 import { motion } from "framer-motion";
-import { CheckCircle2, Download, ArrowLeft, Printer } from "lucide-react";
+import { CheckCircle2, Download, ArrowLeft, Printer, FileText } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { downloadReceipt } from "@/utils/receiptUtils";
 
 interface ThankYouPageProps {
   onLogout: () => void;
@@ -12,6 +14,7 @@ interface ThankYouPageProps {
 const ThankYouPage = ({ onLogout }: ThankYouPageProps) => {
   const location = useLocation();
   const navigate = useNavigate();
+  const receiptRef = useRef<HTMLDivElement>(null);
   const [transactionDetails, setTransactionDetails] = useState({
     orderId: `MIDAS-${Math.floor(Math.random() * 1000000)}`,
     playerId: localStorage.getItem("playerId") || "Unknown",
@@ -22,6 +25,7 @@ const ThankYouPage = ({ onLogout }: ThankYouPageProps) => {
   });
   
   const [showReceipt, setShowReceipt] = useState(false);
+  const [isDownloading, setIsDownloading] = useState(false);
 
   useEffect(() => {
     if (!localStorage.getItem("ucAmount")) {
@@ -38,6 +42,15 @@ const ThankYouPage = ({ onLogout }: ThankYouPageProps) => {
 
   const handlePrintReceipt = () => {
     window.print();
+  };
+
+  const handleDownloadReceipt = async () => {
+    setIsDownloading(true);
+    try {
+      await downloadReceipt(receiptRef.current, transactionDetails.orderId);
+    } finally {
+      setIsDownloading(false);
+    }
   };
 
   return (
@@ -116,12 +129,15 @@ const ThankYouPage = ({ onLogout }: ThankYouPageProps) => {
             </div>
           ) : (
             <div className="print-container">
-              <div className="glass-effect p-8 rounded-xl mb-8 border-2 border-midasbuy-blue/30 print:border-gray-300 print:bg-white print:text-black">
+              <div 
+                ref={receiptRef}
+                className="glass-effect p-8 rounded-xl mb-8 border-2 border-midasbuy-blue/30 print:border-gray-300 print:bg-white print:text-black"
+              >
                 <div className="flex justify-between items-start mb-6 print:mb-8">
                   <div>
                     <img 
-                      src="/lovable-uploads/63317b35-19fb-42f4-ac10-850eba38acd7.png" 
-                      alt="Midasbuy Logo" 
+                      src="/lovable-uploads/c8bc4ef9-e336-4dbe-86e5-c924e18e83c6.png" 
+                      alt="PUBG Mobile Logo" 
                       className="h-8 mb-1" 
                     />
                     <p className="text-xs text-gray-400 print:text-gray-600">Official PUBG Mobile Partner</p>
@@ -162,7 +178,7 @@ const ThankYouPage = ({ onLogout }: ThankYouPageProps) => {
                         <td className="py-4">
                           <div className="flex items-center">
                             <img 
-                              src="https://cdn.midasbuy.com/images/UC_1d666b1.png" 
+                              src="/lovable-uploads/c8bc4ef9-e336-4dbe-86e5-c924e18e83c6.png" 
                               alt="UC" 
                               className="w-8 h-8 mr-3" 
                             />
@@ -211,37 +227,45 @@ const ThankYouPage = ({ onLogout }: ThankYouPageProps) => {
                 <div className="hidden print:block text-center mt-8 pt-8 border-t border-gray-300 text-xs text-gray-500">
                   <p>© 2023 PUBG MOBILE. All Rights Reserved.</p>
                 </div>
+              </div>
+              
+              <div className="flex justify-between print:hidden">
+                <Button 
+                  variant="outline" 
+                  onClick={() => setShowReceipt(false)} 
+                  className="bg-transparent border-midasbuy-blue text-midasbuy-blue hover:bg-midasbuy-blue/10"
+                >
+                  <ArrowLeft className="mr-2 h-4 w-4" />
+                  Back
+                </Button>
                 
-                <div className="flex justify-between print:hidden">
+                <div className="flex space-x-3">
                   <Button 
-                    variant="outline" 
-                    onClick={() => setShowReceipt(false)} 
-                    className="bg-transparent border-midasbuy-blue text-midasbuy-blue hover:bg-midasbuy-blue/10"
+                    onClick={handleDownloadReceipt}
+                    disabled={isDownloading}
+                    className="bg-midasbuy-blue hover:bg-blue-600"
                   >
-                    <ArrowLeft className="mr-2 h-4 w-4" />
-                    Back
+                    {isDownloading ? (
+                      <>
+                        <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin mr-2"></div>
+                        Downloading...
+                      </>
+                    ) : (
+                      <>
+                        <FileText className="mr-2 h-4 w-4" />
+                        Download PDF
+                      </>
+                    )}
                   </Button>
                   
-                  <div className="flex space-x-3">
-                    <Button 
-                      onClick={() => {
-                        alert("Receipt downloaded!");
-                      }}
-                      className="bg-midasbuy-blue hover:bg-blue-600"
-                    >
-                      <Download className="mr-2 h-4 w-4" />
-                      Download
-                    </Button>
-                    
-                    <Button 
-                      onClick={handlePrintReceipt}
-                      variant="outline"
-                      className="bg-transparent border-midasbuy-blue text-midasbuy-blue hover:bg-midasbuy-blue/10"
-                    >
-                      <Printer className="mr-2 h-4 w-4" />
-                      Print
-                    </Button>
-                  </div>
+                  <Button 
+                    onClick={handlePrintReceipt}
+                    variant="outline"
+                    className="bg-transparent border-midasbuy-blue text-midasbuy-blue hover:bg-midasbuy-blue/10"
+                  >
+                    <Printer className="mr-2 h-4 w-4" />
+                    Print
+                  </Button>
                 </div>
               </div>
             </div>
