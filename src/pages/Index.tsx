@@ -182,11 +182,18 @@ const Index = ({ onLogout }: IndexProps) => {
         <div className="container mx-auto px-4">
           <div className="flex flex-col md:flex-row items-center mb-10">
             <div className="flex-grow">
-              {/* Updated PUBG MOBILE heading to match reference image */}
-              <h1 className="text-3xl md:text-4xl text-white font-bold mb-4 tracking-wide">PUBG MOBILE</h1>
+              {/* Updated heading layout with logo moved to the left of PUBG MOBILE heading */}
+              <div className="flex items-center mb-4">
+                <img 
+                  src="/lovable-uploads/072f88f4-7402-4591-b3e4-11f57bb0e9ea.png" 
+                  alt="PUBG Mobile" 
+                  className="w-[35px] mr-3 rounded-lg"
+                />
+                <h1 className="text-3xl md:text-4xl text-white font-bold tracking-wide">PUBG MOBILE</h1>
+              </div>
               
               <div className="flex items-center space-x-3 mb-4">
-                {/* Updated badge styles to match reference image */}
+                {/* Official and Subscribed badges */}
                 <span className="inline-flex items-center px-4 py-2 rounded-full text-base font-medium bg-white/90 text-black">
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" viewBox="0 0 24 24" fill="currentColor">
                     <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
@@ -202,12 +209,7 @@ const Index = ({ onLogout }: IndexProps) => {
               </div>
               
               <div className="mt-1 flex items-center">
-                {/* Reduced size PUBG logo and moved to left of button */}
-                <img 
-                  src="/lovable-uploads/072f88f4-7402-4591-b3e4-11f57bb0e9ea.png" 
-                  alt="PUBG Mobile" 
-                  className="w-[35px] mr-2"
-                />
+                {/* Enter Player ID button without the PUBG logo */}
                 <button className="btn-primary inline-flex items-center">
                   <span>Enter Your Player ID Now</span>
                   <ChevronDown className="ml-1 w-4 h-4" />
@@ -303,16 +305,16 @@ const Index = ({ onLogout }: IndexProps) => {
                 <Link to={`/purchase/${pkg.id}`} className="block">
                   <div className="bg-midasbuy-navy rounded-lg overflow-hidden h-full transition-all duration-300 hover:shadow-[0_0_15px_rgba(0,145,255,0.3)] border border-midasbuy-navy hover:border-midasbuy-blue/50">
                     <div className="p-4 flex justify-center">
-                      {/* Added slow up/down animation to package icons */}
+                      {/* Enhanced slow floating animation for UC package icons */}
                       <motion.img 
                         src={pkg.image} 
                         alt="UC Coins" 
                         className="h-24 object-contain"
                         animate={{ 
-                          y: [0, -5, 0, 5, 0] 
+                          y: [0, -8, 0, 8, 0] 
                         }}
                         transition={{ 
-                          duration: 4,
+                          duration: 6,
                           ease: "easeInOut",
                           repeat: Infinity,
                           repeatType: "reverse"
