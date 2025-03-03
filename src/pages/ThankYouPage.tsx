@@ -3,7 +3,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState, useRef } from "react";
 import Header from "@/components/Header";
 import { motion } from "framer-motion";
-import { CheckCircle2, ArrowLeft, Printer, FileText } from "lucide-react";
+import { CheckCircle2, ArrowLeft, Printer, FileText, Shield, QrCode, HelpCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { downloadReceipt } from "@/utils/receiptUtils";
 
@@ -18,10 +18,12 @@ const ThankYouPage = ({ onLogout }: ThankYouPageProps) => {
   const [transactionDetails, setTransactionDetails] = useState({
     orderId: `MIDAS-${Math.floor(Math.random() * 1000000)}`,
     playerId: localStorage.getItem("playerId") || "Unknown",
+    playerName: "Customer",
     amount: localStorage.getItem("purchaseAmount") || "Unknown",
     ucAmount: localStorage.getItem("ucAmount") || "Unknown",
     date: new Date().toLocaleString(),
-    paymentMethod: localStorage.getItem("paymentMethod") || "Credit Card"
+    paymentMethod: localStorage.getItem("paymentMethod") || "Credit Card",
+    fakeTransactionId: `FAKE-TXN-${Math.floor(Math.random() * 10000)}XYZ`
   });
   
   const [showReceipt, setShowReceipt] = useState(false);
@@ -52,6 +54,22 @@ const ThankYouPage = ({ onLogout }: ThankYouPageProps) => {
       setIsDownloading(false);
     }
   };
+
+  // Generate a fake QR code pattern
+  const generateQRPattern = () => {
+    const size = 10;
+    const qrPattern = [];
+    for (let i = 0; i < size; i++) {
+      const row = [];
+      for (let j = 0; j < size; j++) {
+        row.push(Math.random() > 0.5 ? 1 : 0);
+      }
+      qrPattern.push(row);
+    }
+    return qrPattern;
+  };
+
+  const qrPattern = generateQRPattern();
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-midasbuy-navy to-black text-white">
@@ -131,97 +149,197 @@ const ThankYouPage = ({ onLogout }: ThankYouPageProps) => {
             <div className="print-container">
               <div 
                 ref={receiptRef}
-                className="glass-effect p-8 rounded-xl mb-8 border-2 border-midasbuy-blue/30 print:border-gray-300 print:bg-white print:text-black"
+                className="glass-effect p-8 rounded-xl mb-8 border-2 border-midasbuy-blue/30 print:border-gray-300 print:bg-white print:text-black relative"
               >
-                <div className="flex justify-between items-start mb-6 print:mb-8">
-                  <div>
+                {/* Watermark */}
+                <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-10 overflow-hidden">
+                  <div className="text-6xl font-bold rotate-45 text-gray-700 select-none scale-150">
                     <img 
-                      src="/lovable-uploads/05e19f72-6405-441c-94d6-4cc3964b0585.png" 
+                      src="/lovable-uploads/72a28f0c-54ae-45b1-9cf2-53b1abf4d6e7.jpeg" 
+                      alt="Watermark" 
+                      className="opacity-10 scale-150"
+                    />
+                  </div>
+                </div>
+
+                {/* Header */}
+                <div className="flex justify-between items-start mb-6 print:mb-8 relative z-10">
+                  <div className="flex flex-col items-start">
+                    <img 
+                      src="/lovable-uploads/72a28f0c-54ae-45b1-9cf2-53b1abf4d6e7.jpeg" 
                       alt="Logo" 
-                      className="h-8 mb-1" 
+                      className="h-12 mb-1" 
                     />
                     <p className="text-xs text-gray-400 print:text-gray-600">Official PUBG Mobile Partner</p>
                   </div>
                   <div className="text-right">
-                    <h3 className="text-xl font-bold print:text-black">RECEIPT</h3>
+                    <h3 className="text-xl font-bold print:text-black">TRANSACTION RECEIPT</h3>
                     <p className="text-sm text-gray-400 print:text-gray-600">{transactionDetails.date}</p>
-                    <p className="text-xs mt-1 text-midasbuy-gold print:text-gray-600">Order #{transactionDetails.orderId}</p>
+                    <p className="font-mono text-xs mt-1 text-midasbuy-gold print:text-gray-600">
+                      Order #{transactionDetails.orderId}
+                    </p>
                   </div>
                 </div>
                 
-                <div className="border-t border-b border-gray-700 print:border-gray-300 py-6 mb-6">
-                  <div className="flex flex-col md:flex-row mb-6">
+                <div className="border-t border-b border-gray-700 print:border-gray-300 py-6 mb-6 relative z-10">
+                  {/* Customer Details Section */}
+                  <div className="flex flex-col md:flex-row gap-6 mb-6">
                     <div className="mb-4 md:mb-0 md:w-1/2">
-                      <h4 className="text-sm font-medium text-gray-400 print:text-gray-600 mb-1">Billed To</h4>
-                      <p className="font-medium">Player ID: {transactionDetails.playerId}</p>
-                      <p className="text-sm text-gray-400 print:text-gray-600 mt-1">PUBG Mobile</p>
+                      <h4 className="text-sm font-bold text-gray-400 print:text-gray-600 mb-3 uppercase tracking-wider">
+                        Customer Details
+                      </h4>
+                      <div className="space-y-2">
+                        <p className="font-medium flex justify-between">
+                          <span className="text-gray-400 print:text-gray-700">Player ID:</span>
+                          <span className="font-mono font-bold text-black">{transactionDetails.playerId}</span>
+                        </p>
+                        <p className="font-medium flex justify-between">
+                          <span className="text-gray-400 print:text-gray-700">Name:</span>
+                          <span className="text-black">{transactionDetails.playerName}</span>
+                        </p>
+                        <p className="font-medium flex justify-between">
+                          <span className="text-gray-400 print:text-gray-700">Contact:</span>
+                          <span className="text-black">User Account</span>
+                        </p>
+                      </div>
                     </div>
                     <div className="md:w-1/2">
-                      <h4 className="text-sm font-medium text-gray-400 print:text-gray-600 mb-1">Payment Method</h4>
-                      <p className="font-medium">{transactionDetails.paymentMethod}</p>
-                      <p className="text-sm text-gray-400 print:text-gray-600 mt-1">
-                        Transaction processed on {transactionDetails.date.split(',')[0]}
-                      </p>
+                      <h4 className="text-sm font-bold text-gray-400 print:text-gray-600 mb-3 uppercase tracking-wider">
+                        Transaction Details
+                      </h4>
+                      <div className="space-y-2">
+                        <p className="font-medium flex justify-between">
+                          <span className="text-gray-400 print:text-gray-700">Transaction ID:</span>
+                          <span className="font-mono font-bold text-black">{transactionDetails.fakeTransactionId}</span>
+                        </p>
+                        <p className="font-medium flex justify-between">
+                          <span className="text-gray-400 print:text-gray-700">Date:</span>
+                          <span className="text-black">{transactionDetails.date}</span>
+                        </p>
+                        <p className="font-medium flex justify-between">
+                          <span className="text-gray-400 print:text-gray-700">Status:</span>
+                          <span className="text-green-600 font-bold">Completed</span>
+                        </p>
+                        <p className="font-medium flex justify-between">
+                          <span className="text-gray-400 print:text-gray-700">Payment Method:</span>
+                          <span className="text-black">{transactionDetails.paymentMethod}</span>
+                        </p>
+                      </div>
                     </div>
                   </div>
                   
-                  <table className="w-full">
-                    <thead>
-                      <tr className="border-b border-gray-700 print:border-gray-300">
-                        <th className="text-left py-3 text-gray-400 print:text-gray-600">Item</th>
-                        <th className="text-right py-3 text-gray-400 print:text-gray-600">Amount</th>
-                        <th className="text-right py-3 text-gray-400 print:text-gray-600">Price</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td className="py-4">
-                          <div className="flex items-center">
-                            <img 
-                              src="/lovable-uploads/05e19f72-6405-441c-94d6-4cc3964b0585.png" 
-                              alt="UC" 
-                              className="w-8 h-8 mr-3" 
-                            />
-                            <div>
-                              <p className="font-medium print:text-black">Unknown Cash (UC)</p>
-                              <p className="text-xs text-gray-400 print:text-gray-600">PUBG Mobile Currency</p>
+                  {/* Item Details Table */}
+                  <div className="mt-8">
+                    <h4 className="text-sm font-bold text-gray-400 print:text-gray-600 mb-3 uppercase tracking-wider">
+                      Item Details
+                    </h4>
+                    <table className="w-full">
+                      <thead>
+                        <tr className="border-b-2 border-gray-700 print:border-gray-300">
+                          <th className="text-left py-3 text-gray-400 print:text-gray-600">Item</th>
+                          <th className="text-right py-3 text-gray-400 print:text-gray-600">Amount</th>
+                          <th className="text-right py-3 text-gray-400 print:text-gray-600">Price</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td className="py-4">
+                            <div className="flex items-center">
+                              <img 
+                                src="/lovable-uploads/72a28f0c-54ae-45b1-9cf2-53b1abf4d6e7.jpeg" 
+                                alt="UC" 
+                                className="w-8 h-8 mr-3" 
+                              />
+                              <div>
+                                <p className="font-medium print:text-black">Unknown Cash (UC)</p>
+                                <p className="text-xs text-gray-400 print:text-gray-600">PUBG Mobile Currency</p>
+                              </div>
                             </div>
-                          </div>
-                        </td>
-                        <td className="py-4 text-right font-medium print:text-black">{transactionDetails.ucAmount}</td>
-                        <td className="py-4 text-right font-medium print:text-black">${transactionDetails.amount}</td>
-                      </tr>
-                    </tbody>
-                    <tfoot>
-                      <tr className="border-t border-gray-700 print:border-gray-300">
-                        <td className="pt-4 pb-1 text-right" colSpan={2}>
-                          <span className="text-gray-400 print:text-gray-600">Subtotal</span>
-                        </td>
-                        <td className="pt-4 pb-1 text-right font-medium print:text-black">
-                          ${transactionDetails.amount}
-                        </td>
-                      </tr>
-                      <tr>
-                        <td className="py-1 text-right" colSpan={2}>
-                          <span className="text-gray-400 print:text-gray-600">Tax</span>
-                        </td>
-                        <td className="py-1 text-right font-medium print:text-black">$0.00</td>
-                      </tr>
-                      <tr className="border-t border-gray-700 print:border-gray-300">
-                        <td className="pt-4 text-right" colSpan={2}>
-                          <span className="text-base font-bold print:text-black">Total</span>
-                        </td>
-                        <td className="pt-4 text-right text-midasbuy-gold print:text-black font-bold">
-                          ${transactionDetails.amount}
-                        </td>
-                      </tr>
-                    </tfoot>
-                  </table>
+                          </td>
+                          <td className="py-4 text-right font-medium print:text-black">
+                            {transactionDetails.ucAmount}
+                          </td>
+                          <td className="py-4 text-right font-medium print:text-black">
+                            ${transactionDetails.amount}
+                          </td>
+                        </tr>
+                      </tbody>
+                      <tfoot>
+                        <tr className="border-t border-gray-700 print:border-gray-300">
+                          <td className="pt-4 pb-1 text-right" colSpan={2}>
+                            <span className="text-gray-400 print:text-gray-600">Subtotal</span>
+                          </td>
+                          <td className="pt-4 pb-1 text-right font-medium print:text-black">
+                            ${transactionDetails.amount}
+                          </td>
+                        </tr>
+                        <tr>
+                          <td className="py-1 text-right" colSpan={2}>
+                            <span className="text-gray-400 print:text-gray-600">Tax</span>
+                          </td>
+                          <td className="py-1 text-right font-medium print:text-black">$0.00</td>
+                        </tr>
+                        <tr className="border-t border-gray-700 print:border-gray-300">
+                          <td className="pt-4 text-right" colSpan={2}>
+                            <span className="text-base font-bold print:text-black">Total</span>
+                          </td>
+                          <td className="pt-4 text-right text-midasbuy-gold print:text-black font-bold">
+                            ${transactionDetails.amount}
+                          </td>
+                        </tr>
+                      </tfoot>
+                    </table>
+                  </div>
                 </div>
                 
-                <div className="text-center text-sm text-gray-400 print:text-gray-600 mb-6">
-                  <p>This is an official receipt for your purchase. Thank you for your business!</p>
-                  <p className="mt-1">For any questions or support, please contact support@midasbuy.com</p>
+                {/* Security Features and Footer */}
+                <div className="flex flex-col md:flex-row gap-6 relative z-10">
+                  {/* QR Code */}
+                  <div className="md:w-1/3 flex flex-col items-center">
+                    <div className="bg-white p-2 mb-2">
+                      <div className="grid grid-cols-10 gap-0.5">
+                        {qrPattern.flat().map((cell, i) => (
+                          <div 
+                            key={i} 
+                            className={`w-3 h-3 ${cell ? 'bg-black' : 'bg-white'}`}
+                          ></div>
+                        ))}
+                      </div>
+                    </div>
+                    <p className="text-xs text-center text-gray-400 print:text-gray-600">
+                      Scan to verify
+                    </p>
+                  </div>
+                  
+                  {/* Security & Support */}
+                  <div className="md:w-2/3">
+                    <div className="mb-4">
+                      <div className="flex items-center mb-2">
+                        <Shield className="w-4 h-4 mr-2 text-midasbuy-gold" />
+                        <h4 className="text-sm font-bold text-gray-400 print:text-gray-600 uppercase tracking-wider">
+                          Security Notice
+                        </h4>
+                      </div>
+                      <p className="text-xs text-gray-400 print:text-gray-600 italic mb-4">
+                        System-generated receipt. Tampering invalidates authenticity.
+                        This receipt serves as proof of purchase. Keep for your records.
+                      </p>
+                    </div>
+                    
+                    <div>
+                      <div className="flex items-center mb-2">
+                        <HelpCircle className="w-4 h-4 mr-2 text-midasbuy-blue" />
+                        <h4 className="text-sm font-bold text-gray-400 print:text-gray-600 uppercase tracking-wider">
+                          Support Contact
+                        </h4>
+                      </div>
+                      <div className="text-xs text-gray-400 print:text-gray-600">
+                        <p>Email: support@pubgmobile.com</p>
+                        <p>Phone: +1-800-PUBG-HELP</p>
+                        <p>Website: www.pubgmobile.com/support</p>
+                      </div>
+                    </div>
+                  </div>
                 </div>
                 
                 <div className="hidden print:block text-center mt-8 pt-8 border-t border-gray-300 text-xs text-gray-500">
