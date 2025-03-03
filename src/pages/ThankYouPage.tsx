@@ -169,8 +169,8 @@ const ThankYouPage = ({ onLogout }: ThankYouPageProps) => {
                     <p className="text-xs text-gray-400 print:text-white">Official PUBG Mobile Partner</p>
                   </div>
                   <div className="text-right">
-                    <h3 className="text-xl font-bold print:text-white">TRANSACTION RECEIPT</h3>
-                    <p className="text-sm text-midasbuy-blue print:text-white">{transactionDetails.date}</p>
+                    <h3 className="text-xl font-bold text-orange-500 print:text-orange-500">TRANSACTION RECEIPT</h3>
+                    <p className="text-sm text-midasbuy-blue print:text-midasbuy-blue">{transactionDetails.date}</p>
                     <p className="font-mono text-xs mt-1 text-midasbuy-gold print:text-white">
                       Order #{transactionDetails.orderId}
                     </p>

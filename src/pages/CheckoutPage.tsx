@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
@@ -14,6 +15,7 @@ interface CheckoutPageProps {
 
 const paymentMethods = [
   { id: "card", name: "Credit/Debit Card", icon: "/credit-card-icon.png" },
+  { id: "paypal", name: "PayPal", icon: "/lovable-uploads/96365d0d-ed1e-4b9a-84fd-e6899011aaa7.png" },
 ];
 
 const CheckoutPage = ({ onLogout }: CheckoutPageProps) => {
@@ -165,118 +167,156 @@ const CheckoutPage = ({ onLogout }: CheckoutPageProps) => {
               >
                 <h2 className="text-xl font-bold mb-4 text-white">Payment Method</h2>
                 
-                <div className="mb-6">
-                  <div
-                    className="border rounded-lg p-4 border-midasbuy-blue bg-midasbuy-blue/10"
-                  >
-                    <div className="flex items-center">
-                      <CreditCard className="w-6 h-6 mr-3 text-gray-300" />
-                      <span className="text-white font-medium">Credit/Debit Card</span>
-                      
-                      <div className="ml-auto bg-midasbuy-blue w-5 h-5 rounded-full flex items-center justify-center">
-                        <Check className="w-3 h-3 text-white" />
+                <div className="mb-6 space-y-3">
+                  {paymentMethods.map((method) => (
+                    <div
+                      key={method.id}
+                      className={`border rounded-lg p-4 cursor-pointer transition-colors ${
+                        selectedPayment === method.id 
+                          ? "border-midasbuy-blue bg-midasbuy-blue/10" 
+                          : "border-gray-700 bg-midasbuy-navy/30 hover:bg-midasbuy-navy/50"
+                      }`}
+                      onClick={() => setSelectedPayment(method.id)}
+                    >
+                      <div className="flex items-center">
+                        {method.id === "card" ? (
+                          <CreditCard className="w-6 h-6 mr-3 text-gray-300" />
+                        ) : (
+                          <img src={method.icon} alt={method.name} className="h-6 mr-3" />
+                        )}
+                        <span className="text-white font-medium">{method.name}</span>
+                        
+                        {selectedPayment === method.id && (
+                          <div className="ml-auto bg-midasbuy-blue w-5 h-5 rounded-full flex items-center justify-center">
+                            <Check className="w-3 h-3 text-white" />
+                          </div>
+                        )}
                       </div>
                     </div>
-                  </div>
+                  ))}
                 </div>
                 
-                <motion.div
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className="space-y-4"
-                >
-                  <div>
-                    <label htmlFor="cardNumber" className="block text-sm font-medium text-gray-300 mb-1">
-                      Card Number
-                    </label>
-                    <Input
-                      id="cardNumber"
-                      value={cardNumber}
-                      onChange={handleCardNumberChange}
-                      placeholder="1234 5678 9012 3456"
-                      maxLength={19}
-                      className="bg-midasbuy-navy/50 border-midasbuy-blue/30 text-white focus:border-midasbuy-blue focus:ring-midasbuy-blue/20"
-                    />
-                  </div>
-                  
-                  <div className="grid grid-cols-2 gap-4">
+                {selectedPayment === "card" && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="space-y-4"
+                  >
                     <div>
-                      <label htmlFor="expiryDate" className="block text-sm font-medium text-gray-300 mb-1">
-                        Expiry Date
+                      <label htmlFor="cardNumber" className="block text-sm font-medium text-gray-300 mb-1">
+                        Card Number
                       </label>
-                      <div className="relative">
-                        <Input
-                          id="expiryDate"
-                          value={expiryDate}
-                          onChange={handleExpiryDateChange}
-                          placeholder="MM/YY"
-                          maxLength={5}
-                          type={showExpiry ? "text" : "password"}
-                          className="bg-midasbuy-navy/50 border-midasbuy-blue/30 text-white focus:border-midasbuy-blue focus:ring-midasbuy-blue/20 pr-10"
-                        />
-                        <button
-                          type="button"
-                          className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-300"
-                          onClick={() => setShowExpiry(!showExpiry)}
-                        >
-                          {showExpiry ? (
-                            <EyeOff className="h-5 w-5" />
-                          ) : (
-                            <Eye className="h-5 w-5" />
-                          )}
-                        </button>
+                      <Input
+                        id="cardNumber"
+                        value={cardNumber}
+                        onChange={handleCardNumberChange}
+                        placeholder="1234 5678 9012 3456"
+                        maxLength={19}
+                        className="bg-midasbuy-navy/50 border-midasbuy-blue/30 text-white focus:border-midasbuy-blue focus:ring-midasbuy-blue/20"
+                      />
+                    </div>
+                    
+                    <div className="grid grid-cols-2 gap-4">
+                      <div>
+                        <label htmlFor="expiryDate" className="block text-sm font-medium text-gray-300 mb-1">
+                          Expiry Date
+                        </label>
+                        <div className="relative">
+                          <Input
+                            id="expiryDate"
+                            value={expiryDate}
+                            onChange={handleExpiryDateChange}
+                            placeholder="MM/YY"
+                            maxLength={5}
+                            type={showExpiry ? "text" : "password"}
+                            className="bg-midasbuy-navy/50 border-midasbuy-blue/30 text-white focus:border-midasbuy-blue focus:ring-midasbuy-blue/20 pr-10"
+                          />
+                          <button
+                            type="button"
+                            className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-300"
+                            onClick={() => setShowExpiry(!showExpiry)}
+                          >
+                            {showExpiry ? (
+                              <EyeOff className="h-5 w-5" />
+                            ) : (
+                              <Eye className="h-5 w-5" />
+                            )}
+                          </button>
+                        </div>
+                      </div>
+                      
+                      <div>
+                        <label htmlFor="cvv" className="block text-sm font-medium text-gray-300 mb-1">
+                          CVV
+                        </label>
+                        <div className="relative">
+                          <Input
+                            id="cvv"
+                            value={cvv}
+                            onChange={handleCvvChange}
+                            placeholder="123"
+                            maxLength={3}
+                            type={showCVV ? "text" : "password"}
+                            className="bg-midasbuy-navy/50 border-midasbuy-blue/30 text-white focus:border-midasbuy-blue focus:ring-midasbuy-blue/20 pr-10"
+                          />
+                          <button
+                            type="button"
+                            className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-300"
+                            onClick={() => setShowCVV(!showCVV)}
+                          >
+                            {showCVV ? (
+                              <EyeOff className="h-5 w-5" />
+                            ) : (
+                              <Eye className="h-5 w-5" />
+                            )}
+                          </button>
+                        </div>
                       </div>
                     </div>
                     
                     <div>
-                      <label htmlFor="cvv" className="block text-sm font-medium text-gray-300 mb-1">
-                        CVV
+                      <label htmlFor="cardholderName" className="block text-sm font-medium text-gray-300 mb-1">
+                        Cardholder Name
                       </label>
-                      <div className="relative">
-                        <Input
-                          id="cvv"
-                          value={cvv}
-                          onChange={handleCvvChange}
-                          placeholder="123"
-                          maxLength={3}
-                          type={showCVV ? "text" : "password"}
-                          className="bg-midasbuy-navy/50 border-midasbuy-blue/30 text-white focus:border-midasbuy-blue focus:ring-midasbuy-blue/20 pr-10"
-                        />
-                        <button
-                          type="button"
-                          className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-300"
-                          onClick={() => setShowCVV(!showCVV)}
-                        >
-                          {showCVV ? (
-                            <EyeOff className="h-5 w-5" />
-                          ) : (
-                            <Eye className="h-5 w-5" />
-                          )}
-                        </button>
-                      </div>
+                      <Input
+                        id="cardholderName"
+                        value={cardholderName}
+                        onChange={(e) => setCardholderName(e.target.value)}
+                        placeholder="John Doe"
+                        className="bg-midasbuy-navy/50 border-midasbuy-blue/30 text-white focus:border-midasbuy-blue focus:ring-midasbuy-blue/20"
+                      />
                     </div>
-                  </div>
-                  
-                  <div>
-                    <label htmlFor="cardholderName" className="block text-sm font-medium text-gray-300 mb-1">
-                      Cardholder Name
-                    </label>
-                    <Input
-                      id="cardholderName"
-                      value={cardholderName}
-                      onChange={(e) => setCardholderName(e.target.value)}
-                      placeholder="John Doe"
-                      className="bg-midasbuy-navy/50 border-midasbuy-blue/30 text-white focus:border-midasbuy-blue focus:ring-midasbuy-blue/20"
-                    />
-                  </div>
-                  
-                  <div className="flex items-start mt-2">
-                    <AlertCircle className="w-4 h-4 text-gray-400 mr-2 flex-shrink-0 mt-0.5" />
-                    <p className="text-xs text-gray-400">
-                      Your card information is secure and encrypted.
-                    </p>
-                  </div>
-                </motion.div>
+                    
+                    <div className="flex items-start mt-2">
+                      <AlertCircle className="w-4 h-4 text-gray-400 mr-2 flex-shrink-0 mt-0.5" />
+                      <p className="text-xs text-gray-400">
+                        Your card information is secure and encrypted.
+                      </p>
+                    </div>
+                  </motion.div>
+                )}
+                
+                {selectedPayment === "paypal" && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="space-y-4"
+                  >
+                    <div className="bg-midasbuy-navy/30 rounded-lg p-6 text-center">
+                      <img 
+                        src="/lovable-uploads/96365d0d-ed1e-4b9a-84fd-e6899011aaa7.png" 
+                        alt="PayPal" 
+                        className="h-12 mx-auto mb-4" 
+                      />
+                      <p className="text-gray-300 mb-2">
+                        You will be redirected to PayPal to complete your payment.
+                      </p>
+                      <p className="text-xs text-gray-400">
+                        PayPal securely processes payments without sharing your financial information.
+                      </p>
+                    </div>
+                  </motion.div>
+                )}
               </motion.div>
             </div>
             
