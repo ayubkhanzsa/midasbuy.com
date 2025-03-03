@@ -87,7 +87,7 @@
   }
   
   .uc-card {
-    @apply relative overflow-hidden bg-midasbuy-navy/80 rounded-lg transition-all duration-300 hover:shadow-[0_0_15px_rgba(0,145,255,0.5)] border border-midasbuy-navy hover:border-midasbuy-blue/50;
+    @apply relative overflow-hidden bg-midasbuy-navy/80 rounded-lg transition-all duration-300 hover:shadow-[0_0_15px_rgba(0,145,255,0.5)] border border-midasbuy-navy hover:border-midasbuy-blue/50 h-full;
   }
   
   .gold-text {
@@ -114,5 +114,22 @@
   
   .discount-tag {
     @apply absolute top-2 left-0 bg-gradient-to-r from-yellow-500 to-yellow-600 text-black text-xs font-bold px-3 py-1 rounded-r-md flex items-center;
+  }
+
+  /* Professional UC Package styles */
+  .uc-amount {
+    @apply text-3xl font-bold text-midasbuy-gold;
+  }
+  
+  .uc-bonus {
+    @apply text-lg font-semibold text-midasbuy-gold/90;
+  }
+  
+  .uc-price {
+    @apply text-lg font-bold text-midasbuy-gold;
+  }
+  
+  .uc-original-price {
+    @apply text-sm text-gray-400 line-through;
   }
 }

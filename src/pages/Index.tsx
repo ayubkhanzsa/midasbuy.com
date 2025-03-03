@@ -17,7 +17,6 @@ const Index = ({ onLogout }: IndexProps) => {
   const [showPrivacyPolicy, setShowPrivacyPolicy] = useState(false);
 
   useEffect(() => {
-    // Simulate loading
     const timer = setTimeout(() => {
       setIsLoading(false);
     }, 1200);
@@ -29,7 +28,7 @@ const Index = ({ onLogout }: IndexProps) => {
     return (
       <div className="min-h-screen flex items-center justify-center bg-midasbuy-darkBlue">
         <div className="text-center">
-          <img src="/midasbuy-logo.png" alt="MidasBuy" className="h-10 mx-auto mb-6 animate-pulse-subtle" />
+          <img src="/lovable-uploads/c6fd77e7-3682-428e-8154-140308b4a06b.png" alt="Logo" className="h-10 mx-auto mb-6 animate-pulse-subtle" />
           <div className="w-12 h-12 border-4 border-midasbuy-blue border-t-transparent rounded-full animate-spin mx-auto"></div>
           <p className="mt-4 text-gray-400 animate-pulse">Loading PUBG Mobile...</p>
         </div>
@@ -183,15 +182,14 @@ const Index = ({ onLogout }: IndexProps) => {
           <div className="flex flex-col md:flex-row items-center mb-10">
             <div className="flex-shrink-0 mb-4 md:mb-0 md:mr-6">
               <img 
-                src="/pubg-character-logo.png" 
+                src="/lovable-uploads/072f88f4-7402-4591-b3e4-11f57bb0e9ea.png" 
                 alt="PUBG Mobile" 
-                className="w-[120px]"
+                className="w-[180px]"
               />
             </div>
             
             <div className="flex-grow">
               <div className="flex flex-col md:flex-row items-start md:items-center">
-                <h1 className="text-3xl font-bold text-white mb-2 md:mb-0 md:mr-4">PUBG MOBILE</h1>
                 <div className="flex space-x-2">
                   <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-midasbuy-blue/20 text-midasbuy-blue border border-midasbuy-blue/30">
                     Official
@@ -209,7 +207,6 @@ const Index = ({ onLogout }: IndexProps) => {
             </div>
           </div>
           
-          {/* Navigation tabs */}
           <div className="mb-8 overflow-x-auto pb-1">
             <div className="flex min-w-max border-b border-gray-700">
               <button className="text-white font-medium px-6 py-3 relative active">
@@ -228,7 +225,6 @@ const Index = ({ onLogout }: IndexProps) => {
             </div>
           </div>
           
-          {/* Promotion banner */}
           {showPromotion && (
             <motion.div 
               initial={{ opacity: 0, y: -10 }}
@@ -260,7 +256,6 @@ const Index = ({ onLogout }: IndexProps) => {
             </motion.div>
           )}
           
-          {/* Filter controls */}
           <div className="flex flex-wrap justify-between items-center mb-6">
             <div className="mb-4 sm:mb-0">
               <div className="flex items-center space-x-2 px-4 py-2 rounded-lg bg-midasbuy-navy">
@@ -288,7 +283,6 @@ const Index = ({ onLogout }: IndexProps) => {
             </button>
           </div>
           
-          {/* UC packages grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {filteredPackages.map((pkg, index) => (
               <motion.div
@@ -433,7 +427,7 @@ const Index = ({ onLogout }: IndexProps) => {
           </div>
           
           <div className="border-t border-gray-700 pt-6 text-center">
-            <p className="text-gray-400 text-sm">© 2023 PUBG MOBILE. All Rights Reserved.</p>
+            <p className="text-gray-400 text-sm">© 2025 PUBG MOBILE. All Rights Reserved.</p>
             <p className="text-gray-500 text-xs mt-2">PUBG MOBILE is a trademark of KRAFTON, Inc. Midasbuy is an official partner authorized by KRAFTON, Inc.</p>
           </div>
         </div>
