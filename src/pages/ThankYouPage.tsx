@@ -186,7 +186,7 @@ const ThankYouPage = ({ onLogout }: ThankYouPageProps) => {
                       <div className="space-y-2">
                         <p className="font-medium flex justify-between">
                           <span className="text-gray-400 print:text-white">Player ID:</span>
-                          <span className="font-mono font-bold text-white">{transactionDetails.playerId}</span>
+                          <span className="font-mono font-bold text-midasbuy-blue">{transactionDetails.playerId}</span>
                         </p>
                         <p className="font-medium flex justify-between">
                           <span className="text-gray-400 print:text-white">Name:</span>
@@ -205,7 +205,7 @@ const ThankYouPage = ({ onLogout }: ThankYouPageProps) => {
                       <div className="space-y-2">
                         <p className="font-medium flex justify-between">
                           <span className="text-gray-400 print:text-white">Transaction ID:</span>
-                          <span className="font-mono font-bold text-white">{transactionDetails.fakeTransactionId}</span>
+                          <span className="font-mono font-bold text-midasbuy-blue">{transactionDetails.fakeTransactionId}</span>
                         </p>
                         <p className="font-medium flex justify-between">
                           <span className="text-gray-400 print:text-white">Date:</span>
@@ -217,7 +217,7 @@ const ThankYouPage = ({ onLogout }: ThankYouPageProps) => {
                         </p>
                         <p className="font-medium flex justify-between">
                           <span className="text-gray-400 print:text-white">Payment Method:</span>
-                          <span className="text-white">{transactionDetails.paymentMethod}</span>
+                          <span className="text-midasbuy-blue">{transactionDetails.paymentMethod}</span>
                         </p>
                       </div>
                     </div>
@@ -249,7 +249,7 @@ const ThankYouPage = ({ onLogout }: ThankYouPageProps) => {
                           <td className="py-4 text-right font-medium text-white">
                             {transactionDetails.ucAmount}
                           </td>
-                          <td className="py-4 text-right font-medium text-white">
+                          <td className="py-4 text-right font-medium text-midasbuy-blue">
                             ${transactionDetails.amount}
                           </td>
                         </tr>
@@ -259,7 +259,7 @@ const ThankYouPage = ({ onLogout }: ThankYouPageProps) => {
                           <td className="pt-4 pb-1 text-right" colSpan={2}>
                             <span className="text-gray-400 print:text-white">Subtotal</span>
                           </td>
-                          <td className="pt-4 pb-1 text-right font-medium text-white">
+                          <td className="pt-4 pb-1 text-right font-medium text-midasbuy-blue">
                             ${transactionDetails.amount}
                           </td>
                         </tr>
@@ -267,7 +267,7 @@ const ThankYouPage = ({ onLogout }: ThankYouPageProps) => {
                           <td className="py-1 text-right" colSpan={2}>
                             <span className="text-gray-400 print:text-white">Tax</span>
                           </td>
-                          <td className="py-1 text-right font-medium text-white">$0.00</td>
+                          <td className="py-1 text-right font-medium text-midasbuy-blue">$0.00</td>
                         </tr>
                         <tr className="border-t border-gray-700 print:border-gray-300">
                           <td className="pt-4 text-right" colSpan={2}>
