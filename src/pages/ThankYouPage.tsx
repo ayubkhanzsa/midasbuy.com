@@ -1,4 +1,3 @@
-
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState, useRef } from "react";
 import Header from "@/components/Header";
@@ -175,10 +174,11 @@ const ThankYouPage = ({ onLogout }: ThankYouPageProps) => {
                 <div className="flex justify-between items-start mb-6 print:mb-8 relative z-10">
                   <div className="flex flex-col items-start">
                     <img 
-                      src="/lovable-uploads/93d7ba55-9f86-45bc-be91-b93a2a13c0c4.jpeg" 
-                      alt="Logo" 
-                      className="h-12 mb-1" 
+                      src="/lovable-uploads/e7b8b5a5-5911-40e4-b3fe-b449462a9216.png" 
+                      alt="Midasbuy Logo" 
+                      className="h-14 mb-1" 
                     />
+                    <p className="text-xs text-gray-900 font-medium mt-1 print:text-black">Authorized Gaming Top-Up Platform</p>
                   </div>
                   <div className="text-right">
                     <h3 className="text-xl font-bold text-orange-500 print:text-orange-500">TRANSACTION RECEIPT</h3>
