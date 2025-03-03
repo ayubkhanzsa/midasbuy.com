@@ -3,7 +3,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState, useRef } from "react";
 import Header from "@/components/Header";
 import { motion } from "framer-motion";
-import { CheckCircle2, Download, ArrowLeft, Printer, FileText } from "lucide-react";
+import { CheckCircle2, ArrowLeft, Printer, FileText } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { downloadReceipt } from "@/utils/receiptUtils";
 
@@ -136,8 +136,8 @@ const ThankYouPage = ({ onLogout }: ThankYouPageProps) => {
                 <div className="flex justify-between items-start mb-6 print:mb-8">
                   <div>
                     <img 
-                      src="/lovable-uploads/c8bc4ef9-e336-4dbe-86e5-c924e18e83c6.png" 
-                      alt="PUBG Mobile Logo" 
+                      src="/lovable-uploads/05e19f72-6405-441c-94d6-4cc3964b0585.png" 
+                      alt="Logo" 
                       className="h-8 mb-1" 
                     />
                     <p className="text-xs text-gray-400 print:text-gray-600">Official PUBG Mobile Partner</p>
@@ -178,18 +178,18 @@ const ThankYouPage = ({ onLogout }: ThankYouPageProps) => {
                         <td className="py-4">
                           <div className="flex items-center">
                             <img 
-                              src="/lovable-uploads/c8bc4ef9-e336-4dbe-86e5-c924e18e83c6.png" 
+                              src="/lovable-uploads/05e19f72-6405-441c-94d6-4cc3964b0585.png" 
                               alt="UC" 
                               className="w-8 h-8 mr-3" 
                             />
                             <div>
-                              <p className="font-medium">Unknown Cash (UC)</p>
+                              <p className="font-medium print:text-black">Unknown Cash (UC)</p>
                               <p className="text-xs text-gray-400 print:text-gray-600">PUBG Mobile Currency</p>
                             </div>
                           </div>
                         </td>
-                        <td className="py-4 text-right font-medium">{transactionDetails.ucAmount}</td>
-                        <td className="py-4 text-right font-medium">${transactionDetails.amount}</td>
+                        <td className="py-4 text-right font-medium print:text-black">{transactionDetails.ucAmount}</td>
+                        <td className="py-4 text-right font-medium print:text-black">${transactionDetails.amount}</td>
                       </tr>
                     </tbody>
                     <tfoot>
@@ -197,7 +197,7 @@ const ThankYouPage = ({ onLogout }: ThankYouPageProps) => {
                         <td className="pt-4 pb-1 text-right" colSpan={2}>
                           <span className="text-gray-400 print:text-gray-600">Subtotal</span>
                         </td>
-                        <td className="pt-4 pb-1 text-right font-medium">
+                        <td className="pt-4 pb-1 text-right font-medium print:text-black">
                           ${transactionDetails.amount}
                         </td>
                       </tr>
@@ -205,11 +205,11 @@ const ThankYouPage = ({ onLogout }: ThankYouPageProps) => {
                         <td className="py-1 text-right" colSpan={2}>
                           <span className="text-gray-400 print:text-gray-600">Tax</span>
                         </td>
-                        <td className="py-1 text-right font-medium">$0.00</td>
+                        <td className="py-1 text-right font-medium print:text-black">$0.00</td>
                       </tr>
                       <tr className="border-t border-gray-700 print:border-gray-300">
                         <td className="pt-4 text-right" colSpan={2}>
-                          <span className="text-base font-bold">Total</span>
+                          <span className="text-base font-bold print:text-black">Total</span>
                         </td>
                         <td className="pt-4 text-right text-midasbuy-gold print:text-black font-bold">
                           ${transactionDetails.amount}
@@ -253,7 +253,7 @@ const ThankYouPage = ({ onLogout }: ThankYouPageProps) => {
                     ) : (
                       <>
                         <FileText className="mr-2 h-4 w-4" />
-                        Download PDF
+                        Download Receipt
                       </>
                     )}
                   </Button>

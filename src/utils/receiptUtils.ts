@@ -1,6 +1,5 @@
 
 import html2canvas from "html2canvas";
-import jsPDF from "jspdf";
 
 export const downloadReceipt = async (receiptElement: HTMLElement | null, orderId: string) => {
   if (!receiptElement) return;
@@ -14,26 +13,18 @@ export const downloadReceipt = async (receiptElement: HTMLElement | null, orderI
       useCORS: true,
     });
     
-    // Initialize the PDF document
-    const pdf = new jsPDF({
-      orientation: "portrait",
-      unit: "mm",
-      format: "a4",
-    });
-    
-    // Calculate the width and height to maintain aspect ratio
-    const imgWidth = 210; // A4 width in mm (210mm)
-    const pageHeight = 297; // A4 height in mm (297mm)
-    const imgHeight = (canvas.height * imgWidth) / canvas.width;
-    
-    // Add the image to the PDF
+    // Convert canvas to image and download
     const imgData = canvas.toDataURL("image/png");
-    pdf.addImage(imgData, "PNG", 0, 0, imgWidth, imgHeight);
     
-    // Save the PDF
-    pdf.save(`PUBGM_Receipt_${orderId}.pdf`);
+    // Create a link element to download the image
+    const link = document.createElement("a");
+    link.href = imgData;
+    link.download = `PUBGM_Receipt_${orderId}.png`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   } catch (error) {
-    console.error("Error generating PDF:", error);
+    console.error("Error generating receipt image:", error);
     alert("Failed to download receipt. Please try again.");
   }
 };
