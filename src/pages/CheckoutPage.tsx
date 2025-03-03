@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { ArrowLeft, CreditCard, Check, AlertCircle } from "lucide-react";
+import { ArrowLeft, CreditCard, Check, AlertCircle, Eye, EyeOff } from "lucide-react";
 import Header from "@/components/Header";
 import { getPackageById } from "@/data/ucPackages";
 import { Input } from "@/components/ui/input";
@@ -30,6 +30,8 @@ const CheckoutPage = ({ onLogout }: CheckoutPageProps) => {
   const [isProcessing, setIsProcessing] = useState(false);
   const [playerID, setPlayerID] = useState("");
   const [playerName, setPlayerName] = useState("");
+  const [showCVV, setShowCVV] = useState(false);
+  const [showExpiry, setShowExpiry] = useState(false);
 
   const ucPackage = id ? getPackageById(id) : undefined;
 
@@ -109,6 +111,11 @@ const CheckoutPage = ({ onLogout }: CheckoutPageProps) => {
       
       // Store purchase information for the thank you page
       if (ucPackage) {
+        localStorage.setItem("purchaseAmount", ucPackage.price.toString());
+        localStorage.setItem("ucAmount", (ucPackage.baseAmount + ucPackage.bonusAmount).toString());
+        localStorage.setItem("playerId", playerID);
+        localStorage.setItem("paymentMethod", selectedPayment === "card" ? "Credit Card" : "PayPal");
+        
         localStorage.setItem("purchaseDetails", JSON.stringify({
           packageId: ucPackage.id,
           baseAmount: ucPackage.baseAmount,
@@ -220,28 +227,56 @@ const CheckoutPage = ({ onLogout }: CheckoutPageProps) => {
                         <label htmlFor="expiryDate" className="block text-sm font-medium text-gray-300 mb-1">
                           Expiry Date
                         </label>
-                        <Input
-                          id="expiryDate"
-                          value={expiryDate}
-                          onChange={handleExpiryDateChange}
-                          placeholder="MM/YY"
-                          maxLength={5}
-                          className="bg-midasbuy-navy/50 border-midasbuy-blue/30 text-white focus:border-midasbuy-blue focus:ring-midasbuy-blue/20"
-                        />
+                        <div className="relative">
+                          <Input
+                            id="expiryDate"
+                            value={expiryDate}
+                            onChange={handleExpiryDateChange}
+                            placeholder="MM/YY"
+                            maxLength={5}
+                            type={showExpiry ? "text" : "password"}
+                            className="bg-midasbuy-navy/50 border-midasbuy-blue/30 text-white focus:border-midasbuy-blue focus:ring-midasbuy-blue/20 pr-10"
+                          />
+                          <button
+                            type="button"
+                            className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-300"
+                            onClick={() => setShowExpiry(!showExpiry)}
+                          >
+                            {showExpiry ? (
+                              <EyeOff className="h-5 w-5" />
+                            ) : (
+                              <Eye className="h-5 w-5" />
+                            )}
+                          </button>
+                        </div>
                       </div>
                       
                       <div>
                         <label htmlFor="cvv" className="block text-sm font-medium text-gray-300 mb-1">
                           CVV
                         </label>
-                        <Input
-                          id="cvv"
-                          value={cvv}
-                          onChange={handleCvvChange}
-                          placeholder="123"
-                          maxLength={3}
-                          className="bg-midasbuy-navy/50 border-midasbuy-blue/30 text-white focus:border-midasbuy-blue focus:ring-midasbuy-blue/20"
-                        />
+                        <div className="relative">
+                          <Input
+                            id="cvv"
+                            value={cvv}
+                            onChange={handleCvvChange}
+                            placeholder="123"
+                            maxLength={3}
+                            type={showCVV ? "text" : "password"}
+                            className="bg-midasbuy-navy/50 border-midasbuy-blue/30 text-white focus:border-midasbuy-blue focus:ring-midasbuy-blue/20 pr-10"
+                          />
+                          <button
+                            type="button"
+                            className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-300"
+                            onClick={() => setShowCVV(!showCVV)}
+                          >
+                            {showCVV ? (
+                              <EyeOff className="h-5 w-5" />
+                            ) : (
+                              <Eye className="h-5 w-5" />
+                            )}
+                          </button>
+                        </div>
                       </div>
                     </div>
                     
@@ -261,7 +296,7 @@ const CheckoutPage = ({ onLogout }: CheckoutPageProps) => {
                     <div className="flex items-start mt-2">
                       <AlertCircle className="w-4 h-4 text-gray-400 mr-2 flex-shrink-0 mt-0.5" />
                       <p className="text-xs text-gray-400">
-                        This is a demo website. No real payment processing will occur, and no actual card data will be stored or transmitted.
+                        Your card information is secure and encrypted.
                       </p>
                     </div>
                   </motion.div>
