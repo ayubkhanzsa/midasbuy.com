@@ -285,14 +285,11 @@ const ThankYouPage = ({ onLogout }: ThankYouPageProps) => {
                 <div className="flex flex-col md:flex-row gap-6 relative z-10">
                   <div className="md:w-1/3 flex flex-col items-center">
                     <div className="bg-white p-2 mb-2">
-                      <div className="grid grid-cols-10 gap-0.5">
-                        {qrPattern.flat().map((cell, i) => (
-                          <div 
-                            key={i} 
-                            className={`w-3 h-3 ${cell ? 'bg-black' : 'bg-white'}`}
-                          ></div>
-                        ))}
-                      </div>
+                      <img 
+                        src="/lovable-uploads/a8a6c62b-0b19-42ae-8eea-f7a0999b2395.png" 
+                        alt="Verification QR Code" 
+                        className="w-32 h-32"
+                      />
                     </div>
                     <p className="text-xs text-center text-gray-400 print:text-white">
                       Scan to verify
