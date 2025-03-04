@@ -6,6 +6,7 @@ import { Filter, ChevronDown, Shield, Lock, FileText, HelpCircle, Info } from "l
 import Header from "@/components/Header";
 import { ucPackages } from "@/data/ucPackages";
 import { Button } from "@/components/ui/button";
+import { useMobile } from "@/hooks/use-mobile";
 
 interface IndexProps {
   onLogout: () => void;
@@ -17,6 +18,7 @@ const Index = ({ onLogout }: IndexProps) => {
   const [filter, setFilter] = useState("all");
   const [showPrivacyPolicy, setShowPrivacyPolicy] = useState(false);
   const navigate = useNavigate();
+  const isMobile = useMobile();
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -176,7 +178,28 @@ const Index = ({ onLogout }: IndexProps) => {
   };
 
   return (
-    <div className="min-h-screen bg-midasbuy-darkBlue overflow-x-hidden">
+    <div className="min-h-screen bg-midasbuy-darkBlue overflow-x-hidden relative">
+      {/* Banner for tablet and mobile */}
+      {isMobile && (
+        <div className="absolute top-0 right-0 h-[calc(100vh-200px)] z-10 pointer-events-none">
+          <img 
+            src="/lovable-uploads/f28ecc33-32f2-4b1a-b70b-bc28a972f593.png" 
+            alt="Banner" 
+            className="h-full object-contain"
+          />
+        </div>
+      )}
+      
+      {/* Banner background for PC */}
+      {!isMobile && (
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <div 
+            className="absolute top-0 right-0 w-full h-[100vh] bg-cover bg-right opacity-15 z-0"
+            style={{ backgroundImage: "url('/lovable-uploads/f28ecc33-32f2-4b1a-b70b-bc28a972f593.png')" }}
+          ></div>
+        </div>
+      )}
+      
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-0 w-full h-[70vh] bg-hero-pattern bg-cover bg-center opacity-20 z-0"></div>
       </div>
@@ -319,11 +342,10 @@ const Index = ({ onLogout }: IndexProps) => {
                 <Link to={`/purchase/${pkg.id}`} className="block">
                   <div className="bg-midasbuy-navy rounded-lg overflow-hidden h-full transition-all duration-300 hover:shadow-[0_0_15px_rgba(0,145,255,0.3)] border border-midasbuy-navy hover:border-midasbuy-blue/50">
                     <div className="p-4 flex justify-center">
-                      {/* Make images smaller for specific packages */}
                       <motion.img 
                         src={pkg.image}
                         alt="UC Coins" 
-                        className={`object-contain ${['60uc', '300uc', '600uc', '1500uc'].includes(pkg.id) ? 'h-16' : 'h-20'}`}
+                        className={`object-contain ${['60uc', '300uc'].includes(pkg.id) ? 'h-12' : ['600uc', '1500uc'].includes(pkg.id) ? 'h-16' : 'h-20'}`}
                         animate={{ 
                           y: [0, -8, 0, 8, 0] 
                         }}
