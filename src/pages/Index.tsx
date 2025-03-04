@@ -1,5 +1,6 @@
+
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Filter, ChevronDown, Shield, Lock, FileText, HelpCircle, Info } from "lucide-react";
 import Header from "@/components/Header";
@@ -15,6 +16,7 @@ const Index = ({ onLogout }: IndexProps) => {
   const [showPromotion, setShowPromotion] = useState(true);
   const [filter, setFilter] = useState("all");
   const [showPrivacyPolicy, setShowPrivacyPolicy] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -169,6 +171,10 @@ const Index = ({ onLogout }: IndexProps) => {
     </div>
   );
 
+  const handleNavigate = (path: string) => {
+    navigate(path);
+  };
+
   return (
     <div className="min-h-screen bg-midasbuy-darkBlue overflow-x-hidden">
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -216,17 +222,29 @@ const Index = ({ onLogout }: IndexProps) => {
           
           <div className="mb-6 overflow-x-auto pb-1">
             <div className="flex min-w-max border-b border-gray-700">
-              <button className="text-white font-bold tracking-wide px-14 py-2 relative active text-sm">
+              <button 
+                onClick={() => handleNavigate('/')}
+                className="text-white font-bold tracking-wide px-16 py-2 relative active text-sm"
+              >
                 PURCHASE
                 <span className="absolute bottom-0 left-0 w-full h-1 bg-midasbuy-blue"></span>
               </button>
-              <button className="text-gray-400 font-bold tracking-wide px-14 py-2 hover:text-gray-200 transition-colors text-sm">
+              <button 
+                onClick={() => handleNavigate('/redeem')}
+                className="text-gray-400 font-bold tracking-wide px-16 py-2 hover:text-gray-200 transition-colors text-sm"
+              >
                 REDEEM
               </button>
-              <button className="text-gray-400 font-bold tracking-wide px-14 py-2 hover:text-gray-200 transition-colors text-sm">
+              <button 
+                onClick={() => handleNavigate('/shop')}
+                className="text-gray-400 font-bold tracking-wide px-16 py-2 hover:text-gray-200 transition-colors text-sm"
+              >
                 SHOP
               </button>
-              <button className="text-gray-400 font-bold tracking-wide px-14 py-2 hover:text-gray-200 transition-colors text-sm">
+              <button 
+                onClick={() => handleNavigate('/events')}
+                className="text-gray-400 font-bold tracking-wide px-16 py-2 hover:text-gray-200 transition-colors text-sm"
+              >
                 EVENTS
               </button>
             </div>
@@ -302,11 +320,9 @@ const Index = ({ onLogout }: IndexProps) => {
                   <div className="bg-midasbuy-navy rounded-lg overflow-hidden h-full transition-all duration-300 hover:shadow-[0_0_15px_rgba(0,145,255,0.3)] border border-midasbuy-navy hover:border-midasbuy-blue/50">
                     <div className="p-4 flex justify-center">
                       <motion.img 
-                        src={pkg.id === "60uc" || pkg.id === "300uc" || pkg.id === "1500uc" 
-                          ? "/lovable-uploads/f28ecc33-32f2-4b1a-b70b-bc28a972f593.png" 
-                          : pkg.image} 
+                        src={pkg.image}
                         alt="UC Coins" 
-                        className="h-24 object-contain"
+                        className="h-20 object-contain"
                         animate={{ 
                           y: [0, -8, 0, 8, 0] 
                         }}

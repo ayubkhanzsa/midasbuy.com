@@ -19,7 +19,7 @@ export const ucPackages: UCPackage[] = [
     price: 0.89,
     originalPrice: 0.99,
     bonusPercent: "",
-    image: "/lovable-uploads/f28ecc33-32f2-4b1a-b70b-bc28a972f593.png"
+    image: "/lovable-uploads/6b0727f0-f8bd-4223-9e36-ffd7671fc90d.png"
   },
   {
     id: "300uc",
@@ -29,7 +29,7 @@ export const ucPackages: UCPackage[] = [
     price: 4.49,
     originalPrice: 4.99,
     bonusPercent: "8%",
-    image: "/lovable-uploads/f28ecc33-32f2-4b1a-b70b-bc28a972f593.png"
+    image: "/lovable-uploads/6b0727f0-f8bd-4223-9e36-ffd7671fc90d.png"
   },
   {
     id: "600uc",
@@ -39,7 +39,7 @@ export const ucPackages: UCPackage[] = [
     price: 8.99,
     originalPrice: 9.99,
     bonusPercent: "10%",
-    image: "/lovable-uploads/6dcffa69-b046-4099-b802-d86a27b04cc3.png"
+    image: "/lovable-uploads/6b0727f0-f8bd-4223-9e36-ffd7671fc90d.png"
   },
   {
     id: "1500uc",
@@ -49,7 +49,7 @@ export const ucPackages: UCPackage[] = [
     price: 22.49,
     originalPrice: 24.99,
     bonusPercent: "20%",
-    image: "/lovable-uploads/f28ecc33-32f2-4b1a-b70b-bc28a972f593.png"
+    image: "/lovable-uploads/6b0727f0-f8bd-4223-9e36-ffd7671fc90d.png"
   },
   {
     id: "3000uc",

@@ -1,6 +1,6 @@
 
 import { useState, useEffect, useRef } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Menu, X, Bell, Globe, ChevronDown } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 import { cn } from "@/lib/utils";
@@ -29,6 +29,7 @@ const Header = ({ onLogout }: HeaderProps) => {
   const [isCountryMenuOpen, setIsCountryMenuOpen] = useState(false);
   const [currentCountry, setCurrentCountry] = useState({ name: "United States", code: "us" });
   const location = useLocation();
+  const navigate = useNavigate();
   const countryMenuRef = useRef<HTMLDivElement>(null);
   
   const navLinks = [
@@ -77,6 +78,10 @@ const Header = ({ onLogout }: HeaderProps) => {
     setIsCountryMenuOpen(false);
   };
 
+  const handleNavigation = (path: string) => {
+    navigate(path);
+  };
+
   return (
     <header 
       className={cn(
@@ -102,14 +107,14 @@ const Header = ({ onLogout }: HeaderProps) => {
           </Link>
         </div>
 
-        <nav className="hidden md:flex items-center space-x-14">
+        <nav className="hidden md:flex items-center space-x-16">
           {navLinks.map((link) => (
             <Link
               key={link.name}
               to={link.path}
               className={cn(
-                "nav-link text-sm font-bold tracking-wide px-6 py-1",
-                location.pathname === link.path ? "text-white active" : ""
+                "nav-link text-base font-bold tracking-wider px-6 py-1",
+                location.pathname === link.path ? "text-white active" : "text-gray-400 hover:text-white"
               )}
             >
               {link.name}
@@ -294,7 +299,7 @@ const Header = ({ onLogout }: HeaderProps) => {
                     key={link.name}
                     to={link.path}
                     className={cn(
-                      "py-2 px-3 rounded-md text-gray-300 hover:text-white hover:bg-midasbuy-blue/10 transition-colors font-bold tracking-wide",
+                      "py-2 px-3 rounded-md text-gray-300 hover:text-white hover:bg-midasbuy-blue/10 transition-colors font-bold tracking-wider text-base",
                       location.pathname === link.path ? "bg-midasbuy-blue/20 text-white" : ""
                     )}
                   >
