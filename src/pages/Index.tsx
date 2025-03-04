@@ -220,6 +220,30 @@ const Index = ({ onLogout }: IndexProps) => {
     navigate(path);
   };
 
+  const navLinks = [
+    { name: "PURCHASE", path: "/" },
+    { name: "REDEEM", path: "/redeem" },
+    { name: "SHOP", path: "/shop" },
+    { name: "EVENTS", path: "/events" },
+  ];
+
+  const NavigationTabs = () => (
+    <div className="mb-6 overflow-x-auto pb-1 mt-4">
+      <div className="flex min-w-max border-b border-gray-700">
+        {navLinks.map((link, index) => (
+          <button 
+            key={link.path}
+            onClick={() => handleNavigate(link.path)}
+            className={`text-${link.path === '/' ? 'white' : 'gray-400'} font-bold tracking-wide px-6 sm:px-8 py-2 relative hover:text-gray-200 transition-colors text-sm`}
+          >
+            {link.name}
+            {link.path === '/' && <span className="absolute bottom-0 left-0 w-full h-1 bg-midasbuy-blue"></span>}
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+
   return (
     <div className="min-h-screen bg-midasbuy-darkBlue overflow-x-hidden relative">
       {isMobile && (
@@ -284,35 +308,7 @@ const Index = ({ onLogout }: IndexProps) => {
             </div>
           </div>
           
-          <div className="mb-6 overflow-x-auto pb-1">
-            <div className="flex min-w-max border-b border-gray-700">
-              <button 
-                onClick={() => handleNavigate('/')}
-                className="text-white font-bold tracking-wide px-16 py-2 relative active text-sm"
-              >
-                PURCHASE
-                <span className="absolute bottom-0 left-0 w-full h-1 bg-midasbuy-blue"></span>
-              </button>
-              <button 
-                onClick={() => handleNavigate('/redeem')}
-                className="text-gray-400 font-bold tracking-wide px-16 py-2 hover:text-gray-200 transition-colors text-sm"
-              >
-                REDEEM
-              </button>
-              <button 
-                onClick={() => handleNavigate('/shop')}
-                className="text-gray-400 font-bold tracking-wide px-16 py-2 hover:text-gray-200 transition-colors text-sm"
-              >
-                SHOP
-              </button>
-              <button 
-                onClick={() => handleNavigate('/events')}
-                className="text-gray-400 font-bold tracking-wide px-16 py-2 hover:text-gray-200 transition-colors text-sm"
-              >
-                EVENTS
-              </button>
-            </div>
-          </div>
+          <NavigationTabs />
           
           {showPromotion && (
             <motion.div 
