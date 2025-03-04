@@ -213,6 +213,21 @@ const Header = ({ onLogout }: HeaderProps) => {
           <Link to="/" className="mr-4">
             <img src="/lovable-uploads/c6fd77e7-3682-428e-8154-140308b4a06b.png" alt="Logo" className="h-6" />
           </Link>
+          
+          <div className="hidden md:flex items-center space-x-6 ml-6">
+            {navLinks.map((link) => (
+              <Link
+                key={link.name}
+                to={link.path}
+                className={cn(
+                  "text-sm font-bold tracking-wider transition-colors",
+                  location.pathname === link.path ? "text-white" : "text-gray-300 hover:text-white"
+                )}
+              >
+                {link.name}
+              </Link>
+            ))}
+          </div>
         </div>
 
         <div className="hidden md:flex items-center space-x-3">
@@ -263,9 +278,7 @@ const Header = ({ onLogout }: HeaderProps) => {
                 alt={currentCountry.name} 
                 className="w-4 h-3" 
               />
-              {(isMobile || isTablet) && (
-                <ChevronDown className="w-3 h-3 ml-1" />
-              )}
+              <ChevronDown className="w-3 h-3 ml-1" />
             </button>
             
             {isCountryMenuOpen && renderCountryMenu()}

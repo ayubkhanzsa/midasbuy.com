@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
@@ -6,7 +5,7 @@ import { Filter, ChevronDown, Shield, Lock, FileText, HelpCircle, Info } from "l
 import Header from "@/components/Header";
 import { ucPackages, getSelectedCountry } from "@/data/ucPackages";
 import { Button } from "@/components/ui/button";
-import { useMobile } from "@/hooks/use-mobile";
+import { useMobile, useResponsive } from "@/hooks/use-mobile";
 import { convertAndFormatPrice } from "@/utils/currencyUtils";
 
 interface IndexProps {
@@ -20,7 +19,7 @@ const Index = ({ onLogout }: IndexProps) => {
   const [showPrivacyPolicy, setShowPrivacyPolicy] = useState(false);
   const [selectedCountry, setSelectedCountry] = useState(getSelectedCountry());
   const navigate = useNavigate();
-  const isMobile = useMobile();
+  const { isMobile, isTablet, isDesktop } = useResponsive();
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -30,16 +29,25 @@ const Index = ({ onLogout }: IndexProps) => {
     return () => clearTimeout(timer);
   }, []);
 
-  // Listen for changes to the selected country in localStorage
   useEffect(() => {
-    const handleStorageChange = () => {
+    const handleStorageChange = (e: StorageEvent) => {
+      if (e.key === 'selectedCountry' && e.newValue) {
+        try {
+          setSelectedCountry(JSON.parse(e.newValue));
+        } catch (error) {
+          console.error('Error parsing country from storage event:', error);
+        }
+      }
+    };
+
+    const handleCountryChanged = () => {
       setSelectedCountry(getSelectedCountry());
     };
 
     window.addEventListener('storage', handleStorageChange);
+    window.addEventListener('countryChanged', handleCountryChanged);
+    window.addEventListener('currencyChanged', handleCountryChanged);
 
-    // Check for changes every 2 seconds as a fallback
-    // This helps in case the storage event doesn't fire properly
     const interval = setInterval(() => {
       const current = getSelectedCountry();
       if (current.currency !== selectedCountry.currency) {
@@ -49,11 +57,12 @@ const Index = ({ onLogout }: IndexProps) => {
 
     return () => {
       window.removeEventListener('storage', handleStorageChange);
+      window.removeEventListener('countryChanged', handleCountryChanged);
+      window.removeEventListener('currencyChanged', handleCountryChanged);
       clearInterval(interval);
     };
   }, [selectedCountry]);
 
-  // Check for country changes when the component mounts
   useEffect(() => {
     const storedCountry = getSelectedCountry();
     if (JSON.stringify(storedCountry) !== JSON.stringify(selectedCountry)) {
@@ -229,8 +238,12 @@ const Index = ({ onLogout }: IndexProps) => {
           <img 
             src="/lovable-uploads/28985189-d7e6-4b78-b392-1c1c9fcaff88.png" 
             alt="Banner"
-            className="w-full h-auto object-contain max-h-[300px]"
-            style={{ width: '100%', maxWidth: '1440px' }}
+            className="w-full h-auto object-cover md:object-contain"
+            style={{ 
+              width: '100%', 
+              maxWidth: '1440px',
+              maxHeight: isDesktop ? '350px' : isTablet ? '300px' : '250px'
+            }}
           />
         </div>
         
@@ -255,7 +268,7 @@ const Index = ({ onLogout }: IndexProps) => {
                 </span>
                 <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-white/90 text-black">
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3 mr-1" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                    <path d="M12 2C6.48 2 2 6.44 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
                   </svg>
                   Subscribed
                 </span>

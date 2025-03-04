@@ -46,15 +46,34 @@ export function useTablet(minBreakpoint = 768, maxBreakpoint = 1024): boolean {
   return isTablet;
 }
 
-// Custom hook for responsive design
+// Custom hook for responsive design with improved detection
 export function useResponsive(): { 
   isMobile: boolean; 
   isTablet: boolean; 
   isDesktop: boolean 
 } {
-  const isMobile = useMobile();
-  const isTablet = useTablet();
-  const isDesktop = !isMobile && !isTablet;
+  const [screenSize, setScreenSize] = useState({
+    isMobile: false,
+    isTablet: false,
+    isDesktop: false
+  });
 
-  return { isMobile, isTablet, isDesktop };
+  useEffect(() => {
+    const handleResize = () => {
+      const width = window.innerWidth;
+      setScreenSize({
+        isMobile: width < 768,
+        isTablet: width >= 768 && width < 1024,
+        isDesktop: width >= 1024
+      });
+    };
+
+    // Set initial values
+    handleResize();
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  return screenSize;
 }
