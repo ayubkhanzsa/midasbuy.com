@@ -140,3 +140,31 @@ export const getSelectedCountry = (): { code: string; currency: string } => {
   }
   return { code: 'us', currency: 'USD' }; // Default to US/USD
 };
+
+// Create a broadcasted channel to communicate currency changes
+export const setupCountryChangeListener = (callback: () => void) => {
+  const handleStorageChange = (e: StorageEvent) => {
+    if (e.key === 'selectedCountry') {
+      callback();
+    }
+  };
+  
+  // For direct changes in the same window
+  const handleCustomEvent = () => {
+    callback();
+  };
+  
+  window.addEventListener('storage', handleStorageChange);
+  window.addEventListener('countryChanged', handleCustomEvent);
+  
+  return () => {
+    window.removeEventListener('storage', handleStorageChange);
+    window.removeEventListener('countryChanged', handleCustomEvent);
+  };
+};
+
+// Trigger a custom event when country changes
+export const triggerCountryChangeEvent = () => {
+  const event = new CustomEvent('countryChanged');
+  window.dispatchEvent(event);
+};

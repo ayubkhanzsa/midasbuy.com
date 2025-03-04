@@ -76,3 +76,27 @@ export const convertAndFormatPrice = (priceUSD: number, targetCurrency: string):
   const convertedPrice = convertPrice(priceUSD, targetCurrency);
   return formatPrice(convertedPrice, targetCurrency);
 };
+
+// Function to create a custom event for currency changes
+export const triggerCurrencyChangeEvent = (currency: string) => {
+  const event = new CustomEvent('currencyChange', { 
+    detail: { currency },
+    bubbles: true 
+  });
+  window.dispatchEvent(event);
+};
+
+// Listen for currency changes
+export const setupCurrencyChangeListener = (callback: (currency: string) => void) => {
+  const handler = (event: Event) => {
+    const customEvent = event as CustomEvent<{currency: string}>;
+    callback(customEvent.detail.currency);
+  };
+  
+  window.addEventListener('currencyChange', handler);
+  
+  // Return cleanup function
+  return () => {
+    window.removeEventListener('currencyChange', handler);
+  };
+};
