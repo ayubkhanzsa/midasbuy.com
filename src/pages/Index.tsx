@@ -216,17 +216,17 @@ const Index = ({ onLogout }: IndexProps) => {
           
           <div className="mb-6 overflow-x-auto pb-1">
             <div className="flex min-w-max border-b border-gray-700">
-              <button className="text-white font-medium px-8 py-2 relative active text-sm">
+              <button className="text-white font-medium px-10 py-2 relative active text-sm">
                 PURCHASE
                 <span className="absolute bottom-0 left-0 w-full h-1 bg-midasbuy-blue"></span>
               </button>
-              <button className="text-gray-400 font-medium px-8 py-2 hover:text-gray-200 transition-colors text-sm">
+              <button className="text-gray-400 font-medium px-10 py-2 hover:text-gray-200 transition-colors text-sm">
                 REDEEM
               </button>
-              <button className="text-gray-400 font-medium px-8 py-2 hover:text-gray-200 transition-colors text-sm">
+              <button className="text-gray-400 font-medium px-10 py-2 hover:text-gray-200 transition-colors text-sm">
                 SHOP
               </button>
-              <button className="text-gray-400 font-medium px-8 py-2 hover:text-gray-200 transition-colors text-sm">
+              <button className="text-gray-400 font-medium px-10 py-2 hover:text-gray-200 transition-colors text-sm">
                 EVENTS
               </button>
             </div>

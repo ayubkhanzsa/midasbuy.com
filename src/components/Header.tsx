@@ -1,4 +1,3 @@
-
 import { useState, useEffect, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X, Bell, Globe, ChevronDown } from "lucide-react";
@@ -84,11 +83,10 @@ const Header = ({ onLogout }: HeaderProps) => {
         isScrolled ? "bg-midasbuy-navy/90 backdrop-blur-md shadow-lg" : "bg-transparent"
       )}
     >
-      {/* Background image for header */}
       <div 
         className="absolute inset-0 bg-cover bg-center z-0 overflow-hidden" 
         style={{ 
-          backgroundImage: `url('/lovable-uploads/2cced4ca-687c-4858-af0b-068c255f6fc5.png')`,
+          backgroundImage: `url('/lovable-uploads/6e96cbf9-67f4-4b17-92e7-f5819b7f68db.png')`,
           backgroundSize: 'cover',
           backgroundPosition: 'center top',
           height: '100%',
@@ -103,14 +101,13 @@ const Header = ({ onLogout }: HeaderProps) => {
           </Link>
         </div>
 
-        {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center space-x-6">
+        <nav className="hidden md:flex items-center space-x-10">
           {navLinks.map((link) => (
             <Link
               key={link.name}
               to={link.path}
               className={cn(
-                "nav-link text-sm px-5 py-1",
+                "nav-link text-sm px-6 py-1",
                 location.pathname === link.path ? "text-white active" : ""
               )}
             >
@@ -119,7 +116,6 @@ const Header = ({ onLogout }: HeaderProps) => {
           ))}
         </nav>
 
-        {/* Right side buttons */}
         <div className="hidden md:flex items-center space-x-3">
           <div className="relative" ref={countryMenuRef}>
             <button 
@@ -201,7 +197,6 @@ const Header = ({ onLogout }: HeaderProps) => {
           </button>
         </div>
 
-        {/* Mobile menu button */}
         <div className="md:hidden flex items-center space-x-3">
           <button className="relative p-1 text-gray-300 hover:text-white transition-colors">
             <Bell className="w-4 h-4" />
@@ -222,7 +217,6 @@ const Header = ({ onLogout }: HeaderProps) => {
             
             {isCountryMenuOpen && (
               <div className="absolute right-0 mt-2 w-64 bg-midasbuy-navy border border-gray-700 rounded-md shadow-lg z-50 overflow-hidden">
-                {/* Same content as desktop country menu */}
                 <div className="max-h-96 overflow-y-auto p-2">
                   <div className="flex justify-between items-center mb-3 p-2 border-b border-gray-700">
                     <h3 className="text-white font-bold">COUNTRY/REGION</h3>
@@ -283,7 +277,6 @@ const Header = ({ onLogout }: HeaderProps) => {
         </div>
       </div>
 
-      {/* Mobile menu */}
       <AnimatePresence>
         {isMenuOpen && (
           <motion.div
