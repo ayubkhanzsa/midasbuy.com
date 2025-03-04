@@ -126,3 +126,17 @@ export const ucPackages: UCPackage[] = [
 export const getPackageById = (id: string): UCPackage | undefined => {
   return ucPackages.find(pkg => pkg.id === id);
 };
+
+// Get currently selected country from localStorage
+export const getSelectedCountry = (): { code: string; currency: string } => {
+  try {
+    const savedCountry = localStorage.getItem('selectedCountry');
+    if (savedCountry) {
+      const country = JSON.parse(savedCountry);
+      return { code: country.code, currency: country.currency };
+    }
+  } catch (error) {
+    console.error('Error getting selected country:', error);
+  }
+  return { code: 'us', currency: 'USD' }; // Default to US/USD
+};

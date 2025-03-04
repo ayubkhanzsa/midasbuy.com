@@ -1,13 +1,13 @@
-
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ArrowLeft, AlertCircle, Check } from "lucide-react";
 import Header from "@/components/Header";
-import { getPackageById } from "@/data/ucPackages";
+import { getPackageById, getSelectedCountry } from "@/data/ucPackages";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { toast } from "@/components/ui/use-toast";
+import { convertAndFormatPrice } from "@/utils/currencyUtils";
 
 interface PurchasePageProps {
   onLogout: () => void;
@@ -20,6 +20,7 @@ const PurchasePage = ({ onLogout }: PurchasePageProps) => {
   const [playerID, setPlayerID] = useState("");
   const [isPlayerIDValid, setIsPlayerIDValid] = useState(false);
   const [isVerifying, setIsVerifying] = useState(false);
+  const [selectedCountry, setSelectedCountry] = useState(getSelectedCountry());
 
   const ucPackage = id ? getPackageById(id) : undefined;
 
@@ -36,6 +37,34 @@ const PurchasePage = ({ onLogout }: PurchasePageProps) => {
 
     return () => clearTimeout(timer);
   }, [ucPackage, navigate]);
+
+  useEffect(() => {
+    const handleStorageChange = () => {
+      setSelectedCountry(getSelectedCountry());
+    };
+
+    window.addEventListener('storage', handleStorageChange);
+
+    // Check for changes every 2 seconds as a fallback
+    const interval = setInterval(() => {
+      const current = getSelectedCountry();
+      if (current.currency !== selectedCountry.currency) {
+        setSelectedCountry(current);
+      }
+    }, 2000);
+
+    // Load saved player ID from localStorage
+    const savedPlayerID = localStorage.getItem("playerID");
+    if (savedPlayerID) {
+      setPlayerID(savedPlayerID);
+      setIsPlayerIDValid(true);
+    }
+
+    return () => {
+      window.removeEventListener('storage', handleStorageChange);
+      clearInterval(interval);
+    };
+  }, [selectedCountry]);
 
   const handleVerifyPlayerID = () => {
     if (!playerID || playerID.length < 8) {
@@ -226,10 +255,12 @@ const PurchasePage = ({ onLogout }: PurchasePageProps) => {
                     </div>
                     
                     <div className="mt-1">
-                      <span className="text-midasbuy-gold font-medium">{ucPackage.price.toFixed(2)} USD</span>
+                      <span className="text-midasbuy-gold font-medium">
+                        {convertAndFormatPrice(ucPackage.price, selectedCountry.currency)}
+                      </span>
                       {ucPackage.originalPrice > ucPackage.price && (
                         <span className="text-gray-400 line-through text-sm ml-2">
-                          {ucPackage.originalPrice.toFixed(2)} USD
+                          {convertAndFormatPrice(ucPackage.originalPrice, selectedCountry.currency)}
                         </span>
                       )}
                     </div>
@@ -239,19 +270,23 @@ const PurchasePage = ({ onLogout }: PurchasePageProps) => {
                 <div className="space-y-3 mb-6">
                   <div className="flex justify-between text-sm">
                     <span className="text-gray-300">Subtotal</span>
-                    <span className="text-white">{ucPackage.price.toFixed(2)} USD</span>
+                    <span className="text-white">
+                      {convertAndFormatPrice(ucPackage.price, selectedCountry.currency)}
+                    </span>
                   </div>
                   
                   <div className="flex justify-between text-sm">
                     <span className="text-gray-300">Taxes</span>
-                    <span className="text-white">0.00 USD</span>
+                    <span className="text-white">
+                      {convertAndFormatPrice(0.00, selectedCountry.currency)}
+                    </span>
                   </div>
                   
                   {ucPackage.originalPrice > ucPackage.price && (
                     <div className="flex justify-between text-sm">
                       <span className="text-midasbuy-gold">Discount</span>
                       <span className="text-midasbuy-gold">
-                        -{(ucPackage.originalPrice - ucPackage.price).toFixed(2)} USD
+                        -{convertAndFormatPrice(ucPackage.originalPrice - ucPackage.price, selectedCountry.currency)}
                       </span>
                     </div>
                   )}
@@ -259,7 +294,9 @@ const PurchasePage = ({ onLogout }: PurchasePageProps) => {
                 
                 <div className="flex justify-between mb-6 pb-2 border-b border-gray-700">
                   <span className="font-bold text-white">Total</span>
-                  <span className="font-bold text-midasbuy-gold text-xl">{ucPackage.price.toFixed(2)} USD</span>
+                  <span className="font-bold text-midasbuy-gold text-xl">
+                    {convertAndFormatPrice(ucPackage.price, selectedCountry.currency)}
+                  </span>
                 </div>
                 
                 <Button 

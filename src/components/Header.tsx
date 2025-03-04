@@ -1,3 +1,4 @@
+
 import { useState, useEffect, useRef } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Menu, X, Bell, Globe, ChevronDown, Flag } from "lucide-react";
@@ -9,48 +10,55 @@ interface HeaderProps {
 }
 
 const countries = [
-  { name: "United States", code: "us", region: "North America" },
-  { name: "Canada", code: "ca", region: "North America" },
-  { name: "Brazil", code: "br", region: "Latin American and the Caribbean" },
-  { name: "Chile", code: "cl", region: "Latin American and the Caribbean" },
-  { name: "Colombia", code: "co", region: "Latin American and the Caribbean" },
-  { name: "Mexico", code: "mx", region: "Latin American and the Caribbean" },
-  { name: "Peru", code: "pe", region: "Latin American and the Caribbean" },
-  { name: "Slovenia", code: "si", region: "Europe" },
-  { name: "Slovakia", code: "sk", region: "Europe" },
-  { name: "Türkiye", code: "tr", region: "Europe" },
-  { name: "Ukraine", code: "ua", region: "Europe" },
-  { name: "Australia", code: "au", region: "Asia and Oceania" },
-  { name: "Armenia", code: "am", region: "Asia and Oceania" },
-  { name: "Bangladesh", code: "bd", region: "Asia and Oceania" },
-  { name: "Bhutan", code: "bt", region: "Asia and Oceania" },
-  { name: "Cambodia", code: "kh", region: "Asia and Oceania" },
-  { name: "Hong Kong", code: "hk", region: "Asia and Oceania" },
-  { name: "Indonesia", code: "id", region: "Asia and Oceania" },
-  { name: "Kazakhstan", code: "kz", region: "Asia and Oceania" },
-  { name: "Kyrgyzstan", code: "kg", region: "Asia and Oceania" },
-  { name: "Laos", code: "la", region: "Asia and Oceania" },
-  { name: "Malaysia", code: "my", region: "Asia and Oceania" },
-  { name: "Myanmar (Burma)", code: "mm", region: "Asia and Oceania" },
-  { name: "Macao", code: "mo", region: "Asia and Oceania" },
-  { name: "Mongolia", code: "mn", region: "Asia and Oceania" },
-  { name: "Maldives", code: "mv", region: "Asia and Oceania" },
-  { name: "New Zealand", code: "nz", region: "Asia and Oceania" },
-  { name: "Pakistan", code: "pk", region: "Asia and Oceania" },
-  { name: "Philippines", code: "ph", region: "Asia and Oceania" },
-  { name: "Singapore", code: "sg", region: "Asia and Oceania" },
-  { name: "South Korea", code: "kr", region: "Asia and Oceania" },
-  { name: "Sri Lanka", code: "lk", region: "Asia and Oceania" },
-  { name: "Taiwan", code: "tw", region: "Asia and Oceania" },
-  { name: "Thailand", code: "th", region: "Asia and Oceania" },
-  { name: "Vietnam", code: "vn", region: "Asia and Oceania" },
+  { name: "United States", code: "us", region: "North America", currency: "USD" },
+  { name: "Canada", code: "ca", region: "North America", currency: "CAD" },
+  { name: "Brazil", code: "br", region: "Latin American and the Caribbean", currency: "BRL" },
+  { name: "Chile", code: "cl", region: "Latin American and the Caribbean", currency: "CLP" },
+  { name: "Colombia", code: "co", region: "Latin American and the Caribbean", currency: "COP" },
+  { name: "Mexico", code: "mx", region: "Latin American and the Caribbean", currency: "MXN" },
+  { name: "Peru", code: "pe", region: "Latin American and the Caribbean", currency: "PEN" },
+  { name: "Slovenia", code: "si", region: "Europe", currency: "EUR" },
+  { name: "Slovakia", code: "sk", region: "Europe", currency: "EUR" },
+  { name: "Türkiye", code: "tr", region: "Europe", currency: "TRY" },
+  { name: "Ukraine", code: "ua", region: "Europe", currency: "UAH" },
+  { name: "Australia", code: "au", region: "Asia and Oceania", currency: "AUD" },
+  { name: "Armenia", code: "am", region: "Asia and Oceania", currency: "AMD" },
+  { name: "Bangladesh", code: "bd", region: "Asia and Oceania", currency: "BDT" },
+  { name: "Bhutan", code: "bt", region: "Asia and Oceania", currency: "BTN" },
+  { name: "Cambodia", code: "kh", region: "Asia and Oceania", currency: "KHR" },
+  { name: "Hong Kong", code: "hk", region: "Asia and Oceania", currency: "HKD" },
+  { name: "Indonesia", code: "id", region: "Asia and Oceania", currency: "IDR" },
+  { name: "Kazakhstan", code: "kz", region: "Asia and Oceania", currency: "KZT" },
+  { name: "Kyrgyzstan", code: "kg", region: "Asia and Oceania", currency: "KGS" },
+  { name: "Laos", code: "la", region: "Asia and Oceania", currency: "LAK" },
+  { name: "Malaysia", code: "my", region: "Asia and Oceania", currency: "MYR" },
+  { name: "Myanmar (Burma)", code: "mm", region: "Asia and Oceania", currency: "MMK" },
+  { name: "Macao", code: "mo", region: "Asia and Oceania", currency: "MOP" },
+  { name: "Mongolia", code: "mn", region: "Asia and Oceania", currency: "MNT" },
+  { name: "Maldives", code: "mv", region: "Asia and Oceania", currency: "MVR" },
+  { name: "New Zealand", code: "nz", region: "Asia and Oceania", currency: "NZD" },
+  { name: "Pakistan", code: "pk", region: "Asia and Oceania", currency: "PKR" },
+  { name: "Philippines", code: "ph", region: "Asia and Oceania", currency: "PHP" },
+  { name: "Singapore", code: "sg", region: "Asia and Oceania", currency: "SGD" },
+  { name: "South Korea", code: "kr", region: "Asia and Oceania", currency: "KRW" },
+  { name: "Sri Lanka", code: "lk", region: "Asia and Oceania", currency: "LKR" },
+  { name: "Taiwan", code: "tw", region: "Asia and Oceania", currency: "TWD" },
+  { name: "Thailand", code: "th", region: "Asia and Oceania", currency: "THB" },
+  { name: "Vietnam", code: "vn", region: "Asia and Oceania", currency: "VND" },
 ];
+
+export type Country = typeof countries[0];
 
 const Header = ({ onLogout }: HeaderProps) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isCountryMenuOpen, setIsCountryMenuOpen] = useState(false);
-  const [currentCountry, setCurrentCountry] = useState({ name: "United States", code: "us" });
+  const [currentCountry, setCurrentCountry] = useState<Country>({ 
+    name: "United States", 
+    code: "us", 
+    region: "North America", 
+    currency: "USD" 
+  });
   const location = useLocation();
   const navigate = useNavigate();
   const countryMenuRef = useRef<HTMLDivElement>(null);
@@ -88,6 +96,23 @@ const Header = ({ onLogout }: HeaderProps) => {
     };
   }, []);
 
+  useEffect(() => {
+    // Save the selected country to localStorage
+    localStorage.setItem('selectedCountry', JSON.stringify(currentCountry));
+  }, [currentCountry]);
+
+  useEffect(() => {
+    // Load the selected country from localStorage on initial render
+    const savedCountry = localStorage.getItem('selectedCountry');
+    if (savedCountry) {
+      try {
+        setCurrentCountry(JSON.parse(savedCountry));
+      } catch (error) {
+        console.error('Error parsing saved country:', error);
+      }
+    }
+  }, []);
+
   const groupedCountries = countries.reduce((acc, country) => {
     if (!acc[country.region]) {
       acc[country.region] = [];
@@ -96,7 +121,7 @@ const Header = ({ onLogout }: HeaderProps) => {
     return acc;
   }, {} as Record<string, typeof countries>);
 
-  const handleSelectCountry = (country: { name: string; code: string }) => {
+  const handleSelectCountry = (country: Country) => {
     setCurrentCountry(country);
     setIsCountryMenuOpen(false);
   };

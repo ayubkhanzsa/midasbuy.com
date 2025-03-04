@@ -4,9 +4,10 @@ import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Filter, ChevronDown, Shield, Lock, FileText, HelpCircle, Info } from "lucide-react";
 import Header from "@/components/Header";
-import { ucPackages } from "@/data/ucPackages";
+import { ucPackages, getSelectedCountry } from "@/data/ucPackages";
 import { Button } from "@/components/ui/button";
 import { useMobile } from "@/hooks/use-mobile";
+import { convertAndFormatPrice } from "@/utils/currencyUtils";
 
 interface IndexProps {
   onLogout: () => void;
@@ -17,6 +18,7 @@ const Index = ({ onLogout }: IndexProps) => {
   const [showPromotion, setShowPromotion] = useState(true);
   const [filter, setFilter] = useState("all");
   const [showPrivacyPolicy, setShowPrivacyPolicy] = useState(false);
+  const [selectedCountry, setSelectedCountry] = useState(getSelectedCountry());
   const navigate = useNavigate();
   const isMobile = useMobile();
 
@@ -26,6 +28,37 @@ const Index = ({ onLogout }: IndexProps) => {
     }, 1200);
 
     return () => clearTimeout(timer);
+  }, []);
+
+  // Listen for changes to the selected country in localStorage
+  useEffect(() => {
+    const handleStorageChange = () => {
+      setSelectedCountry(getSelectedCountry());
+    };
+
+    window.addEventListener('storage', handleStorageChange);
+
+    // Check for changes every 2 seconds as a fallback
+    // This helps in case the storage event doesn't fire properly
+    const interval = setInterval(() => {
+      const current = getSelectedCountry();
+      if (current.currency !== selectedCountry.currency) {
+        setSelectedCountry(current);
+      }
+    }, 2000);
+
+    return () => {
+      window.removeEventListener('storage', handleStorageChange);
+      clearInterval(interval);
+    };
+  }, [selectedCountry]);
+
+  // Check for country changes when the component mounts
+  useEffect(() => {
+    const storedCountry = getSelectedCountry();
+    if (JSON.stringify(storedCountry) !== JSON.stringify(selectedCountry)) {
+      setSelectedCountry(storedCountry);
+    }
   }, []);
 
   if (isLoading) {
@@ -371,17 +404,21 @@ const Index = ({ onLogout }: IndexProps) => {
                       
                       <div className="flex flex-col">
                         {pkg.baseAmount <= 600 ? (
-                          <span className="text-xl font-bold text-white">${pkg.price.toFixed(2)} USD</span>
+                          <span className="text-xl font-bold text-white">
+                            {convertAndFormatPrice(pkg.price, selectedCountry.currency)}
+                          </span>
                         ) : (
                           <>
                             <span className="text-gray-400 text-sm">From</span>
-                            <span className="text-xl font-bold text-white">${pkg.price.toFixed(2)} USD</span>
+                            <span className="text-xl font-bold text-white">
+                              {convertAndFormatPrice(pkg.price, selectedCountry.currency)}
+                            </span>
                           </>
                         )}
                         
                         {pkg.originalPrice > pkg.price && (
                           <span className="text-sm text-gray-400 line-through">
-                            ${pkg.originalPrice.toFixed(2)} USD
+                            {convertAndFormatPrice(pkg.originalPrice, selectedCountry.currency)}
                           </span>
                         )}
                       </div>
