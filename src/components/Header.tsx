@@ -107,20 +107,7 @@ const Header = ({ onLogout }: HeaderProps) => {
           </Link>
         </div>
 
-        <nav className="hidden md:flex items-center space-x-16">
-          {navLinks.map((link) => (
-            <Link
-              key={link.name}
-              to={link.path}
-              className={cn(
-                "nav-link text-base font-bold tracking-wider px-6 py-1",
-                location.pathname === link.path ? "text-white active" : "text-gray-400 hover:text-white"
-              )}
-            >
-              {link.name}
-            </Link>
-          ))}
-        </nav>
+        {/* Removed navigation links from the top header */}
 
         <div className="hidden md:flex items-center space-x-3">
           <div className="relative" ref={countryMenuRef}>

@@ -319,10 +319,11 @@ const Index = ({ onLogout }: IndexProps) => {
                 <Link to={`/purchase/${pkg.id}`} className="block">
                   <div className="bg-midasbuy-navy rounded-lg overflow-hidden h-full transition-all duration-300 hover:shadow-[0_0_15px_rgba(0,145,255,0.3)] border border-midasbuy-navy hover:border-midasbuy-blue/50">
                     <div className="p-4 flex justify-center">
+                      {/* Make images smaller for specific packages */}
                       <motion.img 
                         src={pkg.image}
                         alt="UC Coins" 
-                        className="h-20 object-contain"
+                        className={`object-contain ${['60uc', '300uc', '600uc', '1500uc'].includes(pkg.id) ? 'h-16' : 'h-20'}`}
                         animate={{ 
                           y: [0, -8, 0, 8, 0] 
                         }}
