@@ -1,3 +1,4 @@
+
 import { useState, useEffect, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X, Bell, Globe, ChevronDown } from "lucide-react";
@@ -101,13 +102,13 @@ const Header = ({ onLogout }: HeaderProps) => {
           </Link>
         </div>
 
-        <nav className="hidden md:flex items-center space-x-10">
+        <nav className="hidden md:flex items-center space-x-14">
           {navLinks.map((link) => (
             <Link
               key={link.name}
               to={link.path}
               className={cn(
-                "nav-link text-sm px-6 py-1",
+                "nav-link text-sm font-bold tracking-wide px-6 py-1",
                 location.pathname === link.path ? "text-white active" : ""
               )}
             >
@@ -293,7 +294,7 @@ const Header = ({ onLogout }: HeaderProps) => {
                     key={link.name}
                     to={link.path}
                     className={cn(
-                      "py-2 px-3 rounded-md text-gray-300 hover:text-white hover:bg-midasbuy-blue/10 transition-colors",
+                      "py-2 px-3 rounded-md text-gray-300 hover:text-white hover:bg-midasbuy-blue/10 transition-colors font-bold tracking-wide",
                       location.pathname === link.path ? "bg-midasbuy-blue/20 text-white" : ""
                     )}
                   >

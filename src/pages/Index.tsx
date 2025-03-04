@@ -216,17 +216,17 @@ const Index = ({ onLogout }: IndexProps) => {
           
           <div className="mb-6 overflow-x-auto pb-1">
             <div className="flex min-w-max border-b border-gray-700">
-              <button className="text-white font-medium px-10 py-2 relative active text-sm">
+              <button className="text-white font-bold tracking-wide px-14 py-2 relative active text-sm">
                 PURCHASE
                 <span className="absolute bottom-0 left-0 w-full h-1 bg-midasbuy-blue"></span>
               </button>
-              <button className="text-gray-400 font-medium px-10 py-2 hover:text-gray-200 transition-colors text-sm">
+              <button className="text-gray-400 font-bold tracking-wide px-14 py-2 hover:text-gray-200 transition-colors text-sm">
                 REDEEM
               </button>
-              <button className="text-gray-400 font-medium px-10 py-2 hover:text-gray-200 transition-colors text-sm">
+              <button className="text-gray-400 font-bold tracking-wide px-14 py-2 hover:text-gray-200 transition-colors text-sm">
                 SHOP
               </button>
-              <button className="text-gray-400 font-medium px-10 py-2 hover:text-gray-200 transition-colors text-sm">
+              <button className="text-gray-400 font-bold tracking-wide px-14 py-2 hover:text-gray-200 transition-colors text-sm">
                 EVENTS
               </button>
             </div>
@@ -302,7 +302,9 @@ const Index = ({ onLogout }: IndexProps) => {
                   <div className="bg-midasbuy-navy rounded-lg overflow-hidden h-full transition-all duration-300 hover:shadow-[0_0_15px_rgba(0,145,255,0.3)] border border-midasbuy-navy hover:border-midasbuy-blue/50">
                     <div className="p-4 flex justify-center">
                       <motion.img 
-                        src={pkg.image} 
+                        src={pkg.id === "60uc" || pkg.id === "300uc" || pkg.id === "1500uc" 
+                          ? "/lovable-uploads/f28ecc33-32f2-4b1a-b70b-bc28a972f593.png" 
+                          : pkg.image} 
                         alt="UC Coins" 
                         className="h-24 object-contain"
                         animate={{ 
