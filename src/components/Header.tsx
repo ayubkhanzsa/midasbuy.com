@@ -84,7 +84,19 @@ const Header = ({ onLogout }: HeaderProps) => {
         isScrolled ? "bg-midasbuy-navy/90 backdrop-blur-md shadow-lg" : "bg-transparent"
       )}
     >
-      <div className="container mx-auto px-4 py-2 flex items-center justify-between">
+      {/* Background image for header */}
+      <div 
+        className="absolute inset-0 bg-cover bg-center z-0 overflow-hidden" 
+        style={{ 
+          backgroundImage: `url('/lovable-uploads/e7ecfb2d-5c0d-4216-9b67-8c7c32038ce8.png')`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center top',
+          height: '100%',
+          width: '100%'
+        }}
+      ></div>
+      
+      <div className="container mx-auto px-4 py-2 flex items-center justify-between relative z-10">
         <div className="flex items-center">
           <Link to="/" className="mr-4">
             <img src="/lovable-uploads/c6fd77e7-3682-428e-8154-140308b4a06b.png" alt="Logo" className="h-6" />
@@ -92,13 +104,13 @@ const Header = ({ onLogout }: HeaderProps) => {
         </div>
 
         {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center space-x-1">
+        <nav className="hidden md:flex items-center space-x-3">
           {navLinks.map((link) => (
             <Link
               key={link.name}
               to={link.path}
               className={cn(
-                "nav-link text-sm px-3 py-1",
+                "nav-link text-sm px-4 py-1",
                 location.pathname === link.path ? "text-white active" : ""
               )}
             >
@@ -279,7 +291,7 @@ const Header = ({ onLogout }: HeaderProps) => {
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3 }}
-            className="md:hidden bg-midasbuy-navy/95 backdrop-blur-md border-t border-gray-800"
+            className="md:hidden bg-midasbuy-navy/95 backdrop-blur-md border-t border-gray-800 relative z-10"
           >
             <div className="container mx-auto px-4 py-3">
               <nav className="flex flex-col space-y-3">

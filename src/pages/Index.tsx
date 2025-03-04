@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
@@ -186,19 +185,19 @@ const Index = ({ onLogout }: IndexProps) => {
                 <img 
                   src="/lovable-uploads/072f88f4-7402-4591-b3e4-11f57bb0e9ea.png" 
                   alt="PUBG Mobile" 
-                  className="w-[35px] mr-3 rounded-md" /* Increased logo size */
+                  className="w-[35px] mr-3 rounded-md"
                 />
-                <h1 className="text-3xl md:text-4xl text-white font-bold tracking-wide">PUBG MOBILE</h1> {/* Increased heading size */}
+                <h1 className="text-3xl md:text-4xl text-white font-bold tracking-wide">PUBG MOBILE</h1>
               </div>
               
               <div className="flex items-center space-x-2 mb-3">
-                <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-white/90 text-black"> {/* Reduced badges size */}
+                <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-white/90 text-black">
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3 mr-1" viewBox="0 0 24 24" fill="currentColor">
                     <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
                   </svg>
                   Official
                 </span>
-                <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-white/90 text-black"> {/* Reduced badges size */}
+                <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-white/90 text-black">
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3 mr-1" viewBox="0 0 24 24" fill="currentColor">
                     <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
                   </svg>
@@ -217,17 +216,17 @@ const Index = ({ onLogout }: IndexProps) => {
           
           <div className="mb-6 overflow-x-auto pb-1">
             <div className="flex min-w-max border-b border-gray-700">
-              <button className="text-white font-medium px-4 py-2 relative active text-sm">
+              <button className="text-white font-medium px-6 py-2 relative active text-sm">
                 PURCHASE
                 <span className="absolute bottom-0 left-0 w-full h-1 bg-midasbuy-blue"></span>
               </button>
-              <button className="text-gray-400 font-medium px-4 py-2 hover:text-gray-200 transition-colors text-sm">
+              <button className="text-gray-400 font-medium px-6 py-2 hover:text-gray-200 transition-colors text-sm">
                 REDEEM
               </button>
-              <button className="text-gray-400 font-medium px-4 py-2 hover:text-gray-200 transition-colors text-sm">
+              <button className="text-gray-400 font-medium px-6 py-2 hover:text-gray-200 transition-colors text-sm">
                 SHOP
               </button>
-              <button className="text-gray-400 font-medium px-4 py-2 hover:text-gray-200 transition-colors text-sm">
+              <button className="text-gray-400 font-medium px-6 py-2 hover:text-gray-200 transition-colors text-sm">
                 EVENTS
               </button>
             </div>
