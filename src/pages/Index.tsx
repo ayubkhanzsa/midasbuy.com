@@ -191,9 +191,14 @@ const Index = ({ onLogout }: IndexProps) => {
       <Header onLogout={onLogout} />
       
       <main className="pt-20 pb-20 relative z-10">
+        <div 
+          className="absolute top-0 left-0 w-full h-[300px] -z-0 bg-cover bg-center opacity-70"
+          style={{ backgroundImage: 'url("/lovable-uploads/8227e2e3-53c4-4ef4-8679-5617d212ef02.png")' }}
+        ></div>
+        
         <div className="container mx-auto px-4">
-          <div className="flex flex-col md:flex-row items-start mb-6">
-            <div className="flex-grow">
+          <div className="flex flex-col md:flex-row items-start mb-6 relative">
+            <div className="flex-grow z-10">
               <div className="flex items-center mb-3">
                 <img 
                   src="/lovable-uploads/072f88f4-7402-4591-b3e4-11f57bb0e9ea.png" 
