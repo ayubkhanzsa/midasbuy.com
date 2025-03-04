@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
@@ -191,10 +192,14 @@ const Index = ({ onLogout }: IndexProps) => {
       <Header onLogout={onLogout} />
       
       <main className="pt-20 pb-20 relative z-10">
-        <div 
-          className="absolute top-0 left-0 w-full h-[200px] -z-0 bg-cover bg-center"
-          style={{ backgroundImage: 'url("/lovable-uploads/28985189-d7e6-4b78-b392-1c1c9fcaff88.png")' }}
-        ></div>
+        <div className="absolute top-0 left-0 w-full flex justify-center items-center">
+          <img 
+            src="/lovable-uploads/28985189-d7e6-4b78-b392-1c1c9fcaff88.png" 
+            alt="Banner"
+            className="w-full h-auto object-contain max-h-[200px]"
+            style={{ maxWidth: '100%' }}
+          />
+        </div>
         
         <div className="container mx-auto px-4">
           <div className="flex flex-col md:flex-row items-start mb-6 relative">
