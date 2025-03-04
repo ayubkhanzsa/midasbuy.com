@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
@@ -179,7 +178,6 @@ const Index = ({ onLogout }: IndexProps) => {
 
   return (
     <div className="min-h-screen bg-midasbuy-darkBlue overflow-x-hidden relative">
-      {/* Banner for tablet and mobile */}
       {isMobile && (
         <div className="absolute top-0 right-0 h-[calc(100vh-200px)] z-10 pointer-events-none">
           <img 
@@ -187,16 +185,6 @@ const Index = ({ onLogout }: IndexProps) => {
             alt="Banner" 
             className="h-full object-contain"
           />
-        </div>
-      )}
-      
-      {/* Banner background for PC */}
-      {!isMobile && (
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div 
-            className="absolute top-0 right-0 w-full h-[100vh] bg-cover bg-right opacity-15 z-0"
-            style={{ backgroundImage: "url('/lovable-uploads/f28ecc33-32f2-4b1a-b70b-bc28a972f593.png')" }}
-          ></div>
         </div>
       )}
       
