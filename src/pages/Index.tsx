@@ -178,7 +178,6 @@ const Index = ({ onLogout }: IndexProps) => {
 
   return (
     <div className="min-h-screen bg-midasbuy-darkBlue overflow-x-hidden relative">
-      {/* Banner for tablet and mobile */}
       {isMobile && (
         <div className="absolute top-0 right-0 h-[calc(100vh-200px)] z-10 pointer-events-none">
           <img 
@@ -188,10 +187,6 @@ const Index = ({ onLogout }: IndexProps) => {
           />
         </div>
       )}
-      
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-0 w-full h-[70vh] bg-hero-pattern bg-cover bg-center opacity-20 z-0"></div>
-      </div>
       
       <Header onLogout={onLogout} />
       
