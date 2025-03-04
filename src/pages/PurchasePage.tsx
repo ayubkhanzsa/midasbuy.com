@@ -1,7 +1,8 @@
+
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { ArrowLeft, AlertCircle, Check } from "lucide-react";
+import { ArrowLeft, AlertCircle, Check, RefreshCw, User, Shield } from "lucide-react";
 import Header from "@/components/Header";
 import { getPackageById, getSelectedCountry, setupCountryChangeListener } from "@/data/ucPackages";
 import { Input } from "@/components/ui/input";
@@ -9,6 +10,7 @@ import { Button } from "@/components/ui/button";
 import { toast } from "@/components/ui/use-toast";
 import { convertAndFormatPrice, setupCurrencyChangeListener } from "@/utils/currencyUtils";
 import { useResponsive } from "@/hooks/use-mobile";
+import { Label } from "@/components/ui/label";
 
 interface PurchasePageProps {
   onLogout: () => void;
@@ -101,6 +103,23 @@ const PurchasePage = ({ onLogout }: PurchasePageProps) => {
     }, 1500);
   };
 
+  const handleResetPlayerID = () => {
+    setPlayerID("");
+    setIsPlayerIDValid(false);
+    localStorage.removeItem("playerID");
+    
+    toast({
+      title: "Player ID Reset",
+      description: "Please enter a new Player ID",
+    });
+  };
+
+  const handleBackToHome = () => {
+    // Clear the verified player ID when going back
+    localStorage.removeItem("playerID");
+    navigate("/");
+  };
+
   const handleProceedToCheckout = () => {
     if (!isPlayerIDValid) {
       toast({
@@ -139,7 +158,7 @@ const PurchasePage = ({ onLogout }: PurchasePageProps) => {
         <div className="container mx-auto px-4">
           <div className="mb-4">
             <button 
-              onClick={() => navigate(-1)}
+              onClick={handleBackToHome}
               className="inline-flex items-center text-gray-300 hover:text-white transition-colors"
             >
               <ArrowLeft className="w-5 h-5 mr-2" />
@@ -154,18 +173,27 @@ const PurchasePage = ({ onLogout }: PurchasePageProps) => {
                 animate={{ opacity: 1, y: 0 }}
                 className="glass-effect rounded-xl p-6 mb-6"
               >
-                <h2 className="text-xl font-bold mb-4 text-white">Player Information</h2>
+                <div className="flex items-center justify-between mb-4">
+                  <h2 className="text-xl font-bold text-white flex items-center">
+                    <User className="w-5 h-5 mr-2 text-midasbuy-blue" />
+                    Player Information
+                  </h2>
+                  <div className="bg-midasbuy-navy/50 px-3 py-1 rounded-full text-xs text-gray-300 flex items-center">
+                    <Shield className="w-3 h-3 mr-1 text-midasbuy-blue" />
+                    Secure Verification
+                  </div>
+                </div>
                 
-                <div className="mb-6">
+                <div className="mb-6 bg-midasbuy-navy/30 p-4 rounded-lg border border-midasbuy-blue/20">
                   <div className="flex items-center mb-1">
-                    <label htmlFor="playerID" className="block text-sm font-medium text-gray-300 mr-2">
-                      Player ID
-                    </label>
-                    {isPlayerIDValid && (
-                      <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-green-500/20 text-green-400">
-                        <Check className="w-3 h-3 mr-1" /> Verified
-                      </span>
-                    )}
+                    <Label htmlFor="playerID" className="block text-sm font-medium text-white mr-2 flex items-center">
+                      PUBG Mobile Player ID
+                      {isPlayerIDValid && (
+                        <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-green-500/20 text-green-400 ml-2">
+                          <Check className="w-3 h-3 mr-1" /> Verified
+                        </span>
+                      )}
+                    </Label>
                   </div>
                   
                   <div className="flex">
@@ -181,12 +209,23 @@ const PurchasePage = ({ onLogout }: PurchasePageProps) => {
                         className="bg-midasbuy-navy/50 border-midasbuy-blue/30 text-white focus:border-midasbuy-blue focus:ring-midasbuy-blue/20"
                         disabled={isPlayerIDValid}
                       />
+                      {isPlayerIDValid && (
+                        <button
+                          onClick={handleResetPlayerID}
+                          className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-midasbuy-blue transition-colors"
+                          title="Reset Player ID"
+                        >
+                          <RefreshCw className="w-4 h-4" />
+                        </button>
+                      )}
                     </div>
                     
                     <Button 
-                      className="ml-2 bg-midasbuy-blue hover:bg-blue-600 text-white"
-                      onClick={handleVerifyPlayerID}
-                      disabled={isVerifying || isPlayerIDValid || !playerID}
+                      className={`ml-2 ${isPlayerIDValid 
+                        ? 'bg-green-600 hover:bg-green-700' 
+                        : 'bg-midasbuy-blue hover:bg-blue-600'} text-white`}
+                      onClick={isPlayerIDValid ? handleResetPlayerID : handleVerifyPlayerID}
+                      disabled={isVerifying || (!isPlayerIDValid && !playerID)}
                     >
                       {isVerifying ? (
                         <>
@@ -195,18 +234,21 @@ const PurchasePage = ({ onLogout }: PurchasePageProps) => {
                         </>
                       ) : isPlayerIDValid ? (
                         <>
-                          <Check className="w-4 h-4 mr-1" /> Verified
+                          <RefreshCw className="w-4 h-4 mr-1" /> Reset ID
                         </>
                       ) : (
-                        "Verify"
+                        <>
+                          <Shield className="w-4 h-4 mr-1" /> Verify
+                        </>
                       )}
                     </Button>
                   </div>
                   
-                  <div className="mt-2 flex items-start">
-                    <AlertCircle className="w-4 h-4 text-gray-400 mr-2 flex-shrink-0 mt-0.5" />
-                    <p className="text-xs text-gray-400">
-                      Your Player ID can be found in your PUBG Mobile game. Go to your profile and copy the ID number.
+                  <div className="mt-3 flex items-start">
+                    <AlertCircle className="w-4 h-4 text-midasbuy-gold mr-2 flex-shrink-0 mt-0.5" />
+                    <p className="text-xs text-gray-300">
+                      Your Player ID can be found in your PUBG Mobile game. Go to your profile and copy the ID number. 
+                      This ID is required to deliver UC directly to your account.
                     </p>
                   </div>
                 </div>
@@ -221,17 +263,21 @@ const PurchasePage = ({ onLogout }: PurchasePageProps) => {
                 <h2 className="text-xl font-bold mb-4 text-white">Important Information</h2>
                 
                 <div className="space-y-4 text-sm text-gray-300">
-                  <p>
-                    • UC will be directly added to the PUBG Mobile account with the Player ID you provide.
+                  <p className="flex items-start">
+                    <span className="text-midasbuy-gold mr-2">•</span>
+                    UC will be directly added to the PUBG Mobile account with the Player ID you provide.
                   </p>
-                  <p>
-                    • Please ensure that the Player ID is correct before proceeding with the purchase.
+                  <p className="flex items-start">
+                    <span className="text-midasbuy-gold mr-2">•</span>
+                    Please ensure that the Player ID is correct before proceeding with the purchase.
                   </p>
-                  <p>
-                    • UC delivery is instant but may take up to 5 minutes in some cases.
+                  <p className="flex items-start">
+                    <span className="text-midasbuy-gold mr-2">•</span>
+                    UC delivery is instant but may take up to 5 minutes in some cases.
                   </p>
-                  <p>
-                    • For any issues with your purchase, please contact our support team.
+                  <p className="flex items-start">
+                    <span className="text-midasbuy-gold mr-2">•</span>
+                    For any issues with your purchase, please contact our support team.
                   </p>
                 </div>
               </motion.div>
