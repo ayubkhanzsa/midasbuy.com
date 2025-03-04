@@ -1,7 +1,6 @@
-
 import { useState, useEffect, useRef } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { Menu, X, Bell, Globe, ChevronDown } from "lucide-react";
+import { Menu, X, Bell, Globe, ChevronDown, Flag } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 
@@ -21,6 +20,30 @@ const countries = [
   { name: "Slovakia", code: "sk", region: "Europe" },
   { name: "Türkiye", code: "tr", region: "Europe" },
   { name: "Ukraine", code: "ua", region: "Europe" },
+  { name: "Australia", code: "au", region: "Asia and Oceania" },
+  { name: "Armenia", code: "am", region: "Asia and Oceania" },
+  { name: "Bangladesh", code: "bd", region: "Asia and Oceania" },
+  { name: "Bhutan", code: "bt", region: "Asia and Oceania" },
+  { name: "Cambodia", code: "kh", region: "Asia and Oceania" },
+  { name: "Hong Kong", code: "hk", region: "Asia and Oceania" },
+  { name: "Indonesia", code: "id", region: "Asia and Oceania" },
+  { name: "Kazakhstan", code: "kz", region: "Asia and Oceania" },
+  { name: "Kyrgyzstan", code: "kg", region: "Asia and Oceania" },
+  { name: "Laos", code: "la", region: "Asia and Oceania" },
+  { name: "Malaysia", code: "my", region: "Asia and Oceania" },
+  { name: "Myanmar (Burma)", code: "mm", region: "Asia and Oceania" },
+  { name: "Macao", code: "mo", region: "Asia and Oceania" },
+  { name: "Mongolia", code: "mn", region: "Asia and Oceania" },
+  { name: "Maldives", code: "mv", region: "Asia and Oceania" },
+  { name: "New Zealand", code: "nz", region: "Asia and Oceania" },
+  { name: "Pakistan", code: "pk", region: "Asia and Oceania" },
+  { name: "Philippines", code: "ph", region: "Asia and Oceania" },
+  { name: "Singapore", code: "sg", region: "Asia and Oceania" },
+  { name: "South Korea", code: "kr", region: "Asia and Oceania" },
+  { name: "Sri Lanka", code: "lk", region: "Asia and Oceania" },
+  { name: "Taiwan", code: "tw", region: "Asia and Oceania" },
+  { name: "Thailand", code: "th", region: "Asia and Oceania" },
+  { name: "Vietnam", code: "vn", region: "Asia and Oceania" },
 ];
 
 const Header = ({ onLogout }: HeaderProps) => {
@@ -106,8 +129,6 @@ const Header = ({ onLogout }: HeaderProps) => {
             <img src="/lovable-uploads/c6fd77e7-3682-428e-8154-140308b4a06b.png" alt="Logo" className="h-6" />
           </Link>
         </div>
-
-        {/* Removed navigation links from the top header */}
 
         <div className="hidden md:flex items-center space-x-3">
           <div className="relative" ref={countryMenuRef}>
