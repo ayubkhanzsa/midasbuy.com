@@ -88,7 +88,7 @@ const Header = ({ onLogout }: HeaderProps) => {
       <div 
         className="absolute inset-0 bg-cover bg-center z-0 overflow-hidden" 
         style={{ 
-          backgroundImage: `url('/lovable-uploads/e7ecfb2d-5c0d-4216-9b67-8c7c32038ce8.png')`,
+          backgroundImage: `url('/lovable-uploads/2cced4ca-687c-4858-af0b-068c255f6fc5.png')`,
           backgroundSize: 'cover',
           backgroundPosition: 'center top',
           height: '100%',
@@ -104,13 +104,13 @@ const Header = ({ onLogout }: HeaderProps) => {
         </div>
 
         {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center space-x-3">
+        <nav className="hidden md:flex items-center space-x-6">
           {navLinks.map((link) => (
             <Link
               key={link.name}
               to={link.path}
               className={cn(
-                "nav-link text-sm px-4 py-1",
+                "nav-link text-sm px-5 py-1",
                 location.pathname === link.path ? "text-white active" : ""
               )}
             >
