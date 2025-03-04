@@ -3,11 +3,12 @@ import { useParams, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ArrowLeft, AlertCircle, Check } from "lucide-react";
 import Header from "@/components/Header";
-import { getPackageById, getSelectedCountry } from "@/data/ucPackages";
+import { getPackageById, getSelectedCountry, setupCountryChangeListener } from "@/data/ucPackages";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { toast } from "@/components/ui/use-toast";
-import { convertAndFormatPrice } from "@/utils/currencyUtils";
+import { convertAndFormatPrice, setupCurrencyChangeListener } from "@/utils/currencyUtils";
+import { useResponsive } from "@/hooks/use-mobile";
 
 interface PurchasePageProps {
   onLogout: () => void;
@@ -21,6 +22,7 @@ const PurchasePage = ({ onLogout }: PurchasePageProps) => {
   const [isPlayerIDValid, setIsPlayerIDValid] = useState(false);
   const [isVerifying, setIsVerifying] = useState(false);
   const [selectedCountry, setSelectedCountry] = useState(getSelectedCountry());
+  const { isMobile, isTablet } = useResponsive();
 
   const ucPackage = id ? getPackageById(id) : undefined;
 
@@ -39,18 +41,23 @@ const PurchasePage = ({ onLogout }: PurchasePageProps) => {
   }, [ucPackage, navigate]);
 
   useEffect(() => {
-    const handleStorageChange = () => {
-      setSelectedCountry(getSelectedCountry());
+    // Handle currency changes both from storage events and direct changes
+    const handleCountryChange = () => {
+      const newSelectedCountry = getSelectedCountry();
+      if (newSelectedCountry.currency !== selectedCountry.currency) {
+        setSelectedCountry(newSelectedCountry);
+      }
     };
 
-    window.addEventListener('storage', handleStorageChange);
+    // Set up both types of listeners
+    const storageCleanup = setupCountryChangeListener(handleCountryChange);
+    const currencyCleanup = setupCurrencyChangeListener(() => {
+      handleCountryChange();
+    });
 
-    // Check for changes every 2 seconds as a fallback
+    // Polling as a fallback
     const interval = setInterval(() => {
-      const current = getSelectedCountry();
-      if (current.currency !== selectedCountry.currency) {
-        setSelectedCountry(current);
-      }
+      handleCountryChange();
     }, 2000);
 
     // Load saved player ID from localStorage
@@ -61,10 +68,11 @@ const PurchasePage = ({ onLogout }: PurchasePageProps) => {
     }
 
     return () => {
-      window.removeEventListener('storage', handleStorageChange);
+      storageCleanup();
+      currencyCleanup();
       clearInterval(interval);
     };
-  }, [selectedCountry]);
+  }, []);
 
   const handleVerifyPlayerID = () => {
     if (!playerID || playerID.length < 8) {

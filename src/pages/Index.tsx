@@ -229,8 +229,8 @@ const Index = ({ onLogout }: IndexProps) => {
           <img 
             src="/lovable-uploads/28985189-d7e6-4b78-b392-1c1c9fcaff88.png" 
             alt="Banner"
-            className="w-full h-auto object-contain max-h-[200px]"
-            style={{ maxWidth: '100%' }}
+            className="w-full h-auto object-contain max-h-[300px]"
+            style={{ width: '100%', maxWidth: '1440px' }}
           />
         </div>
         

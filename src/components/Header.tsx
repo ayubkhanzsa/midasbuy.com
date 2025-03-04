@@ -1,9 +1,10 @@
-
 import { useState, useEffect, useRef } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Menu, X, Bell, Globe, ChevronDown, Flag } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 import { cn } from "@/lib/utils";
+import { useResponsive } from "@/hooks/use-mobile";
+import { triggerCurrencyChangeEvent } from "@/utils/currencyUtils";
 
 interface HeaderProps {
   onLogout: () => void;
@@ -62,6 +63,7 @@ const Header = ({ onLogout }: HeaderProps) => {
   const location = useLocation();
   const navigate = useNavigate();
   const countryMenuRef = useRef<HTMLDivElement>(null);
+  const { isMobile, isTablet } = useResponsive();
   
   const navLinks = [
     { name: "PURCHASE", path: "/" },
@@ -97,12 +99,18 @@ const Header = ({ onLogout }: HeaderProps) => {
   }, []);
 
   useEffect(() => {
-    // Save the selected country to localStorage
     localStorage.setItem('selectedCountry', JSON.stringify(currentCountry));
+    triggerCurrencyChangeEvent(currentCountry.currency);
+    const event = new CustomEvent('countryChanged');
+    window.dispatchEvent(event);
+    const storageEvent = new StorageEvent('storage', {
+      key: 'selectedCountry',
+      newValue: JSON.stringify(currentCountry)
+    });
+    window.dispatchEvent(storageEvent);
   }, [currentCountry]);
 
   useEffect(() => {
-    // Load the selected country from localStorage on initial render
     const savedCountry = localStorage.getItem('selectedCountry');
     if (savedCountry) {
       try {
@@ -129,6 +137,58 @@ const Header = ({ onLogout }: HeaderProps) => {
   const handleNavigation = (path: string) => {
     navigate(path);
   };
+
+  const renderCountryMenu = () => (
+    <div className="absolute right-0 mt-2 w-64 bg-midasbuy-navy border border-gray-700 rounded-md shadow-lg z-50 overflow-hidden">
+      <div className="max-h-96 overflow-y-auto p-2">
+        <div className="flex justify-between items-center mb-3 p-2 border-b border-gray-700">
+          <h3 className="text-white font-bold">COUNTRY/REGION</h3>
+          <button 
+            onClick={() => setIsCountryMenuOpen(false)}
+            className="text-gray-400 hover:text-white"
+          >
+            <X className="w-5 h-5" />
+          </button>
+        </div>
+        
+        {Object.entries(groupedCountries).map(([region, countries]) => (
+          <div key={region} className="mb-4">
+            <h4 className="text-gray-400 text-sm font-medium mb-2">{region}</h4>
+            <div className="grid grid-cols-1 gap-2">
+              {countries.map((country) => (
+                <button
+                  key={country.code}
+                  className={cn(
+                    "flex items-center p-2 rounded-md text-left",
+                    currentCountry.code === country.code 
+                      ? "bg-midasbuy-blue text-white" 
+                      : "text-gray-300 hover:bg-gray-700/40"
+                  )}
+                  onClick={() => handleSelectCountry(country)}
+                >
+                  <img 
+                    src={`https://flagcdn.com/w20/${country.code}.png`} 
+                    alt={country.name} 
+                    className="w-5 h-4 mr-2" 
+                  />
+                  <span>{country.name}</span>
+                </button>
+              ))}
+            </div>
+          </div>
+        ))}
+        
+        <div className="mt-2 pt-2 border-t border-gray-700">
+          <button 
+            className="w-full bg-midasbuy-blue text-white py-2 rounded-md"
+            onClick={() => setIsCountryMenuOpen(false)}
+          >
+            OK
+          </button>
+        </div>
+      </div>
+    </div>
+  );
 
   return (
     <header 
@@ -170,57 +230,7 @@ const Header = ({ onLogout }: HeaderProps) => {
               <ChevronDown className="w-3 h-3 ml-1" />
             </button>
             
-            {isCountryMenuOpen && (
-              <div className="absolute right-0 mt-2 w-64 bg-midasbuy-navy border border-gray-700 rounded-md shadow-lg z-50 overflow-hidden">
-                <div className="max-h-96 overflow-y-auto p-2">
-                  <div className="flex justify-between items-center mb-3 p-2 border-b border-gray-700">
-                    <h3 className="text-white font-bold">COUNTRY/REGION</h3>
-                    <button 
-                      onClick={() => setIsCountryMenuOpen(false)}
-                      className="text-gray-400 hover:text-white"
-                    >
-                      <X className="w-5 h-5" />
-                    </button>
-                  </div>
-                  
-                  {Object.entries(groupedCountries).map(([region, countries]) => (
-                    <div key={region} className="mb-4">
-                      <h4 className="text-gray-400 text-sm font-medium mb-2">{region}</h4>
-                      <div className="grid grid-cols-1 gap-2">
-                        {countries.map((country) => (
-                          <button
-                            key={country.code}
-                            className={cn(
-                              "flex items-center p-2 rounded-md text-left",
-                              currentCountry.code === country.code 
-                                ? "bg-midasbuy-blue text-white" 
-                                : "text-gray-300 hover:bg-gray-700/40"
-                            )}
-                            onClick={() => handleSelectCountry(country)}
-                          >
-                            <img 
-                              src={`https://flagcdn.com/w20/${country.code}.png`} 
-                              alt={country.name} 
-                              className="w-5 h-4 mr-2" 
-                            />
-                            <span>{country.name}</span>
-                          </button>
-                        ))}
-                      </div>
-                    </div>
-                  ))}
-                  
-                  <div className="mt-2 pt-2 border-t border-gray-700">
-                    <button 
-                      className="w-full bg-midasbuy-blue text-white py-2 rounded-md"
-                      onClick={() => setIsCountryMenuOpen(false)}
-                    >
-                      OK
-                    </button>
-                  </div>
-                </div>
-              </div>
-            )}
+            {isCountryMenuOpen && renderCountryMenu()}
           </div>
           
           <button className="relative p-1 text-gray-300 hover:text-white transition-colors">
@@ -246,65 +256,19 @@ const Header = ({ onLogout }: HeaderProps) => {
             <button 
               className="flex items-center text-gray-300 hover:text-white transition-colors"
               onClick={() => setIsCountryMenuOpen(!isCountryMenuOpen)}
+              aria-label="Select Country"
             >
               <img 
                 src={`https://flagcdn.com/w20/${currentCountry.code}.png`} 
                 alt={currentCountry.name} 
                 className="w-4 h-3" 
               />
+              {(isMobile || isTablet) && (
+                <ChevronDown className="w-3 h-3 ml-1" />
+              )}
             </button>
             
-            {isCountryMenuOpen && (
-              <div className="absolute right-0 mt-2 w-64 bg-midasbuy-navy border border-gray-700 rounded-md shadow-lg z-50 overflow-hidden">
-                <div className="max-h-96 overflow-y-auto p-2">
-                  <div className="flex justify-between items-center mb-3 p-2 border-b border-gray-700">
-                    <h3 className="text-white font-bold">COUNTRY/REGION</h3>
-                    <button 
-                      onClick={() => setIsCountryMenuOpen(false)}
-                      className="text-gray-400 hover:text-white"
-                    >
-                      <X className="w-5 h-5" />
-                    </button>
-                  </div>
-                  
-                  {Object.entries(groupedCountries).map(([region, countries]) => (
-                    <div key={region} className="mb-4">
-                      <h4 className="text-gray-400 text-sm font-medium mb-2">{region}</h4>
-                      <div className="grid grid-cols-1 gap-2">
-                        {countries.map((country) => (
-                          <button
-                            key={country.code}
-                            className={cn(
-                              "flex items-center p-2 rounded-md text-left",
-                              currentCountry.code === country.code 
-                                ? "bg-midasbuy-blue text-white" 
-                                : "text-gray-300 hover:bg-gray-700/40"
-                            )}
-                            onClick={() => handleSelectCountry(country)}
-                          >
-                            <img 
-                              src={`https://flagcdn.com/w20/${country.code}.png`} 
-                              alt={country.name} 
-                              className="w-5 h-4 mr-2" 
-                            />
-                            <span>{country.name}</span>
-                          </button>
-                        ))}
-                      </div>
-                    </div>
-                  ))}
-                  
-                  <div className="mt-2 pt-2 border-t border-gray-700">
-                    <button 
-                      className="w-full bg-midasbuy-blue text-white py-2 rounded-md"
-                      onClick={() => setIsCountryMenuOpen(false)}
-                    >
-                      OK
-                    </button>
-                  </div>
-                </div>
-              </div>
-            )}
+            {isCountryMenuOpen && renderCountryMenu()}
           </div>
           
           <button 
