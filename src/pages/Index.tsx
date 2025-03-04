@@ -192,8 +192,8 @@ const Index = ({ onLogout }: IndexProps) => {
       
       <main className="pt-20 pb-20 relative z-10">
         <div 
-          className="absolute top-0 left-0 w-full h-[200px] -z-0 bg-cover bg-center opacity-70"
-          style={{ backgroundImage: 'url("/lovable-uploads/4073e8ab-e738-4053-b7bd-23a1b058ddb9.png")' }}
+          className="absolute top-0 left-0 w-full h-[200px] -z-0 bg-cover bg-center"
+          style={{ backgroundImage: 'url("/lovable-uploads/28985189-d7e6-4b78-b392-1c1c9fcaff88.png")' }}
         ></div>
         
         <div className="container mx-auto px-4">
