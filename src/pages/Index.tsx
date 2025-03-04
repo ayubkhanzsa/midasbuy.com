@@ -5,7 +5,7 @@ import { Filter, ChevronDown, Shield, Lock, FileText, HelpCircle, Info } from "l
 import Header from "@/components/Header";
 import { ucPackages, getSelectedCountry } from "@/data/ucPackages";
 import { Button } from "@/components/ui/button";
-import { useMobile, useResponsive } from "@/hooks/use-mobile";
+import { useMobile, useResponsive, useAnimationDuration } from "@/hooks/use-mobile";
 import { convertAndFormatPrice } from "@/utils/currencyUtils";
 
 interface IndexProps {
@@ -20,6 +20,7 @@ const Index = ({ onLogout }: IndexProps) => {
   const [selectedCountry, setSelectedCountry] = useState(getSelectedCountry());
   const navigate = useNavigate();
   const { isMobile, isTablet, isDesktop } = useResponsive();
+  const slowAnimationDuration = useAnimationDuration('slow');
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -390,7 +391,7 @@ const Index = ({ onLogout }: IndexProps) => {
                           y: [0, -8, 0, 8, 0] 
                         }}
                         transition={{ 
-                          duration: 8,
+                          duration: slowAnimationDuration,
                           ease: "easeInOut",
                           repeat: Infinity,
                           repeatType: "reverse"

@@ -77,3 +77,14 @@ export function useResponsive(): {
 
   return screenSize;
 }
+
+// Custom hook for triggering animations with different durations
+export function useAnimationDuration(type: 'slow' | 'medium' | 'fast' = 'medium'): number {
+  const durations = {
+    slow: 16, // Slower animation (was 8)
+    medium: 5,
+    fast: 2
+  };
+  
+  return durations[type];
+}
