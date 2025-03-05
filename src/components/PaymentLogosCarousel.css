@@ -1,4 +1,3 @@
-
 @keyframes scroll {
   0% {
     transform: translateX(0);
@@ -38,6 +37,61 @@
   filter: brightness(1.1);
 }
 
+.social-icons-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 20px;
+}
+
+.social-icon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.social-icon:hover {
+  transform: translateY(-4px);
+}
+
+.social-icon-circle {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 8px;
+  transition: all 0.3s ease;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.social-icon:hover .social-icon-circle {
+  box-shadow: 0 0 15px rgba(0, 145, 255, 0.4);
+  border-color: rgba(0, 145, 255, 0.6);
+}
+
+.social-icon-label {
+  font-size: 12px;
+  color: #8E9196;
+  font-weight: 500;
+}
+
+.social-heading {
+  width: 100%;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 600;
+  color: #FFFFFF;
+  margin-bottom: 14px;
+  letter-spacing: 0.5px;
+}
+
 @media (max-width: 768px) {
   .payment-logos-scroll {
     animation: scroll 25s linear infinite;
@@ -49,6 +103,15 @@
   
   .payment-logo {
     margin: 0 0.85rem;
+  }
+  
+  .social-icons-container {
+    gap: 12px;
+  }
+  
+  .social-icon-circle {
+    width: 40px;
+    height: 40px;
   }
 }
 
@@ -63,5 +126,18 @@
   
   .payment-logo {
     margin: 0 0.75rem;
+  }
+  
+  .social-icons-container {
+    gap: 10px;
+  }
+  
+  .social-icon-circle {
+    width: 36px;
+    height: 36px;
+  }
+  
+  .social-icon-label {
+    font-size: 10px;
   }
 }
