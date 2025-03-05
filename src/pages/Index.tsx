@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Filter, ChevronDown, Shield, Lock, FileText, HelpCircle, Info, Facebook, Instagram, Youtube } from "lucide-react";
+import { Filter, ChevronDown, Shield, Lock, FileText, HelpCircle, Info } from "lucide-react";
 import Header from "@/components/Header";
 import { ucPackages, getSelectedCountry } from "@/data/ucPackages";
 import { Button } from "@/components/ui/button";
@@ -452,21 +452,25 @@ const Index = ({ onLogout }: IndexProps) => {
               <h4 className="text-white font-medium mb-2">Follow us</h4>
               <div className="social-icons-container">
                 <a href="https://www.facebook.com/midasbuy" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
-                  <Facebook className="social-icon w-5 h-5 md:w-6 md:h-6" />
+                  <img src="/lovable-uploads/8f778e5f-d38b-463d-8bff-004086ce7deb.png" alt="Facebook" className="social-icon w-8 h-8 md:w-9 md:h-9" />
                 </a>
                 <a href="https://www.instagram.com/midasbuy" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
-                  <Instagram className="social-icon w-5 h-5 md:w-6 md:h-6" />
+                  <img src="/lovable-uploads/fb236867-879d-4b91-b611-6ae28d1e6ba4.png" alt="Instagram" className="social-icon w-8 h-8 md:w-9 md:h-9" />
                 </a>
                 <a href="https://www.youtube.com/midasbuy" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
-                  <Youtube className="social-icon w-5 h-5 md:w-6 md:h-6" />
+                  <img src="/lovable-uploads/e84cec8b-5d3a-4f4f-8811-71f8c3720ba7.png" alt="YouTube" className="social-icon w-8 h-8 md:w-9 md:h-9" />
                 </a>
                 <a href="https://www.tiktok.com/@midasbuy" target="_blank" rel="noopener noreferrer" aria-label="TikTok">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="social-icon w-5 h-5 md:w-6 md:h-6">
-                    <path d="M9 12a4 4 0 1 0 0 8 4 4 0 0 0 0-8z"></path>
-                    <path d="M15 8a4 4 0 0 0 4 4V4h-4"></path>
-                    <path d="M15 12h-3"></path>
-                    <path d="M15 8v9"></path>
-                  </svg>
+                  <img src="/lovable-uploads/e9f85ba7-1e65-424b-b3c7-335c54e95606.png" alt="TikTok" className="social-icon w-8 h-8 md:w-9 md:h-9" />
+                </a>
+                <a href="https://www.reddit.com/r/Midasbuy/" target="_blank" rel="noopener noreferrer" aria-label="Reddit">
+                  <img src="/lovable-uploads/f908163b-bb4f-4e56-90fb-1c50b5431f82.png" alt="Reddit" className="social-icon w-8 h-8 md:w-9 md:h-9" />
+                </a>
+                <a href="https://twitter.com/midasbuy" target="_blank" rel="noopener noreferrer" aria-label="Twitter/X">
+                  <img src="/lovable-uploads/83ad7998-06b3-45e3-bf1c-7f5558ebbf1a.png" alt="Twitter/X" className="social-icon w-8 h-8 md:w-9 md:h-9" />
+                </a>
+                <a href="https://discord.gg/midasbuy" target="_blank" rel="noopener noreferrer" aria-label="Discord">
+                  <img src="/lovable-uploads/3a733dab-e588-4b87-b11b-6860d5551ec9.png" alt="Discord" className="social-icon w-8 h-8 md:w-9 md:h-9" />
                 </a>
               </div>
               

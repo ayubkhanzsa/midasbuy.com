@@ -15,6 +15,7 @@
   background-color: rgba(255, 255, 255, 0.02);
   border-radius: 0.5rem;
   padding: 0.5rem 0;
+  margin-top: 1.5rem;
 }
 
 .payment-logos-scroll {
@@ -39,19 +40,22 @@
 
 .social-icons-container {
   display: flex;
-  justify-content: center;
-  gap: 1rem;
-  margin-top: 1rem;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+  margin-bottom: 1rem;
 }
 
 .social-icon {
-  color: #6b7280;
+  border-radius: 8px;
   transition: all 0.3s ease;
+  object-fit: contain;
 }
 
 .social-icon:hover {
-  color: white;
-  transform: translateY(-2px);
+  transform: translateY(-3px);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
 }
 
 @media (max-width: 768px) {
@@ -65,16 +69,27 @@
   
   .social-icons-container {
     gap: 0.5rem;
+    justify-content: center;
   }
   
   .social-icon {
-    width: 1.25rem;
-    height: 1.25rem;
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
   }
 }
 
 @media (max-width: 480px) {
   .payment-logos-scroll {
     animation: scroll 20s linear infinite;
+  }
+  
+  .social-icons-container {
+    gap: 0.4rem;
+  }
+  
+  .social-icon {
+    width: 24px;
+    height: 24px;
   }
 }
