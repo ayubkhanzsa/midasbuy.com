@@ -445,10 +445,11 @@ const CheckoutPage = ({ onLogout }: CheckoutPageProps) => {
                   
                   <div>
                     <div className="flex items-baseline">
-                      <span className="gold-text text-xl">{ucPackage.baseAmount}</span>
+                      <span className="text-white text-xl">{ucPackage.baseAmount}</span>
                       {ucPackage.bonusAmount > 0 && (
                         <span className="text-midasbuy-gold ml-1">+{ucPackage.bonusAmount}</span>
                       )}
+                      <span className="text-white ml-1">UC</span>
                     </div>
                     
                     <div className="mt-1">
