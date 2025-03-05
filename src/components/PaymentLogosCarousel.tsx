@@ -47,65 +47,65 @@ const PaymentLogosCarousel = () => {
     }
   ];
 
-  // Payment method logos with their respective links
+  // Updated payment method logos with their respective links
   const paymentLogos = [
     { 
-      src: "/lovable-uploads/01229da3-c59f-4769-9328-3597db96e0d3.png", 
+      src: "/lovable-uploads/7a0d6345-29e5-4523-a58b-99c479881319.png", 
       alt: "WeChat Pay",
       link: "https://pay.weixin.qq.com/" 
     },
     { 
-      src: "/lovable-uploads/825367af-3c13-4019-bf19-a7b4780cc00b.png", 
+      src: "/lovable-uploads/f4e1454b-ee95-4ccd-8373-ee2abbc125e0.png", 
       alt: "Paysafecard",
       link: "https://www.paysafecard.com/" 
     },
     { 
-      src: "/lovable-uploads/5cf86807-eba9-4735-91a2-8724f82d68bb.png", 
+      src: "/lovable-uploads/c0720f31-5b4a-4103-8e72-034b6e40e193.png", 
       alt: "QBucks",
       link: "https://qbucks.com/" 
     },
     { 
-      src: "/lovable-uploads/4ece2678-4046-4dce-a0a4-e9e76b09cc6d.png", 
+      src: "/lovable-uploads/6c1448cd-5a0c-4758-97f1-8bc182285369.png", 
       alt: "Dollar General",
       link: "https://www.dollargeneral.com/" 
     },
     { 
-      src: "/lovable-uploads/125e1b88-0b19-40bd-936e-c226516c57f0.png", 
+      src: "/lovable-uploads/03fdf9b3-8539-407f-a49b-6373f6697e9d.png", 
       alt: "PayPal",
       link: "https://www.paypal.com/" 
     },
     { 
-      src: "/lovable-uploads/e09e0ddf-1a2c-4230-b8f8-3255d2c0cdeb.png", 
+      src: "/lovable-uploads/f537874b-483d-4d48-b6f4-11e32ac37364.png", 
       alt: "Razer Gold",
       link: "https://gold.razer.com/" 
     },
     { 
-      src: "/lovable-uploads/d0a61b7d-12c6-4a32-a46c-724c93942478.png", 
+      src: "/lovable-uploads/3730deb3-05f5-4bbe-9efa-195af7f29836.png", 
       alt: "PayPal",
       link: "https://www.paypal.com/" 
     },
     { 
-      src: "/lovable-uploads/79981d54-bb2d-4fdf-ae99-d68ebf783436.png", 
+      src: "/lovable-uploads/f3eef038-8d82-4ddc-8728-78c42891e7eb.png", 
       alt: "Credit Card",
       link: "https://www.visa.com/" 
     },
     { 
-      src: "/lovable-uploads/ef54380f-445f-4de8-8135-7fee01bc259e.png", 
+      src: "/lovable-uploads/c79df0c5-b617-4df7-9a31-a4c7bff7adf1.png", 
       alt: "Google Pay",
       link: "https://pay.google.com/" 
     },
     { 
-      src: "/lovable-uploads/15d8b149-8507-4842-a007-22fa85b958de.png", 
+      src: "/lovable-uploads/92b9671d-9796-4e4c-b93e-accba3fb373b.png", 
       alt: "Apple Pay",
       link: "https://www.apple.com/apple-pay/" 
     },
     { 
-      src: "/lovable-uploads/4bc97c7b-b5af-40b0-ad1b-acbc83a9c031.png", 
+      src: "/lovable-uploads/7ced4eaa-5e21-4b51-9998-13cc4910f35a.png", 
       alt: "CVS",
       link: "https://www.cvs.com/" 
     },
     { 
-      src: "/lovable-uploads/693baced-5c95-433f-a927-64182c6c6868.png", 
+      src: "/lovable-uploads/0c0b49b5-dfc9-4276-a464-a5857a2dcffc.png", 
       alt: "Razer Gold",
       link: "https://gold.razer.com/" 
     }
@@ -113,16 +113,16 @@ const PaymentLogosCarousel = () => {
   
   // Get the appropriate logo size based on the viewport
   const getLogoSize = () => {
-    if (isMobile) return 32; // Increased from 28
-    if (isTablet) return 36; // Increased from 32
-    return 40; // Increased from 36
+    if (isMobile) return 40; // Increased from 32
+    if (isTablet) return 46; // Increased from 36
+    return 50; // Increased from 40
   };
 
   // Get the appropriate social icon size based on the viewport
   const getSocialIconSize = () => {
-    if (isMobile) return 32; // Increased from 24
-    if (isTablet) return 36; // Increased from 28
-    return 40; // Increased from 32
+    if (isMobile) return 38; // Increased from 32
+    if (isTablet) return 42; // Increased from 36
+    return 46; // Increased from 40
   };
   
   // Double the array for infinite loop effect
@@ -144,31 +144,33 @@ const PaymentLogosCarousel = () => {
   };
 
   return (
-    <div className="mt-4 overflow-hidden" ref={containerRef}>
-      <h4 className="text-sm font-medium text-gray-300 mb-2">Follow us:</h4>
-      <div className="social-icons-container">
-        {socialLogos.map((logo, index) => (
-          <a 
-            key={`social-${logo.alt}-${index}`} 
-            href={logo.link}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="social-icon-link"
-          >
-            <img 
-              src={logo.src} 
-              alt={logo.alt} 
-              style={{ 
-                width: `${getSocialIconSize()}px`,
-                height: `${getSocialIconSize()}px`
-              }}
-              className="social-icon"
-            />
-          </a>
-        ))}
+    <div className="mt-6 overflow-hidden" ref={containerRef}>
+      <h4 className="text-sm font-medium text-gray-300 mb-2">Follow Us:</h4>
+      <div className="social-logos-container">
+        <div className="social-logos-scroll">
+          {socialLogos.map((logo, index) => (
+            <a 
+              key={`social-${logo.alt}-${index}`} 
+              href={logo.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="social-icon-link"
+            >
+              <img 
+                src={logo.src} 
+                alt={logo.alt} 
+                style={{ 
+                  width: `${getSocialIconSize()}px`,
+                  height: `${getSocialIconSize()}px`
+                }}
+                className="social-icon"
+              />
+            </a>
+          ))}
+        </div>
       </div>
 
-      <h4 className="text-sm font-medium text-gray-300 mt-4 mb-2">Payment Methods:</h4>
+      <h4 className="text-sm font-medium text-gray-300 mt-6 mb-2">Payment Methods:</h4>
       <div className="relative w-full overflow-hidden payment-logos-container">
         <motion.div 
           className="flex payment-logos-scroll" 
