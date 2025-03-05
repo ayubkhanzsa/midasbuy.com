@@ -449,33 +449,7 @@ const Index = ({ onLogout }: IndexProps) => {
                 The official platform for purchasing in-game currency and items for PUBG Mobile and other popular games.
               </p>
               
-              <h4 className="text-white font-medium mb-2">Follow us</h4>
-              <div className="social-icons-container">
-                <a href="https://www.facebook.com/midasbuy" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
-                  <img src="/lovable-uploads/8f778e5f-d38b-463d-8bff-004086ce7deb.png" alt="Facebook" className="social-icon w-8 h-8 md:w-9 md:h-9" />
-                </a>
-                <a href="https://www.instagram.com/midasbuy" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
-                  <img src="/lovable-uploads/fb236867-879d-4b91-b611-6ae28d1e6ba4.png" alt="Instagram" className="social-icon w-8 h-8 md:w-9 md:h-9" />
-                </a>
-                <a href="https://www.youtube.com/midasbuy" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
-                  <img src="/lovable-uploads/e84cec8b-5d3a-4f4f-8811-71f8c3720ba7.png" alt="YouTube" className="social-icon w-8 h-8 md:w-9 md:h-9" />
-                </a>
-                <a href="https://www.tiktok.com/@midasbuy" target="_blank" rel="noopener noreferrer" aria-label="TikTok">
-                  <img src="/lovable-uploads/e9f85ba7-1e65-424b-b3c7-335c54e95606.png" alt="TikTok" className="social-icon w-8 h-8 md:w-9 md:h-9" />
-                </a>
-                <a href="https://www.reddit.com/r/Midasbuy/" target="_blank" rel="noopener noreferrer" aria-label="Reddit">
-                  <img src="/lovable-uploads/f908163b-bb4f-4e56-90fb-1c50b5431f82.png" alt="Reddit" className="social-icon w-8 h-8 md:w-9 md:h-9" />
-                </a>
-                <a href="https://twitter.com/midasbuy" target="_blank" rel="noopener noreferrer" aria-label="Twitter/X">
-                  <img src="/lovable-uploads/83ad7998-06b3-45e3-bf1c-7f5558ebbf1a.png" alt="Twitter/X" className="social-icon w-8 h-8 md:w-9 md:h-9" />
-                </a>
-                <a href="https://discord.gg/midasbuy" target="_blank" rel="noopener noreferrer" aria-label="Discord">
-                  <img src="/lovable-uploads/3a733dab-e588-4b87-b11b-6860d5551ec9.png" alt="Discord" className="social-icon w-8 h-8 md:w-9 md:h-9" />
-                </a>
-              </div>
-              
               <PaymentLogosCarousel />
-
             </div>
             
             <div>
