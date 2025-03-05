@@ -257,7 +257,7 @@ const Index = ({ onLogout }: IndexProps) => {
         <Header onLogout={onLogout} />
       </div>
       
-      <main className={`pt-20 pb-20 relative ${isMobile ? 'mobile-content' : 'z-10'}`}>
+      <main className={`pt-20 pb-20 relative ${isMobile ? 'mobile-content mobile-main-container' : 'z-10'}`}>
         <div className="absolute top-0 left-0 w-full flex justify-center items-center">
           {!isMobile && (
             <img 
@@ -273,7 +273,7 @@ const Index = ({ onLogout }: IndexProps) => {
           )}
         </div>
         
-        <div className="container mx-auto px-4">
+        <div className={`container mx-auto px-4 ${isMobile ? 'mobile-main-container' : ''}`}>
           <div className="flex flex-col md:flex-row items-start mb-6 relative">
             <div className="flex-grow z-10">
               <div className="flex items-center mb-3">
