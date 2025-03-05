@@ -8,6 +8,9 @@ import { Button } from "@/components/ui/button";
 import { useMobile, useResponsive, useAnimationDuration } from "@/hooks/use-mobile";
 import { convertAndFormatPrice } from "@/utils/currencyUtils";
 import PaymentLogosCarousel from "@/components/PaymentLogosCarousel";
+import Facebook from "lucide-react/Facebook";
+import Instagram from "lucide-react/Instagram";
+import Youtube from "lucide-react/Youtube";
 
 interface IndexProps {
   onLogout: () => void;
@@ -448,6 +451,27 @@ const Index = ({ onLogout }: IndexProps) => {
               <p className="text-gray-400 text-sm mb-4">
                 The official platform for purchasing in-game currency and items for PUBG Mobile and other popular games.
               </p>
+              
+              <h4 className="text-white font-medium mb-2">Follow us</h4>
+              <div className="social-icons-container">
+                <a href="https://www.facebook.com/midasbuy" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+                  <Facebook className="social-icon w-5 h-5 md:w-6 md:h-6" />
+                </a>
+                <a href="https://www.instagram.com/midasbuy" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                  <Instagram className="social-icon w-5 h-5 md:w-6 md:h-6" />
+                </a>
+                <a href="https://www.youtube.com/midasbuy" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+                  <Youtube className="social-icon w-5 h-5 md:w-6 md:h-6" />
+                </a>
+                <a href="https://www.tiktok.com/@midasbuy" target="_blank" rel="noopener noreferrer" aria-label="TikTok">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="social-icon w-5 h-5 md:w-6 md:h-6">
+                    <path d="M9 12a4 4 0 1 0 0 8 4 4 0 0 0 0-8z"></path>
+                    <path d="M15 8a4 4 0 0 0 4 4V4h-4"></path>
+                    <path d="M15 12h-3"></path>
+                    <path d="M15 8v9"></path>
+                  </svg>
+                </a>
+              </div>
               
               <PaymentLogosCarousel />
 
