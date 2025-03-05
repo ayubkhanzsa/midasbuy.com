@@ -16,6 +16,7 @@ interface EventsPageProps {
 
 const EventsPage = ({ onLogout }: EventsPageProps) => {
   const [username, setUsername] = useState("");
+  const [isUsernameVerified, setIsUsernameVerified] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
   const { isMobile } = useResponsive();
@@ -25,6 +26,7 @@ const EventsPage = ({ onLogout }: EventsPageProps) => {
     const savedUsername = localStorage.getItem("pubgUsername");
     if (savedUsername) {
       setUsername(savedUsername);
+      setIsUsernameVerified(true);
     }
     
     // Simulate loading
@@ -38,6 +40,10 @@ const EventsPage = ({ onLogout }: EventsPageProps) => {
         const newUsername = event.newValue;
         if (newUsername !== null) {
           setUsername(newUsername);
+          setIsUsernameVerified(true);
+        } else {
+          setUsername("");
+          setIsUsernameVerified(false);
         }
       }
     };
@@ -62,15 +68,17 @@ const EventsPage = ({ onLogout }: EventsPageProps) => {
 
     // Save username to localStorage
     localStorage.setItem("pubgUsername", username);
+    setIsUsernameVerified(true);
     
     toast({
-      title: "Username Saved",
-      description: "Your username has been saved successfully",
+      title: "Username Verified",
+      description: "Your username has been verified successfully",
     });
   };
 
   const handleResetUsername = () => {
     setUsername("");
+    setIsUsernameVerified(false);
     localStorage.removeItem("pubgUsername");
     
     toast({
@@ -121,9 +129,9 @@ const EventsPage = ({ onLogout }: EventsPageProps) => {
                 <div className="flex items-center mb-3">
                   <Label htmlFor="username" className="block text-sm font-medium text-white mr-2 flex items-center">
                     PUBG Mobile Username
-                    {username && (
+                    {isUsernameVerified && (
                       <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-green-500/20 text-green-400 ml-2">
-                        <Check className="w-3 h-3 mr-1" /> Saved
+                        <Check className="w-3 h-3 mr-1" /> Verified
                       </span>
                     )}
                   </Label>
@@ -134,25 +142,28 @@ const EventsPage = ({ onLogout }: EventsPageProps) => {
                     <Input 
                       id="username"
                       value={username}
-                      onChange={(e) => setUsername(e.target.value)}
+                      onChange={(e) => {
+                        setUsername(e.target.value);
+                        setIsUsernameVerified(false);
+                      }}
                       placeholder="Enter your PUBG Mobile username"
                       className="bg-midasbuy-navy/50 border-midasbuy-blue/30 text-white focus:border-midasbuy-blue focus:ring-midasbuy-blue/20"
                     />
                   </div>
                   
                   <Button 
-                    className={`ml-2 ${username 
+                    className={`ml-2 ${isUsernameVerified 
                       ? 'bg-green-600 hover:bg-green-700' 
                       : 'bg-midasbuy-blue hover:bg-blue-600'} text-white`}
-                    onClick={username ? handleResetUsername : handleSaveUsername}
+                    onClick={isUsernameVerified ? handleResetUsername : handleSaveUsername}
                   >
-                    {username ? (
+                    {isUsernameVerified ? (
                       <>
                         <RefreshCw className="w-4 h-4 mr-1" /> Reset Username
                       </>
                     ) : (
                       <>
-                        <Shield className="w-4 h-4 mr-1" /> Save Username
+                        <Shield className="w-4 h-4 mr-1" /> Verify Username
                       </>
                     )}
                   </Button>

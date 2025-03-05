@@ -107,11 +107,6 @@ const PurchasePage = ({ onLogout }: PurchasePageProps) => {
       });
       
       localStorage.setItem("playerID", playerID);
-      
-      const savedUsername = localStorage.getItem("pubgUsername");
-      if (savedUsername) {
-        setUsername(savedUsername);
-      }
     }, 1500);
   };
 
