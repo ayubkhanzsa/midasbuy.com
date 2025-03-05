@@ -24,6 +24,7 @@ const PurchasePage = ({ onLogout }: PurchasePageProps) => {
   const [isPlayerIDValid, setIsPlayerIDValid] = useState(false);
   const [isVerifying, setIsVerifying] = useState(false);
   const [selectedCountry, setSelectedCountry] = useState(getSelectedCountry());
+  const [username, setUsername] = useState("");
   const { isMobile, isTablet } = useResponsive();
 
   const ucPackage = id ? getPackageById(id) : undefined;
@@ -67,6 +68,12 @@ const PurchasePage = ({ onLogout }: PurchasePageProps) => {
     if (savedPlayerID) {
       setPlayerID(savedPlayerID);
       setIsPlayerIDValid(true);
+    }
+    
+    // Load saved username from localStorage
+    const savedUsername = localStorage.getItem("pubgUsername");
+    if (savedUsername) {
+      setUsername(savedUsername);
     }
 
     return () => {
@@ -243,6 +250,18 @@ const PurchasePage = ({ onLogout }: PurchasePageProps) => {
                       )}
                     </Button>
                   </div>
+                  
+                  {username && isPlayerIDValid && (
+                    <div className="mt-3 bg-midasbuy-blue/10 p-3 rounded-lg border border-midasbuy-blue/20">
+                      <div className="flex items-center">
+                        <User className="w-4 h-4 text-midasbuy-gold mr-2" />
+                        <div>
+                          <div className="text-xs text-gray-400">Username</div>
+                          <div className="text-sm text-white font-medium">{username}</div>
+                        </div>
+                      </div>
+                    </div>
+                  )}
                   
                   <div className="mt-3 flex items-start">
                     <AlertCircle className="w-4 h-4 text-midasbuy-gold mr-2 flex-shrink-0 mt-0.5" />
