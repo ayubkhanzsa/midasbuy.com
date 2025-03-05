@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import PrivacyPolicyModal from "./PrivacyPolicyModal";
 import SocialMediaIcons from "./SocialMediaIcons";
+import PaymentMethodsCarousel from "./PaymentMethodsCarousel";
 
 const Footer = () => {
   const [showPrivacyPolicy, setShowPrivacyPolicy] = useState(false);
@@ -61,7 +62,10 @@ const Footer = () => {
           </div>
         </div>
         
-        <div className="border-t border-gray-700 pt-6 pb-2">
+        {/* Payment Methods Carousel */}
+        <PaymentMethodsCarousel />
+        
+        <div className="border-t border-gray-700 pt-6 pb-2 mt-6">
           <div className="flex flex-col items-center justify-center">
             <div className="flex items-center justify-center mb-4 space-x-4">
               <img 
