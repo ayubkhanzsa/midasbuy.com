@@ -14,7 +14,7 @@
   width: 100%;
   background-color: rgba(255, 255, 255, 0.02);
   border-radius: 0.5rem;
-  padding: 0.5rem 0;
+  padding: 0.75rem 0;
   margin-top: 1.5rem;
 }
 
@@ -30,7 +30,7 @@
 
 .payment-logo {
   transition: all 0.3s ease;
-  margin: 0 0.5rem;
+  margin: 0 0.75rem;
 }
 
 .payment-logo:hover {
@@ -41,13 +41,14 @@
 .social-icons-container {
   display: flex;
   justify-content: flex-start;
-  gap: 1rem;
+  gap: 1.25rem;
   margin-top: 0.5rem;
   margin-bottom: 1rem;
   background-color: rgba(255, 255, 255, 0.02);
   border-radius: 0.5rem;
-  padding: 0.75rem 1rem;
+  padding: 0.85rem 1.25rem;
   overflow-x: auto;
+  width: 100%;
 }
 
 .social-icon-link {
@@ -66,7 +67,7 @@
   transition: all 0.3s ease;
   object-fit: contain;
   background-color: rgba(255, 255, 255, 0.05);
-  padding: 0.25rem;
+  padding: 0.35rem;
   border-radius: 8px;
 }
 
@@ -81,18 +82,23 @@
   }
   
   .payment-logos-container {
-    padding: 0.25rem 0;
+    padding: 0.5rem 0;
   }
   
   .social-icons-container {
-    gap: 0.75rem;
-    padding: 0.5rem 0.75rem;
+    gap: 1rem;
+    padding: 0.75rem 1rem;
   }
   
   .social-icon {
-    width: 28px;
-    height: 28px;
-    border-radius: 6px;
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    padding: 0.25rem;
+  }
+  
+  .payment-logo {
+    margin: 0 0.6rem;
   }
 }
 
@@ -102,12 +108,17 @@
   }
   
   .social-icons-container {
-    gap: 0.5rem;
-    padding: 0.4rem 0.5rem;
+    gap: 0.85rem;
+    padding: 0.65rem 0.85rem;
   }
   
   .social-icon {
-    width: 24px;
-    height: 24px;
+    width: 32px;
+    height: 32px;
+    padding: 0.25rem;
+  }
+  
+  .payment-logo {
+    margin: 0 0.5rem;
   }
 }

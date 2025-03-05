@@ -8,6 +8,45 @@ const PaymentLogosCarousel = () => {
   const { isMobile, isTablet, isDesktop } = useResponsive();
   const containerRef = useRef<HTMLDivElement>(null);
   
+  // Social media logos with their respective official links
+  const socialLogos = [
+    { 
+      src: "/lovable-uploads/8f778e5f-d38b-463d-8bff-004086ce7deb.png", 
+      alt: "Facebook", 
+      link: "https://www.facebook.com/midasbuy" 
+    },
+    { 
+      src: "/lovable-uploads/fb236867-879d-4b91-b611-6ae28d1e6ba4.png", 
+      alt: "Instagram", 
+      link: "https://www.instagram.com/midasbuy" 
+    },
+    { 
+      src: "/lovable-uploads/e84cec8b-5d3a-4f4f-8811-71f8c3720ba7.png", 
+      alt: "YouTube", 
+      link: "https://www.youtube.com/midasbuy" 
+    },
+    { 
+      src: "/lovable-uploads/e9f85ba7-1e65-424b-b3c7-335c54e95606.png", 
+      alt: "TikTok", 
+      link: "https://www.tiktok.com/@midasbuy" 
+    },
+    { 
+      src: "/lovable-uploads/f908163b-bb4f-4e56-90fb-1c50b5431f82.png", 
+      alt: "Reddit", 
+      link: "https://www.reddit.com/r/Midasbuy/" 
+    },
+    { 
+      src: "/lovable-uploads/83ad7998-06b3-45e3-bf1c-7f5558ebbf1a.png", 
+      alt: "Twitter/X", 
+      link: "https://twitter.com/midasbuy" 
+    },
+    { 
+      src: "/lovable-uploads/3a733dab-e588-4b87-b11b-6860d5551ec9.png", 
+      alt: "Discord", 
+      link: "https://discord.gg/midasbuy" 
+    }
+  ];
+
   // Payment method logos with their respective links
   const paymentLogos = [
     { 
@@ -71,58 +110,19 @@ const PaymentLogosCarousel = () => {
       link: "https://gold.razer.com/" 
     }
   ];
-
-  // Social media logos with their respective official links
-  const socialLogos = [
-    { 
-      src: "/lovable-uploads/8f778e5f-d38b-463d-8bff-004086ce7deb.png", 
-      alt: "Facebook", 
-      link: "https://www.facebook.com/midasbuy" 
-    },
-    { 
-      src: "/lovable-uploads/fb236867-879d-4b91-b611-6ae28d1e6ba4.png", 
-      alt: "Instagram", 
-      link: "https://www.instagram.com/midasbuy" 
-    },
-    { 
-      src: "/lovable-uploads/e84cec8b-5d3a-4f4f-8811-71f8c3720ba7.png", 
-      alt: "YouTube", 
-      link: "https://www.youtube.com/midasbuy" 
-    },
-    { 
-      src: "/lovable-uploads/e9f85ba7-1e65-424b-b3c7-335c54e95606.png", 
-      alt: "TikTok", 
-      link: "https://www.tiktok.com/@midasbuy" 
-    },
-    { 
-      src: "/lovable-uploads/f908163b-bb4f-4e56-90fb-1c50b5431f82.png", 
-      alt: "Reddit", 
-      link: "https://www.reddit.com/r/Midasbuy/" 
-    },
-    { 
-      src: "/lovable-uploads/83ad7998-06b3-45e3-bf1c-7f5558ebbf1a.png", 
-      alt: "Twitter/X", 
-      link: "https://twitter.com/midasbuy" 
-    },
-    { 
-      src: "/lovable-uploads/3a733dab-e588-4b87-b11b-6860d5551ec9.png", 
-      alt: "Discord", 
-      link: "https://discord.gg/midasbuy" 
-    }
-  ];
   
   // Get the appropriate logo size based on the viewport
   const getLogoSize = () => {
-    if (isMobile) return 28;
-    if (isTablet) return 32;
-    return 36; // desktop
+    if (isMobile) return 32; // Increased from 28
+    if (isTablet) return 36; // Increased from 32
+    return 40; // Increased from 36
   };
 
   // Get the appropriate social icon size based on the viewport
   const getSocialIconSize = () => {
-    if (isMobile) return 24;
-    if (isTablet) return 28;
-    return 32; // desktop
+    if (isMobile) return 32; // Increased from 24
+    if (isTablet) return 36; // Increased from 28
+    return 40; // Increased from 32
   };
   
   // Double the array for infinite loop effect
@@ -145,7 +145,30 @@ const PaymentLogosCarousel = () => {
 
   return (
     <div className="mt-4 overflow-hidden" ref={containerRef}>
-      <h4 className="text-sm font-medium text-gray-300 mb-2">Payment Methods:</h4>
+      <h4 className="text-sm font-medium text-gray-300 mb-2">Follow us:</h4>
+      <div className="social-icons-container">
+        {socialLogos.map((logo, index) => (
+          <a 
+            key={`social-${logo.alt}-${index}`} 
+            href={logo.link}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="social-icon-link"
+          >
+            <img 
+              src={logo.src} 
+              alt={logo.alt} 
+              style={{ 
+                width: `${getSocialIconSize()}px`,
+                height: `${getSocialIconSize()}px`
+              }}
+              className="social-icon"
+            />
+          </a>
+        ))}
+      </div>
+
+      <h4 className="text-sm font-medium text-gray-300 mt-4 mb-2">Payment Methods:</h4>
       <div className="relative w-full overflow-hidden payment-logos-container">
         <motion.div 
           className="flex payment-logos-scroll" 
@@ -172,31 +195,6 @@ const PaymentLogosCarousel = () => {
             </a>
           ))}
         </motion.div>
-      </div>
-
-      <h4 className="text-sm font-medium text-gray-300 mt-4 mb-2">Follow us:</h4>
-      <div className="social-logos-carousel">
-        <div className="social-icons-container">
-          {socialLogos.map((logo, index) => (
-            <a 
-              key={`social-${logo.alt}-${index}`} 
-              href={logo.link}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="social-icon-link"
-            >
-              <img 
-                src={logo.src} 
-                alt={logo.alt} 
-                style={{ 
-                  width: `${getSocialIconSize()}px`,
-                  height: `${getSocialIconSize()}px`
-                }}
-                className="social-icon"
-              />
-            </a>
-          ))}
-        </div>
       </div>
     </div>
   );

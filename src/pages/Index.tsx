@@ -455,18 +455,18 @@ const Index = ({ onLogout }: IndexProps) => {
             <div>
               <h3 className="text-white font-bold mb-4">Support</h3>
               <ul className="space-y-2 text-sm text-gray-400">
-                <li><a href="#" className="hover:text-white transition-colors">Help Center</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Contact Us</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">FAQs</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Payment Issues</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Security</a></li>
+                <li><Link to="/help-center" className="hover:text-white transition-colors">Help Center</Link></li>
+                <li><Link to="/contact-us" className="hover:text-white transition-colors">Contact Us</Link></li>
+                <li><Link to="/faqs" className="hover:text-white transition-colors">FAQs</Link></li>
+                <li><Link to="/payment-issues" className="hover:text-white transition-colors">Payment Issues</Link></li>
+                <li><Link to="/security" className="hover:text-white transition-colors">Security</Link></li>
               </ul>
             </div>
             
             <div>
               <h3 className="text-white font-bold mb-4">Legal</h3>
               <ul className="space-y-2 text-sm text-gray-400">
-                <li><a href="#" className="hover:text-white transition-colors">Terms of Service</a></li>
+                <li><Link to="/terms-of-service" className="hover:text-white transition-colors">Terms of Service</Link></li>
                 <li>
                   <button 
                     className="hover:text-white transition-colors"
@@ -475,8 +475,8 @@ const Index = ({ onLogout }: IndexProps) => {
                     Privacy Policy
                   </button>
                 </li>
-                <li><a href="#" className="hover:text-white transition-colors">Refund Policy</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Copyright Notice</a></li>
+                <li><Link to="/refund-policy" className="hover:text-white transition-colors">Refund Policy</Link></li>
+                <li><Link to="/copyright-notice" className="hover:text-white transition-colors">Copyright Notice</Link></li>
               </ul>
             </div>
           </div>
