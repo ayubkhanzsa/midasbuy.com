@@ -1,3 +1,4 @@
+
 @keyframes scroll {
   0% {
     transform: translateX(0);
@@ -92,6 +93,38 @@
   letter-spacing: 0.5px;
 }
 
+.payment-methods-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 14px;
+  margin-top: 24px;
+  padding: 0 10px;
+}
+
+.payment-method-icon {
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 8px;
+  padding: 8px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.payment-method-icon:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.payment-method-icon img {
+  height: 100%;
+  width: auto;
+  object-fit: contain;
+}
+
 @media (max-width: 768px) {
   .payment-logos-scroll {
     animation: scroll 25s linear infinite;
@@ -112,6 +145,15 @@
   .social-icon-circle {
     width: 40px;
     height: 40px;
+  }
+  
+  .payment-methods-container {
+    gap: 10px;
+  }
+  
+  .payment-method-icon {
+    height: 30px;
+    padding: 6px;
   }
 }
 
@@ -139,5 +181,10 @@
   
   .social-icon-label {
     font-size: 10px;
+  }
+  
+  .payment-method-icon {
+    height: 24px;
+    padding: 4px;
   }
 }

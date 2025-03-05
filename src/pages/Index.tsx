@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
@@ -289,6 +290,58 @@ const Index = ({ onLogout }: IndexProps) => {
           <span className="social-icon-label">Facebook</span>
         </div>
       </div>
+      
+      <div className="payment-methods-container">
+        <div className="social-heading">Payment Methods</div>
+        
+        <div className="payment-method-icon">
+          <img src="/lovable-uploads/422061fc-b0e9-4568-b04a-88e4e57d7c90.png" alt="WeChat Pay" />
+        </div>
+        
+        <div className="payment-method-icon">
+          <img src="/lovable-uploads/32bc4d28-760d-4e2f-8419-268297096c80.png" alt="Paysafe Card" />
+        </div>
+        
+        <div className="payment-method-icon">
+          <img src="/lovable-uploads/c8638434-dcc8-4f72-a932-4fec1500470b.png" alt="QBucks" />
+        </div>
+        
+        <div className="payment-method-icon">
+          <img src="/lovable-uploads/ea4803b7-d2fe-4625-90f1-928dfaeef891.png" alt="Dollar General" />
+        </div>
+        
+        <div className="payment-method-icon">
+          <img src="/lovable-uploads/8d67846e-3735-4724-82e5-d37a5aebe67d.png" alt="PayPal" />
+        </div>
+        
+        <div className="payment-method-icon">
+          <img src="/lovable-uploads/39ad9ada-7ef2-4264-8459-58ed85df78e0.png" alt="Razer Gold Pay" />
+        </div>
+        
+        <div className="payment-method-icon">
+          <img src="/lovable-uploads/52c75920-ec26-450b-8d0e-80c4c019fefa.png" alt="PayPal" />
+        </div>
+        
+        <div className="payment-method-icon">
+          <img src="/lovable-uploads/f6ce708d-415c-4df4-8454-b05e2d4d5b9d.png" alt="Credit Card" />
+        </div>
+        
+        <div className="payment-method-icon">
+          <img src="/lovable-uploads/5498eb29-e6f4-4b43-b01f-c41bf42a56f8.png" alt="Google Pay" />
+        </div>
+        
+        <div className="payment-method-icon">
+          <img src="/lovable-uploads/4c6e5aba-d001-433d-9eff-4bd1735d4410.png" alt="Apple Pay" />
+        </div>
+        
+        <div className="payment-method-icon">
+          <img src="/lovable-uploads/b35ac6bf-8d43-4321-8369-bb70047c0f23.png" alt="CVS" />
+        </div>
+        
+        <div className="payment-method-icon">
+          <img src="/lovable-uploads/7ced1d56-2f82-478f-b3d9-8d74c4248658.png" alt="Razer Gold" />
+        </div>
+      </div>
     </div>
   );
 
@@ -497,11 +550,10 @@ const Index = ({ onLogout }: IndexProps) => {
       <footer className="bg-midasbuy-navy py-8 relative z-10">
         <div className="container mx-auto px-4">
           <div className="mb-8">
-            <div className="flex items-center mb-4">
-              <img src="/lovable-uploads/c6fd77e7-3682-428e-8154-140308b4a06b.png" alt="Logo" className="h-8 mr-3" />
-              <h3 className="text-lg font-bold text-white">MidasBuy</h3>
+            <div className="mb-4 flex justify-center">
+              <img src="/lovable-uploads/c6fd77e7-3682-428e-8154-140308b4a06b.png" alt="Logo" className="h-10 transform hover:scale-110 transition-transform" />
             </div>
-            <p className="text-gray-400 text-sm mb-4">
+            <p className="text-gray-400 text-sm mb-4 text-center">
               The official platform for purchasing in-game currency and items for PUBG Mobile and other popular games.
             </p>
             
