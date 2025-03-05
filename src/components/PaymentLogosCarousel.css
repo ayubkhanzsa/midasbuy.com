@@ -12,12 +12,15 @@
   overflow: hidden;
   position: relative;
   width: 100%;
+  background-color: rgba(255, 255, 255, 0.02);
+  border-radius: 0.5rem;
+  padding: 0.5rem 0;
 }
 
 .payment-logos-scroll {
   display: flex;
   width: fit-content;
-  animation: scroll 30s linear infinite;
+  animation: scroll 35s linear infinite;
 }
 
 .payment-logos-scroll:hover {
@@ -26,15 +29,21 @@
 
 .payment-logo {
   transition: all 0.3s ease;
+  margin: 0 0.5rem;
 }
 
 .payment-logo:hover {
   transform: scale(1.1);
+  filter: brightness(1.1);
 }
 
 @media (max-width: 768px) {
   .payment-logos-scroll {
     animation: scroll 25s linear infinite;
+  }
+  
+  .payment-logos-container {
+    padding: 0.25rem 0;
   }
 }
 

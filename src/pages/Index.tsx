@@ -483,17 +483,23 @@ const Index = ({ onLogout }: IndexProps) => {
           </div>
           
           <div className="border-t border-gray-700 pt-6 pb-2">
-            <div className="flex flex-col md:flex-row items-center justify-between">
-              <div className="mb-4 md:mb-0">
+            <div className="flex flex-col items-center justify-center">
+              <div className="flex items-center justify-center mb-4 space-x-4">
+                <img 
+                  src="/lovable-uploads/57ffc683-59b7-4970-9c91-977479b64214.png" 
+                  alt="PCI DSS Compliant" 
+                  className="h-10 md:h-12"
+                />
+                <img 
+                  src="/lovable-uploads/17590eb9-a257-432b-bd97-5ccfa3ee5ed5.png" 
+                  alt="AICPA SOC" 
+                  className="h-10 md:h-12"
+                />
+              </div>
+              <div className="text-center">
                 <p className="text-xs text-gray-500">
                   © 2025 MidasBuy. All rights reserved. All trademarks referenced herein are the properties of their respective owners.
                 </p>
-              </div>
-              <div className="flex items-center">
-                <span className="text-xs text-gray-500 mr-3">Secure Payment:</span>
-                <div className="flex flex-wrap gap-2 items-center">
-                  <img src="/lovable-uploads/4c4d35fa-bd7e-4ba9-8153-5ff41254770b.png" alt="Payment Methods" className="h-8 object-contain" />
-                </div>
               </div>
             </div>
           </div>
