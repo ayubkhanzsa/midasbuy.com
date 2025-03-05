@@ -2,6 +2,7 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import PrivacyPolicyModal from "./PrivacyPolicyModal";
+import SocialMediaIcons from "./SocialMediaIcons";
 
 const Footer = () => {
   const [showPrivacyPolicy, setShowPrivacyPolicy] = useState(false);
@@ -16,6 +17,8 @@ const Footer = () => {
           <p className="text-gray-400 text-sm mb-4 text-center">
             The official platform for purchasing in-game currency and items for PUBG Mobile and other popular games.
           </p>
+          
+          <SocialMediaIcons />
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
