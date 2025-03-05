@@ -113,20 +113,21 @@ const PaymentLogosCarousel = () => {
   
   // Get the appropriate logo size based on the viewport
   const getLogoSize = () => {
-    if (isMobile) return 40; // Increased from 32
-    if (isTablet) return 46; // Increased from 36
-    return 50; // Increased from 40
+    if (isMobile) return 44; // Increased size
+    if (isTablet) return 50; // Increased size
+    return 54; // Increased size
   };
 
   // Get the appropriate social icon size based on the viewport
   const getSocialIconSize = () => {
-    if (isMobile) return 38; // Increased from 32
-    if (isTablet) return 42; // Increased from 36
-    return 46; // Increased from 40
+    if (isMobile) return 42; // Increased size
+    if (isTablet) return 46; // Increased size
+    return 50; // Increased size
   };
   
   // Double the array for infinite loop effect
   const duplicatedLogos = [...paymentLogos, ...paymentLogos];
+  const duplicatedSocialLogos = [...socialLogos, ...socialLogos];
   
   // Animation settings
   const carouselVariants = {
@@ -143,12 +144,30 @@ const PaymentLogosCarousel = () => {
     },
   };
 
+  const socialCarouselVariants = {
+    animate: {
+      x: [0, -100 * socialLogos.length],
+      transition: {
+        x: {
+          repeat: Infinity,
+          repeatType: "loop",
+          duration: 25,
+          ease: "linear",
+        },
+      },
+    },
+  };
+
   return (
     <div className="mt-6 overflow-hidden" ref={containerRef}>
       <h4 className="text-sm font-medium text-gray-300 mb-2">Follow Us:</h4>
       <div className="social-logos-container">
-        <div className="social-logos-scroll">
-          {socialLogos.map((logo, index) => (
+        <motion.div 
+          className="flex social-logos-scroll" 
+          variants={socialCarouselVariants}
+          animate="animate"
+        >
+          {duplicatedSocialLogos.map((logo, index) => (
             <a 
               key={`social-${logo.alt}-${index}`} 
               href={logo.link}
@@ -167,7 +186,7 @@ const PaymentLogosCarousel = () => {
               />
             </a>
           ))}
-        </div>
+        </motion.div>
       </div>
 
       <h4 className="text-sm font-medium text-gray-300 mt-6 mb-2">Payment Methods:</h4>
@@ -192,7 +211,7 @@ const PaymentLogosCarousel = () => {
                   height: `${getLogoSize()}px`,
                   objectFit: 'contain'
                 }}
-                className="bg-white/10 backdrop-blur-sm rounded-md p-1"
+                className="bg-white/10 backdrop-blur-sm rounded-md p-1.5"
               />
             </a>
           ))}

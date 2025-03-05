@@ -8,15 +8,6 @@
   }
 }
 
-@keyframes scrollSocial {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(-100%);
-  }
-}
-
 .payment-logos-container {
   overflow: hidden;
   position: relative;
@@ -59,10 +50,12 @@
 
 .social-logos-scroll {
   display: flex;
-  justify-content: space-around;
-  width: 100%;
-  padding: 0 0.5rem;
-  overflow-x: auto;
+  width: fit-content;
+  animation: scroll 30s linear infinite;
+}
+
+.social-logos-scroll:hover {
+  animation-play-state: paused;
 }
 
 .social-icon-link {
@@ -96,6 +89,10 @@
     animation: scroll 25s linear infinite;
   }
   
+  .social-logos-scroll {
+    animation: scroll 20s linear infinite;
+  }
+  
   .payment-logos-container {
     padding: 0.75rem 0;
   }
@@ -121,6 +118,10 @@
 @media (max-width: 480px) {
   .payment-logos-scroll {
     animation: scroll 20s linear infinite;
+  }
+  
+  .social-logos-scroll {
+    animation: scroll 18s linear infinite;
   }
   
   .social-logos-container {

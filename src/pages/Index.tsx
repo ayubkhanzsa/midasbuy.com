@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
@@ -439,19 +440,20 @@ const Index = ({ onLogout }: IndexProps) => {
       
       <footer className="bg-midasbuy-navy py-8 relative z-10">
         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
-            <div>
-              <div className="flex items-center mb-4">
-                <img src="/lovable-uploads/c6fd77e7-3682-428e-8154-140308b4a06b.png" alt="Logo" className="h-8 mr-3" />
-                <h3 className="text-lg font-bold text-white"></h3>
-              </div>
-              <p className="text-gray-400 text-sm mb-4">
-                The official platform for purchasing in-game currency and items for PUBG Mobile and other popular games.
-              </p>
-              
-              <PaymentLogosCarousel />
+          <div className="mb-8">
+            <div className="flex items-center mb-4">
+              <img src="/lovable-uploads/c6fd77e7-3682-428e-8154-140308b4a06b.png" alt="Logo" className="h-8 mr-3" />
+              <h3 className="text-lg font-bold text-white">MidasBuy</h3>
             </div>
+            <p className="text-gray-400 text-sm mb-4">
+              The official platform for purchasing in-game currency and items for PUBG Mobile and other popular games.
+            </p>
             
+            {/* Payment Logos Carousel moved above Support section */}
+            <PaymentLogosCarousel />
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
             <div>
               <h3 className="text-white font-bold mb-4">Support</h3>
               <ul className="space-y-2 text-sm text-gray-400">
@@ -477,6 +479,16 @@ const Index = ({ onLogout }: IndexProps) => {
                 </li>
                 <li><Link to="/refund-policy" className="hover:text-white transition-colors">Refund Policy</Link></li>
                 <li><Link to="/copyright-notice" className="hover:text-white transition-colors">Copyright Notice</Link></li>
+              </ul>
+            </div>
+            
+            <div>
+              <h3 className="text-white font-bold mb-4">About Us</h3>
+              <ul className="space-y-2 text-sm text-gray-400">
+                <li><Link to="/about-midasbuy" className="hover:text-white transition-colors">About MidasBuy</Link></li>
+                <li><Link to="/careers" className="hover:text-white transition-colors">Careers</Link></li>
+                <li><Link to="/press" className="hover:text-white transition-colors">Press</Link></li>
+                <li><Link to="/partners" className="hover:text-white transition-colors">Partners</Link></li>
               </ul>
             </div>
           </div>
