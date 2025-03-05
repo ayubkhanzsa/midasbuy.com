@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
@@ -247,7 +248,7 @@ const Index = ({ onLogout }: IndexProps) => {
   return (
     <div className="min-h-screen bg-midasbuy-darkBlue overflow-x-hidden relative">
       {isMobile && (
-        <div className="absolute top-0 left-0 w-full h-[280px] z-0">
+        <div className="absolute top-0 left-0 w-full h-[330px] z-0">
           <img 
             src="/lovable-uploads/95cf73d4-ac8a-46a5-8445-7009f38cd15b.png" 
             alt="Banner" 
