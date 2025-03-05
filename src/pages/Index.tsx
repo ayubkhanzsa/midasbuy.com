@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
@@ -235,7 +234,7 @@ const Index = ({ onLogout }: IndexProps) => {
           <button 
             key={link.path}
             onClick={() => handleNavigate(link.path)}
-            className={`text-${link.path === '/' ? 'white' : 'gray-400'} font-bold tracking-wide px-6 sm:px-8 py-2 relative hover:text-gray-200 transition-colors text-sm`}
+            className={`text-${link.path === '/' ? 'white' : 'gray-400'} font-bold tracking-wide px-4 sm:px-6 py-2 relative hover:text-gray-200 transition-colors text-sm`}
           >
             {link.name}
             {link.path === '/' && <span className="absolute bottom-0 left-0 w-full h-1 bg-midasbuy-blue"></span>}
@@ -370,7 +369,6 @@ const Index = ({ onLogout }: IndexProps) => {
             </button>
           </div>
           
-          {/* Modified grid to show 2 packages per row on mobile */}
           <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-6">
             {filteredPackages.map((pkg, index) => (
               <motion.div
