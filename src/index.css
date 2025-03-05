@@ -118,18 +118,43 @@
 
   /* Professional UC Package styles */
   .uc-amount {
-    @apply text-3xl font-bold text-midasbuy-gold;
+    @apply text-3xl font-bold text-white;
   }
   
   .uc-bonus {
-    @apply text-lg font-semibold text-midasbuy-gold/90;
+    @apply text-xl font-bold text-midasbuy-gold;
   }
   
   .uc-price {
-    @apply text-lg font-bold text-midasbuy-gold;
+    @apply text-xl font-bold text-midasbuy-gold;
   }
   
   .uc-original-price {
     @apply text-sm text-gray-400 line-through;
+  }
+  
+  /* New styles for UC packages matching the reference image */
+  .uc-package-card {
+    @apply bg-midasbuy-navy rounded-lg overflow-hidden;
+  }
+  
+  .uc-package-discount {
+    @apply absolute top-2 right-2 bg-midasbuy-gold text-black font-bold text-lg px-2 py-1 rounded-md;
+  }
+  
+  .uc-package-amount {
+    @apply flex items-center;
+  }
+  
+  .uc-package-footer {
+    @apply flex mt-auto;
+  }
+  
+  .uc-package-discount-badge {
+    @apply bg-amber-500 text-black font-semibold py-1 px-3;
+  }
+  
+  .uc-package-midasbuy-badge {
+    @apply bg-white text-black font-semibold py-1 px-3 flex-grow flex items-center justify-between;
   }
 }

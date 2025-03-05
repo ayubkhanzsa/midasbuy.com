@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
@@ -267,7 +268,8 @@ const Index = ({ onLogout }: IndexProps) => {
             style={{ 
               width: '100%', 
               maxWidth: '1440px',
-              maxHeight: isDesktop ? '350px' : isTablet ? '300px' : '250px'
+              maxHeight: isDesktop ? '350px' : isTablet ? '300px' : '180px',
+              marginTop: isMobile ? '50px' : '0'
             }}
           />
         </div>
@@ -396,13 +398,15 @@ const Index = ({ onLogout }: IndexProps) => {
                     </div>
                     
                     <div className="p-4 pt-1">
-                      <div className="flex justify-end">
-                        <div className="inline-block rounded-md bg-[#FFDD33] px-2 py-0.5 text-sm font-bold text-black">
-                          {pkg.bonusPercent && pkg.bonusPercent}
+                      {pkg.bonusPercent && (
+                        <div className="flex justify-end">
+                          <div className="inline-block rounded-md bg-[#FFDD33] px-2 py-0.5 text-sm font-bold text-black">
+                            {pkg.bonusPercent}
+                          </div>
                         </div>
-                      </div>
+                      )}
                       
-                      <div className="flex items-center mb-2">
+                      <div className="flex items-center mb-3">
                         <div className="uc-icon mr-2">
                           <img src="/lovable-uploads/f6594fcb-d2eb-4e92-9f21-fe5959fa5360.png" alt="UC" className="w-5 h-5" />
                         </div>
@@ -419,8 +423,8 @@ const Index = ({ onLogout }: IndexProps) => {
                           </span>
                         ) : (
                           <>
-                            <span className="text-gray-400 text-sm">From</span>
-                            <span className="text-xl font-bold text-white">
+                            <span className="text-midasbuy-gold text-sm">From</span>
+                            <span className="text-xl font-bold text-midasbuy-gold">
                               {convertAndFormatPrice(pkg.price, selectedCountry.currency)}
                             </span>
                           </>
