@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
@@ -247,26 +246,6 @@ const Index = ({ onLogout }: IndexProps) => {
 
   return (
     <div className="min-h-screen bg-midasbuy-darkBlue overflow-x-hidden relative">
-      {isMobile && (
-        <div className="absolute top-0 left-0 w-full h-[330px] z-0">
-          <img 
-            src="/lovable-uploads/95cf73d4-ac8a-46a5-8445-7009f38cd15b.png" 
-            alt="Banner" 
-            className="w-full h-full object-cover"
-          />
-        </div>
-      )}
-      
-      {isMobile && (
-        <div className="absolute top-[100px] right-0 h-[240px] z-10 pointer-events-none">
-          <img 
-            src="/lovable-uploads/f28ecc33-32f2-4b1a-b70b-bc28a972f593.png" 
-            alt="Character" 
-            className="h-full object-contain"
-          />
-        </div>
-      )}
-      
       <Header onLogout={onLogout} />
       
       <main className="pt-20 pb-20 relative z-10">

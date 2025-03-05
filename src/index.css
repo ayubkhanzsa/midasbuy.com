@@ -1,157 +1,101 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
+ 
 @layer base {
   :root {
-    --background: 210 33% 12%;
-    --foreground: 210 40% 98%;
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
 
-    --card: 215 35% 15%;
-    --card-foreground: 210 40% 98%;
-
-    --popover: 215 35% 15%;
-    --popover-foreground: 210 40% 98%;
-
-    --primary: 210 100% 50%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+ 
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+ 
+    --primary: 222.2 47.4% 11.2%;
     --primary-foreground: 210 40% 98%;
-
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-
-    --destructive: 0 62.8% 30.6%;
+ 
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+ 
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+ 
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+ 
+    --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 222.2 84% 4.9%;
+ 
+    --radius: 0.5rem;
+  }
+ 
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+ 
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+ 
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+ 
+    --primary: 210 40% 98%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+ 
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+ 
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+ 
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+ 
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+ 
     --border: 217.2 32.6% 17.5%;
     --input: 217.2 32.6% 17.5%;
     --ring: 212.7 26.8% 83.9%;
-    
-    --radius: 0.5rem;
   }
+}
 
+@layer base {
   * {
     @apply border-border;
   }
-
   body {
-    @apply bg-midasbuy-darkBlue text-foreground font-sans overflow-x-hidden;
-    font-family: 'Inter', sans-serif;
-  }
-
-  /* Custom scrollbar */
-  ::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
-  }
-
-  ::-webkit-scrollbar-track {
-    @apply bg-midasbuy-navy/30;
-  }
-
-  ::-webkit-scrollbar-thumb {
-    @apply bg-midasbuy-blue/70 rounded-full;
-  }
-
-  ::-webkit-scrollbar-thumb:hover {
-    @apply bg-midasbuy-blue;
+    @apply bg-background text-foreground;
   }
 }
 
 @layer components {
-  .glass-effect {
-    @apply backdrop-blur-md bg-glass-gradient border border-white/10 shadow-lg;
-  }
-  
-  .nav-link {
-    @apply relative px-4 py-2 font-medium text-gray-300 transition-colors duration-300 hover:text-white;
-  }
-  
-  .nav-link::after {
-    content: '';
-    @apply absolute left-0 bottom-0 w-0 h-0.5 bg-midasbuy-blue transition-all duration-300 ease-in-out;
-  }
-  
-  .nav-link:hover::after, .nav-link.active::after {
-    @apply w-full;
-  }
-  
-  .uc-card {
-    @apply relative overflow-hidden bg-midasbuy-navy/80 rounded-lg transition-all duration-300 hover:shadow-[0_0_15px_rgba(0,145,255,0.5)] border border-midasbuy-navy hover:border-midasbuy-blue/50 h-full;
-  }
-  
-  .gold-text {
-    @apply text-midasbuy-gold font-bold;
-  }
-  
-  /* Animation classes */
-  .animate-enter-right {
-    @apply animate-[fade-in-right_0.4s_ease-out];
-  }
-  
-  .animate-enter-up {
-    @apply animate-fade-in-up;
-  }
-  
-  /* Button styles */
   .btn-primary {
-    @apply bg-midasbuy-blue text-white font-medium px-6 py-2 rounded-full shadow-lg hover:shadow-midasbuy-blue/30 hover:bg-midasbuy-blue/90 transition-all duration-300 active:scale-95;
+    @apply text-white rounded-md bg-midasbuy-blue hover:bg-midasbuy-blue/80 transition-colors;
   }
-  
-  .btn-outline {
-    @apply border border-midasbuy-blue/70 text-midasbuy-blue font-medium px-6 py-2 rounded-full shadow-md hover:bg-midasbuy-blue/10 transition-all duration-300 active:scale-95;
+  .btn-secondary {
+    @apply text-white rounded-md bg-midasbuy-navy border border-gray-700 hover:border-midasbuy-blue/60 transition-colors;
   }
-  
-  .discount-tag {
-    @apply absolute top-2 left-0 bg-gradient-to-r from-yellow-500 to-yellow-600 text-black text-xs font-bold px-3 py-1 rounded-r-md flex items-center;
-  }
+}
 
-  /* Professional UC Package styles */
-  .uc-amount {
-    @apply text-3xl font-bold text-white;
+/* Mobile specific adjustments for PUBG Mobile landing page */
+@media (max-width: 768px) {
+  body {
+    background-color: #0A1629;
   }
   
-  .uc-bonus {
-    @apply text-xl font-bold text-midasbuy-gold;
-  }
-  
-  .uc-price {
-    @apply text-xl font-bold text-midasbuy-gold;
-  }
-  
-  .uc-original-price {
-    @apply text-sm text-gray-400 line-through;
-  }
-  
-  /* New styles for UC packages matching the reference image */
-  .uc-package-card {
-    @apply bg-midasbuy-navy rounded-lg overflow-hidden;
-  }
-  
-  .uc-package-discount {
-    @apply absolute top-2 right-2 bg-midasbuy-gold text-black font-bold text-lg px-2 py-1 rounded-md;
-  }
-  
-  .uc-package-amount {
-    @apply flex items-center;
-  }
-  
-  .uc-package-footer {
-    @apply flex mt-auto;
-  }
-  
-  .uc-package-discount-badge {
-    @apply bg-amber-500 text-black font-semibold py-1 px-3;
-  }
-  
-  .uc-package-midasbuy-badge {
-    @apply bg-white text-black font-semibold py-1 px-3 flex-grow flex items-center justify-between;
+  /* Use full background image on mobile */
+  .mobile-full-bg {
+    background-image: url('/lovable-uploads/6e4dee4b-a289-4bff-9aff-d3e6bfa306db.png');
+    background-size: cover;
+    background-position: center top;
+    background-repeat: no-repeat;
   }
 }
