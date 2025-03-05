@@ -1,16 +1,13 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Filter, ChevronDown, Shield, Lock, FileText, HelpCircle, Info } from "lucide-react";
+import { Filter, ChevronDown, Shield, Lock, FileText, HelpCircle, Info, Facebook, Instagram, Youtube } from "lucide-react";
 import Header from "@/components/Header";
 import { ucPackages, getSelectedCountry } from "@/data/ucPackages";
 import { Button } from "@/components/ui/button";
 import { useMobile, useResponsive, useAnimationDuration } from "@/hooks/use-mobile";
 import { convertAndFormatPrice } from "@/utils/currencyUtils";
 import PaymentLogosCarousel from "@/components/PaymentLogosCarousel";
-import Facebook from "lucide-react/Facebook";
-import Instagram from "lucide-react/Instagram";
-import Youtube from "lucide-react/Youtube";
 
 interface IndexProps {
   onLogout: () => void;
