@@ -20,6 +20,9 @@ const Footer = () => {
           </p>
           
           <SocialMediaIcons />
+          
+          {/* Payment Methods Carousel - Moved here */}
+          <PaymentMethodsCarousel />
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
@@ -61,9 +64,6 @@ const Footer = () => {
             </ul>
           </div>
         </div>
-        
-        {/* Payment Methods Carousel */}
-        <PaymentMethodsCarousel />
         
         <div className="border-t border-gray-700 pt-6 pb-2 mt-6">
           <div className="flex flex-col items-center justify-center">
