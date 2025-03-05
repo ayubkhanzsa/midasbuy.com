@@ -93,56 +93,6 @@
   letter-spacing: 0.5px;
 }
 
-.payment-methods-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 14px;
-  margin-top: 24px;
-  padding: 0 10px;
-  position: relative;
-  overflow: hidden;
-}
-
-.payment-method-icons-scroll {
-  display: flex;
-  width: fit-content;
-  animation: scroll 60s linear infinite;
-  padding: 10px 0;
-}
-
-.payment-method-icons-scroll:hover {
-  animation-play-state: paused;
-}
-
-.payment-method-icons-scroll.paused {
-  animation-play-state: paused;
-}
-
-.payment-method-icon {
-  background-color: rgba(255, 255, 255, 0.9);
-  border-radius: 8px;
-  padding: 8px;
-  height: 36px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.3s ease;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-  margin: 0 14px;
-}
-
-.payment-method-icon:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-}
-
-.payment-method-icon img {
-  height: 100%;
-  width: auto;
-  object-fit: contain;
-}
-
 @media (max-width: 768px) {
   .payment-logos-scroll {
     animation: scroll 25s linear infinite;
@@ -163,20 +113,6 @@
   .social-icon-circle {
     width: 40px;
     height: 40px;
-  }
-  
-  .payment-methods-container {
-    gap: 10px;
-  }
-  
-  .payment-method-icon {
-    height: 30px;
-    padding: 6px;
-    margin: 0 10px;
-  }
-  
-  .payment-method-icons-scroll {
-    animation: scroll 40s linear infinite;
   }
 }
 
@@ -204,15 +140,5 @@
   
   .social-icon-label {
     font-size: 10px;
-  }
-  
-  .payment-method-icon {
-    height: 24px;
-    padding: 4px;
-    margin: 0 8px;
-  }
-  
-  .payment-method-icons-scroll {
-    animation: scroll 30s linear infinite;
   }
 }
