@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
@@ -35,7 +34,6 @@ const PurchasePage = ({ onLogout }: PurchasePageProps) => {
       return;
     }
 
-    // Simulate loading
     const timer = setTimeout(() => {
       setIsLoading(false);
     }, 800);
@@ -44,7 +42,30 @@ const PurchasePage = ({ onLogout }: PurchasePageProps) => {
   }, [ucPackage, navigate]);
 
   useEffect(() => {
-    // Handle currency changes both from storage events and direct changes
+    const savedPlayerID = localStorage.getItem("playerID");
+    if (savedPlayerID) {
+      setPlayerID(savedPlayerID);
+      setIsPlayerIDValid(true);
+    }
+    
+    const savedUsername = localStorage.getItem("pubgUsername");
+    if (savedUsername) {
+      setUsername(savedUsername);
+    }
+
+    const handleStorageChange = (event: StorageEvent) => {
+      if (event.key === "pubgUsername") {
+        const newUsername = event.newValue;
+        if (newUsername !== null) {
+          setUsername(newUsername);
+        } else {
+          setUsername("");
+        }
+      }
+    };
+
+    window.addEventListener('storage', handleStorageChange);
+
     const handleCountryChange = () => {
       const newSelectedCountry = getSelectedCountry();
       if (newSelectedCountry.currency !== selectedCountry.currency) {
@@ -52,53 +73,17 @@ const PurchasePage = ({ onLogout }: PurchasePageProps) => {
       }
     };
 
-    // Set up both types of listeners
     const storageCleanup = setupCountryChangeListener(handleCountryChange);
     const currencyCleanup = setupCurrencyChangeListener(() => {
       handleCountryChange();
     });
 
-    // Listen for localStorage changes
-    const handleStorageChange = (event: StorageEvent) => {
-      if (event.key === "pubgUsername" || event.key === "pubgUsernameTimestamp") {
-        const savedUsername = localStorage.getItem("pubgUsername");
-        setUsername(savedUsername || "");
-      }
-    };
-
-    // Add event listener for storage changes
-    window.addEventListener('storage', handleStorageChange);
-
-    // Polling as a fallback
-    const interval = setInterval(() => {
-      handleCountryChange();
-      // Also check for username changes
-      const savedUsername = localStorage.getItem("pubgUsername");
-      if (savedUsername !== username) {
-        setUsername(savedUsername || "");
-      }
-    }, 2000);
-
-    // Load saved player ID from localStorage
-    const savedPlayerID = localStorage.getItem("playerID");
-    if (savedPlayerID) {
-      setPlayerID(savedPlayerID);
-      setIsPlayerIDValid(true);
-    }
-    
-    // Load saved username from localStorage
-    const savedUsername = localStorage.getItem("pubgUsername");
-    if (savedUsername) {
-      setUsername(savedUsername);
-    }
-
     return () => {
       storageCleanup();
       currencyCleanup();
-      clearInterval(interval);
       window.removeEventListener('storage', handleStorageChange);
     };
-  }, [selectedCountry.currency]);
+  }, []);
 
   const handleVerifyPlayerID = () => {
     if (!playerID || playerID.length < 8) {
@@ -112,7 +97,6 @@ const PurchasePage = ({ onLogout }: PurchasePageProps) => {
 
     setIsVerifying(true);
 
-    // Simulate verification
     setTimeout(() => {
       setIsVerifying(false);
       setIsPlayerIDValid(true);
@@ -122,10 +106,8 @@ const PurchasePage = ({ onLogout }: PurchasePageProps) => {
         description: "ID verification successful",
       });
       
-      // Store playerID in localStorage
       localStorage.setItem("playerID", playerID);
       
-      // Also ensure we have the latest username
       const savedUsername = localStorage.getItem("pubgUsername");
       if (savedUsername) {
         setUsername(savedUsername);
@@ -272,7 +254,6 @@ const PurchasePage = ({ onLogout }: PurchasePageProps) => {
                     </Button>
                   </div>
                   
-                  {/* Always show username section if available, regardless of ID verification */}
                   {username && (
                     <div className="mt-3 bg-midasbuy-blue/10 p-3 rounded-lg border border-midasbuy-blue/20">
                       <div className="flex items-center">

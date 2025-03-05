@@ -21,7 +21,7 @@ const EventsPage = ({ onLogout }: EventsPageProps) => {
   const { isMobile } = useResponsive();
   
   useEffect(() => {
-    // Load saved username from localStorage
+    // Load saved username from localStorage on component mount
     const savedUsername = localStorage.getItem("pubgUsername");
     if (savedUsername) {
       setUsername(savedUsername);
@@ -32,7 +32,22 @@ const EventsPage = ({ onLogout }: EventsPageProps) => {
       setIsLoading(false);
     }, 800);
 
-    return () => clearTimeout(timer);
+    // Listen for storage events (for cross-tab synchronization)
+    const handleStorageChange = (event: StorageEvent) => {
+      if (event.key === "pubgUsername") {
+        const newUsername = event.newValue;
+        if (newUsername !== null) {
+          setUsername(newUsername);
+        }
+      }
+    };
+
+    window.addEventListener('storage', handleStorageChange);
+
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener('storage', handleStorageChange);
+    };
   }, []);
 
   const handleSaveUsername = () => {
@@ -52,15 +67,11 @@ const EventsPage = ({ onLogout }: EventsPageProps) => {
       title: "Username Saved",
       description: "Your username has been saved successfully",
     });
-
-    // Force update localStorage with a timestamp to ensure it's properly saved
-    localStorage.setItem("pubgUsernameTimestamp", Date.now().toString());
   };
 
   const handleResetUsername = () => {
     setUsername("");
     localStorage.removeItem("pubgUsername");
-    localStorage.removeItem("pubgUsernameTimestamp");
     
     toast({
       title: "Username Reset",
