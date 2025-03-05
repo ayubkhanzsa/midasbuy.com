@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
@@ -22,19 +21,16 @@ const EventsPage = ({ onLogout }: EventsPageProps) => {
   const { isMobile } = useResponsive();
   
   useEffect(() => {
-    // Load saved username from localStorage on component mount
     const savedUsername = localStorage.getItem("pubgUsername");
     if (savedUsername) {
       setUsername(savedUsername);
       setIsUsernameVerified(true);
     }
     
-    // Simulate loading
     const timer = setTimeout(() => {
       setIsLoading(false);
     }, 800);
 
-    // Listen for storage events (for cross-tab synchronization)
     const handleStorageChange = (event: StorageEvent) => {
       if (event.key === "pubgUsername") {
         const newUsername = event.newValue;
@@ -66,7 +62,6 @@ const EventsPage = ({ onLogout }: EventsPageProps) => {
       return;
     }
 
-    // Save username to localStorage
     localStorage.setItem("pubgUsername", username);
     setIsUsernameVerified(true);
     
@@ -222,7 +217,7 @@ const EventsPage = ({ onLogout }: EventsPageProps) => {
       <footer className="bg-midasbuy-navy py-6 relative z-10">
         <div className="container mx-auto px-4">
           <div className="text-center text-gray-400 text-sm">
-            <p>© 2025 PUBG MOBILE. All Rights Reserved.</p>
+            <p>© 2025 Midasbuy. All Rights Reserved.</p>
             <div className="mt-2">
               <a href="#" className="text-gray-400 hover:text-gray-300 mx-2">Terms of Service</a>
               <span className="text-gray-600">|</span>

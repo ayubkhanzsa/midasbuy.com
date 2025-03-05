@@ -346,7 +346,7 @@ const ThankYouPage = ({ onLogout }: ThankYouPageProps) => {
                 </div>
                 
                 <div className="hidden print:block text-center mt-8 pt-8 border-t border-gray-300 text-xs text-white">
-                  <p>© 2023 Midasbuy. All Rights Reserved.</p>
+                  <p>© 2025 Midasbuy. All Rights Reserved.</p>
                 </div>
               </div>
               
