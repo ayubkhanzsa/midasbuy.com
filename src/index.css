@@ -1,3 +1,4 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -121,7 +122,7 @@
   .mobile-content {
     position: relative;
     z-index: 5;
-    padding-top: 1rem;
+    padding-top: 4rem;
   }
   
   /* Adjust header for mobile so it appears over the banner */
@@ -135,5 +136,17 @@
   .mobile-main-container {
     position: relative;
     z-index: 5;
+  }
+  
+  /* Adjust PUBG Mobile title on mobile */
+  .mobile-pubg-title {
+    font-size: 1.5rem !important;
+    margin-top: 1.5rem;
+  }
+  
+  /* Adjust PUBG Mobile icon on mobile */
+  .mobile-pubg-icon {
+    width: 28px !important;
+    margin-top: 1.5rem;
   }
 }
