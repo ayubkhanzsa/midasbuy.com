@@ -1,3 +1,4 @@
+
 @keyframes scroll {
   0% {
     transform: translateX(0);
@@ -84,12 +85,14 @@
 
 .social-heading {
   width: 100%;
-  text-align: center;
+  text-align: left;
   font-size: 16px;
   font-weight: 600;
   color: #FFFFFF;
   margin-bottom: 14px;
   letter-spacing: 0.5px;
+  padding-left: 16px;
+  border-left: 3px solid #0091FF;
 }
 
 .payment-methods-container {
@@ -98,12 +101,14 @@
 
 .payment-methods-heading {
   width: 100%;
-  text-align: center;
+  text-align: left;
   font-size: 16px;
   font-weight: 600;
   color: #FFFFFF;
   margin-bottom: 14px;
   letter-spacing: 0.5px;
+  padding-left: 16px;
+  border-left: 3px solid #0091FF;
 }
 
 .payment-methods-logos {
@@ -164,6 +169,11 @@
     height: 28px;
     padding: 5px 10px;
   }
+  
+  .social-heading, .payment-methods-heading {
+    text-align: left;
+    padding-left: 12px;
+  }
 }
 
 @media (max-width: 480px) {
@@ -195,5 +205,11 @@
   .payment-method-logo {
     height: 24px;
     padding: 4px 8px;
+  }
+  
+  .social-heading, .payment-methods-heading {
+    text-align: left;
+    padding-left: 10px;
+    font-size: 14px;
   }
 }
