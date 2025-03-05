@@ -100,6 +100,23 @@
   gap: 14px;
   margin-top: 24px;
   padding: 0 10px;
+  position: relative;
+  overflow: hidden;
+}
+
+.payment-method-icons-scroll {
+  display: flex;
+  width: fit-content;
+  animation: scroll 60s linear infinite;
+  padding: 10px 0;
+}
+
+.payment-method-icons-scroll:hover {
+  animation-play-state: paused;
+}
+
+.payment-method-icons-scroll.paused {
+  animation-play-state: paused;
 }
 
 .payment-method-icon {
@@ -112,6 +129,7 @@
   justify-content: center;
   transition: all 0.3s ease;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  margin: 0 14px;
 }
 
 .payment-method-icon:hover {
@@ -154,6 +172,11 @@
   .payment-method-icon {
     height: 30px;
     padding: 6px;
+    margin: 0 10px;
+  }
+  
+  .payment-method-icons-scroll {
+    animation: scroll 40s linear infinite;
   }
 }
 
@@ -186,5 +209,10 @@
   .payment-method-icon {
     height: 24px;
     padding: 4px;
+    margin: 0 8px;
+  }
+  
+  .payment-method-icons-scroll {
+    animation: scroll 30s linear infinite;
   }
 }
