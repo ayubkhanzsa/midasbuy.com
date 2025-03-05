@@ -1,0 +1,45 @@
+
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+.payment-logos-container {
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+}
+
+.payment-logos-scroll {
+  display: flex;
+  width: fit-content;
+  animation: scroll 30s linear infinite;
+}
+
+.payment-logos-scroll:hover {
+  animation-play-state: paused;
+}
+
+.payment-logo {
+  transition: all 0.3s ease;
+}
+
+.payment-logo:hover {
+  transform: scale(1.1);
+}
+
+@media (max-width: 768px) {
+  .payment-logos-scroll {
+    animation: scroll 25s linear infinite;
+  }
+}
+
+@media (max-width: 480px) {
+  .payment-logos-scroll {
+    animation: scroll 20s linear infinite;
+  }
+}
