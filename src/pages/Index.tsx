@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
@@ -248,10 +247,20 @@ const Index = ({ onLogout }: IndexProps) => {
   return (
     <div className="min-h-screen bg-midasbuy-darkBlue overflow-x-hidden relative">
       {isMobile && (
-        <div className="absolute top-0 right-0 h-[calc(100vh-200px)] z-10 pointer-events-none">
+        <div className="absolute top-0 left-0 w-full h-[280px] z-0">
+          <img 
+            src="/lovable-uploads/95cf73d4-ac8a-46a5-8445-7009f38cd15b.png" 
+            alt="Banner" 
+            className="w-full h-full object-cover"
+          />
+        </div>
+      )}
+      
+      {isMobile && (
+        <div className="absolute top-[100px] right-0 h-[240px] z-10 pointer-events-none">
           <img 
             src="/lovable-uploads/f28ecc33-32f2-4b1a-b70b-bc28a972f593.png" 
-            alt="Banner" 
+            alt="Character" 
             className="h-full object-contain"
           />
         </div>
@@ -261,17 +270,18 @@ const Index = ({ onLogout }: IndexProps) => {
       
       <main className="pt-20 pb-20 relative z-10">
         <div className="absolute top-0 left-0 w-full flex justify-center items-center">
-          <img 
-            src="/lovable-uploads/28985189-d7e6-4b78-b392-1c1c9fcaff88.png" 
-            alt="Banner"
-            className="w-full h-auto object-cover md:object-contain"
-            style={{ 
-              width: '100%', 
-              maxWidth: '1440px',
-              maxHeight: isDesktop ? '350px' : isTablet ? '300px' : '180px',
-              marginTop: isMobile ? '50px' : '0'
-            }}
-          />
+          {!isMobile && (
+            <img 
+              src="/lovable-uploads/28985189-d7e6-4b78-b392-1c1c9fcaff88.png" 
+              alt="Banner"
+              className="w-full h-auto object-cover md:object-contain"
+              style={{ 
+                width: '100%', 
+                maxWidth: '1440px',
+                maxHeight: isDesktop ? '350px' : isTablet ? '300px' : '180px',
+              }}
+            />
+          )}
         </div>
         
         <div className="container mx-auto px-4">
