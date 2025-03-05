@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
@@ -7,7 +8,6 @@ import { ucPackages, getSelectedCountry } from "@/data/ucPackages";
 import { Button } from "@/components/ui/button";
 import { useMobile, useResponsive, useAnimationDuration } from "@/hooks/use-mobile";
 import { convertAndFormatPrice } from "@/utils/currencyUtils";
-import PaymentLogosCarousel from "@/components/PaymentLogosCarousel";
 
 interface IndexProps {
   onLogout: () => void;
@@ -448,7 +448,7 @@ const Index = ({ onLogout }: IndexProps) => {
               The official platform for purchasing in-game currency and items for PUBG Mobile and other popular games.
             </p>
             
-            <PaymentLogosCarousel />
+            {/* Payment carousel removed */}
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
