@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
@@ -449,7 +448,6 @@ const Index = ({ onLogout }: IndexProps) => {
               The official platform for purchasing in-game currency and items for PUBG Mobile and other popular games.
             </p>
             
-            {/* Payment Logos Carousel moved above Support section */}
             <PaymentLogosCarousel />
           </div>
           

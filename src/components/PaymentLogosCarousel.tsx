@@ -1,53 +1,14 @@
 
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import { motion } from 'framer-motion';
 import { useResponsive } from '@/hooks/use-mobile';
 import './PaymentLogosCarousel.css';
 
 const PaymentLogosCarousel = () => {
-  const { isMobile, isTablet, isDesktop } = useResponsive();
+  const { isMobile, isTablet } = useResponsive();
   const containerRef = useRef<HTMLDivElement>(null);
   
-  // Social media logos with their respective official links
-  const socialLogos = [
-    { 
-      src: "/lovable-uploads/8f778e5f-d38b-463d-8bff-004086ce7deb.png", 
-      alt: "Facebook", 
-      link: "https://www.facebook.com/midasbuy" 
-    },
-    { 
-      src: "/lovable-uploads/fb236867-879d-4b91-b611-6ae28d1e6ba4.png", 
-      alt: "Instagram", 
-      link: "https://www.instagram.com/midasbuy" 
-    },
-    { 
-      src: "/lovable-uploads/e84cec8b-5d3a-4f4f-8811-71f8c3720ba7.png", 
-      alt: "YouTube", 
-      link: "https://www.youtube.com/midasbuy" 
-    },
-    { 
-      src: "/lovable-uploads/e9f85ba7-1e65-424b-b3c7-335c54e95606.png", 
-      alt: "TikTok", 
-      link: "https://www.tiktok.com/@midasbuy" 
-    },
-    { 
-      src: "/lovable-uploads/f908163b-bb4f-4e56-90fb-1c50b5431f82.png", 
-      alt: "Reddit", 
-      link: "https://www.reddit.com/r/Midasbuy/" 
-    },
-    { 
-      src: "/lovable-uploads/83ad7998-06b3-45e3-bf1c-7f5558ebbf1a.png", 
-      alt: "Twitter/X", 
-      link: "https://twitter.com/midasbuy" 
-    },
-    { 
-      src: "/lovable-uploads/3a733dab-e588-4b87-b11b-6860d5551ec9.png", 
-      alt: "Discord", 
-      link: "https://discord.gg/midasbuy" 
-    }
-  ];
-
-  // Updated payment method logos with their respective links
+  // Payment method logos with their respective links
   const paymentLogos = [
     { 
       src: "/lovable-uploads/7a0d6345-29e5-4523-a58b-99c479881319.png", 
@@ -113,21 +74,13 @@ const PaymentLogosCarousel = () => {
   
   // Get the appropriate logo size based on the viewport
   const getLogoSize = () => {
-    if (isMobile) return 44; // Increased size
-    if (isTablet) return 50; // Increased size
-    return 54; // Increased size
-  };
-
-  // Get the appropriate social icon size based on the viewport
-  const getSocialIconSize = () => {
-    if (isMobile) return 42; // Increased size
-    if (isTablet) return 46; // Increased size
-    return 50; // Increased size
+    if (isMobile) return 44;
+    if (isTablet) return 50;
+    return 54;
   };
   
   // Double the array for infinite loop effect
   const duplicatedLogos = [...paymentLogos, ...paymentLogos];
-  const duplicatedSocialLogos = [...socialLogos, ...socialLogos];
   
   // Animation settings
   const carouselVariants = {
@@ -144,53 +97,9 @@ const PaymentLogosCarousel = () => {
     },
   };
 
-  const socialCarouselVariants = {
-    animate: {
-      x: [0, -100 * socialLogos.length],
-      transition: {
-        x: {
-          repeat: Infinity,
-          repeatType: "loop",
-          duration: 25,
-          ease: "linear",
-        },
-      },
-    },
-  };
-
   return (
     <div className="mt-6 overflow-hidden" ref={containerRef}>
-      <h4 className="text-sm font-medium text-gray-300 mb-2">Follow Us:</h4>
-      <div className="social-logos-container">
-        <motion.div 
-          className="flex social-logos-scroll" 
-          variants={socialCarouselVariants}
-          animate="animate"
-        >
-          {duplicatedSocialLogos.map((logo, index) => (
-            <a 
-              key={`social-${logo.alt}-${index}`} 
-              href={logo.link}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="social-icon-link"
-            >
-              <img 
-                src={logo.src} 
-                alt={logo.alt} 
-                style={{ 
-                  width: `${getSocialIconSize()}px`,
-                  height: `${getSocialIconSize()}px`
-                }}
-                className="social-icon"
-              />
-            </a>
-          ))}
-        </motion.div>
-      </div>
-
-      <h4 className="text-sm font-medium text-gray-300 mt-6 mb-2">Payment Methods:</h4>
-      <div className="relative w-full overflow-hidden payment-logos-container">
+      <div className="payment-logos-container">
         <motion.div 
           className="flex payment-logos-scroll" 
           variants={carouselVariants}

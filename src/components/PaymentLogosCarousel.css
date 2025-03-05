@@ -38,80 +38,17 @@
   filter: brightness(1.1);
 }
 
-.social-logos-container {
-  overflow: hidden;
-  position: relative;
-  width: 100%;
-  background-color: rgba(255, 255, 255, 0.02);
-  border-radius: 0.5rem;
-  padding: 1rem 0;
-  margin-top: 0.5rem;
-}
-
-.social-logos-scroll {
-  display: flex;
-  width: fit-content;
-  animation: scroll 30s linear infinite;
-}
-
-.social-logos-scroll:hover {
-  animation-play-state: paused;
-}
-
-.social-icon-link {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.3s ease;
-  margin: 0 1rem;
-}
-
-.social-icon-link:hover {
-  transform: translateY(-3px);
-}
-
-.social-icon {
-  border-radius: 10px;
-  transition: all 0.3s ease;
-  object-fit: contain;
-  background-color: rgba(255, 255, 255, 0.05);
-  padding: 0.5rem;
-  border-radius: 10px;
-}
-
-.social-icon:hover {
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
-  background-color: rgba(255, 255, 255, 0.1);
-}
-
 @media (max-width: 768px) {
   .payment-logos-scroll {
     animation: scroll 25s linear infinite;
-  }
-  
-  .social-logos-scroll {
-    animation: scroll 20s linear infinite;
   }
   
   .payment-logos-container {
     padding: 0.75rem 0;
   }
   
-  .social-logos-container {
-    padding: 0.75rem 0;
-  }
-  
-  .social-icon {
-    padding: 0.4rem;
-    border-radius: 8px;
-  }
-  
   .payment-logo {
     margin: 0 0.85rem;
-  }
-  
-  .social-icon-link {
-    margin: 0 0.75rem;
   }
 }
 
@@ -120,28 +57,11 @@
     animation: scroll 20s linear infinite;
   }
   
-  .social-logos-scroll {
-    animation: scroll 18s linear infinite;
-  }
-  
-  .social-logos-container {
-    padding: 0.65rem 0;
-  }
-  
   .payment-logos-container {
     padding: 0.65rem 0;
   }
   
-  .social-icon {
-    padding: 0.35rem;
-    border-radius: 8px;
-  }
-  
   .payment-logo {
     margin: 0 0.75rem;
-  }
-  
-  .social-icon-link {
-    margin: 0 0.65rem;
   }
 }
