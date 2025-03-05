@@ -55,6 +55,16 @@
   align-items: center;
   justify-content: center;
   border: 1px solid rgba(255, 255, 255, 0.1);
+  min-width: 80px; /* Add minimum width */
+}
+
+.payment-method-logo img {
+  display: block;
+  max-height: 100%;
+  max-width: 100%;
+  height: auto;
+  width: auto;
+  object-fit: contain;
 }
 
 .payment-method-logo:hover {
@@ -85,6 +95,7 @@
     margin: 0 0.75rem;
     height: 32px;
     padding: 5px 10px;
+    min-width: 70px; /* Adjust minimum width for tablet */
   }
 }
 
@@ -101,5 +112,6 @@
     margin: 0 0.65rem;
     height: 28px;
     padding: 4px 8px;
+    min-width: 60px; /* Adjust minimum width for mobile */
   }
 }

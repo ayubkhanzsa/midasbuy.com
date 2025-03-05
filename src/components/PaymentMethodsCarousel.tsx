@@ -36,7 +36,8 @@ const PaymentMethodsCarousel = () => {
               <img 
                 src={method.src} 
                 alt={method.alt} 
-                className="h-full object-contain"
+                className="h-full w-auto object-contain"
+                style={{ display: 'block', maxWidth: '100%', maxHeight: '100%' }}
               />
             </a>
           ))}
