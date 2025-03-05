@@ -1,13 +1,19 @@
+
 import { useState, useEffect, useRef } from "react";
-import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Filter, ChevronDown, Shield, Lock, FileText, HelpCircle, Info } from "lucide-react";
-import { Youtube, Instagram, Facebook, MessageSquare, X, Send } from "lucide-react";
 import Header from "@/components/Header";
 import { ucPackages, getSelectedCountry } from "@/data/ucPackages";
-import { Button } from "@/components/ui/button";
-import { useMobile, useResponsive, useAnimationDuration } from "@/hooks/use-mobile";
-import { convertAndFormatPrice } from "@/utils/currencyUtils";
+import { useMobile, useResponsive } from "@/hooks/use-mobile";
+import NavigationTabs from "@/components/NavigationTabs";
+import SocialIcons from "@/components/SocialIcons";
+import PaymentMethods from "@/components/PaymentMethods";
+import PrivacyPolicyModal from "@/components/PrivacyPolicyModal";
+import LoadingScreen from "@/components/LoadingScreen";
+import PromotionBanner from "@/components/PromotionBanner";
+import PackageGrid from "@/components/PackageGrid";
+import FilterBar from "@/components/FilterBar";
+import Footer from "@/components/Footer";
+import { ChevronDown } from "lucide-react";
 
 interface IndexProps {
   onLogout: () => void;
@@ -19,9 +25,7 @@ const Index = ({ onLogout }: IndexProps) => {
   const [filter, setFilter] = useState("all");
   const [showPrivacyPolicy, setShowPrivacyPolicy] = useState(false);
   const [selectedCountry, setSelectedCountry] = useState(getSelectedCountry());
-  const navigate = useNavigate();
   const { isMobile, isTablet, isDesktop } = useResponsive();
-  const slowAnimationDuration = useAnimationDuration('slow');
   const paymentMethodsRef = useRef<HTMLDivElement>(null);
   const [isPaymentMethodsPaused, setIsPaymentMethodsPaused] = useState(false);
   const pauseTimerRef = useRef<number | null>(null);
@@ -103,15 +107,7 @@ const Index = ({ onLogout }: IndexProps) => {
   }, []);
 
   if (isLoading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-midasbuy-darkBlue">
-        <div className="text-center">
-          <img src="/lovable-uploads/c6fd77e7-3682-428e-8154-140308b4a06b.png" alt="Logo" className="h-10 mx-auto mb-6 animate-pulse-subtle" />
-          <div className="w-12 h-12 border-4 border-midasbuy-blue border-t-transparent rounded-full animate-spin mx-auto"></div>
-          <p className="mt-4 text-gray-400 animate-pulse">Loading PUBG Mobile...</p>
-        </div>
-      </div>
-    );
+    return <LoadingScreen />;
   }
 
   const filteredPackages = filter === "all" 
@@ -122,259 +118,6 @@ const Index = ({ onLogout }: IndexProps) => {
         if (filter === "large" && pkg.baseAmount > 6000) return true;
         return false;
       });
-
-  const PrivacyPolicyModal = () => (
-    <div className="fixed inset-0 bg-black/70 z-50 flex items-center justify-center p-4">
-      <motion.div 
-        initial={{ opacity: 0, scale: 0.95 }}
-        animate={{ opacity: 1, scale: 1 }}
-        exit={{ opacity: 0, scale: 0.95 }}
-        className="bg-midasbuy-navy border border-midasbuy-blue/20 rounded-xl max-w-4xl w-full max-h-[90vh] overflow-y-auto"
-      >
-        <div className="sticky top-0 bg-midasbuy-navy/95 backdrop-blur-md p-4 border-b border-gray-700 flex justify-between items-center">
-          <div className="flex items-center">
-            <img src="/lovable-uploads/c6fd77e7-3682-428e-8154-140308b4a06b.png" alt="Logo" className="h-8 mr-3" />
-            <h2 className="text-xl font-bold text-white">Privacy Policy</h2>
-          </div>
-          <button 
-            onClick={() => setShowPrivacyPolicy(false)}
-            className="text-gray-400 hover:text-white p-2"
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-            </svg>
-          </button>
-        </div>
-        
-        <div className="p-6 text-gray-300">
-          <section className="mb-8">
-            <h3 className="text-xl text-white font-bold mb-4">Introduction</h3>
-            <p className="mb-4">
-              This Privacy Policy ("Policy") explains how MidasBuy collects, uses, and discloses your information when you use our website, products, and services. We are committed to ensuring the privacy and security of your personal information.
-            </p>
-            <p>
-              By using MidasBuy, you agree to the collection and use of information in accordance with this Policy. We will not use or share your information with anyone except as described in this Privacy Policy.
-            </p>
-          </section>
-          
-          <section className="mb-8">
-            <h3 className="text-xl text-white font-bold mb-4">Information Collection and Use</h3>
-            <p className="mb-4">
-              We collect several different types of information for various purposes to provide and improve our service to you:
-            </p>
-            <ul className="list-disc pl-6 space-y-2">
-              <li>
-                <span className="text-white font-medium">Personal Data:</span> While using our Service, we may ask you to provide us with certain personally identifiable information that can be used to contact or identify you, including but not limited to your name, email address, phone number, and payment information.
-              </li>
-              <li>
-                <span className="text-white font-medium">Game Account Information:</span> To facilitate purchases and ensure proper delivery of in-game items, we collect your game ID, username, and related information.
-              </li>
-              <li>
-                <span className="text-white font-medium">Transaction Data:</span> We keep records of the products you purchase, transaction amount, and payment methods used.
-              </li>
-              <li>
-                <span className="text-white font-medium">Usage Data:</span> We collect information on how the Service is accessed and used, including your computer's Internet Protocol address, browser type, browser version, the pages of our Service that you visit, the time and date of your visit, the time spent on those pages, and other diagnostic data.
-              </li>
-            </ul>
-          </section>
-          
-          <section className="mb-8">
-            <h3 className="text-xl text-white font-bold mb-4">Data Security</h3>
-            <p className="mb-4">
-              The security of your data is important to us, but remember that no method of transmission over the Internet or method of electronic storage is 100% secure. While we strive to use commercially acceptable means to protect your Personal Data, we cannot guarantee its absolute security.
-            </p>
-            <p>
-              We implement a variety of security measures to maintain the safety of your personal information, including:
-            </p>
-            <ul className="list-disc pl-6 space-y-2 mt-2">
-              <li>All sensitive information is transmitted via Secure Socket Layer (SSL) technology.</li>
-              <li>All payment information is encrypted using industry-standard methods.</li>
-              <li>We regularly review our information collection, storage, and processing practices to protect against unauthorized access.</li>
-            </ul>
-          </section>
-          
-          <section className="mb-8">
-            <h3 className="text-xl text-white font-bold mb-4">Third-Party Disclosure</h3>
-            <p>
-              We may disclose your Personal Data in the good faith belief that such action is necessary to:
-            </p>
-            <ul className="list-disc pl-6 space-y-2 mt-2">
-              <li>Comply with a legal obligation</li>
-              <li>Protect and defend the rights or property of MidasBuy</li>
-              <li>Prevent or investigate possible wrongdoing in connection with the Service</li>
-              <li>Protect the personal safety of users of the Service or the public</li>
-              <li>Protect against legal liability</li>
-            </ul>
-          </section>
-          
-          <section className="mb-8">
-            <h3 className="text-xl text-white font-bold mb-4">Your Rights</h3>
-            <p className="mb-4">
-              You have the right to access, update, or delete the information we have on you. Whenever made possible, you can:
-            </p>
-            <ul className="list-disc pl-6 space-y-2">
-              <li>Update your personal information by logging into your account</li>
-              <li>Request access to the personal data we hold about you</li>
-              <li>Request correction of any inaccurate data</li>
-              <li>Request deletion of your personal data (subject to certain conditions)</li>
-              <li>Object to processing of your personal data</li>
-              <li>Request restriction of processing your personal data</li>
-            </ul>
-          </section>
-          
-          <section className="mb-8">
-            <h3 className="text-xl text-white font-bold mb-4">Contact Us</h3>
-            <p>
-              If you have any questions about this Privacy Policy, please contact us at:
-            </p>
-            <div className="mt-2 p-4 bg-midasbuy-darkBlue/50 rounded-lg">
-              <p className="font-medium text-white">MidasBuy Support</p>
-              <p>Email: privacy@midasbuy.com</p>
-              <p>Address: One MidasBuy Plaza, Gaming District, CA 90210, USA</p>
-            </div>
-          </section>
-          
-          <div className="mt-6 flex justify-center">
-            <Button 
-              onClick={() => setShowPrivacyPolicy(false)}
-              className="bg-midasbuy-blue hover:bg-blue-600 px-8"
-            >
-              I Understand
-            </Button>
-          </div>
-        </div>
-      </motion.div>
-    </div>
-  );
-
-  const handleNavigate = (path: string) => {
-    navigate(path);
-  };
-
-  const navLinks = [
-    { name: "PURCHASE", path: "/" },
-    { name: "REDEEM", path: "/redeem" },
-    { name: "SHOP", path: "/shop" },
-    { name: "EVENTS", path: "/events" },
-  ];
-
-  const NavigationTabs = () => (
-    <div className="mb-6 overflow-x-auto pb-1 mt-4">
-      <div className="flex min-w-max border-b border-gray-700">
-        {navLinks.map((link, index) => (
-          <button 
-            key={link.path}
-            onClick={() => handleNavigate(link.path)}
-            className={`text-${link.path === '/' ? 'white' : 'gray-400'} font-bold tracking-wide px-4 sm:px-6 py-2 relative hover:text-gray-200 transition-colors text-sm`}
-          >
-            {link.name}
-            {link.path === '/' && <span className="absolute bottom-0 left-0 w-full h-1 bg-midasbuy-blue"></span>}
-          </button>
-        ))}
-      </div>
-    </div>
-  );
-
-  const SocialIcons = () => (
-    <div className="mt-6">
-      <div className="social-icons-container">
-        <div className="social-heading">Follow us</div>
-        
-        <div className="social-icon">
-          <a href="https://reddit.com" target="_blank" rel="noopener noreferrer" className="social-icon-circle">
-            <img src="/lovable-uploads/f4f2f784-b6a4-48a9-be79-c084902b7932.png" alt="Reddit" className="w-7 h-7" />
-          </a>
-          <span className="social-icon-label">Reddit</span>
-        </div>
-        
-        <div className="social-icon">
-          <a href="https://tiktok.com" target="_blank" rel="noopener noreferrer" className="social-icon-circle">
-            <img src="/lovable-uploads/42cba23d-8136-416a-ab7f-891c674cbce4.png" alt="TikTok" className="w-7 h-7" />
-          </a>
-          <span className="social-icon-label">TikTok</span>
-        </div>
-        
-        <div className="social-icon">
-          <a href="https://discord.com" target="_blank" rel="noopener noreferrer" className="social-icon-circle">
-            <img src="/lovable-uploads/615d3989-b8e1-46ea-8816-5dca1c08b5cc.png" alt="Discord" className="w-7 h-7" />
-          </a>
-          <span className="social-icon-label">Discord</span>
-        </div>
-        
-        <div className="social-icon">
-          <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" className="social-icon-circle">
-            <img src="/lovable-uploads/32950e1f-69dc-48bb-bed6-89690707947e.png" alt="YouTube" className="w-7 h-7" />
-          </a>
-          <span className="social-icon-label">YouTube</span>
-        </div>
-        
-        <div className="social-icon">
-          <a href="https://x.com" target="_blank" rel="noopener noreferrer" className="social-icon-circle">
-            <img src="/lovable-uploads/65626d97-fbb9-425d-9971-135bc680cee5.png" alt="X" className="w-6 h-6" />
-          </a>
-          <span className="social-icon-label">X</span>
-        </div>
-        
-        <div className="social-icon">
-          <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="social-icon-circle">
-            <img src="/lovable-uploads/a784386a-71a2-4d02-b3df-c904d9c9d80b.png" alt="Instagram" className="w-7 h-7" />
-          </a>
-          <span className="social-icon-label">Instagram</span>
-        </div>
-        
-        <div className="social-icon">
-          <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="social-icon-circle">
-            <img src="/lovable-uploads/547ca5b3-b8dc-42ea-abd6-103ab5cd2f45.png" alt="Facebook" className="w-7 h-7" />
-          </a>
-          <span className="social-icon-label">Facebook</span>
-        </div>
-      </div>
-    </div>
-  );
-
-  const PaymentMethods = () => (
-    <div className="payment-methods-container">
-      <div className="payment-methods-heading">Payment Methods</div>
-      <div className="payment-methods-logos">
-        <div className="payment-method-logo">
-          <img src="/lovable-uploads/8b85678f-3d8a-43c3-a6f7-f062db7db603.png" alt="WeChat Pay" />
-        </div>
-        <div className="payment-method-logo">
-          <img src="/lovable-uploads/e1eedecb-6b85-4c34-bb00-b410cce35f14.png" alt="Paysafecard" />
-        </div>
-        <div className="payment-method-logo">
-          <img src="/lovable-uploads/672fb8ab-f17f-423f-a575-b08b5baed1d6.png" alt="QBUCKS" />
-        </div>
-        <div className="payment-method-logo">
-          <img src="/lovable-uploads/a6c669d4-9e76-4e7c-99b9-5ff9d479075d.png" alt="Dollar General" />
-        </div>
-        <div className="payment-method-logo">
-          <img src="/lovable-uploads/2a0779fb-e61c-4bb3-9f09-13d4fdfc75cc.png" alt="PayPal" />
-        </div>
-        <div className="payment-method-logo">
-          <img src="/lovable-uploads/e9c8a8a8-76d1-42b4-87e4-16bf2aaddcb5.png" alt="Razer Gold" />
-        </div>
-        <div className="payment-method-logo">
-          <img src="/lovable-uploads/3114eafb-92eb-4e6c-9501-2f63a8ca5748.png" alt="PayPal" />
-        </div>
-        <div className="payment-method-logo">
-          <img src="/lovable-uploads/3c135b57-49b3-4085-b798-7725a7554a90.png" alt="Credit Card" />
-        </div>
-        <div className="payment-method-logo">
-          <img src="/lovable-uploads/333f582a-7003-458b-b65f-efc04362d041.png" alt="Google Pay" />
-        </div>
-        <div className="payment-method-logo">
-          <img src="/lovable-uploads/114341d0-2011-47cc-b7c2-cf764f27b7fe.png" alt="Apple Pay" />
-        </div>
-        <div className="payment-method-logo">
-          <img src="/lovable-uploads/6de7dcf0-88cd-4755-8a93-0b11db853b44.png" alt="CVS" />
-        </div>
-        <div className="payment-method-logo">
-          <img src="/lovable-uploads/3bcefdfe-c25a-4050-8da7-067b829edb07.png" alt="Razer Gold" />
-        </div>
-      </div>
-    </div>
-  );
 
   return (
     <div className="min-h-screen bg-midasbuy-darkBlue overflow-x-hidden relative">
@@ -443,57 +186,9 @@ const Index = ({ onLogout }: IndexProps) => {
           
           <NavigationTabs />
           
-          {showPromotion && (
-            <motion.div 
-              initial={{ opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="mb-6 bg-gradient-to-r from-midasbuy-darkGold/30 to-midasbuy-gold/20 rounded-lg p-3 flex items-center relative overflow-hidden"
-            >
-              <div className="absolute left-0 top-0 text-xs text-black font-medium bg-midasbuy-gold py-1 px-2 rounded-br-md">
-                Ends in 2023-03-08
-              </div>
-              
-              <div className="ml-8 flex-grow py-2">
-                <p className="text-gray-200 font-medium text-sm">
-                  <span className="text-midasbuy-gold font-bold">Recharging 60UC, 300UC, or 600UC</span> will get you the Classic Crate Voucher (30 UC). One purchase per day, three times in total.
-                </p>
-              </div>
-              
-              <button className="flex-shrink-0 bg-white text-midasbuy-navy font-bold rounded-full h-8 w-8 flex items-center justify-center">
-                GO
-              </button>
-              
-              <button 
-                onClick={() => setShowPromotion(false)}
-                className="absolute top-2 right-2 text-gray-400 hover:text-white"
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
-                  <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
-                </svg>
-              </button>
-            </motion.div>
-          )}
+          {showPromotion && <PromotionBanner onClose={() => setShowPromotion(false)} />}
           
-          <div className="flex flex-wrap justify-between items-center mb-6">
-            <div className="mb-4 sm:mb-0">
-              <div className="flex items-center space-x-2 px-4 py-2 rounded-lg bg-midasbuy-navy">
-                <div className="text-sm text-gray-300 font-medium mr-2">PAYMENT CHANNELS</div>
-                <ChevronDown className="w-4 h-4 text-gray-400" />
-              </div>
-            </div>
-            
-            <div className="flex items-center">
-              <div className="mr-4 flex items-center space-x-2 px-4 py-2 rounded-lg bg-midasbuy-navy">
-                <div className="text-sm text-gray-300 font-medium">UC</div>
-                <ChevronDown className="w-4 h-4 text-gray-400" />
-              </div>
-              
-              <button className="px-4 py-2 rounded-lg bg-midasbuy-navy flex items-center">
-                <Filter className="w-5 h-5 mr-2 text-gray-300" />
-                <span className="text-sm text-gray-300 font-medium">Filter</span>
-              </button>
-            </div>
-          </div>
+          <FilterBar onFilterChange={setFilter} />
           
           <div className="mb-4">
             <button className="inline-flex items-center px-4 py-2 rounded-full bg-midasbuy-blue/10 text-midasbuy-blue text-sm hover:bg-midasbuy-blue/20 transition-colors">
@@ -501,162 +196,13 @@ const Index = ({ onLogout }: IndexProps) => {
             </button>
           </div>
           
-          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-6">
-            {filteredPackages.map((pkg, index) => (
-              <motion.div
-                key={pkg.id}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.3, delay: index * 0.1 }}
-              >
-                <Link to={`/purchase/${pkg.id}`} className="block">
-                  <div className="bg-midasbuy-navy rounded-lg overflow-hidden h-full transition-all duration-300 hover:shadow-[0_0_15px_rgba(0,145,255,0.3)] border border-midasbuy-navy hover:border-midasbuy-blue/50">
-                    <div className="p-4 flex justify-center">
-                      <motion.img 
-                        src={pkg.image}
-                        alt="UC Coins" 
-                        className={`object-contain ${['60uc', '300uc'].includes(pkg.id) ? 'h-10 sm:h-12' : ['600uc', '1500uc'].includes(pkg.id) ? 'h-12 sm:h-16' : 'h-16 sm:h-20'}`}
-                        animate={{ 
-                          y: [0, -8, 0, 8, 0] 
-                        }}
-                        transition={{ 
-                          duration: slowAnimationDuration,
-                          ease: "easeInOut",
-                          repeat: Infinity,
-                          repeatType: "reverse"
-                        }}
-                      />
-                    </div>
-                    
-                    <div className="p-3 sm:p-4 pt-1">
-                      {pkg.bonusPercent && (
-                        <div className="flex justify-end">
-                          <div className="inline-block rounded-md bg-[#FFDD33] px-1 sm:px-2 py-0.5 text-xs sm:text-sm font-bold text-black">
-                            {pkg.bonusPercent}
-                          </div>
-                        </div>
-                      )}
-                      
-                      <div className="flex items-center mb-2 sm:mb-3">
-                        <div className="uc-icon mr-1 sm:mr-2">
-                          <img src="/lovable-uploads/f6594fcb-d2eb-4e92-9f21-fe5959fa5360.png" alt="UC" className="w-4 h-4 sm:w-5 sm:h-5" />
-                        </div>
-                        <span className="text-xl sm:text-2xl font-bold text-white">{pkg.baseAmount}</span>
-                        {pkg.bonusAmount > 0 && (
-                          <span className="text-base sm:text-lg font-semibold text-midasbuy-gold ml-1">+{pkg.bonusAmount}</span>
-                        )}
-                      </div>
-                      
-                      <div className="flex flex-col">
-                        <span className="text-midasbuy-gold text-xs sm:text-sm">From</span>
-                        <span className="text-lg sm:text-xl font-bold text-white">
-                          {convertAndFormatPrice(pkg.price, selectedCountry.currency)}
-                        </span>
-                        
-                        {pkg.originalPrice > pkg.price && (
-                          <span className="text-xs sm:text-sm text-gray-400 line-through">
-                            {convertAndFormatPrice(pkg.originalPrice, selectedCountry.currency)}
-                          </span>
-                        )}
-                      </div>
-                    </div>
-                    
-                    <div className="flex">
-                      <div className="bg-[#FF9900] text-black font-semibold py-1 px-1 sm:px-3 text-xs sm:text-sm flex items-center">
-                        {pkg.discount}
-                      </div>
-                      <div className="bg-white text-black font-semibold py-1 px-1 sm:px-3 text-xs sm:text-sm flex-grow flex items-center ml-1 justify-between">
-                        <span className="font-bold truncate">Midasbuy Only</span>
-                        <img src="/lovable-uploads/7ef942ba-efa8-4e8f-9282-d86c01b1e909.png" alt="Midasbuy Logo" className="h-5 sm:h-6 ml-1" />
-                      </div>
-                    </div>
-                  </div>
-                </Link>
-              </motion.div>
-            ))}
-          </div>
+          <PackageGrid packages={filteredPackages} selectedCountry={selectedCountry} />
         </div>
       </main>
       
-      <footer className="bg-midasbuy-navy py-8 relative z-10">
-        <div className="container mx-auto px-4">
-          <div className="mb-8">
-            <div className="mb-4 flex justify-center">
-              <img src="/lovable-uploads/c6fd77e7-3682-428e-8154-140308b4a06b.png" alt="Logo" className="h-10 transform hover:scale-110 transition-transform" />
-            </div>
-            <p className="text-gray-400 text-sm mb-4 text-center">
-              The official platform for purchasing in-game currency and items for PUBG Mobile and other popular games.
-            </p>
-            
-            <SocialIcons />
-            <PaymentMethods />
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
-            <div>
-              <h3 className="text-white font-bold mb-4">Support</h3>
-              <ul className="space-y-2 text-sm text-gray-400">
-                <li><Link to="/help-center" className="hover:text-white transition-colors">Help Center</Link></li>
-                <li><Link to="/contact-us" className="hover:text-white transition-colors">Contact Us</Link></li>
-                <li><Link to="/faqs" className="hover:text-white transition-colors">FAQs</Link></li>
-                <li><Link to="/payment-issues" className="hover:text-white transition-colors">Payment Issues</Link></li>
-                <li><Link to="/security" className="hover:text-white transition-colors">Security</Link></li>
-              </ul>
-            </div>
-            
-            <div>
-              <h3 className="text-white font-bold mb-4">Legal</h3>
-              <ul className="space-y-2 text-sm text-gray-400">
-                <li><Link to="/terms-of-service" className="hover:text-white transition-colors">Terms of Service</Link></li>
-                <li>
-                  <button 
-                    className="hover:text-white transition-colors"
-                    onClick={() => setShowPrivacyPolicy(true)}
-                  >
-                    Privacy Policy
-                  </button>
-                </li>
-                <li><Link to="/refund-policy" className="hover:text-white transition-colors">Refund Policy</Link></li>
-                <li><Link to="/copyright-notice" className="hover:text-white transition-colors">Copyright Notice</Link></li>
-              </ul>
-            </div>
-            
-            <div>
-              <h3 className="text-white font-bold mb-4">About Us</h3>
-              <ul className="space-y-2 text-sm text-gray-400">
-                <li><Link to="/about-midasbuy" className="hover:text-white transition-colors">About MidasBuy</Link></li>
-                <li><Link to="/careers" className="hover:text-white transition-colors">Careers</Link></li>
-                <li><Link to="/press" className="hover:text-white transition-colors">Press</Link></li>
-                <li><Link to="/partners" className="hover:text-white transition-colors">Partners</Link></li>
-              </ul>
-            </div>
-          </div>
-          
-          <div className="border-t border-gray-700 pt-6 pb-2">
-            <div className="flex flex-col items-center justify-center">
-              <div className="flex items-center justify-center mb-4 space-x-4">
-                <img 
-                  src="/lovable-uploads/57ffc683-59b7-4970-9c91-977479b64214.png" 
-                  alt="PCI DSS Compliant" 
-                  className="h-10 md:h-12"
-                />
-                <img 
-                  src="/lovable-uploads/17590eb9-a257-432b-bd97-5ccfa3ee5ed5.png" 
-                  alt="AICPA SOC" 
-                  className="h-10 md:h-12"
-                />
-              </div>
-              <div className="text-center">
-                <p className="text-xs text-gray-500">
-                  © 2025 MidasBuy. All rights reserved. All trademarks referenced herein are the properties of their respective owners.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </footer>
+      <Footer />
       
-      {showPrivacyPolicy && <PrivacyPolicyModal />}
+      {showPrivacyPolicy && <PrivacyPolicyModal onClose={() => setShowPrivacyPolicy(false)} />}
     </div>
   );
 };
