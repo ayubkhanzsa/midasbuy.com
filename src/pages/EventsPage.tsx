@@ -52,11 +52,15 @@ const EventsPage = ({ onLogout }: EventsPageProps) => {
       title: "Username Saved",
       description: "Your username has been saved successfully",
     });
+
+    // Force update localStorage with a timestamp to ensure it's properly saved
+    localStorage.setItem("pubgUsernameTimestamp", Date.now().toString());
   };
 
   const handleResetUsername = () => {
     setUsername("");
     localStorage.removeItem("pubgUsername");
+    localStorage.removeItem("pubgUsernameTimestamp");
     
     toast({
       title: "Username Reset",

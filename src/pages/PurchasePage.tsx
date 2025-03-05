@@ -58,9 +58,25 @@ const PurchasePage = ({ onLogout }: PurchasePageProps) => {
       handleCountryChange();
     });
 
+    // Listen for localStorage changes
+    const handleStorageChange = (event: StorageEvent) => {
+      if (event.key === "pubgUsername" || event.key === "pubgUsernameTimestamp") {
+        const savedUsername = localStorage.getItem("pubgUsername");
+        setUsername(savedUsername || "");
+      }
+    };
+
+    // Add event listener for storage changes
+    window.addEventListener('storage', handleStorageChange);
+
     // Polling as a fallback
     const interval = setInterval(() => {
       handleCountryChange();
+      // Also check for username changes
+      const savedUsername = localStorage.getItem("pubgUsername");
+      if (savedUsername !== username) {
+        setUsername(savedUsername || "");
+      }
     }, 2000);
 
     // Load saved player ID from localStorage
@@ -80,8 +96,9 @@ const PurchasePage = ({ onLogout }: PurchasePageProps) => {
       storageCleanup();
       currencyCleanup();
       clearInterval(interval);
+      window.removeEventListener('storage', handleStorageChange);
     };
-  }, []);
+  }, [selectedCountry.currency]);
 
   const handleVerifyPlayerID = () => {
     if (!playerID || playerID.length < 8) {
@@ -105,8 +122,14 @@ const PurchasePage = ({ onLogout }: PurchasePageProps) => {
         description: "ID verification successful",
       });
       
-      // Store only playerID in localStorage, no name needed
+      // Store playerID in localStorage
       localStorage.setItem("playerID", playerID);
+      
+      // Also ensure we have the latest username
+      const savedUsername = localStorage.getItem("pubgUsername");
+      if (savedUsername) {
+        setUsername(savedUsername);
+      }
     }, 1500);
   };
 
@@ -122,8 +145,6 @@ const PurchasePage = ({ onLogout }: PurchasePageProps) => {
   };
 
   const handleBackToHome = () => {
-    // Clear the verified player ID when going back
-    localStorage.removeItem("playerID");
     navigate("/");
   };
 
@@ -251,7 +272,8 @@ const PurchasePage = ({ onLogout }: PurchasePageProps) => {
                     </Button>
                   </div>
                   
-                  {username && isPlayerIDValid && (
+                  {/* Always show username section if available, regardless of ID verification */}
+                  {username && (
                     <div className="mt-3 bg-midasbuy-blue/10 p-3 rounded-lg border border-midasbuy-blue/20">
                       <div className="flex items-center">
                         <User className="w-4 h-4 text-midasbuy-gold mr-2" />
@@ -315,25 +337,25 @@ const PurchasePage = ({ onLogout }: PurchasePageProps) => {
                   
                   <div>
                     <div className="flex items-baseline">
-                      <span className="gold-text text-xl">{ucPackage.baseAmount}</span>
-                      {ucPackage.bonusAmount > 0 && (
-                        <span className="text-midasbuy-gold ml-1">+{ucPackage.bonusAmount}</span>
+                      <span className="gold-text text-xl">{ucPackage?.baseAmount}</span>
+                      {ucPackage?.bonusAmount > 0 && (
+                        <span className="text-midasbuy-gold ml-1">+{ucPackage?.bonusAmount}</span>
                       )}
                       
-                      {ucPackage.bonusPercent && (
+                      {ucPackage?.bonusPercent && (
                         <span className="ml-2 text-xs px-2 py-0.5 rounded bg-midasbuy-gold/20 text-midasbuy-gold">
-                          {ucPackage.bonusPercent}
+                          {ucPackage?.bonusPercent}
                         </span>
                       )}
                     </div>
                     
                     <div className="mt-1">
                       <span className="text-midasbuy-gold font-medium">
-                        {convertAndFormatPrice(ucPackage.price, selectedCountry.currency)}
+                        {convertAndFormatPrice(ucPackage?.price || 0, selectedCountry.currency)}
                       </span>
-                      {ucPackage.originalPrice > ucPackage.price && (
+                      {ucPackage?.originalPrice > (ucPackage?.price || 0) && (
                         <span className="text-gray-400 line-through text-sm ml-2">
-                          {convertAndFormatPrice(ucPackage.originalPrice, selectedCountry.currency)}
+                          {convertAndFormatPrice(ucPackage?.originalPrice || 0, selectedCountry.currency)}
                         </span>
                       )}
                     </div>
@@ -344,7 +366,7 @@ const PurchasePage = ({ onLogout }: PurchasePageProps) => {
                   <div className="flex justify-between text-sm">
                     <span className="text-gray-300">Subtotal</span>
                     <span className="text-white">
-                      {convertAndFormatPrice(ucPackage.price, selectedCountry.currency)}
+                      {convertAndFormatPrice(ucPackage?.price || 0, selectedCountry.currency)}
                     </span>
                   </div>
                   
@@ -355,11 +377,11 @@ const PurchasePage = ({ onLogout }: PurchasePageProps) => {
                     </span>
                   </div>
                   
-                  {ucPackage.originalPrice > ucPackage.price && (
+                  {ucPackage?.originalPrice > (ucPackage?.price || 0) && (
                     <div className="flex justify-between text-sm">
                       <span className="text-midasbuy-gold">Discount</span>
                       <span className="text-midasbuy-gold">
-                        -{convertAndFormatPrice(ucPackage.originalPrice - ucPackage.price, selectedCountry.currency)}
+                        -{convertAndFormatPrice((ucPackage?.originalPrice || 0) - (ucPackage?.price || 0), selectedCountry.currency)}
                       </span>
                     </div>
                   )}
@@ -368,7 +390,7 @@ const PurchasePage = ({ onLogout }: PurchasePageProps) => {
                 <div className="flex justify-between mb-6 pb-2 border-b border-gray-700">
                   <span className="font-bold text-white">Total</span>
                   <span className="font-bold text-midasbuy-gold text-xl">
-                    {convertAndFormatPrice(ucPackage.price, selectedCountry.currency)}
+                    {convertAndFormatPrice(ucPackage?.price || 0, selectedCountry.currency)}
                   </span>
                 </div>
                 
