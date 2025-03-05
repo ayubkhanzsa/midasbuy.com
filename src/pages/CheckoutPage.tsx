@@ -496,7 +496,7 @@ const CheckoutPage = ({ onLogout }: CheckoutPageProps) => {
                 
                 <div className="flex justify-between mb-6 pb-2 border-b border-gray-700">
                   <span className="font-bold text-white">Total</span>
-                  <span className="font-bold text-midasbuy-gold text-xl">{ucPackage.price.toFixed(2)} USD</span>
+                  <span className="font-bold text-white text-xl">{ucPackage.price.toFixed(2)} USD</span>
                 </div>
                 
                 <Button 
@@ -526,7 +526,7 @@ const CheckoutPage = ({ onLogout }: CheckoutPageProps) => {
       <footer className="bg-midasbuy-navy py-6 relative z-10">
         <div className="container mx-auto px-4">
           <div className="text-center text-gray-400 text-sm">
-            <p>© 2023 PUBG MOBILE. All Rights Reserved.</p>
+            <p>© 2025 Midasbuy. All Rights Reserved.</p>
             <div className="mt-2">
               <a href="#" className="text-gray-400 hover:text-gray-300 mx-2">Terms of Service</a>
               <span className="text-gray-600">|</span>
