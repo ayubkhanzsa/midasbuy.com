@@ -17,7 +17,7 @@ const ThankYouPage = ({ onLogout }: ThankYouPageProps) => {
   const [transactionDetails, setTransactionDetails] = useState({
     orderId: `MIDAS-${Math.floor(Math.random() * 1000000)}`,
     playerId: localStorage.getItem("playerId") || "Unknown",
-    playerName: "Customer",
+    playerName: localStorage.getItem("playerName") || "Customer",
     amount: localStorage.getItem("purchaseAmount") || "Unknown",
     ucAmount: localStorage.getItem("ucAmount") || "Unknown",
     date: new Date().toLocaleString(),
@@ -124,6 +124,13 @@ const ThankYouPage = ({ onLogout }: ThankYouPageProps) => {
                   <span className="text-gray-400">Player ID:</span>
                   <span className="font-medium">{transactionDetails.playerId}</span>
                 </div>
+                
+                {transactionDetails.playerName !== "Customer" && (
+                  <div className="flex justify-between py-2 border-b border-gray-800">
+                    <span className="text-gray-400">Username:</span>
+                    <span className="font-medium text-midasbuy-gold">{transactionDetails.playerName}</span>
+                  </div>
+                )}
                 
                 <div className="flex justify-between py-2 border-b border-gray-800">
                   <span className="text-gray-400">UC Amount:</span>
