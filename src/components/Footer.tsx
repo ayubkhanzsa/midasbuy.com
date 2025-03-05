@@ -1,8 +1,6 @@
 
 import { Link } from "react-router-dom";
 import { useState } from "react";
-import SocialIcons from "./SocialIcons";
-import PaymentMethods from "./PaymentMethods";
 import PrivacyPolicyModal from "./PrivacyPolicyModal";
 
 const Footer = () => {
@@ -18,9 +16,6 @@ const Footer = () => {
           <p className="text-gray-400 text-sm mb-4 text-center">
             The official platform for purchasing in-game currency and items for PUBG Mobile and other popular games.
           </p>
-          
-          <SocialIcons />
-          <PaymentMethods />
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">

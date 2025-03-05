@@ -5,8 +5,6 @@ import Header from "@/components/Header";
 import { ucPackages, getSelectedCountry } from "@/data/ucPackages";
 import { useMobile, useResponsive } from "@/hooks/use-mobile";
 import NavigationTabs from "@/components/NavigationTabs";
-import SocialIcons from "@/components/SocialIcons";
-import PaymentMethods from "@/components/PaymentMethods";
 import PrivacyPolicyModal from "@/components/PrivacyPolicyModal";
 import LoadingScreen from "@/components/LoadingScreen";
 import PromotionBanner from "@/components/PromotionBanner";
@@ -26,10 +24,7 @@ const Index = ({ onLogout }: IndexProps) => {
   const [showPrivacyPolicy, setShowPrivacyPolicy] = useState(false);
   const [selectedCountry, setSelectedCountry] = useState(getSelectedCountry());
   const { isMobile, isTablet, isDesktop } = useResponsive();
-  const paymentMethodsRef = useRef<HTMLDivElement>(null);
-  const [isPaymentMethodsPaused, setIsPaymentMethodsPaused] = useState(false);
-  const pauseTimerRef = useRef<number | null>(null);
-
+  
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsLoading(false);
@@ -67,43 +62,6 @@ const Index = ({ onLogout }: IndexProps) => {
     if (JSON.stringify(storedCountry) !== JSON.stringify(selectedCountry)) {
       setSelectedCountry(storedCountry);
     }
-  }, []);
-
-  useEffect(() => {
-    const handleMouseEnter = () => {
-      setIsPaymentMethodsPaused(true);
-      if (pauseTimerRef.current !== null) {
-        window.clearTimeout(pauseTimerRef.current);
-        pauseTimerRef.current = null;
-      }
-    };
-
-    const handleMouseLeave = () => {
-      pauseTimerRef.current = window.setTimeout(() => {
-        setIsPaymentMethodsPaused(false);
-        pauseTimerRef.current = null;
-      }, 3000);
-    };
-
-    const element = paymentMethodsRef.current;
-    if (element) {
-      element.addEventListener('mouseenter', handleMouseEnter);
-      element.addEventListener('mouseleave', handleMouseLeave);
-      element.addEventListener('touchstart', handleMouseEnter);
-      element.addEventListener('touchend', handleMouseLeave);
-    }
-
-    return () => {
-      if (element) {
-        element.removeEventListener('mouseenter', handleMouseEnter);
-        element.removeEventListener('mouseleave', handleMouseLeave);
-        element.removeEventListener('touchstart', handleMouseEnter);
-        element.removeEventListener('touchend', handleMouseLeave);
-      }
-      if (pauseTimerRef.current !== null) {
-        window.clearTimeout(pauseTimerRef.current);
-      }
-    };
   }, []);
 
   if (isLoading) {
