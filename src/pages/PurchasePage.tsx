@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
@@ -46,13 +47,14 @@ const PurchasePage = ({ onLogout }: PurchasePageProps) => {
     if (savedPlayerID) {
       setPlayerID(savedPlayerID);
       setIsPlayerIDValid(true);
+      
+      // Only get the username if player ID is valid
+      const savedUsername = localStorage.getItem("pubgUsername");
+      if (savedUsername) {
+        setUsername(savedUsername);
+      }
     }
     
-    const savedUsername = localStorage.getItem("pubgUsername");
-    if (savedUsername) {
-      setUsername(savedUsername);
-    }
-
     const handleStorageChange = (event: StorageEvent) => {
       if (event.key === "pubgUsername") {
         const newUsername = event.newValue;
@@ -107,12 +109,19 @@ const PurchasePage = ({ onLogout }: PurchasePageProps) => {
       });
       
       localStorage.setItem("playerID", playerID);
+      
+      // Only load the username after player ID verification
+      const savedUsername = localStorage.getItem("pubgUsername");
+      if (savedUsername) {
+        setUsername(savedUsername);
+      }
     }, 1500);
   };
 
   const handleResetPlayerID = () => {
     setPlayerID("");
     setIsPlayerIDValid(false);
+    setUsername(""); // Clear username when player ID is reset
     localStorage.removeItem("playerID");
     
     toast({
@@ -209,6 +218,7 @@ const PurchasePage = ({ onLogout }: PurchasePageProps) => {
                         onChange={(e) => {
                           setPlayerID(e.target.value);
                           setIsPlayerIDValid(false);
+                          setUsername(""); // Clear username when player ID changes
                         }}
                         placeholder="Enter your PUBG Mobile ID"
                         className="bg-midasbuy-navy/50 border-midasbuy-blue/30 text-white focus:border-midasbuy-blue focus:ring-midasbuy-blue/20"
@@ -249,7 +259,8 @@ const PurchasePage = ({ onLogout }: PurchasePageProps) => {
                     </Button>
                   </div>
                   
-                  {username && (
+                  {/* Only show username section if Player ID is verified and username exists */}
+                  {isPlayerIDValid && username && (
                     <div className="mt-3 bg-midasbuy-blue/10 p-3 rounded-lg border border-midasbuy-blue/20">
                       <div className="flex items-center">
                         <User className="w-4 h-4 text-midasbuy-gold mr-2" />
