@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
@@ -254,7 +253,9 @@ const Index = ({ onLogout }: IndexProps) => {
         </>
       )}
       
-      <Header onLogout={onLogout} />
+      <div className={isMobile ? 'mobile-header' : ''}>
+        <Header onLogout={onLogout} />
+      </div>
       
       <main className={`pt-20 pb-20 relative ${isMobile ? 'mobile-content' : 'z-10'}`}>
         <div className="absolute top-0 left-0 w-full flex justify-center items-center">

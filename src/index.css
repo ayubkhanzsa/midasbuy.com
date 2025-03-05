@@ -1,3 +1,4 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -96,9 +97,9 @@
     top: 0;
     left: 0;
     width: 100%;
-    height: 100%;
-    max-height: 450px;
-    background-image: url('/lovable-uploads/6b66290d-a261-4d9f-8010-8359d3080fe6.png');
+    height: 100vh;
+    max-height: 600px;
+    background-image: url('/lovable-uploads/a34e38d8-f23c-49f0-9a5c-441979ec0a68.png');
     background-size: cover;
     background-position: center top;
     background-repeat: no-repeat;
@@ -111,8 +112,9 @@
     top: 0;
     left: 0;
     width: 100%;
-    height: 100%;
-    background: linear-gradient(to bottom, rgba(10, 22, 41, 0.5) 0%, rgba(10, 22, 41, 0.8) 80%, #0A1629 100%);
+    height: 100vh;
+    max-height: 600px;
+    background: linear-gradient(to bottom, rgba(10, 22, 41, 0.3) 0%, rgba(10, 22, 41, 0.6) 70%, #0A1629 100%);
     z-index: 1;
   }
   
@@ -120,5 +122,12 @@
   .mobile-content {
     position: relative;
     z-index: 5;
+  }
+  
+  /* Adjust header for mobile so it appears over the banner */
+  .mobile-header {
+    position: relative;
+    z-index: 10;
+    background: transparent !important;
   }
 }
