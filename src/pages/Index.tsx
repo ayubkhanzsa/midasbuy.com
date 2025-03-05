@@ -330,13 +330,10 @@ const Index = ({ onLogout }: IndexProps) => {
         </div>
       </div>
       
-      <div className="payment-methods-container">
+      <div className="payment-methods-container" ref={paymentMethodsRef}>
         <div className="social-heading">Payment Methods</div>
         
-        <div 
-          ref={paymentMethodsRef}
-          className={`payment-method-icons-scroll ${isPaymentMethodsPaused ? 'paused' : ''}`}
-        >
+        <div className={`payment-method-icons-scroll ${isPaymentMethodsPaused ? 'paused' : ''}`}>
           <div className="payment-method-icon">
             <img src="/lovable-uploads/422061fc-b0e9-4568-b04a-88e4e57d7c90.png" alt="WeChat Pay" />
           </div>
