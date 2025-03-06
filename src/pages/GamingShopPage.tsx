@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -283,30 +282,6 @@ const GamingShopPage = ({ onLogout }: GamingShopProps) => {
                   ))}
                 </div>
                 
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-4">
-                  {popularGames.slice(8, 13).map((game) => (
-                    <div 
-                      key={game.id} 
-                      className="relative cursor-pointer rounded-xl overflow-hidden group"
-                      onClick={() => handleGameClick(game)}
-                    >
-                      <img 
-                        src={game.image} 
-                        alt={game.name} 
-                        className="w-full aspect-square object-cover rounded-xl transition-transform group-hover:scale-105"
-                      />
-                      {game.tag && (
-                        <div className={`absolute top-2 left-2 ${game.tagColor} text-white text-xs font-bold px-2 py-1 rounded-sm flex items-center`}>
-                          <Star className="w-3 h-3 mr-1 fill-current" />
-                          {game.tag}
-                        </div>
-                      )}
-                      <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-2">
-                        <h3 className="text-white text-sm font-bold">{game.name}</h3>
-                      </div>
-                    </div>
-                  ))}
-                </div>
               </div>
               
               {showBanner && <PromotionBanner onClose={() => setShowBanner(false)} />}
