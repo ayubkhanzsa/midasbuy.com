@@ -1,4 +1,3 @@
-
 import { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import Header from "@/components/Header";
@@ -32,11 +31,35 @@ const Index = ({ onLogout }: IndexProps) => {
   const { toast } = useToast();
   
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 1200);
+    const imagesToPreload = [
+      '/lovable-uploads/28985189-d7e6-4b78-b392-1c1c9fcaff88.png',
+      '/lovable-uploads/072f88f4-7402-4591-b3e4-11f57bb0e9ea.png',
+      '/lovable-uploads/c6fd77e7-3682-428e-8154-140308b4a06b.png'
+    ];
 
-    return () => clearTimeout(timer);
+    const preloadImages = async () => {
+      const imagePromises = imagesToPreload.map((src) => {
+        return new Promise((resolve, reject) => {
+          const img = new Image();
+          img.src = src;
+          img.onload = resolve;
+          img.onerror = reject;
+        });
+      });
+
+      try {
+        await Promise.all(imagePromises);
+      } catch (error) {
+        console.error('Error preloading images:', error);
+      }
+    };
+
+    Promise.all([
+      preloadImages(),
+      new Promise(resolve => setTimeout(resolve, 800))
+    ]).then(() => {
+      setIsLoading(false);
+    });
   }, []);
 
   useEffect(() => {

@@ -1,5 +1,4 @@
-
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Card, CardContent } from '@/components/ui/card';
@@ -68,8 +67,20 @@ interface FeatureBoxesCarouselProps {
 
 const FeatureBoxesCarousel: React.FC<FeatureBoxesCarouselProps> = ({ className }) => {
   const containerRef = useRef<HTMLDivElement>(null);
+  const [loadedImages, setLoadedImages] = useState<Set<string>>(new Set());
   
   useEffect(() => {
+    // Preload feature box images
+    featureBoxes.forEach(feature => {
+      if (feature.image) {
+        const img = new Image();
+        img.src = feature.image;
+        img.onload = () => {
+          setLoadedImages(prev => new Set([...prev, feature.image!]));
+        };
+      }
+    });
+    
     // Auto-scroll effect
     const scrollContainer = containerRef.current;
     if (!scrollContainer) return;
@@ -149,10 +160,15 @@ const FeatureBoxesCarousel: React.FC<FeatureBoxesCarouselProps> = ({ className }
                 {feature.image && (
                   <div className="mt-auto">
                     <div className="flex justify-center items-center">
-                      <img 
-                        src={feature.image} 
-                        alt={feature.title} 
-                        className="max-h-[100px] object-contain"
+                      <motion.img 
+                        src={feature.image}
+                        alt={feature.title}
+                        className={`max-h-[100px] object-contain transition-opacity duration-300 ${
+                          loadedImages.has(feature.image) ? 'opacity-100' : 'opacity-0'
+                        }`}
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: loadedImages.has(feature.image) ? 1 : 0 }}
+                        transition={{ duration: 0.3 }}
                       />
                     </div>
                   </div>

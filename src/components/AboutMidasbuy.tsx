@@ -1,5 +1,5 @@
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useResponsive } from '@/hooks/use-mobile';
 import FeatureBoxesCarousel from './FeatureBoxesCarousel';
@@ -7,15 +7,24 @@ import FeatureBoxesCarousel from './FeatureBoxesCarousel';
 const AboutMidasbuy = () => {
   const [activeSlide, setActiveSlide] = useState(0);
   const { isMobile } = useResponsive();
+  const [isImageLoaded, setIsImageLoaded] = useState(false);
+
+  useEffect(() => {
+    const img = new Image();
+    img.src = "/lovable-uploads/decafc18-49f3-42c9-83f5-64a5c5f9c3c7.png";
+    img.onload = () => setIsImageLoaded(true);
+  }, []);
 
   return (
     <div className="py-12 relative">
-      {/* Background image with overlay */}
       <div className="absolute inset-0 z-0 overflow-hidden">
-        <img 
+        <motion.img 
           src="/lovable-uploads/decafc18-49f3-42c9-83f5-64a5c5f9c3c7.png" 
           alt="Games Background" 
-          className="w-full h-full object-cover opacity-25"
+          className={`w-full h-full object-cover transition-opacity duration-300 ${isImageLoaded ? 'opacity-25' : 'opacity-0'}`}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: isImageLoaded ? 0.25 : 0 }}
+          transition={{ duration: 0.3 }}
         />
         <div className="absolute inset-0 bg-midasbuy-navy/70"></div>
       </div>
@@ -33,10 +42,13 @@ const AboutMidasbuy = () => {
               <div className="flex items-center justify-start mb-6">
                 <span className="text-xl text-white font-semibold mr-2">TENCENT</span>
                 <span className="mx-2 text-white">|</span>
-                <img 
+                <motion.img 
                   src="/lovable-uploads/edac9bb3-e3c4-4e95-b6ac-a20ef2194d6f.png" 
                   alt="Tencent Logo" 
-                  className="h-6" 
+                  className="h-6"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.3 }}
                 />
               </div>
               
