@@ -45,6 +45,16 @@ const AboutMidasbuy = () => {
                 PAY SAFE, FAST AND FUN WITH MIDASBUY.
               </h3>
               
+              <div className="flex items-center justify-start mb-6">
+                <span className="text-xl text-white font-semibold mr-2">TENCENT</span>
+                <span className="mx-2 text-white">|</span>
+                <img 
+                  src="/lovable-uploads/edac9bb3-e3c4-4e95-b6ac-a20ef2194d6f.png" 
+                  alt="Tencent Logo" 
+                  className="h-6" 
+                />
+              </div>
+              
               <p className="text-gray-300 text-lg">
                 Midasbuy is the official recharge store by Tencent. We have established official partnerships with <span className="text-white font-semibold">30</span> game companies and game studios around the world to jointly create a safe and convenient recharge store for <span className="text-white font-semibold">ten of millions</span> players.
               </p>
