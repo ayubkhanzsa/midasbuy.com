@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -15,63 +14,63 @@ interface GamingShopProps {
   onLogout: () => void;
 }
 
-// Sample gaming products data
+// Updated gaming products data with new images
 const popularGames = [
   {
     id: "pubg-001",
     name: "PUBG MOBILE",
-    image: "/lovable-uploads/8227e2e3-53c4-4ef4-8679-5617d212ef02.png",
+    image: "/lovable-uploads/856ab158-628e-4ea5-bc2a-cbef604d4450.png",
     tag: "EXTRA DISCOUNT",
     tagColor: "bg-orange-500"
   },
   {
-    id: "honor-001",
-    name: "HONOR OF KINGS",
-    image: "/lovable-uploads/39ad9ada-7ef2-4264-8459-58ed85df78e0.png",
-    tag: "EXTRA BONUS",
-    tagColor: "bg-red-500"
-  },
-  {
-    id: "aoe-001",
-    name: "AGE OF EMPIRES MOBILE",
-    image: "/lovable-uploads/e9c7e889-4e39-4f7c-beaa-2b4aaff0fc7f.png",
-    tag: "EXTRA DISCOUNT",
-    tagColor: "bg-orange-500"
-  },
-  {
-    id: "tarisland-001",
-    name: "TARISLAND",
-    image: "/lovable-uploads/65626d97-fbb9-425d-9971-135bc680cee5.png",
-    tag: "",
-    tagColor: ""
-  },
-  {
-    id: "delta-001",
-    name: "DELTA FORCE",
-    image: "/lovable-uploads/6b0727f0-f8bd-4223-9e36-ffd7671fc90d.png",
-    tag: "EXTRA BONUS",
+    id: "delta-002",
+    name: "DELTA FORCE: HAWK OPS",
+    image: "/lovable-uploads/04aca1a0-5fd9-435b-98db-0577862ed939.png",
+    tag: "NEW RELEASE",
     tagColor: "bg-green-500"
   },
   {
-    id: "goddess-001",
+    id: "nikke-003",
     name: "GODDESS OF VICTORY: NIKKE",
-    image: "/lovable-uploads/333f582a-7003-458b-b65f-efc04362d041.png",
-    tag: "",
-    tagColor: ""
+    image: "/lovable-uploads/ff4c6724-7699-46a2-ae4e-d4597554b08c.png",
+    tag: "POPULAR",
+    tagColor: "bg-purple-500"
   },
   {
-    id: "arena-001",
-    name: "ARENA BREAKOUT",
-    image: "/lovable-uploads/7ced1d56-2f82-478f-b3d9-8d74c4248658.png",
+    id: "warpath-004",
+    name: "WARPATH",
+    image: "/lovable-uploads/bc6a32c0-e853-4fab-9702-faaa3b46f6a7.png",
     tag: "EXTRA BONUS",
     tagColor: "bg-red-500"
   },
   {
-    id: "undawn-001",
-    name: "UNDAWN",
-    image: "/lovable-uploads/3bcefdfe-c25a-4050-8da7-067b829edb07.png",
-    tag: "",
-    tagColor: ""
+    id: "runeterra-005",
+    name: "LEGENDS OF RUNETERRA",
+    image: "/lovable-uploads/3bcb2d3b-038e-4c45-9758-d69a9aa66a4d.png",
+    tag: "TOP RATED",
+    tagColor: "bg-blue-500"
+  },
+  {
+    id: "honor-006",
+    name: "HONOR OF KINGS",
+    image: "/lovable-uploads/1ebc2015-cced-4512-97ef-41ea5b45cbb3.png",
+    tag: "FEATURED",
+    tagColor: "bg-yellow-500"
+  },
+  {
+    id: "assasin-007",
+    name: "ASSASSIN'S CREED JADE",
+    image: "/lovable-uploads/5b12ff1d-7fe9-4289-960b-9473171ba2db.png",
+    tag: "COMING SOON",
+    tagColor: "bg-gray-500"
+  },
+  {
+    id: "pubg-008",
+    name: "PUBG: NEW STATE",
+    image: "/lovable-uploads/65f01d50-4fcd-42e6-b557-d74154b5fc40.png",
+    tag: "PRE-ORDER",
+    tagColor: "bg-indigo-500"
   }
 ];
 
