@@ -23,6 +23,9 @@ const MobileNavigationTabs = () => {
     }
   };
 
+  // Don't render mobile tabs on the gaming shop page
+  if (location.pathname === "/gaming-shop") return null;
+
   const isActive = (path: string) => {
     if (path === "/" && location.pathname === "/") return true;
     if (path === "/redeem" && location.pathname === "/purchase-history") return true;
