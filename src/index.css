@@ -85,6 +85,51 @@
   }
 }
 
+/* Desktop and Tablet Banner Styling */
+@media (min-width: 769px) {
+  .desktop-header-banner {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 300px; /* Adjusted height to show banner down to the Player ID button */
+    background-image: url('/lovable-uploads/af3d5704-db1f-4e3b-ae85-983b98c7cabd.png');
+    background-size: cover;
+    background-position: center top;
+    background-repeat: no-repeat;
+    z-index: 0;
+  }
+  
+  .desktop-header-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 300px; /* Match banner height */
+    background: linear-gradient(to bottom, rgba(10, 22, 41, 0.3) 0%, rgba(10, 22, 41, 0.6) 80%, #0A1629 100%);
+    z-index: 1;
+  }
+  
+  /* Ensure content is properly positioned */
+  .desktop-content {
+    position: relative;
+    z-index: 5;
+  }
+  
+  /* Adjust header so it appears over the banner */
+  .desktop-header {
+    position: relative;
+    z-index: 10;
+    background: transparent !important;
+  }
+  
+  /* Force all content to be on top of the background */
+  .desktop-main-container {
+    position: relative;
+    z-index: 5;
+  }
+}
+
 /* Mobile specific adjustments for PUBG Mobile landing page */
 @media (max-width: 768px) {
   body {
@@ -97,7 +142,8 @@
     top: 0;
     left: 0;
     width: 100%;
-    height: 250px; /* Reduced height to show only until above navigation */
+    height: 250px;
+    background-image: url('/lovable-uploads/af3d5704-db1f-4e3b-ae85-983b98c7cabd.png');
     background-size: cover;
     background-position: center top;
     background-repeat: no-repeat;
@@ -119,7 +165,7 @@
   .mobile-content {
     position: relative;
     z-index: 5;
-    padding-top: 2rem; /* Reduce top padding */
+    padding-top: 2rem;
   }
   
   /* Adjust header for mobile so it appears over the banner */

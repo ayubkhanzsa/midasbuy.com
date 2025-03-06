@@ -347,9 +347,17 @@ const Header = ({ onLogout }: HeaderProps) => {
     <header 
       className={cn(
         "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
-        isScrolled ? "bg-midasbuy-navy/90 backdrop-blur-md shadow-lg" : "bg-transparent"
+        isScrolled ? "bg-midasbuy-navy/90 backdrop-blur-md shadow-lg" : "bg-transparent",
+        !isMobile ? "desktop-header" : "mobile-header"
       )}
     >
+      {!isMobile && (
+        <>
+          <div className="desktop-header-banner"></div>
+          <div className="desktop-header-overlay"></div>
+        </>
+      )}
+      
       <div className="container mx-auto px-4 py-2 flex items-center justify-between relative z-10">
         <div className="flex items-center">
           <Link to="/" className="mr-4">

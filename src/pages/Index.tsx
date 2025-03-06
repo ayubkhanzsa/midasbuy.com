@@ -1,4 +1,3 @@
-
 import { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import Header from "@/components/Header";
@@ -81,12 +80,7 @@ const Index = ({ onLogout }: IndexProps) => {
     <div className="min-h-screen bg-midasbuy-darkBlue overflow-x-hidden relative">
       {isMobile && (
         <>
-          <div 
-            className="mobile-header-banner"
-            style={{
-              backgroundImage: `url('/lovable-uploads/68929640-ac2f-4095-8869-0af8c4208146.png')`,
-            }}
-          ></div>
+          <div className="mobile-header-banner"></div>
           <div className="mobile-header-overlay"></div>
         </>
       )}
@@ -95,8 +89,8 @@ const Index = ({ onLogout }: IndexProps) => {
         <Header onLogout={onLogout} />
       </div>
       
-      <main className={`pt-20 pb-20 ${isMobile ? 'mobile-content mobile-main-container' : ''}`}>
-        <div className={`container mx-auto px-4 ${isMobile ? 'mobile-main-container' : ''}`}>
+      <main className={`pt-20 pb-20 ${isMobile ? 'mobile-content mobile-main-container' : 'desktop-content desktop-main-container'}`}>
+        <div className={`container mx-auto px-4 ${isMobile ? 'mobile-main-container' : 'desktop-main-container'}`}>
           <div className="flex flex-col md:flex-row items-start mb-6 relative">
             <div className="flex-grow z-10">
               <div className="flex items-center mb-3">
