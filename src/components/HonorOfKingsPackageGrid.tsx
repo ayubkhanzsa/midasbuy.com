@@ -1,6 +1,5 @@
-
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAnimationDuration } from "@/hooks/use-mobile";
 import { convertAndFormatPrice } from "@/utils/currencyUtils";
 import { useEffect, useState } from "react";
@@ -28,6 +27,7 @@ interface HonorOfKingsPackageGridProps {
 const HonorOfKingsPackageGrid = ({ packages, selectedCountry }: HonorOfKingsPackageGridProps) => {
   const slowAnimationDuration = useAnimationDuration('slow');
   const [imagesLoaded, setImagesLoaded] = useState<Record<string, boolean>>({});
+  const navigate = useNavigate();
 
   useEffect(() => {
     // Preload all package images
@@ -55,6 +55,10 @@ const HonorOfKingsPackageGrid = ({ packages, selectedCountry }: HonorOfKingsPack
     honorIcon.src = "/lovable-uploads/fc143449-9fb4-4203-8027-be50aebec0eb.png";
   }, [packages]);
 
+  const handlePackageClick = (pkg: Package) => {
+    navigate(`/honor-of-kings/purchase/${pkg.id}`);
+  };
+
   return (
     <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-6">
       {packages.map((pkg, index) => (
@@ -63,9 +67,10 @@ const HonorOfKingsPackageGrid = ({ packages, selectedCountry }: HonorOfKingsPack
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.2, delay: index * 0.05 }}
+          onClick={() => handlePackageClick(pkg)}
+          className="cursor-pointer"
         >
-          <Link to={`/honor-of-kings/purchase/${pkg.id}`} className="block">
-            <div className="bg-midasbuy-navy rounded-lg overflow-hidden h-full transition-all duration-300 hover:shadow-[0_0_15px_rgba(0,145,255,0.3)] border border-midasbuy-navy hover:border-midasbuy-blue/50">
+          <div className="bg-midasbuy-navy rounded-lg overflow-hidden h-full transition-all duration-300 hover:shadow-[0_0_15px_rgba(0,145,255,0.3)] border border-midasbuy-navy hover:border-midasbuy-blue/50">
               <div className="p-4 flex justify-center">
                 <motion.img 
                   src={pkg.image}
@@ -146,7 +151,6 @@ const HonorOfKingsPackageGrid = ({ packages, selectedCountry }: HonorOfKingsPack
                 </div>
               </div>
             </div>
-          </Link>
         </motion.div>
       ))}
     </div>

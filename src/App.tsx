@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -16,11 +15,12 @@ import PlayerIdPage from "./pages/PlayerIdPage";
 import PurchaseHistoryPage from "./pages/PurchaseHistoryPage";
 import GamingShopPage from "./pages/GamingShopPage";
 import HonorOfKingsPage from "./pages/HonorOfKingsPage";
+import HonorOfKingsPurchasePage from "./pages/HonorOfKingsPurchasePage";
 import AuthRoute from "./components/AuthRoute";
 
 const queryClient = new QueryClient();
 
-const App = () => {
+function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -113,12 +113,13 @@ const App = () => {
                 <EventsPage onLogout={logout} />
               </AuthRoute>
             } />
+            <Route path="/honor-of-kings/purchase/:id" element={<HonorOfKingsPurchasePage onLogout={logout} />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
       </TooltipProvider>
     </QueryClientProvider>
   );
-};
+}
 
 export default App;
