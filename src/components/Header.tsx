@@ -350,9 +350,7 @@ const Header = ({ onLogout }: HeaderProps) => {
         isScrolled ? "bg-midasbuy-navy/90 backdrop-blur-md shadow-lg" : "bg-transparent"
       )}
     >
-      {!isMobile && <div className="header-banner"></div>}
-      
-      <div className="container mx-auto px-4 py-2 flex items-center justify-between relative z-10 header-content">
+      <div className="container mx-auto px-4 py-2 flex items-center justify-between relative z-10">
         <div className="flex items-center">
           <Link to="/" className="mr-4">
             <img src="/lovable-uploads/c6fd77e7-3682-428e-8154-140308b4a06b.png" alt="Logo" className="h-6" />

@@ -1,3 +1,4 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -81,40 +82,6 @@
   }
   .btn-secondary {
     @apply text-white rounded-md bg-midasbuy-navy border border-gray-700 hover:border-midasbuy-blue/60 transition-colors;
-  }
-}
-
-/* Desktop header banner styling */
-@media (min-width: 769px) {
-  header {
-    height: 180px; /* Increased height to accommodate the full banner */
-    overflow: hidden;
-  }
-
-  .header-banner {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: url('/lovable-uploads/68929640-ac2f-4095-8869-0af8c4208146.png');
-    background-size: cover;
-    background-position: center top;
-    z-index: 0;
-  }
-  
-  .header-content {
-    position: relative;
-    z-index: 10;
-  }
-
-  .pt-20 {
-    padding-top: 8rem !important; /* Increased padding to account for taller header */
-  }
-  
-  .header-banner-spacer {
-    height: 100px; /* Space below header to push content down */
-    margin-bottom: 20px;
   }
 }
 

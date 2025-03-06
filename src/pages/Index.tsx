@@ -96,10 +96,6 @@ const Index = ({ onLogout }: IndexProps) => {
       </div>
       
       <main className={`pt-20 pb-20 ${isMobile ? 'mobile-content mobile-main-container' : ''}`}>
-        {!isMobile && (
-          <div className="header-banner-spacer"></div>
-        )}
-        
         <div className={`container mx-auto px-4 ${isMobile ? 'mobile-main-container' : ''}`}>
           <div className="flex flex-col md:flex-row items-start mb-6 relative">
             <div className="flex-grow z-10">
