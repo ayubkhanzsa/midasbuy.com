@@ -13,6 +13,7 @@ import { useNavigate } from "react-router-dom";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { ChevronDown } from "lucide-react";
 import { format } from "date-fns";
+import AboutMidasbuy from "@/components/AboutMidasbuy";
 
 interface GamingShopProps {
   onLogout: () => void;
@@ -343,6 +344,8 @@ const GamingShopPage = ({ onLogout }: GamingShopProps) => {
                   ))}
                 </div>
               </div>
+              
+              <AboutMidasbuy />
             </>
           )}
         </div>
