@@ -1,0 +1,117 @@
+
+.social-icon-container {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 2px;
+}
+
+.social-icon-container:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-color: rgba(0, 145, 255, 0.3);
+  box-shadow: 0 2px 10px rgba(0, 145, 255, 0.15);
+}
+
+@media (max-width: 768px) {
+  .social-icon-container {
+    padding: 1px;
+  }
+}
+
+/* Payment methods carousel styles */
+.payment-methods-container {
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.02);
+  border-radius: 0.5rem;
+  padding: 0.75rem 0;
+  margin-top: 1rem;
+}
+
+.payment-methods-scroll {
+  display: flex;
+  width: fit-content;
+  animation: scroll 30s linear infinite;
+}
+
+.payment-methods-scroll:hover {
+  animation-play-state: paused;
+}
+
+.payment-method-logo {
+  transition: all 0.3s ease;
+  margin: 0 1rem;
+  height: 38px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+  padding: 6px 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  min-width: 80px; /* Add minimum width */
+}
+
+.payment-method-logo img {
+  display: block;
+  max-height: 100%;
+  max-width: 100%;
+  height: auto;
+  width: auto;
+  object-fit: contain;
+}
+
+.payment-method-logo:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@media (max-width: 768px) {
+  .payment-methods-scroll {
+    animation: scroll 25s linear infinite;
+  }
+  
+  .payment-methods-container {
+    padding: 0.65rem 0;
+  }
+  
+  .payment-method-logo {
+    margin: 0 0.75rem;
+    height: 32px;
+    padding: 5px 10px;
+    min-width: 70px; /* Adjust minimum width for tablet */
+  }
+}
+
+@media (max-width: 480px) {
+  .payment-methods-scroll {
+    animation: scroll 20s linear infinite;
+  }
+  
+  .payment-methods-container {
+    padding: 0.5rem 0;
+  }
+  
+  .payment-method-logo {
+    margin: 0 0.65rem;
+    height: 28px;
+    padding: 4px 8px;
+    min-width: 60px; /* Adjust minimum width for mobile */
+  }
+}

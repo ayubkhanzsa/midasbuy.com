@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { ArrowLeft, Check, AlertCircle, Eye, EyeOff } from "lucide-react";
+import { ArrowLeft, Check, AlertCircle, Eye, EyeOff, User } from "lucide-react";
 import Header from "@/components/Header";
 import { getPackageById } from "@/data/ucPackages";
 import { Input } from "@/components/ui/input";
@@ -51,6 +51,7 @@ const CheckoutPage = ({ onLogout }: CheckoutPageProps) => {
   
   const [isProcessing, setIsProcessing] = useState(false);
   const [playerID, setPlayerID] = useState("");
+  const [username, setUsername] = useState("");
 
   const ucPackage = id ? getPackageById(id) : undefined;
 
@@ -61,6 +62,7 @@ const CheckoutPage = ({ onLogout }: CheckoutPageProps) => {
     }
 
     const storedPlayerID = localStorage.getItem("playerID");
+    const storedUsername = localStorage.getItem("pubgUsername");
     
     if (!storedPlayerID) {
       navigate(`/purchase/${id}`);
@@ -68,6 +70,9 @@ const CheckoutPage = ({ onLogout }: CheckoutPageProps) => {
     }
     
     setPlayerID(storedPlayerID);
+    if (storedUsername) {
+      setUsername(storedUsername);
+    }
 
     // Simulate loading
     const timer = setTimeout(() => {
@@ -168,6 +173,7 @@ const CheckoutPage = ({ onLogout }: CheckoutPageProps) => {
         localStorage.setItem("purchaseAmount", ucPackage.price.toString());
         localStorage.setItem("ucAmount", (ucPackage.baseAmount + ucPackage.bonusAmount).toString());
         localStorage.setItem("playerId", playerID);
+        localStorage.setItem("playerName", username || "Customer");
         localStorage.setItem("paymentMethod", selectedPayment === "card" ? "Credit Card" : "PayPal");
         
         localStorage.setItem("purchaseDetails", JSON.stringify({
@@ -176,6 +182,7 @@ const CheckoutPage = ({ onLogout }: CheckoutPageProps) => {
           bonusAmount: ucPackage.bonusAmount,
           price: ucPackage.price,
           playerID,
+          username,
           paymentMethod: selectedPayment,
           transactionId: "TX" + Math.floor(Math.random() * 1000000000),
           purchaseDate: new Date().toISOString(),
@@ -438,10 +445,11 @@ const CheckoutPage = ({ onLogout }: CheckoutPageProps) => {
                   
                   <div>
                     <div className="flex items-baseline">
-                      <span className="gold-text text-xl">{ucPackage.baseAmount}</span>
+                      <span className="text-white text-xl">{ucPackage.baseAmount}</span>
                       {ucPackage.bonusAmount > 0 && (
                         <span className="text-midasbuy-gold ml-1">+{ucPackage.bonusAmount}</span>
                       )}
+                      <span className="text-white ml-1">UC</span>
                     </div>
                     
                     <div className="mt-1">
@@ -457,6 +465,12 @@ const CheckoutPage = ({ onLogout }: CheckoutPageProps) => {
                       <span className="text-gray-400">ID:</span>
                       <span className="text-white font-medium">{playerID}</span>
                     </div>
+                    {username && (
+                      <div className="flex justify-between mt-1 border-t border-midasbuy-navy/80 pt-1">
+                        <span className="text-gray-400">Username:</span>
+                        <span className="text-midasbuy-gold font-medium">{username}</span>
+                      </div>
+                    )}
                   </div>
                 </div>
                 
@@ -483,7 +497,7 @@ const CheckoutPage = ({ onLogout }: CheckoutPageProps) => {
                 
                 <div className="flex justify-between mb-6 pb-2 border-b border-gray-700">
                   <span className="font-bold text-white">Total</span>
-                  <span className="font-bold text-midasbuy-gold text-xl">{ucPackage.price.toFixed(2)} USD</span>
+                  <span className="font-bold text-white text-xl">{ucPackage.price.toFixed(2)} USD</span>
                 </div>
                 
                 <Button 
@@ -513,7 +527,7 @@ const CheckoutPage = ({ onLogout }: CheckoutPageProps) => {
       <footer className="bg-midasbuy-navy py-6 relative z-10">
         <div className="container mx-auto px-4">
           <div className="text-center text-gray-400 text-sm">
-            <p>© 2023 PUBG MOBILE. All Rights Reserved.</p>
+            <p>© 2025 Midasbuy. All Rights Reserved.</p>
             <div className="mt-2">
               <a href="#" className="text-gray-400 hover:text-gray-300 mx-2">Terms of Service</a>
               <span className="text-gray-600">|</span>
