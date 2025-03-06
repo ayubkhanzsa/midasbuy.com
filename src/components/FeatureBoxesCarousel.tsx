@@ -55,10 +55,6 @@ const FeatureBoxesCarousel: React.FC<FeatureBoxesCarouselProps> = ({ className }
     return () => clearInterval(interval);
   }, [carouselImages.length, imagesLoaded]);
 
-  const handleDotClick = (index: number) => {
-    setActiveIndex(index);
-  };
-
   return (
     <div className={`w-full ${className}`}>
       <h3 className="text-xl text-white font-bold mb-6 z-10 relative">MIDASBUY CAN OFFER YOU</h3>
@@ -82,17 +78,7 @@ const FeatureBoxesCarousel: React.FC<FeatureBoxesCarouselProps> = ({ className }
           </div>
         ))}
         
-        {/* Navigation dots */}
-        <div className="absolute bottom-4 left-0 right-0 flex justify-center gap-2 z-10">
-          {carouselImages.map((_, index) => (
-            <button
-              key={index}
-              className={`w-3 h-3 rounded-full transition-all ${activeIndex === index ? 'bg-midasbuy-gold w-6' : 'bg-white/50'}`}
-              onClick={() => handleDotClick(index)}
-              aria-label={`Go to slide ${index + 1}`}
-            />
-          ))}
-        </div>
+        {/* Navigation dots have been removed as requested */}
       </div>
     </div>
   );
