@@ -7,9 +7,9 @@ const MobileNavigationTabs = () => {
   const location = useLocation();
   
   const navLinks = [
-    { name: "PURCHASE", path: "/" },
+    { name: "PURCHASE", path: "/pubg-mobile" },
     { name: "REDEEM", path: "/redeem" },
-    { name: "SHOP", path: "/gaming-shop" },
+    { name: "SHOP", path: "/" },
     { name: "EVENTS", path: "/events" },
   ];
 
@@ -23,8 +23,8 @@ const MobileNavigationTabs = () => {
 
   const isActive = (path: string) => {
     if (path === "/" && location.pathname === "/") return true;
+    if (path === "/pubg-mobile" && location.pathname === "/pubg-mobile") return true;
     if (path === "/redeem" && location.pathname === "/purchase-history") return true;
-    if (path === "/gaming-shop" && location.pathname === "/gaming-shop") return true;
     if (path === "/events" && location.pathname === "/events") return true;
     return false;
   };

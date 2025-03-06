@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -8,6 +9,7 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ShoppingCart, Star, ArrowRight } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import PromotionBanner from "@/components/PromotionBanner";
 import { useNavigate } from "react-router-dom";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { ChevronDown } from "lucide-react";
@@ -190,6 +192,7 @@ const newsItems = [
 
 const GamingShopPage = ({ onLogout }: GamingShopProps) => {
   const [isLoading, setIsLoading] = useState(true);
+  const [showBanner, setShowBanner] = useState(true);
   const { isMobile, isTablet, isDesktop } = useResponsive();
   const { toast } = useToast();
   const navigate = useNavigate();
@@ -222,6 +225,7 @@ const GamingShopPage = ({ onLogout }: GamingShopProps) => {
 
   return (
     <div className="min-h-screen bg-midasbuy-darkBlue overflow-x-hidden relative">
+      {/* Corner light effect */}
       <div className="corner-light-effect"></div>
       
       <div className={isMobile ? 'mobile-header' : ''}>
@@ -239,6 +243,8 @@ const GamingShopPage = ({ onLogout }: GamingShopProps) => {
             </div>
           ) : (
             <>
+              {showBanner && <PromotionBanner onClose={() => setShowBanner(false)} />}
+              
               <div className="mb-8 mt-6">
                 <FeatureBoxesCarousel className="" />
               </div>
@@ -302,6 +308,8 @@ const GamingShopPage = ({ onLogout }: GamingShopProps) => {
                   ))}
                 </div>
               </div>
+              
+              {showBanner && <PromotionBanner onClose={() => setShowBanner(false)} />}
               
               <div className="mb-8 mt-12">
                 <FeatureBoxesCarousel className="" />
