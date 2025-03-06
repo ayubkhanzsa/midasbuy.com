@@ -12,6 +12,7 @@ import PromotionBanner from "@/components/PromotionBanner";
 import { useNavigate } from "react-router-dom";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { ChevronDown } from "lucide-react";
+import { format } from "date-fns";
 
 interface GamingShopProps {
   onLogout: () => void;
@@ -127,14 +128,6 @@ const newsItems = [
     date: "2025-03-08",
     endDate: "2025-04-08",
     publisher: "Arena Breakout"
-  },
-  {
-    id: "news-003",
-    title: "Follow Midasbuy For Exclusive Gifts!",
-    image: "/lovable-uploads/4d4bf07c-2e94-4e1c-9822-8e17a6cce8a7.png",
-    date: "2025-03-05",
-    endDate: "",
-    publisher: "Midasbuy"
   },
   {
     id: "news-004",
@@ -331,7 +324,7 @@ const GamingShopPage = ({ onLogout }: GamingShopProps) => {
                         />
                         {item.endDate && (
                           <div className="absolute top-3 right-3 bg-blue-500 text-white text-xs px-3 py-1 rounded-full font-medium">
-                            Ends in {item.endDate}
+                            Ends in {format(new Date(item.endDate), "yyyy-MM-dd")}
                           </div>
                         )}
                       </div>
@@ -343,27 +336,9 @@ const GamingShopPage = ({ onLogout }: GamingShopProps) => {
                         <div className="flex items-center text-xs text-gray-400">
                           <span className="font-medium">{item.publisher}</span>
                           <span className="mx-2">•</span>
-                          <span>{new Date(item.date).toLocaleDateString("en-US", {
-                            year: "numeric",
-                            month: "short",
-                            day: "numeric"
-                          })}</span>
+                          <span>{format(new Date(item.date), "yyyy-MM-dd")}</span>
                         </div>
                       </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-              
-              <div className="bg-midasbuy-navy/40 rounded-lg p-4 flex items-center justify-between">
-                <div>
-                  <div className="text-white font-bold mb-1">Follow Midasbuy</div>
-                  <div className="text-gray-400 text-sm">For Exclusive Gifts!</div>
-                </div>
-                <div className="flex gap-2">
-                  {["Twitter", "Facebook", "Instagram"].map((social) => (
-                    <div key={social} className="w-8 h-8 rounded-full bg-blue-500 flex items-center justify-center text-white">
-                      {social.charAt(0)}
                     </div>
                   ))}
                 </div>
