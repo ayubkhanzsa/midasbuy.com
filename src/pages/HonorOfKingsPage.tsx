@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Header from "@/components/Header";
@@ -14,6 +15,7 @@ import { ArrowRight, Download, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
+import FeatureBoxesCarousel from "@/components/FeatureBoxesCarousel";
 
 interface HonorOfKingsPageProps {
   onLogout: () => void;
@@ -147,9 +149,9 @@ const HonorOfKingsPage = ({ onLogout }: HonorOfKingsPageProps) => {
               {/* Honor of Kings Title with Logo */}
               <div className="flex items-center mb-2">
                 <img 
-                  src="/lovable-uploads/856ab158-628e-4ea5-bc2a-cbef604d4450.png" 
-                  alt="Honor of Kings" 
-                  className={`w-[75px] mr-3 rounded-md ${isMobile ? 'mobile-pubg-icon' : ''}`}
+                  src="/lovable-uploads/ca9555b1-e949-4084-8def-830689dfcfab.png" 
+                  alt="Honor of Kings Logo" 
+                  className={`w-[100px] h-[100px] mr-3 rounded-md ${isMobile ? 'w-[85px] h-[85px]' : ''}`}
                 />
                 <div>
                   <div className="flex items-center">
@@ -209,6 +211,10 @@ const HonorOfKingsPage = ({ onLogout }: HonorOfKingsPageProps) => {
               <PromotionBanner onClose={() => setShowPromotion(false)} />
             </div>
           )}
+          
+          <div className="mt-8 mb-8">
+            <FeatureBoxesCarousel showHeading={false} />
+          </div>
           
           <div className="mt-8 bg-gradient-to-r from-blue-600/30 to-purple-600/30 rounded-xl p-6 border border-blue-500/20">
             <h2 className="text-2xl font-bold text-white mb-4">Honor of Kings Global Launch!</h2>
