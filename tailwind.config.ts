@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -65,7 +66,7 @@ export default {
 				midasbuy: {
 					blue: '#0091ff',
 					navy: '#0c1730',
-					darkBlue: '#0a1328',
+					darkBlue: '#051238', // Updated to match the image
 					gold: '#ffb81c',
 					darkGold: '#9b7c1d',
 				}
@@ -123,6 +124,7 @@ export default {
 				'hero-pattern': "url('/lovable-uploads/f1df18f8-bc28-4c2c-a700-74015fdfaf5b.png')",
 				'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
 				'glass-gradient': 'linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05))',
+				'midasbuy-gradient': 'linear-gradient(to bottom, #0a1e4c, #051238)',
 			},
 			textShadow: {
 				sm: '0 1px 2px rgba(0, 0, 0, 0.5)',
