@@ -107,6 +107,16 @@
   visibility: visible !important;
 }
 
+/* Professional navigation styling for desktop */
+@media (min-width: 768px) {
+  .nav-tabs-container {
+    position: relative;
+    z-index: 50;
+    width: 100%;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  }
+}
+
 /* Mobile specific adjustments for PUBG Mobile landing page */
 @media (max-width: 768px) {
   body {
