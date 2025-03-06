@@ -13,17 +13,15 @@ const NavigationTabs = () => {
   }, []);
   
   const navLinks = [
-    { name: "PURCHASE", path: "/" },
+    { name: "PURCHASE", path: "/pubg-mobile" },
     { name: "REDEEM", path: "/redeem" },
-    { name: "SHOP", path: "/shop" },
+    { name: "SHOP", path: "/" },
     { name: "EVENTS", path: "/events" },
   ];
 
   const handleNavigate = (path: string) => {
     if (path === "/redeem") {
       navigate("/purchase-history");
-    } else if (path === "/shop") {
-      navigate("/gaming-shop");
     } else {
       navigate(path);
     }
@@ -31,13 +29,10 @@ const NavigationTabs = () => {
 
   if (!mounted) return null;
 
-  // Don't render tabs on the gaming shop page
-  if (location.pathname === "/gaming-shop") return null;
-
   const isActive = (path: string) => {
     if (path === "/" && location.pathname === "/") return true;
+    if (path === "/pubg-mobile" && location.pathname === "/pubg-mobile") return true;
     if (path === "/redeem" && location.pathname === "/purchase-history") return true;
-    if (path === "/shop" && location.pathname === "/gaming-shop") return true;
     if (path === "/events" && location.pathname === "/events") return true;
     return false;
   };

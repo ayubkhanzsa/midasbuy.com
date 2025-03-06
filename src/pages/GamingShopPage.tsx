@@ -207,7 +207,7 @@ const GamingShopPage = ({ onLogout }: GamingShopProps) => {
 
   const handleGameClick = (game: typeof popularGames[0]) => {
     if (game.name === "PUBG MOBILE") {
-      navigate("/");
+      navigate("/pubg-mobile");
     } else if (game.name === "HONOR OF KINGS") {
       navigate("/honor-of-kings");
     } else {

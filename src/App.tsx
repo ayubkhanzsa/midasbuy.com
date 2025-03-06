@@ -65,6 +65,11 @@ const App = () => {
             } />
             <Route path="/" element={
               <AuthRoute isAuthenticated={isAuthenticated} redirectTo="/login">
+                <GamingShopPage onLogout={logout} />
+              </AuthRoute>
+            } />
+            <Route path="/pubg-mobile" element={
+              <AuthRoute isAuthenticated={isAuthenticated} redirectTo="/login">
                 <Index onLogout={logout} />
               </AuthRoute>
             } />
@@ -80,7 +85,7 @@ const App = () => {
             } />
             <Route path="/gaming-shop" element={
               <AuthRoute isAuthenticated={isAuthenticated} redirectTo="/login">
-                <GamingShopPage onLogout={logout} />
+                <Navigate to="/" />
               </AuthRoute>
             } />
             <Route path="/honor-of-kings" element={
