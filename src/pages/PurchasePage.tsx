@@ -1,8 +1,8 @@
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { motion } from "framer-motion";
-import { ArrowLeft, AlertCircle, Check, RefreshCw, User, Shield } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { ArrowLeft, AlertCircle, Check, RefreshCw, User, Shield, X, HelpCircle } from "lucide-react";
 import Header from "@/components/Header";
 import { getPackageById, getSelectedCountry, setupCountryChangeListener } from "@/data/ucPackages";
 import { Input } from "@/components/ui/input";
@@ -11,6 +11,7 @@ import { toast } from "@/components/ui/use-toast";
 import { convertAndFormatPrice, setupCurrencyChangeListener } from "@/utils/currencyUtils";
 import { useResponsive } from "@/hooks/use-mobile";
 import { Label } from "@/components/ui/label";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 
 interface PurchasePageProps {
   onLogout: () => void;
@@ -26,6 +27,8 @@ const PurchasePage = ({ onLogout }: PurchasePageProps) => {
   const [selectedCountry, setSelectedCountry] = useState(getSelectedCountry());
   const [username, setUsername] = useState("");
   const { isMobile, isTablet } = useResponsive();
+  const [showPlayerIdModal, setShowPlayerIdModal] = useState(false);
+  const [tempPlayerID, setTempPlayerID] = useState("");
 
   const ucPackage = id ? getPackageById(id) : undefined;
 
@@ -88,7 +91,7 @@ const PurchasePage = ({ onLogout }: PurchasePageProps) => {
   }, []);
 
   const handleVerifyPlayerID = () => {
-    if (!playerID || playerID.length < 8) {
+    if (!tempPlayerID || tempPlayerID.length < 8) {
       toast({
         title: "Invalid Player ID",
         description: "Please enter a valid Player ID",
@@ -102,19 +105,21 @@ const PurchasePage = ({ onLogout }: PurchasePageProps) => {
     setTimeout(() => {
       setIsVerifying(false);
       setIsPlayerIDValid(true);
+      setPlayerID(tempPlayerID);
       
       toast({
         title: "Player ID Verified",
         description: "ID verification successful",
       });
       
-      localStorage.setItem("playerID", playerID);
+      localStorage.setItem("playerID", tempPlayerID);
       
-      // Only load the username after player ID verification
-      const savedUsername = localStorage.getItem("pubgUsername");
-      if (savedUsername) {
-        setUsername(savedUsername);
-      }
+      // Generate random username for demonstration
+      const mockUsername = `Player${Math.floor(Math.random() * 10000)}`;
+      localStorage.setItem("pubgUsername", mockUsername);
+      setUsername(mockUsername);
+      
+      setShowPlayerIdModal(false);
     }, 1500);
   };
 
@@ -123,11 +128,15 @@ const PurchasePage = ({ onLogout }: PurchasePageProps) => {
     setIsPlayerIDValid(false);
     setUsername(""); // Clear username when player ID is reset
     localStorage.removeItem("playerID");
+    localStorage.removeItem("pubgUsername");
     
     toast({
       title: "Player ID Reset",
       description: "Please enter a new Player ID",
     });
+    
+    // Open the modal for entering a new player ID
+    setShowPlayerIdModal(true);
   };
 
   const handleBackToHome = () => {
@@ -141,12 +150,18 @@ const PurchasePage = ({ onLogout }: PurchasePageProps) => {
         description: "Please verify your Player ID before proceeding",
         variant: "destructive",
       });
+      setShowPlayerIdModal(true);
       return;
     }
 
     if (id) {
       navigate(`/checkout/${id}`);
     }
+  };
+  
+  const openPlayerIdModal = () => {
+    setTempPlayerID("");
+    setShowPlayerIdModal(true);
   };
 
   if (isLoading || !ucPackage) {
@@ -167,6 +182,67 @@ const PurchasePage = ({ onLogout }: PurchasePageProps) => {
       </div>
       
       <Header onLogout={onLogout} />
+      
+      <AnimatePresence>
+        <Dialog open={showPlayerIdModal} onOpenChange={setShowPlayerIdModal}>
+          <DialogContent className="sm:max-w-md bg-[#121B2E] border-none text-white">
+            <DialogHeader>
+              <div className="flex items-center justify-between">
+                <DialogTitle className="text-2xl font-bold text-white">Enter Your Player ID Now</DialogTitle>
+                <Button 
+                  variant="ghost" 
+                  className="h-8 w-8 p-0 text-gray-400 hover:text-white hover:bg-transparent"
+                  onClick={() => setShowPlayerIdModal(false)}
+                >
+                  <X className="h-6 w-6" />
+                </Button>
+              </div>
+            </DialogHeader>
+            
+            <div className="py-4">
+              <div className="flex items-center justify-between mb-2">
+                <h4 className="text-xl font-medium text-white">Player ID</h4>
+                <Button 
+                  variant="ghost" 
+                  className="flex items-center text-blue-400 hover:text-blue-300 p-0 hover:bg-transparent"
+                >
+                  <HelpCircle className="w-5 h-5 mr-1" />
+                  <span>Couldn't find your Player ID?</span>
+                </Button>
+              </div>
+              
+              <div className="mb-4">
+                <div className="bg-[#00A8FF] bg-opacity-20 p-3 rounded-t-md">
+                  <p className="text-white">Please select or fill in your Player ID you want to recharge.</p>
+                </div>
+                <div className="bg-[#1A1F2E] rounded-b-md p-3 border border-[#182238]">
+                  <Input
+                    value={tempPlayerID}
+                    onChange={(e) => setTempPlayerID(e.target.value)}
+                    placeholder="Enter Player ID"
+                    className="bg-transparent border-none text-white text-lg placeholder:text-gray-500 focus-visible:ring-0 h-12"
+                  />
+                </div>
+              </div>
+              
+              <Button 
+                className="w-full bg-gradient-to-r from-[#0099FF] to-[#0062FF] hover:opacity-90 text-white font-medium text-xl py-6"
+                onClick={handleVerifyPlayerID}
+                disabled={isVerifying || !tempPlayerID}
+              >
+                {isVerifying ? (
+                  <>
+                    <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin mr-2"></div>
+                    Verifying...
+                  </>
+                ) : (
+                  "OK"
+                )}
+              </Button>
+            </div>
+          </DialogContent>
+        </Dialog>
+      </AnimatePresence>
       
       <main className="pt-20 pb-20 relative z-10">
         <div className="container mx-auto px-4">
@@ -198,87 +274,54 @@ const PurchasePage = ({ onLogout }: PurchasePageProps) => {
                   </div>
                 </div>
                 
-                <div className="mb-6 bg-midasbuy-navy/30 p-4 rounded-lg border border-midasbuy-blue/20">
-                  <div className="flex items-center mb-1">
-                    <Label htmlFor="playerID" className="block text-sm font-medium text-white mr-2 flex items-center">
-                      PUBG Mobile Player ID
-                      {isPlayerIDValid && (
-                        <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-green-500/20 text-green-400 ml-2">
-                          <Check className="w-3 h-3 mr-1" /> Verified
-                        </span>
-                      )}
-                    </Label>
-                  </div>
-                  
-                  <div className="flex">
-                    <div className="flex-grow relative">
-                      <Input 
-                        id="playerID"
-                        value={playerID}
-                        onChange={(e) => {
-                          setPlayerID(e.target.value);
-                          setIsPlayerIDValid(false);
-                          setUsername(""); // Clear username when player ID changes
-                        }}
-                        placeholder="Enter your PUBG Mobile ID"
-                        className="bg-midasbuy-navy/50 border-midasbuy-blue/30 text-white focus:border-midasbuy-blue focus:ring-midasbuy-blue/20"
-                        disabled={isPlayerIDValid}
-                      />
-                      {isPlayerIDValid && (
-                        <button
-                          onClick={handleResetPlayerID}
-                          className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-midasbuy-blue transition-colors"
-                          title="Reset Player ID"
-                        >
-                          <RefreshCw className="w-4 h-4" />
-                        </button>
-                      )}
-                    </div>
-                    
-                    <Button 
-                      className={`ml-2 ${isPlayerIDValid 
-                        ? 'bg-green-600 hover:bg-green-700' 
-                        : 'bg-midasbuy-blue hover:bg-blue-600'} text-white`}
-                      onClick={isPlayerIDValid ? handleResetPlayerID : handleVerifyPlayerID}
-                      disabled={isVerifying || (!isPlayerIDValid && !playerID)}
-                    >
-                      {isVerifying ? (
-                        <>
-                          <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin mr-2"></div>
-                          Verifying...
-                        </>
-                      ) : isPlayerIDValid ? (
-                        <>
-                          <RefreshCw className="w-4 h-4 mr-1" /> Reset ID
-                        </>
-                      ) : (
-                        <>
-                          <Shield className="w-4 h-4 mr-1" /> Verify
-                        </>
-                      )}
-                    </Button>
-                  </div>
-                  
-                  {/* Only show username section if Player ID is verified and username exists */}
-                  {isPlayerIDValid && username && (
-                    <div className="mt-3 bg-midasbuy-blue/10 p-3 rounded-lg border border-midasbuy-blue/20">
-                      <div className="flex items-center">
-                        <User className="w-4 h-4 text-midasbuy-gold mr-2" />
-                        <div>
-                          <div className="text-xs text-gray-400">Username</div>
-                          <div className="text-sm text-white font-medium">{username}</div>
+                {isPlayerIDValid ? (
+                  <div className="bg-midasbuy-navy/30 p-5 rounded-lg border border-midasbuy-blue/20">
+                    <div className="flex justify-between items-center">
+                      <div>
+                        <div className="flex items-center mb-2">
+                          <span className="text-green-400 flex items-center font-medium">
+                            <Check className="w-4 h-4 mr-1" /> ID Verified
+                          </span>
+                        </div>
+                        <div className="grid grid-cols-2 gap-x-8 gap-y-2">
+                          <div>
+                            <div className="text-gray-400 text-sm">Player ID:</div>
+                            <div className="text-white font-medium">{playerID}</div>
+                          </div>
+                          <div>
+                            <div className="text-gray-400 text-sm">Username:</div>
+                            <div className="text-midasbuy-gold font-medium">{username}</div>
+                          </div>
                         </div>
                       </div>
+                      <Button 
+                        className="bg-gray-700 hover:bg-gray-600 text-white"
+                        onClick={handleResetPlayerID}
+                      >
+                        <RefreshCw className="w-4 h-4 mr-1" /> Change ID
+                      </Button>
                     </div>
-                  )}
-                  
-                  <div className="mt-3 flex items-start">
-                    <AlertCircle className="w-4 h-4 text-midasbuy-gold mr-2 flex-shrink-0 mt-0.5" />
-                    <p className="text-xs text-gray-300">
-                      Your Player ID can be found in your PUBG Mobile game. Go to your profile and copy the ID number. 
-                      This ID is required to deliver UC directly to your account.
-                    </p>
                   </div>
+                ) : (
+                  <div className="bg-midasbuy-navy/30 p-5 rounded-lg border border-midasbuy-blue/20">
+                    <div className="text-center py-3">
+                      <p className="text-gray-300 mb-3">Please enter your Player ID to continue</p>
+                      <Button 
+                        className="bg-midasbuy-blue hover:bg-blue-600 text-white font-medium"
+                        onClick={openPlayerIdModal}
+                      >
+                        <User className="w-4 h-4 mr-1" /> Enter Player ID
+                      </Button>
+                    </div>
+                  </div>
+                )}
+                
+                <div className="mt-3 flex items-start">
+                  <AlertCircle className="w-4 h-4 text-midasbuy-gold mr-2 flex-shrink-0 mt-0.5" />
+                  <p className="text-xs text-gray-300">
+                    Your Player ID can be found in your PUBG Mobile game. Go to your profile and copy the ID number. 
+                    This ID is required to deliver UC directly to your account.
+                  </p>
                 </div>
               </motion.div>
               
