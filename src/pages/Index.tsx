@@ -5,6 +5,7 @@ import Header from "@/components/Header";
 import { ucPackages, getSelectedCountry } from "@/data/ucPackages";
 import { useMobile, useResponsive } from "@/hooks/use-mobile";
 import NavigationTabs from "@/components/NavigationTabs";
+import MobileNavigationTabs from "@/components/MobileNavigationTabs";
 import PrivacyPolicyModal from "@/components/PrivacyPolicyModal";
 import LoadingScreen from "@/components/LoadingScreen";
 import PromotionBanner from "@/components/PromotionBanner";
@@ -143,6 +144,7 @@ const Index = ({ onLogout }: IndexProps) => {
           </div>
           
           <NavigationTabs />
+          <MobileNavigationTabs />
           
           {showPromotion && <PromotionBanner onClose={() => setShowPromotion(false)} />}
           
