@@ -15,6 +15,7 @@ import EventsPage from "./pages/EventsPage";
 import PlayerIdPage from "./pages/PlayerIdPage";
 import PurchaseHistoryPage from "./pages/PurchaseHistoryPage";
 import GamingShopPage from "./pages/GamingShopPage";
+import HonorOfKingsPage from "./pages/HonorOfKingsPage";
 import AuthRoute from "./components/AuthRoute";
 
 const queryClient = new QueryClient();
@@ -80,6 +81,11 @@ const App = () => {
             <Route path="/gaming-shop" element={
               <AuthRoute isAuthenticated={isAuthenticated} redirectTo="/login">
                 <GamingShopPage onLogout={logout} />
+              </AuthRoute>
+            } />
+            <Route path="/honor-of-kings" element={
+              <AuthRoute isAuthenticated={isAuthenticated} redirectTo="/login">
+                <HonorOfKingsPage onLogout={logout} />
               </AuthRoute>
             } />
             <Route path="/purchase/:id" element={

@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -208,6 +207,8 @@ const GamingShopPage = ({ onLogout }: GamingShopProps) => {
   const handleGameClick = (game: typeof popularGames[0]) => {
     if (game.name === "PUBG MOBILE") {
       navigate("/");
+    } else if (game.name === "HONOR OF KINGS") {
+      navigate("/honor-of-kings");
     } else {
       toast({
         title: `${game.name} Selected`,
