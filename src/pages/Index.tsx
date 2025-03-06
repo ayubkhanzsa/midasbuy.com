@@ -91,20 +91,20 @@ const Index = ({ onLogout }: IndexProps) => {
       </div>
       
       <main className={`pt-20 pb-20 relative ${isMobile ? 'mobile-content mobile-main-container' : 'z-10'}`}>
-        <div className="absolute top-0 left-0 w-full flex justify-center items-center">
-          {!isMobile && (
+        {!isMobile && (
+          <div className="banner-container" style={{ width: '100%', display: 'flex', justifyContent: 'center', position: 'absolute', top: 0, left: 0, zIndex: 1 }}>
             <img 
               src="/lovable-uploads/28985189-d7e6-4b78-b392-1c1c9fcaff88.png" 
               alt="Banner"
-              className="w-full h-auto object-cover md:object-contain"
+              className="w-full h-auto object-cover"
               style={{ 
                 width: '100%', 
                 maxWidth: '1440px',
-                maxHeight: isDesktop ? '350px' : isTablet ? '300px' : '180px',
+                maxHeight: isDesktop ? '350px' : '300px',
               }}
             />
-          )}
-        </div>
+          </div>
+        )}
         
         <div className={`container mx-auto px-4 ${isMobile ? 'mobile-main-container' : ''}`}>
           <div className="flex flex-col md:flex-row items-start mb-6 relative">

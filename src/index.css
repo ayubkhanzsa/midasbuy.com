@@ -85,6 +85,28 @@
   }
 }
 
+/* Banner container styles */
+.banner-container {
+  display: flex !important;
+  justify-content: center !important;
+  width: 100% !important;
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  z-index: 1 !important;
+  overflow: visible !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+.banner-container img {
+  width: 100% !important;
+  object-fit: cover !important;
+  display: block !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
 /* Mobile specific adjustments for PUBG Mobile landing page */
 @media (max-width: 768px) {
   body {
@@ -148,5 +170,19 @@
   .mobile-pubg-icon {
     width: 28px !important;
     margin-top: 1.5rem;
+  }
+}
+
+/* Tablet-specific styles */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .banner-container img {
+    max-height: 300px !important;
+  }
+}
+
+/* Desktop styles */
+@media (min-width: 1025px) {
+  .banner-container img {
+    max-height: 350px !important;
   }
 }
