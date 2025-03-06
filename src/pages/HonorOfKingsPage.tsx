@@ -7,7 +7,6 @@ import { getSelectedCountry } from "@/data/ucPackages";
 import { useMobile, useResponsive } from "@/hooks/use-mobile";
 import NavigationTabs from "@/components/NavigationTabs";
 import MobileNavigationTabs from "@/components/MobileNavigationTabs";
-import PromotionBanner from "@/components/PromotionBanner";
 import HonorOfKingsPackageGrid from "@/components/HonorOfKingsPackageGrid";
 import FilterBar from "@/components/FilterBar";
 import Footer from "@/components/Footer";
@@ -23,7 +22,6 @@ interface HonorOfKingsPageProps {
 
 const HonorOfKingsPage = ({ onLogout }: HonorOfKingsPageProps) => {
   const [isLoading, setIsLoading] = useState(true);
-  const [showPromotion, setShowPromotion] = useState(true);
   const [filter, setFilter] = useState("all");
   const [selectedCountry, setSelectedCountry] = useState(getSelectedCountry());
   const { isMobile, isTablet, isDesktop } = useResponsive();
@@ -116,34 +114,16 @@ const HonorOfKingsPage = ({ onLogout }: HonorOfKingsPageProps) => {
 
   return (
     <div className="min-h-screen bg-midasbuy-darkBlue overflow-x-hidden relative">
-      {isMobile && (
-        <>
-          <div className="mobile-header-banner"></div>
-          <div className="mobile-header-overlay"></div>
-        </>
-      )}
+      {/* Apply mobile header styling to all device sizes */}
+      <div className="mobile-header-banner"></div>
+      <div className="mobile-header-overlay"></div>
       
-      <div className={isMobile ? 'mobile-header' : ''}>
+      <div className="mobile-header">
         <Header onLogout={onLogout} />
       </div>
       
-      <main className={`pt-20 pb-20 relative ${isMobile ? 'mobile-content mobile-main-container' : 'z-10'}`}>
-        {!isMobile && (
-          <div className="banner-container" style={{ width: '100%', display: 'flex', justifyContent: 'center', position: 'absolute', top: 0, left: 0, zIndex: 1 }}>
-            <img 
-              src="/lovable-uploads/ec01c36c-6925-4ab3-8d01-c1ef4b766ce9.png" 
-              alt="Honor of Kings Banner"
-              className="w-full h-auto object-cover"
-              style={{ 
-                width: '100%', 
-                maxWidth: '1440px',
-                maxHeight: isDesktop ? '350px' : '300px',
-              }}
-            />
-          </div>
-        )}
-        
-        <div className={`container mx-auto px-4 ${isMobile ? 'mobile-main-container' : ''}`}>
+      <main className="pt-20 pb-20 relative mobile-content mobile-main-container z-10">
+        <div className="container mx-auto px-4 mobile-main-container">
           <div className="flex flex-col md:flex-row items-start mb-6 relative">
             <div className="flex-grow z-10 md:ml-8 md:mt-2">
               {/* Honor of Kings Title with Logo */}
@@ -151,11 +131,11 @@ const HonorOfKingsPage = ({ onLogout }: HonorOfKingsPageProps) => {
                 <img 
                   src="/lovable-uploads/ca9555b1-e949-4084-8def-830689dfcfab.png" 
                   alt="Honor of Kings Logo" 
-                  className={`w-[100px] h-[100px] mr-3 rounded-md ${isMobile ? 'w-[85px] h-[85px]' : ''}`}
+                  className={`w-[85px] h-[85px] mr-3 rounded-md sm:w-[100px] sm:h-[100px]`}
                 />
                 <div>
                   <div className="flex items-center">
-                    <h1 className={`text-2xl md:text-3xl text-white font-bold tracking-wide ${isMobile ? 'mobile-pubg-title' : ''}`}>HONOR OF KINGS</h1>
+                    <h1 className="text-2xl md:text-3xl text-white font-bold tracking-wide mobile-pubg-title">HONOR OF KINGS</h1>
                     <div className="ml-3 flex space-x-2">
                       <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-white text-black">
                         <Check className="h-3 w-3 mr-1" />
@@ -205,12 +185,6 @@ const HonorOfKingsPage = ({ onLogout }: HonorOfKingsPageProps) => {
           </div>
           
           <HonorOfKingsPackageGrid packages={filteredPackages} selectedCountry={selectedCountry} />
-          
-          {showPromotion && (
-            <div className="mt-8">
-              <PromotionBanner onClose={() => setShowPromotion(false)} />
-            </div>
-          )}
           
           <div className="mt-8 mb-8">
             <FeatureBoxesCarousel showHeading={false} />

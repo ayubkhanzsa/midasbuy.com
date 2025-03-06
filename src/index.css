@@ -1,3 +1,4 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -128,83 +129,74 @@
   visibility: visible !important;
 }
 
-/* Mobile specific adjustments for PUBG Mobile landing page */
-@media (max-width: 768px) {
-  body {
-    background-color: #0A1629 !important;
-  }
-  
-  /* Corner light effect for mobile */
-  .corner-light-effect {
-    width: 70%;
-    height: 30%;
-    background: radial-gradient(circle at 0 0, rgba(51, 195, 240, 0.12) 0%, rgba(10, 19, 40, 0) 80%);
-  }
-  
-  /* Mobile banner styling */
-  .mobile-header-banner {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh;
-    max-height: 100vh;
-    background-image: url('/lovable-uploads/ecf1d771-bf68-434d-b45e-edaa57d5a153.png');
-    background-size: cover;
-    background-position: center top;
-    background-repeat: no-repeat;
-    z-index: 0;
-  }
-  
-  /* Add overlay for better text visibility */
-  .mobile-header-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh;
-    max-height: 100vh;
-    background: linear-gradient(to bottom, rgba(10, 22, 41, 0.2) 0%, rgba(10, 22, 41, 0.5) 50%, #0A1629 100%);
-    z-index: 1;
-  }
-  
-  /* Ensure content is above the banner */
-  .mobile-content {
-    position: relative;
-    z-index: 5;
-    padding-top: 4rem;
-  }
-  
-  /* Adjust header for mobile so it appears over the banner */
-  .mobile-header {
-    position: relative;
-    z-index: 10;
-    background: transparent !important;
-  }
-  
-  /* Force all content to be on top of the background */
-  .mobile-main-container {
-    position: relative;
-    z-index: 5;
-  }
-  
-  /* Adjust PUBG Mobile title on mobile */
-  .mobile-pubg-title {
-    font-size: 1.5rem !important;
-    margin-top: 1.5rem;
-  }
-  
-  /* Adjust PUBG Mobile icon on mobile */
-  .mobile-pubg-icon {
-    width: 28px !important;
-    margin-top: 1.5rem;
-  }
+/* Universal styles for all devices (mobile, tablet, and desktop) */
+body {
+  background-color: #0A1629 !important;
 }
 
-/* Tablet-specific styles */
-@media (min-width: 769px) and (max-width: 1024px) {
-  .banner-container img {
-    max-height: 300px !important;
+/* Mobile header styling for all devices */
+.mobile-header-banner {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  max-height: 100vh;
+  background-image: url('/lovable-uploads/ecf1d771-bf68-434d-b45e-edaa57d5a153.png');
+  background-size: cover;
+  background-position: center top;
+  background-repeat: no-repeat;
+  z-index: 0;
+}
+
+/* Add overlay for better text visibility across all devices */
+.mobile-header-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  max-height: 100vh;
+  background: linear-gradient(to bottom, rgba(10, 22, 41, 0.2) 0%, rgba(10, 22, 41, 0.5) 50%, #0A1629 100%);
+  z-index: 1;
+}
+
+/* Ensure content is above the banner on all devices */
+.mobile-content {
+  position: relative;
+  z-index: 5;
+  padding-top: 4rem;
+}
+
+/* Adjust header for all devices so it appears over the banner */
+.mobile-header {
+  position: relative;
+  z-index: 10;
+  background: transparent !important;
+}
+
+/* Force all content to be on top of the background on all devices */
+.mobile-main-container {
+  position: relative;
+  z-index: 5;
+}
+
+/* Adjust title styling for consistency */
+.mobile-pubg-title {
+  font-size: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+/* Adjust icon on all devices */
+.mobile-pubg-icon {
+  width: 28px;
+  margin-top: 1.5rem;
+}
+
+/* Responsive adjustments */
+@media (min-width: 769px) {
+  .mobile-pubg-title {
+    font-size: 1.75rem;
   }
   
   .corner-light-effect {
@@ -213,10 +205,9 @@
   }
 }
 
-/* Desktop styles */
 @media (min-width: 1025px) {
-  .banner-container img {
-    max-height: 350px !important;
+  .mobile-pubg-title {
+    font-size: 2rem;
   }
 }
 
