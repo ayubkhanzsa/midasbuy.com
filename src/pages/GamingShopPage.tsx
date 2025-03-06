@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -14,11 +15,11 @@ interface GamingShopProps {
   onLogout: () => void;
 }
 
-// Updated gaming products data with new images
+// Updated gaming products data with new images and rearranged logos
 const popularGames = [
   {
-    id: "pubg-001",
-    name: "PUBG MOBILE",
+    id: "honor-001",
+    name: "HONOR OF KINGS",
     image: "/lovable-uploads/856ab158-628e-4ea5-bc2a-cbef604d4450.png",
     tag: "EXTRA DISCOUNT",
     tagColor: "bg-orange-500"
@@ -52,8 +53,8 @@ const popularGames = [
     tagColor: "bg-blue-500"
   },
   {
-    id: "honor-006",
-    name: "HONOR OF KINGS",
+    id: "pubg-001",
+    name: "PUBG MOBILE",
     image: "/lovable-uploads/1ebc2015-cced-4512-97ef-41ea5b45cbb3.png",
     tag: "FEATURED",
     tagColor: "bg-yellow-500"
@@ -71,6 +72,41 @@ const popularGames = [
     image: "/lovable-uploads/65f01d50-4fcd-42e6-b557-d74154b5fc40.png",
     tag: "PRE-ORDER",
     tagColor: "bg-indigo-500"
+  },
+  {
+    id: "league-of-legends-009",
+    name: "LEAGUE OF LEGENDS: WILD RIFT",
+    image: "/lovable-uploads/c70acce8-ae36-4427-b857-e7eaad1c4a83.png",
+    tag: "TOP PLAYED",
+    tagColor: "bg-pink-500"
+  },
+  {
+    id: "huang-010",
+    name: "HUANG",
+    image: "/lovable-uploads/902150dc-2450-4a9d-9038-9af359a67315.png",
+    tag: "NEW GAME",
+    tagColor: "bg-blue-400"
+  },
+  {
+    id: "air-command-011",
+    name: "AIR COMMAND",
+    image: "/lovable-uploads/b5182d46-5cf8-490f-b0c2-35d4566044a6.png",
+    tag: "TRENDING",
+    tagColor: "bg-amber-600"
+  },
+  {
+    id: "tacticool-012",
+    name: "TACTICOOL",
+    image: "/lovable-uploads/dff4c98c-5640-4d01-ad2b-7078ffdfa1f8.png",
+    tag: "TACTICAL",
+    tagColor: "bg-gray-600"
+  },
+  {
+    id: "nba-live-013",
+    name: "NBA LIVE",
+    image: "/lovable-uploads/ff4286e3-719a-4084-a7b0-05a04b251171.png",
+    tag: "SPORTS",
+    tagColor: "bg-blue-500"
   }
 ];
 
@@ -191,7 +227,7 @@ const GamingShopPage = ({ onLogout }: GamingShopProps) => {
                 </div>
                 
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                  {popularGames.slice(0, 4).map((game) => (
+                  {popularGames.slice(0, 8).map((game) => (
                     <div 
                       key={game.id} 
                       className="relative cursor-pointer rounded-xl overflow-hidden group"
@@ -215,8 +251,9 @@ const GamingShopPage = ({ onLogout }: GamingShopProps) => {
                   ))}
                 </div>
                 
+                {/* Additional Games Row */}
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-4">
-                  {popularGames.slice(4, 8).map((game) => (
+                  {popularGames.slice(8, 13).map((game) => (
                     <div 
                       key={game.id} 
                       className="relative cursor-pointer rounded-xl overflow-hidden group"
