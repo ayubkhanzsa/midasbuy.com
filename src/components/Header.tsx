@@ -353,7 +353,7 @@ const Header = ({ onLogout }: HeaderProps) => {
       <div 
         className="absolute inset-0 bg-cover bg-center z-0 overflow-hidden" 
         style={{ 
-          backgroundImage: `url('/lovable-uploads/6e96cbf9-67f4-4b17-92e7-f5819b7f68db.png')`,
+          backgroundImage: `url('/lovable-uploads/7af6af15-73ce-4991-be08-639008a59197.png')`,
           backgroundSize: 'cover',
           backgroundPosition: 'center top',
           height: '100%',

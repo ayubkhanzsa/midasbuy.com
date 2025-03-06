@@ -85,18 +85,9 @@
 }
 
 /* Banner styling for desktop */
-.banner-container {
-  height: 200px;
-  position: relative;
+.header-banner-spacer {
+  height: 48px; /* Adjusted height to account for the header banner */
   margin-bottom: 20px;
-  overflow: hidden;
-}
-
-.top-banner {
-  width: 100%;
-  object-fit: cover;
-  object-position: center;
-  max-height: 200px;
 }
 
 /* Mobile specific adjustments for PUBG Mobile landing page */
@@ -173,5 +164,16 @@
     position: relative;
     z-index: 10;
     margin-top: 0.5rem;
+  }
+}
+
+/* Desktop header banner styling */
+@media (min-width: 769px) {
+  header {
+    height: 100px; /* Increase header height to accommodate banner */
+  }
+
+  .pt-20 {
+    padding-top: 6rem !important; /* Increase padding to account for taller header */
   }
 }
