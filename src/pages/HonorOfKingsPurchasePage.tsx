@@ -151,17 +151,14 @@ const HonorOfKingsPurchasePage = ({ onLogout }: HonorOfKingsPurchasePageProps) =
     }
 
     if (id) {
-      // Store purchase details in localStorage
-      if (honorPackage) {
-        localStorage.setItem("honorPackageId", id);
-        localStorage.setItem("honorPurchaseAmount", honorPackage.price.toString());
-        localStorage.setItem("honorTokenAmount", (honorPackage.baseAmount + (honorPackage.bonusAmount || 0)).toString());
-        localStorage.setItem("honorPlayerId", playerID);
-        localStorage.setItem("honorPlayerName", username || "Player");
-      }
+      toast({
+        title: "Proceeding to Checkout",
+        description: `Package: ${honorPackage?.baseAmount} Tokens`,
+      });
       
-      // Navigate to the honor of kings checkout page
-      navigate(`/honor-of-kings/checkout/${id}`);
+      // For now, we'll just navigate back to honor of kings page
+      // In a real implementation, this would go to a checkout page
+      navigate(`/honor-of-kings`);
     }
   };
 
@@ -181,9 +178,6 @@ const HonorOfKingsPurchasePage = ({ onLogout }: HonorOfKingsPurchasePageProps) =
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-0 w-full h-[50vh] bg-hero-pattern bg-cover bg-center opacity-20 z-0"></div>
       </div>
-      
-      {/* Add corner light effect */}
-      <div className="corner-light-effect"></div>
       
       <Header onLogout={onLogout} />
       
@@ -212,7 +206,8 @@ const HonorOfKingsPurchasePage = ({ onLogout }: HonorOfKingsPurchasePageProps) =
                     Player Information
                   </h2>
                   <div className="bg-midasbuy-navy/50 px-3 py-1 rounded-full text-xs text-gray-300 flex items-center">
-                    <Shield className="w-3 h-3 mr-1 text-midasbuy-blue" />
+                    <Shield className="w-3 h-3 mr-1 text-midasb
+uy-blue" />
                     Secure Verification
                   </div>
                 </div>
@@ -339,7 +334,7 @@ const HonorOfKingsPurchasePage = ({ onLogout }: HonorOfKingsPurchasePageProps) =
                 
                 <div className="flex items-center mb-6 pb-4 border-b border-gray-700">
                   <img 
-                    src={honorPackage?.image} 
+                    src={honorPackage.image} 
                     alt="Honor of Kings Tokens" 
                     className="w-[70px] mr-4"
                   />
