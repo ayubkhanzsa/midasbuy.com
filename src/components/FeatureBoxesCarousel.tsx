@@ -181,7 +181,8 @@ const FeatureBoxesCarousel: React.FC<FeatureBoxesCarouselProps> = ({ className }
             onClick={() => scrollToIndex(index)}
           >
             <Card className="h-[320px] overflow-hidden relative border-0 shadow-xl rounded-xl">
-              <div className="absolute inset-0 z-0">
+              {/* Image Background - Full Card Coverage */}
+              <div className="absolute inset-0 z-0 w-full h-full">
                 <motion.div
                   className="w-full h-full"
                   initial={{ opacity: 0 }}
@@ -194,22 +195,22 @@ const FeatureBoxesCarousel: React.FC<FeatureBoxesCarouselProps> = ({ className }
                     className="w-full h-full object-cover object-center"
                     loading="eager"
                   />
-                  {/* Using a very light, partially transparent overlay to ensure text readability */}
-                  <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/10 to-black/30" />
+                  {/* Very light overlay for text readability */}
+                  <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/5 to-black/20" />
                 </motion.div>
               </div>
               
               <CardContent className="p-6 h-full flex flex-col relative z-10">
                 <div className="mb-2">
-                  <span className="text-midasbuy-blue text-lg font-bold text-shadow">{feature.number}</span>
+                  <span className="text-midasbuy-gold text-lg font-bold text-shadow-lg">{feature.number}</span>
                 </div>
                 
-                <h4 className="text-xl text-white font-bold mb-4 text-shadow">{feature.title}</h4>
+                <h4 className="text-xl text-white font-bold mb-4 text-shadow-lg">{feature.title}</h4>
                 
                 {feature.highlight && (
                   <div className="mb-2">
-                    <div className="text-4xl text-midasbuy-gold font-bold text-shadow">{feature.highlight}</div>
-                    {feature.subtext && <div className="text-sm text-white text-shadow">{feature.subtext}</div>}
+                    <div className="text-4xl text-midasbuy-gold font-bold text-shadow-lg">{feature.highlight}</div>
+                    {feature.subtext && <div className="text-sm text-white text-shadow-lg">{feature.subtext}</div>}
                   </div>
                 )}
                 
@@ -218,7 +219,7 @@ const FeatureBoxesCarousel: React.FC<FeatureBoxesCarouselProps> = ({ className }
                 <div className="mt-auto">
                   <Button 
                     variant="link" 
-                    className="text-midasbuy-gold p-0 hover:text-white text-shadow"
+                    className="text-midasbuy-gold p-0 hover:text-white text-shadow-lg"
                   >
                     Learn more →
                   </Button>
