@@ -36,7 +36,7 @@ const ProcessingPaymentScreen = ({ paymentMethod }: ProcessingPaymentScreenProps
             ) : (
               <div className="absolute inset-0 flex items-center justify-center">
                 <img 
-                  src="/lovable-uploads/96365d0d-ed1e-4b9a-84fd-e6899011aaa7.png" 
+                  src="/lovable-uploads/2cabc096-1cf2-484c-9608-bca24f15e622.png" 
                   alt="PayPal" 
                   className="h-8" 
                 />

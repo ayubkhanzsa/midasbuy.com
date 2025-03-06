@@ -26,7 +26,7 @@ const paymentMethods = [
   { 
     id: "paypal", 
     name: "PayPal", 
-    icon: "/lovable-uploads/96365d0d-ed1e-4b9a-84fd-e6899011aaa7.png" 
+    icon: "/lovable-uploads/2cabc096-1cf2-484c-9608-bca24f15e622.png" 
   },
 ];
 
@@ -380,7 +380,7 @@ const CheckoutPage = ({ onLogout }: CheckoutPageProps) => {
                   >
                     <div className="bg-midasbuy-navy/30 rounded-lg p-6">
                       <img 
-                        src="/lovable-uploads/96365d0d-ed1e-4b9a-84fd-e6899011aaa7.png" 
+                        src="/lovable-uploads/2cabc096-1cf2-484c-9608-bca24f15e622.png" 
                         alt="PayPal" 
                         className="h-12 mx-auto mb-4" 
                       />
