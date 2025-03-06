@@ -1,4 +1,3 @@
-
 import { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import Header from "@/components/Header";
@@ -8,7 +7,6 @@ import NavigationTabs from "@/components/NavigationTabs";
 import MobileNavigationTabs from "@/components/MobileNavigationTabs";
 import PrivacyPolicyModal from "@/components/PrivacyPolicyModal";
 import LoadingScreen from "@/components/LoadingScreen";
-import PromotionBanner from "@/components/PromotionBanner";
 import PackageGrid from "@/components/PackageGrid";
 import FilterBar from "@/components/FilterBar";
 import Footer from "@/components/Footer";
@@ -23,7 +21,6 @@ interface IndexProps {
 
 const Index = ({ onLogout }: IndexProps) => {
   const [isLoading, setIsLoading] = useState(true);
-  const [showPromotion, setShowPromotion] = useState(true);
   const [filter, setFilter] = useState("all");
   const [showPrivacyPolicy, setShowPrivacyPolicy] = useState(false);
   const [selectedCountry, setSelectedCountry] = useState(getSelectedCountry());
@@ -207,8 +204,6 @@ const Index = ({ onLogout }: IndexProps) => {
           
           <NavigationTabs />
           <MobileNavigationTabs />
-          
-          {showPromotion && <PromotionBanner onClose={() => setShowPromotion(false)} />}
           
           <FilterBar onFilterChange={setFilter} />
           
