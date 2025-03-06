@@ -1,3 +1,4 @@
+
 import { useState, useEffect, useRef } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
@@ -289,116 +290,8 @@ const HonorOfKingsPurchasePage = ({ onLogout }: HonorOfKingsPurchasePageProps) =
           </div>
           
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            {/* Player Information first */}
-            <div className="lg:col-span-2 order-1">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="glass-effect rounded-xl p-6 mb-6"
-              >
-                <div className="flex items-center justify-between mb-4">
-                  <h2 className="text-xl font-bold text-white flex items-center">
-                    <User className="w-5 h-5 mr-2 text-midasbuy-blue" />
-                    Player Information
-                  </h2>
-                  <div className="bg-midasbuy-navy/50 px-3 py-1 rounded-full text-xs text-gray-300 flex items-center">
-                    <Shield className="w-3 h-3 mr-1 text-midasbuy-blue" />
-                    Secure Verification
-                  </div>
-                </div>
-                
-                {isPlayerIDValid ? (
-                  <div className="bg-[#0D1729] p-5 rounded-lg border border-midasbuy-blue/20 backdrop-blur-sm">
-                    <div className="flex justify-between items-center">
-                      <div className="space-y-3">
-                        <div className="flex items-center">
-                          <div className="bg-gradient-to-r from-green-500 to-green-400 text-white text-xs px-3 py-1 rounded-full flex items-center font-medium">
-                            <Check className="w-3 h-3 mr-1" /> Verified Account
-                          </div>
-                        </div>
-                        <div className="bg-[#162338] p-3 rounded-md border border-midasbuy-blue/10">
-                          <div className="flex flex-col space-y-1">
-                            <div className="flex items-center justify-between">
-                              <span className="text-gray-400 text-sm">Player ID:</span>
-                              <span className="text-white font-medium">{playerID}</span>
-                            </div>
-                            <div className="border-t border-gray-700/40 my-1"></div>
-                            <div className="flex items-center justify-between">
-                              <span className="text-gray-400 text-sm">Username:</span>
-                              <span className="text-midasbuy-gold font-medium">{username}</span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <Button 
-                        className="bg-[#1F2A3C] hover:bg-[#2A3A52] text-white shadow-md"
-                        onClick={handleResetPlayerID}
-                      >
-                        <RefreshCw className="w-4 h-4 mr-1" /> Change ID
-                      </Button>
-                    </div>
-                  </div>
-                ) : (
-                  <div className="bg-midasbuy-darkBlue/90 p-5 rounded-lg border border-midasbuy-blue/20 backdrop-blur-sm">
-                    <div className="text-center py-3">
-                      <div className="mb-4">
-                        <img 
-                          src="/lovable-uploads/02bb433c-783b-4512-b8bd-c2d8c0cb3d0e.png" 
-                          alt="Honor of Kings Logo" 
-                          className="h-16 w-auto mx-auto rounded-2xl mb-4"
-                        />
-                        <p className="text-gray-300 mb-4 text-lg font-medium">Please enter your Player ID to continue</p>
-                      </div>
-                      <Button 
-                        className="bg-gradient-to-r from-midasbuy-blue to-blue-500 hover:from-blue-600 hover:to-blue-500 text-white font-medium shadow-md transition-all duration-300 hover:shadow-lg px-6 py-5 h-auto"
-                        onClick={openPlayerIdModal}
-                      >
-                        <User className="w-4 h-4 mr-2" /> Enter Your Player ID Now &gt;
-                      </Button>
-                    </div>
-                  </div>
-                )}
-                
-                <div className="mt-3 flex items-start">
-                  <AlertCircle className="w-4 h-4 text-midasbuy-gold mr-2 flex-shrink-0 mt-0.5" />
-                  <p className="text-xs text-gray-300">
-                    Your Player ID can be found in your Honor of Kings game. Go to your profile and copy the ID number. 
-                    This ID is required to deliver credits directly to your account.
-                  </p>
-                </div>
-              </motion.div>
-              
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.1 }}
-                className="glass-effect rounded-xl p-6"
-              >
-                <h2 className="text-xl font-bold mb-4 text-white">Important Information</h2>
-                
-                <div className="space-y-4 text-sm text-gray-300">
-                  <p className="flex items-start">
-                    <span className="text-midasbuy-gold mr-2">•</span>
-                    Credits will be directly added to the Honor of Kings account with the Player ID you provide.
-                  </p>
-                  <p className="flex items-start">
-                    <span className="text-midasbuy-gold mr-2">•</span>
-                    Please ensure that the Player ID is correct before proceeding with the purchase.
-                  </p>
-                  <p className="flex items-start">
-                    <span className="text-midasbuy-gold mr-2">•</span>
-                    Credit delivery is instant but may take up to 5 minutes in some cases.
-                  </p>
-                  <p className="flex items-start">
-                    <span className="text-midasbuy-gold mr-2">•</span>
-                    For any issues with your purchase, please contact our support team.
-                  </p>
-                </div>
-              </motion.div>
-            </div>
-            
-            {/* Order Summary section */}
-            <div className="lg:col-span-1 order-2">
+            {/* Order Summary section first on mobile, last on desktop */}
+            <div className="lg:col-span-1 order-1 lg:order-2">
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -475,6 +368,114 @@ const HonorOfKingsPurchasePage = ({ onLogout }: HonorOfKingsPurchasePageProps) =
                 >
                   Proceed to Checkout
                 </Button>
+              </motion.div>
+            </div>
+            
+            {/* Player Information second */}
+            <div className="lg:col-span-2 order-2 lg:order-1">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="glass-effect rounded-xl p-6 mb-6"
+              >
+                <div className="flex items-center justify-between mb-4">
+                  <h2 className="text-xl font-bold text-white flex items-center">
+                    <User className="w-5 h-5 mr-2 text-midasbuy-blue" />
+                    Player Information
+                  </h2>
+                  <div className="bg-midasbuy-navy/50 px-3 py-1 rounded-full text-xs text-gray-300 flex items-center">
+                    <Shield className="w-3 h-3 mr-1 text-midasbuy-blue" />
+                    Secure Verification
+                  </div>
+                </div>
+                
+                {isPlayerIDValid ? (
+                  <div className="bg-gradient-to-b from-[#162238]/80 to-[#0c1424]/80 backdrop-blur-md p-5 rounded-lg border border-midasbuy-blue/30 shadow-lg">
+                    <div className="flex justify-between items-center">
+                      <div className="space-y-3">
+                        <div className="flex items-center">
+                          <div className="bg-gradient-to-r from-emerald-500 to-teal-400 text-white text-xs px-3 py-1 rounded-full flex items-center font-medium shadow-sm">
+                            <Check className="w-3 h-3 mr-1" /> Verified Account
+                          </div>
+                        </div>
+                        <div className="bg-[#10192b]/60 p-4 rounded-md border border-midasbuy-blue/20 backdrop-blur-sm shadow-inner">
+                          <div className="flex flex-col space-y-2">
+                            <div className="flex items-center justify-between">
+                              <span className="text-gray-400 text-sm font-medium">Player ID:</span>
+                              <span className="text-white font-semibold tracking-wide">{playerID}</span>
+                            </div>
+                            <div className="border-t border-gray-700/30 my-2"></div>
+                            <div className="flex items-center justify-between">
+                              <span className="text-gray-400 text-sm font-medium">Username:</span>
+                              <span className="text-white font-semibold">{username}</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <Button 
+                        className="bg-[#1F2A3C] hover:bg-[#2A3A52] text-white shadow-md transition-all duration-200"
+                        onClick={handleResetPlayerID}
+                      >
+                        <RefreshCw className="w-4 h-4 mr-1" /> Change ID
+                      </Button>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="bg-midasbuy-darkBlue/90 p-5 rounded-lg border border-midasbuy-blue/20 backdrop-blur-sm">
+                    <div className="text-center py-3">
+                      <div className="mb-4">
+                        <img 
+                          src="/lovable-uploads/02bb433c-783b-4512-b8bd-c2d8c0cb3d0e.png" 
+                          alt="Honor of Kings Logo" 
+                          className="h-14 w-auto mx-auto rounded-xl mb-4"
+                        />
+                        <p className="text-gray-300 mb-4 text-lg font-medium">Please enter your Player ID to continue</p>
+                      </div>
+                      <Button 
+                        className="bg-gradient-to-r from-midasbuy-blue to-blue-500 hover:from-blue-600 hover:to-blue-500 text-white font-medium shadow-md transition-all duration-300 hover:shadow-lg px-6 py-5 h-auto"
+                        onClick={openPlayerIdModal}
+                      >
+                        <User className="w-4 h-4 mr-2" /> Enter Your Player ID Now &gt;
+                      </Button>
+                    </div>
+                  </div>
+                )}
+                
+                <div className="mt-3 flex items-start">
+                  <AlertCircle className="w-4 h-4 text-midasbuy-gold mr-2 flex-shrink-0 mt-0.5" />
+                  <p className="text-xs text-gray-300">
+                    Your Player ID can be found in your Honor of Kings game. Go to your profile and copy the ID number. 
+                    This ID is required to deliver credits directly to your account.
+                  </p>
+                </div>
+              </motion.div>
+              
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.1 }}
+                className="glass-effect rounded-xl p-6"
+              >
+                <h2 className="text-xl font-bold mb-4 text-white">Important Information</h2>
+                
+                <div className="space-y-4 text-sm text-gray-300">
+                  <p className="flex items-start">
+                    <span className="text-midasbuy-gold mr-2">•</span>
+                    Credits will be directly added to the Honor of Kings account with the Player ID you provide.
+                  </p>
+                  <p className="flex items-start">
+                    <span className="text-midasbuy-gold mr-2">•</span>
+                    Please ensure that the Player ID is correct before proceeding with the purchase.
+                  </p>
+                  <p className="flex items-start">
+                    <span className="text-midasbuy-gold mr-2">•</span>
+                    Credit delivery is instant but may take up to 5 minutes in some cases.
+                  </p>
+                  <p className="flex items-start">
+                    <span className="text-midasbuy-gold mr-2">•</span>
+                    For any issues with your purchase, please contact our support team.
+                  </p>
+                </div>
               </motion.div>
             </div>
           </div>
