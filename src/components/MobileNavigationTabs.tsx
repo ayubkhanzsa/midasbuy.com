@@ -21,6 +21,9 @@ const MobileNavigationTabs = () => {
     }
   };
 
+  // Hide navigation on the home page (/)
+  if (location.pathname === "/") return null;
+
   const isActive = (path: string) => {
     if (path === "/" && location.pathname === "/") return true;
     if (path === "/pubg-mobile" && location.pathname === "/pubg-mobile") return true;

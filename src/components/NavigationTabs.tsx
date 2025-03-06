@@ -28,6 +28,9 @@ const NavigationTabs = () => {
   };
 
   if (!mounted) return null;
+  
+  // Hide navigation on the home page (/)
+  if (location.pathname === "/") return null;
 
   const isActive = (path: string) => {
     if (path === "/" && location.pathname === "/") return true;
