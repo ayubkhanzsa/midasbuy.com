@@ -1,3 +1,4 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -91,8 +92,8 @@
     top: 0;
     left: 0;
     width: 100%;
-    height: 300px; 
-    background-image: url('/lovable-uploads/730caa53-b63b-479d-9f39-75c6860aa039.png');
+    height: 400px; /* Increased height to make banner fully visible */
+    background-image: url('/lovable-uploads/655115bf-1822-4ddb-bffa-4449e5725969.png');
     background-size: cover;
     background-position: center top;
     background-repeat: no-repeat;
@@ -104,8 +105,8 @@
     top: 0;
     left: 0;
     width: 100%;
-    height: 300px;
-    background: linear-gradient(to bottom, rgba(10, 22, 41, 0.2) 0%, rgba(10, 22, 41, 0.4) 80%, #0A1629 100%);
+    height: 400px; /* Match the banner height */
+    background: linear-gradient(to bottom, rgba(10, 22, 41, 0.3) 0%, rgba(10, 22, 41, 0.6) 80%, #0A1629 100%);
     z-index: 1;
   }
   
@@ -141,8 +142,8 @@
     top: 0;
     left: 0;
     width: 100%;
-    height: 250px;
-    background-image: url('/lovable-uploads/32d3a948-72ef-4986-af05-60c74752874b.png');
+    height: 300px;
+    background-image: url('/lovable-uploads/655115bf-1822-4ddb-bffa-4449e5725969.png');
     background-size: cover;
     background-position: center top;
     background-repeat: no-repeat;
@@ -155,8 +156,8 @@
     top: 0;
     left: 0;
     width: 100%;
-    height: 250px;
-    background: linear-gradient(to bottom, rgba(10, 22, 41, 0.2) 0%, rgba(10, 22, 41, 0.4) 70%, #0A1629 100%);
+    height: 300px;
+    background: linear-gradient(to bottom, rgba(10, 22, 41, 0.2) 0%, rgba(10, 22, 41, 0.5) 70%, #0A1629 100%);
     z-index: 1;
   }
   

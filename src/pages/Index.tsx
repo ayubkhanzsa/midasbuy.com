@@ -79,14 +79,19 @@ const Index = ({ onLogout }: IndexProps) => {
 
   return (
     <div className="min-h-screen bg-midasbuy-darkBlue overflow-x-hidden relative">
-      {isMobile && (
+      {isMobile ? (
         <>
           <div className="mobile-header-banner"></div>
           <div className="mobile-header-overlay"></div>
         </>
+      ) : (
+        <>
+          <div className="desktop-header-banner"></div>
+          <div className="desktop-header-overlay"></div>
+        </>
       )}
       
-      <div className={isMobile ? 'mobile-header' : ''}>
+      <div className={isMobile ? 'mobile-header' : 'desktop-header'}>
         <Header onLogout={onLogout} />
       </div>
       
