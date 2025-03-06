@@ -2,26 +2,11 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useResponsive } from '@/hooks/use-mobile';
+import FeatureBoxesCarousel from './FeatureBoxesCarousel';
 
 const AboutMidasbuy = () => {
   const [activeSlide, setActiveSlide] = useState(0);
   const { isMobile } = useResponsive();
-
-  const features = [
-    {
-      id: 1,
-      title: "TENCENT X MIDASBUY",
-      description: "Midasbuy as Tencent's overseas third-party recharge store, continuously providing safer, faster, and more enjoyable payment services for the global gaming industry.",
-      image: "/lovable-uploads/1cd43933-d83f-4e97-beef-91b98202d7d2.png"
-    },
-    {
-      id: 2,
-      title: "THE LOYALTY OF MIDASBUY USERS",
-      description: "Midasbuy offers payment and VIP services to tens of millions of users in more than 100 markets worldwide.",
-      subtext: "of Midasbuy Members",
-      highlight: "Ten of Millions"
-    }
-  ];
 
   return (
     <div className="py-12 relative">
@@ -63,30 +48,7 @@ const AboutMidasbuy = () => {
         </div>
 
         <div className="mt-12">
-          <div className="text-xl text-white font-bold mb-6">MIDASBUY CAN OFFER YOU</div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {features.map((feature, index) => (
-              <motion.div
-                key={feature.id}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.2 }}
-                className="bg-gradient-to-br from-midasbuy-navy/60 to-midasbuy-navy/20 rounded-xl p-6 backdrop-blur-sm border border-white/10"
-              >
-                <div className="mb-4">
-                  <span className="text-midasbuy-blue text-lg">{String(feature.id).padStart(2, '0')}</span>
-                </div>
-                <h4 className="text-2xl text-midasbuy-blue font-bold mb-4">{feature.title}</h4>
-                <p className="text-gray-300">{feature.description}</p>
-                {feature.subtext && (
-                  <div className="mt-4">
-                    <div className="text-3xl text-midasbuy-blue font-bold">{feature.highlight}</div>
-                    <div className="text-sm text-gray-400">{feature.subtext}</div>
-                  </div>
-                )}
-              </motion.div>
-            ))}
-          </div>
+          <FeatureBoxesCarousel />
         </div>
       </div>
     </div>
