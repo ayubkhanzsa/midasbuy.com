@@ -1,9 +1,9 @@
-
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { motion } from "framer-motion";
-import { ArrowLeft, Check, AlertCircle, Eye, EyeOff, User } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { ArrowLeft, Check, AlertCircle, Eye, EyeOff } from "lucide-react";
 import Header from "@/components/Header";
+import ProcessingPaymentScreen from "@/components/ProcessingPaymentScreen";
 import { getPackageById } from "@/data/ucPackages";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -35,6 +35,7 @@ const CheckoutPage = ({ onLogout }: CheckoutPageProps) => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(true);
   const [selectedPayment, setSelectedPayment] = useState("card");
+  const [showProcessingScreen, setShowProcessingScreen] = useState(false);
   
   // Credit card state
   const [cardNumber, setCardNumber] = useState("");
@@ -74,7 +75,6 @@ const CheckoutPage = ({ onLogout }: CheckoutPageProps) => {
       setUsername(storedUsername);
     }
 
-    // Simulate loading
     const timer = setTimeout(() => {
       setIsLoading(false);
     }, 800);
@@ -149,7 +149,6 @@ const CheckoutPage = ({ onLogout }: CheckoutPageProps) => {
   };
 
   const handleCompletePurchase = () => {
-    // Validate based on selected payment method
     let isValid = false;
     
     if (selectedPayment === "card") {
@@ -163,12 +162,12 @@ const CheckoutPage = ({ onLogout }: CheckoutPageProps) => {
     }
     
     setIsProcessing(true);
+    setShowProcessingScreen(true);
 
-    // Simulate payment processing
     setTimeout(() => {
       setIsProcessing(false);
+      setShowProcessingScreen(false);
       
-      // Store purchase information for the thank you page
       if (ucPackage) {
         localStorage.setItem("purchaseAmount", ucPackage.price.toString());
         localStorage.setItem("ucAmount", (ucPackage.baseAmount + ucPackage.bonusAmount).toString());
@@ -190,7 +189,7 @@ const CheckoutPage = ({ onLogout }: CheckoutPageProps) => {
       }
       
       navigate("/thankyou");
-    }, 2000);
+    }, 5000);
   };
 
   if (isLoading || !ucPackage) {
@@ -206,6 +205,12 @@ const CheckoutPage = ({ onLogout }: CheckoutPageProps) => {
 
   return (
     <div className="min-h-screen bg-midasbuy-darkBlue overflow-x-hidden">
+      <AnimatePresence>
+        {showProcessingScreen && (
+          <ProcessingPaymentScreen paymentMethod={selectedPayment} />
+        )}
+      </AnimatePresence>
+      
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-0 w-full h-[50vh] bg-hero-pattern bg-cover bg-center opacity-20 z-0"></div>
       </div>
