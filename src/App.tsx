@@ -22,14 +22,14 @@ import AuthRoute from "./components/AuthRoute";
 
 // Import the pages that exist
 import AboutMidasbuy from "./components/AboutMidasbuy";
-import { HelpCenterPage } from "./pages/HelpCenterPage";
-import { SecurityPage } from "./pages/SecurityPage";
-import { FAQsPage } from "./pages/FAQsPage";
-import { PaymentIssuesPage } from "./pages/PaymentIssuesPage";
-import { RefundPolicyPage } from "./pages/RefundPolicyPage";
-import { TermsOfServicePage } from "./pages/TermsOfServicePage";
-import { CopyrightNoticePage } from "./pages/CopyrightNoticePage";
-import { ContactUsPage } from "./pages/ContactUsPage";
+import HelpCenterPage from "./pages/HelpCenterPage";
+import SecurityPage from "./pages/SecurityPage";
+import FAQsPage from "./pages/FAQsPage";
+import PaymentIssuesPage from "./pages/PaymentIssuesPage";
+import RefundPolicyPage from "./pages/RefundPolicyPage";
+import TermsOfServicePage from "./pages/TermsOfServicePage";
+import CopyrightNoticePage from "./pages/CopyrightNoticePage";
+import ContactUsPage from "./pages/ContactUsPage";
 
 const queryClient = new QueryClient();
 

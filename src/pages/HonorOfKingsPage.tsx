@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Header from "@/components/Header";
@@ -7,7 +6,6 @@ import { getSelectedCountry } from "@/data/ucPackages";
 import { useMobile, useResponsive } from "@/hooks/use-mobile";
 import NavigationTabs from "@/components/NavigationTabs";
 import MobileNavigationTabs from "@/components/MobileNavigationTabs";
-import PromotionBanner from "@/components/PromotionBanner";
 import HonorOfKingsPackageGrid from "@/components/HonorOfKingsPackageGrid";
 import FilterBar from "@/components/FilterBar";
 import Footer from "@/components/Footer";
@@ -23,9 +21,8 @@ interface HonorOfKingsPageProps {
 
 const HonorOfKingsPage = ({ onLogout }: HonorOfKingsPageProps) => {
   const [isLoading, setIsLoading] = useState(true);
-  const [showPromotion, setShowPromotion] = useState(true);
-  const [filter, setFilter] = useState("all");
   const [selectedCountry, setSelectedCountry] = useState(getSelectedCountry());
+  const [filter, setFilter] = useState("all");
   const { isMobile, isTablet, isDesktop } = useResponsive();
   const navigate = useNavigate();
   const { toast } = useToast();
@@ -205,12 +202,6 @@ const HonorOfKingsPage = ({ onLogout }: HonorOfKingsPageProps) => {
           </div>
           
           <HonorOfKingsPackageGrid packages={filteredPackages} selectedCountry={selectedCountry} />
-          
-          {showPromotion && (
-            <div className="mt-8">
-              <PromotionBanner onClose={() => setShowPromotion(false)} />
-            </div>
-          )}
           
           <div className="mt-8 mb-8">
             <FeatureBoxesCarousel showHeading={false} />
