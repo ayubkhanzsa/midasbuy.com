@@ -26,7 +26,7 @@ const NavigationTabs = () => {
   if (!mounted) return null;
 
   return (
-    <div className="mb-6 pb-1 mt-6 hidden md:block">
+    <div className="mb-6 pb-1 mt-10 hidden md:block">
       <div className="flex justify-center">
         <div className="rounded-md bg-[#D3E4FD]/10 backdrop-blur-sm border border-[#33C3F0]/20 px-1 shadow-lg">
           {navLinks.map((link, index) => (
@@ -37,7 +37,6 @@ const NavigationTabs = () => {
                 className={cn(
                   "text-gray-300 font-bold tracking-wide px-8 py-3 relative hover:text-white transition-colors text-sm",
                   location.pathname === link.path ? "text-white" : "",
-                  // Add text shadow to all navigation items
                   "text-shadow-sm"
                 )}
                 style={{
