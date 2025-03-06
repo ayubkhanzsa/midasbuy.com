@@ -6,7 +6,7 @@ interface HelpCenterPageProps {
   onLogout: () => void;
 }
 
-export const HelpCenterPage = ({ onLogout }: HelpCenterPageProps) => {
+const HelpCenterPage = ({ onLogout }: HelpCenterPageProps) => {
   return (
     <div className="min-h-screen bg-gradient-to-b from-midasbuy-navy to-black text-white">
       <Header onLogout={onLogout} />

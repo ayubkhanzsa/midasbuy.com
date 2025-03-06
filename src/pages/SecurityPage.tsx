@@ -6,7 +6,7 @@ interface SecurityPageProps {
   onLogout: () => void;
 }
 
-export const SecurityPage = ({ onLogout }: SecurityPageProps) => {
+const SecurityPage = ({ onLogout }: SecurityPageProps) => {
   return (
     <div className="min-h-screen bg-gradient-to-b from-midasbuy-navy to-black text-white">
       <Header onLogout={onLogout} />

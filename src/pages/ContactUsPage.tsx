@@ -6,7 +6,7 @@ interface ContactUsPageProps {
   onLogout: () => void;
 }
 
-export const ContactUsPage = ({ onLogout }: ContactUsPageProps) => {
+const ContactUsPage = ({ onLogout }: ContactUsPageProps) => {
   return (
     <div className="min-h-screen bg-gradient-to-b from-midasbuy-navy to-black text-white">
       <Header onLogout={onLogout} />
