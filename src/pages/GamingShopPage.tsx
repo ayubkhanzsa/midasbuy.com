@@ -225,6 +225,9 @@ const GamingShopPage = ({ onLogout }: GamingShopProps) => {
 
   return (
     <div className="min-h-screen bg-midasbuy-darkBlue overflow-x-hidden relative">
+      {/* Corner light effect */}
+      <div className="corner-light-effect"></div>
+      
       <div className={isMobile ? 'mobile-header' : ''}>
         <Header onLogout={onLogout} />
       </div>
