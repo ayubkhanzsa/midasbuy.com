@@ -50,7 +50,7 @@ const AboutMidasbuy = () => {
                 PAY SAFE, FAST AND FUN WITH MIDASBUY.
               </h3>
               
-              <div className="flex items-center justify-start mb-6">
+              <div className="flex items-center justify-center mb-6">
                 <span className="text-xl text-white font-semibold mr-2">TENCENT</span>
                 <span className="mx-2 text-white">|</span>
                 <motion.img 
