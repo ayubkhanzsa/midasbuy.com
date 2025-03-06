@@ -1,10 +1,11 @@
 import { useState, useEffect, useRef } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { Menu, X, Bell, Globe, ChevronDown, Flag, Search } from "lucide-react";
+import { Menu, X, BellRing, Globe, ChevronDown, Flag, Search } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { useResponsive } from "@/hooks/use-mobile";
 import { triggerCurrencyChangeEvent } from "@/utils/currencyUtils";
+import { useToast } from "@/hooks/use-toast";
 
 interface HeaderProps {
   onLogout: () => void;
@@ -81,10 +82,14 @@ const Header = ({ onLogout }: HeaderProps) => {
   });
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredCountries, setFilteredCountries] = useState(countries);
+  const [hasNotifications, setHasNotifications] = useState(true);
+  const [isNotificationOpen, setIsNotificationOpen] = useState(false);
   
+  const { toast } = useToast();
   const location = useLocation();
   const navigate = useNavigate();
   const countryMenuRef = useRef<HTMLDivElement>(null);
+  const notificationRef = useRef<HTMLDivElement>(null);
   const { isMobile, isTablet } = useResponsive();
   
   const navLinks = [
@@ -111,6 +116,10 @@ const Header = ({ onLogout }: HeaderProps) => {
     const handleClickOutside = (event: MouseEvent) => {
       if (countryMenuRef.current && !countryMenuRef.current.contains(event.target as Node)) {
         setIsCountryMenuOpen(false);
+      }
+      
+      if (notificationRef.current && !notificationRef.current.contains(event.target as Node)) {
+        setIsNotificationOpen(false);
       }
     };
 
@@ -157,6 +166,18 @@ const Header = ({ onLogout }: HeaderProps) => {
     }
   }, [searchQuery]);
 
+  useEffect(() => {
+    const notificationTimer = setTimeout(() => {
+      if (!isNotificationOpen) {
+        setHasNotifications(true);
+        // Uncomment the line below to show toast notifications when enabled
+        // toast({ title: "New notification", description: "You have a new game update available!" });
+      }
+    }, 30000); // Every 30 seconds for demo purposes
+    
+    return () => clearTimeout(notificationTimer);
+  }, [isNotificationOpen]);
+
   const groupedCountries = filteredCountries.reduce((acc, country) => {
     if (!acc[country.region]) {
       acc[country.region] = [];
@@ -174,6 +195,79 @@ const Header = ({ onLogout }: HeaderProps) => {
   const handleNavigation = (path: string) => {
     navigate(path);
   };
+  
+  const handleBellClick = () => {
+    setIsNotificationOpen(!isNotificationOpen);
+    setHasNotifications(false);
+  };
+
+  const renderNotificationsMenu = () => (
+    <div className="absolute right-0 mt-2 w-72 bg-midasbuy-navy border border-gray-700 rounded-md shadow-lg z-50 overflow-hidden">
+      <div className="max-h-[70vh] overflow-y-auto">
+        <div className="sticky top-0 z-10 bg-midasbuy-navy border-b border-gray-700 p-3">
+          <div className="flex justify-between items-center mb-2">
+            <h3 className="text-white font-bold">NOTIFICATIONS</h3>
+            <button 
+              onClick={() => setIsNotificationOpen(false)}
+              className="text-gray-400 hover:text-white"
+            >
+              <X className="w-5 h-5" />
+            </button>
+          </div>
+        </div>
+        
+        <div className="p-3">
+          <div className="mb-3 p-3 bg-midasbuy-blue/10 rounded-md border border-midasbuy-blue/20">
+            <div className="flex items-start">
+              <div className="flex-shrink-0 bg-midasbuy-blue/20 p-2 rounded-md">
+                <BellRing className="w-5 h-5 text-midasbuy-blue" />
+              </div>
+              <div className="ml-3">
+                <p className="text-white text-sm font-medium">New Season Update!</p>
+                <p className="text-gray-400 text-xs mt-1">Check out the latest PUBG Mobile season update with new rewards and challenges.</p>
+                <span className="text-gray-500 text-xs mt-2 block">2 hours ago</span>
+              </div>
+            </div>
+          </div>
+          
+          <div className="mb-3 p-3 bg-gray-800/40 rounded-md border border-gray-700">
+            <div className="flex items-start">
+              <div className="flex-shrink-0 bg-gray-700 p-2 rounded-md">
+                <BellRing className="w-5 h-5 text-gray-400" />
+              </div>
+              <div className="ml-3">
+                <p className="text-white text-sm font-medium">Special Discount</p>
+                <p className="text-gray-400 text-xs mt-1">Get 20% off on your next UC purchase. Limited time offer!</p>
+                <span className="text-gray-500 text-xs mt-2 block">Yesterday</span>
+              </div>
+            </div>
+          </div>
+          
+          <div className="p-3 bg-gray-800/40 rounded-md border border-gray-700">
+            <div className="flex items-start">
+              <div className="flex-shrink-0 bg-gray-700 p-2 rounded-md">
+                <BellRing className="w-5 h-5 text-gray-400" />
+              </div>
+              <div className="ml-3">
+                <p className="text-white text-sm font-medium">Account Security</p>
+                <p className="text-gray-400 text-xs mt-1">We've updated our security policies. Please review them.</p>
+                <span className="text-gray-500 text-xs mt-2 block">3 days ago</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div className="sticky bottom-0 bg-midasbuy-navy border-t border-gray-700 p-3">
+          <button 
+            className="w-full bg-midasbuy-blue text-white py-2 rounded-md"
+            onClick={() => setIsNotificationOpen(false)}
+          >
+            Mark all as read
+          </button>
+        </div>
+      </div>
+    </div>
+  );
 
   const renderCountryMenu = () => (
     <div className="absolute right-0 mt-2 w-72 bg-midasbuy-navy border border-gray-700 rounded-md shadow-lg z-50 overflow-hidden">
@@ -253,19 +347,16 @@ const Header = ({ onLogout }: HeaderProps) => {
     <header 
       className={cn(
         "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
-        isScrolled ? "bg-midasbuy-navy/90 backdrop-blur-md shadow-lg" : "bg-transparent"
+        isScrolled ? "bg-midasbuy-navy/90 backdrop-blur-md shadow-lg" : "bg-transparent",
+        !isMobile ? "desktop-header" : "mobile-header"
       )}
     >
-      <div 
-        className="absolute inset-0 bg-cover bg-center z-0 overflow-hidden" 
-        style={{ 
-          backgroundImage: `url('/lovable-uploads/6e96cbf9-67f4-4b17-92e7-f5819b7f68db.png')`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center top',
-          height: '100%',
-          width: '100%'
-        }}
-      ></div>
+      {!isMobile && (
+        <>
+          <div className="desktop-header-banner"></div>
+          <div className="desktop-header-overlay"></div>
+        </>
+      )}
       
       <div className="container mx-auto px-4 py-2 flex items-center justify-between relative z-10">
         <div className="flex items-center">
@@ -293,24 +384,43 @@ const Header = ({ onLogout }: HeaderProps) => {
             {isCountryMenuOpen && renderCountryMenu()}
           </div>
           
-          <button className="relative p-1 text-gray-300 hover:text-white transition-colors">
-            <Bell className="w-4 h-4" />
-            <span className="absolute top-0 right-0 w-2 h-2 bg-red-500 rounded-full"></span>
-          </button>
+          <div className="relative" ref={notificationRef}>
+            <button 
+              className="relative p-1.5 bg-midasbuy-blue/5 hover:bg-midasbuy-blue/10 rounded-full text-gray-300 hover:text-white transition-colors"
+              onClick={handleBellClick}
+            >
+              <BellRing className="w-4 h-4" />
+              {hasNotifications && (
+                <span className="absolute top-0 right-0 w-2 h-2 bg-red-500 rounded-full animate-pulse"></span>
+              )}
+            </button>
+            
+            {isNotificationOpen && renderNotificationsMenu()}
+          </div>
           
           <button 
             onClick={onLogout} 
-            className="btn-outline text-xs px-3 py-1"
+            className="text-white text-xs px-4 py-1.5 rounded-md transition-all"
           >
             Sign Out
           </button>
         </div>
 
         <div className="md:hidden flex items-center space-x-3">
-          <button className="relative p-1 text-gray-300 hover:text-white transition-colors">
-            <Bell className="w-4 h-4" />
-            <span className="absolute top-0 right-0 w-1.5 h-1.5 bg-red-500 rounded-full"></span>
-          </button>
+          <div className="relative" ref={notificationRef}>
+            <button 
+              className="relative p-1 bg-midasbuy-blue/5 hover:bg-midasbuy-blue/10 rounded-full text-gray-300 hover:text-white transition-colors"
+              onClick={handleBellClick}
+              aria-label="Notifications"
+            >
+              <BellRing className="w-4 h-4" />
+              {hasNotifications && (
+                <span className="absolute top-0 right-0 w-1.5 h-1.5 bg-red-500 rounded-full animate-pulse"></span>
+              )}
+            </button>
+            
+            {isNotificationOpen && renderNotificationsMenu()}
+          </div>
           
           <div className="relative" ref={countryMenuRef}>
             <button 
@@ -365,7 +475,7 @@ const Header = ({ onLogout }: HeaderProps) => {
                 <div className="flex justify-between pt-3 border-t border-gray-700">
                   <button 
                     onClick={onLogout} 
-                    className="text-midasbuy-blue hover:text-midasbuy-blue/80 transition-colors"
+                    className="text-white text-xs px-3 py-1.5 rounded-md transition-all"
                   >
                     Sign Out
                   </button>
