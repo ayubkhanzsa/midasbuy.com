@@ -49,6 +49,10 @@ const HonorOfKingsPackageGrid = ({ packages, selectedCountry }: HonorOfKingsPack
     // And the Midasbuy logo
     const midasbuyLogo = new Image();
     midasbuyLogo.src = "/lovable-uploads/7ef942ba-efa8-4e8f-9282-d86c01b1e909.png";
+    
+    // Preload the honor of kings currency icon
+    const honorIcon = new Image();
+    honorIcon.src = "/lovable-uploads/fc143449-9fb4-4203-8027-be50aebec0eb.png";
   }, [packages]);
 
   return (
@@ -107,16 +111,22 @@ const HonorOfKingsPackageGrid = ({ packages, selectedCountry }: HonorOfKingsPack
                 <div className="flex flex-col">
                   <span className="text-midasbuy-gold text-xs sm:text-sm">From</span>
                   <div className="flex items-center">
-                    <Coins className="text-midasbuy-gold h-4 w-4 mr-1" />
+                    <img 
+                      src="/lovable-uploads/fc143449-9fb4-4203-8027-be50aebec0eb.png"
+                      alt="Honor of Kings Currency"
+                      className="h-4 w-4 mr-1 text-midasbuy-gold"
+                    />
                     <span className="text-lg sm:text-xl font-bold text-white">
                       {convertAndFormatPrice(pkg.price, selectedCountry.currency)}
                     </span>
                   </div>
                   
                   {pkg.originalPrice > pkg.price && (
-                    <span className="text-xs sm:text-sm text-gray-400 line-through ml-5">
-                      {convertAndFormatPrice(pkg.originalPrice, selectedCountry.currency)}
-                    </span>
+                    <div className="flex items-center ml-5">
+                      <span className="text-xs sm:text-sm text-gray-400 line-through">
+                        {convertAndFormatPrice(pkg.originalPrice, selectedCountry.currency)}
+                      </span>
+                    </div>
                   )}
                 </div>
               </div>
