@@ -1,4 +1,3 @@
-
 import { useState, useEffect, useRef } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
@@ -284,7 +283,6 @@ const HonorOfKingsPurchasePage = ({ onLogout }: HonorOfKingsPurchasePageProps) =
           </div>
           
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            {/* Player Information Section - Now First */}
             <div className="lg:col-span-2 order-1">
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
@@ -334,23 +332,13 @@ const HonorOfKingsPurchasePage = ({ onLogout }: HonorOfKingsPurchasePageProps) =
                     </div>
                   </div>
                 ) : (
-                  <div className="p-5">
-                    <div className="text-center py-3">
-                      <div className="mb-4">
-                        <img 
-                          src="/lovable-uploads/02bb433c-783b-4512-b8bd-c2d8c0cb3d0e.png" 
-                          alt="Honor of Kings Logo" 
-                          className="h-10 w-auto mx-auto rounded-lg mb-4"
-                        />
-                        <p className="text-gray-300 mb-4 text-lg font-medium">Please enter your Player ID to continue</p>
-                      </div>
-                      <Button 
-                        className="w-[60%] py-3 h-auto bg-gradient-to-r from-midasbuy-blue to-blue-500 hover:from-blue-600 hover:to-blue-500 text-white font-medium shadow-md transition-all duration-300 hover:shadow-lg"
-                        onClick={openPlayerIdModal}
-                      >
-                        <User className="w-4 h-4 mr-2" /> Enter Your Player ID Now &gt;
-                      </Button>
-                    </div>
+                  <div className="p-5 text-center">
+                    <Button 
+                      className="w-[80%] py-3 h-auto bg-gradient-to-r from-midasbuy-blue to-blue-500 hover:from-blue-600 hover:to-blue-500 text-white font-medium shadow-md transition-all duration-300 hover:shadow-lg"
+                      onClick={openPlayerIdModal}
+                    >
+                      <User className="w-4 h-4 mr-2" /> Enter Your Player ID Now &gt;
+                    </Button>
                   </div>
                 )}
                 
@@ -392,7 +380,6 @@ const HonorOfKingsPurchasePage = ({ onLogout }: HonorOfKingsPurchasePageProps) =
               </motion.div>
             </div>
             
-            {/* Order Summary Section - Now Second */}
             <div className="lg:col-span-1 order-2">
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
