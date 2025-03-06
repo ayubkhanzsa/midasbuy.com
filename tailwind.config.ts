@@ -1,4 +1,3 @@
-
 import type { Config } from "tailwindcss";
 
 export default {
@@ -124,8 +123,36 @@ export default {
 				'hero-pattern': "url('/lovable-uploads/f1df18f8-bc28-4c2c-a700-74015fdfaf5b.png')",
 				'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
 				'glass-gradient': 'linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05))',
-			}
+			},
+			textShadow: {
+				sm: '0 1px 2px rgba(0, 0, 0, 0.5)',
+				DEFAULT: '0 2px 4px rgba(0, 0, 0, 0.5)',
+				lg: '0 8px 16px rgba(0, 0, 0, 0.5)',
+				blue: '0 0 8px rgba(51, 195, 240, 0.6)',
+			},
 		}
 	},
-	plugins: [require("tailwindcss-animate")],
+	plugins: [
+		require("tailwindcss-animate"),
+		function({ addUtilities }) {
+			const newUtilities = {
+				'.text-shadow-sm': {
+					textShadow: '0 1px 2px rgba(0, 0, 0, 0.5)',
+				},
+				'.text-shadow': {
+					textShadow: '0 2px 4px rgba(0, 0, 0, 0.5)',
+				},
+				'.text-shadow-lg': {
+					textShadow: '0 8px 16px rgba(0, 0, 0, 0.5)',
+				},
+				'.text-shadow-blue': {
+					textShadow: '0 0 8px rgba(51, 195, 240, 0.6)',
+				},
+				'.text-shadow-none': {
+					textShadow: 'none',
+				},
+			};
+			addUtilities(newUtilities);
+		},
+	],
 } satisfies Config;
