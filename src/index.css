@@ -1,4 +1,3 @@
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -92,8 +91,8 @@
     top: 0;
     left: 0;
     width: 100%;
-    height: 300px; /* Adjusted height to show banner down to the Player ID button */
-    background-image: url('/lovable-uploads/af3d5704-db1f-4e3b-ae85-983b98c7cabd.png');
+    height: 300px; 
+    background-image: url('/lovable-uploads/730caa53-b63b-479d-9f39-75c6860aa039.png');
     background-size: cover;
     background-position: center top;
     background-repeat: no-repeat;
@@ -105,8 +104,8 @@
     top: 0;
     left: 0;
     width: 100%;
-    height: 300px; /* Match banner height */
-    background: linear-gradient(to bottom, rgba(10, 22, 41, 0.3) 0%, rgba(10, 22, 41, 0.6) 80%, #0A1629 100%);
+    height: 300px;
+    background: linear-gradient(to bottom, rgba(10, 22, 41, 0.2) 0%, rgba(10, 22, 41, 0.4) 80%, #0A1629 100%);
     z-index: 1;
   }
   
@@ -143,7 +142,7 @@
     left: 0;
     width: 100%;
     height: 250px;
-    background-image: url('/lovable-uploads/af3d5704-db1f-4e3b-ae85-983b98c7cabd.png');
+    background-image: url('/lovable-uploads/32d3a948-72ef-4986-af05-60c74752874b.png');
     background-size: cover;
     background-position: center top;
     background-repeat: no-repeat;
@@ -156,8 +155,8 @@
     top: 0;
     left: 0;
     width: 100%;
-    height: 250px; /* Match the banner height */
-    background: linear-gradient(to bottom, rgba(10, 22, 41, 0.2) 0%, rgba(10, 22, 41, 0.5) 70%, #0A1629 100%);
+    height: 250px;
+    background: linear-gradient(to bottom, rgba(10, 22, 41, 0.2) 0%, rgba(10, 22, 41, 0.4) 70%, #0A1629 100%);
     z-index: 1;
   }
   
