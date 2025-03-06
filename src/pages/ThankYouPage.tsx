@@ -181,7 +181,7 @@ const ThankYouPage = ({ onLogout }: ThankYouPageProps) => {
                 <div className="flex justify-between items-start mb-6 print:mb-8 relative z-10">
                   <div className="flex flex-col items-start">
                     <img 
-                      src="/lovable-uploads/e7b8b5a5-5911-40e4-b3fe-b449462a9216.png" 
+                      src="/lovable-uploads/86affa87-1852-48cc-bad6-3a1680ce4f05.png" 
                       alt="Midasbuy Logo" 
                       className="h-14 mb-1" 
                     />
