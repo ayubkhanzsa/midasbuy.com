@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
@@ -15,7 +16,9 @@ interface EventsPageProps {
 
 const EventsPage = ({ onLogout }: EventsPageProps) => {
   const [username, setUsername] = useState("");
+  const [tempUsername, setTempUsername] = useState("");
   const [isUsernameVerified, setIsUsernameVerified] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
   const { isMobile } = useResponsive();
@@ -24,6 +27,7 @@ const EventsPage = ({ onLogout }: EventsPageProps) => {
     const savedUsername = localStorage.getItem("pubgUsername");
     if (savedUsername) {
       setUsername(savedUsername);
+      setTempUsername(savedUsername);
       setIsUsernameVerified(true);
     }
     
@@ -31,29 +35,15 @@ const EventsPage = ({ onLogout }: EventsPageProps) => {
       setIsLoading(false);
     }, 800);
 
-    const handleStorageChange = (event: StorageEvent) => {
-      if (event.key === "pubgUsername") {
-        const newUsername = event.newValue;
-        if (newUsername !== null) {
-          setUsername(newUsername);
-          setIsUsernameVerified(true);
-        } else {
-          setUsername("");
-          setIsUsernameVerified(false);
-        }
-      }
-    };
-
-    window.addEventListener('storage', handleStorageChange);
-
+    // We'll only update the username if explicitly triggered by the user
+    // not automatically when storage changes
     return () => {
       clearTimeout(timer);
-      window.removeEventListener('storage', handleStorageChange);
     };
   }, []);
 
   const handleSaveUsername = () => {
-    if (!username.trim()) {
+    if (!tempUsername.trim()) {
       toast({
         title: "Username Required",
         description: "Please enter a valid username",
@@ -62,8 +52,10 @@ const EventsPage = ({ onLogout }: EventsPageProps) => {
       return;
     }
 
-    localStorage.setItem("pubgUsername", username);
+    localStorage.setItem("pubgUsername", tempUsername);
+    setUsername(tempUsername);
     setIsUsernameVerified(true);
+    setIsEditing(false);
     
     toast({
       title: "Username Verified",
@@ -71,9 +63,20 @@ const EventsPage = ({ onLogout }: EventsPageProps) => {
     });
   };
 
+  const handleEditUsername = () => {
+    setIsEditing(true);
+  };
+
+  const handleCancelEdit = () => {
+    setTempUsername(username);
+    setIsEditing(false);
+  };
+
   const handleResetUsername = () => {
     setUsername("");
+    setTempUsername("");
     setIsUsernameVerified(false);
+    setIsEditing(false);
     localStorage.removeItem("pubgUsername");
     
     toast({
@@ -124,7 +127,7 @@ const EventsPage = ({ onLogout }: EventsPageProps) => {
                 <div className="flex items-center mb-3">
                   <Label htmlFor="username" className="block text-sm font-medium text-white mr-2 flex items-center">
                     PUBG Mobile Username
-                    {isUsernameVerified && (
+                    {isUsernameVerified && !isEditing && (
                       <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-green-500/20 text-green-400 ml-2">
                         <Check className="w-3 h-3 mr-1" /> Verified
                       </span>
@@ -132,37 +135,59 @@ const EventsPage = ({ onLogout }: EventsPageProps) => {
                   </Label>
                 </div>
                 
-                <div className="flex">
-                  <div className="flex-grow relative">
-                    <Input 
-                      id="username"
-                      value={username}
-                      onChange={(e) => {
-                        setUsername(e.target.value);
-                        setIsUsernameVerified(false);
-                      }}
-                      placeholder="Enter your PUBG Mobile username"
-                      className="bg-midasbuy-navy/50 border-midasbuy-blue/30 text-white focus:border-midasbuy-blue focus:ring-midasbuy-blue/20"
-                    />
+                {isUsernameVerified && !isEditing ? (
+                  <div className="flex items-center">
+                    <div className="flex-grow">
+                      <div className="bg-midasbuy-navy/50 border border-midasbuy-blue/30 text-white px-4 py-2 rounded">
+                        {username}
+                      </div>
+                    </div>
+                    <div className="flex ml-2">
+                      <Button 
+                        className="bg-midasbuy-blue hover:bg-blue-600 text-white mr-2"
+                        onClick={handleEditUsername}
+                      >
+                        Edit
+                      </Button>
+                      <Button 
+                        className="bg-red-600 hover:bg-red-700 text-white"
+                        onClick={handleResetUsername}
+                      >
+                        <RefreshCw className="w-4 h-4 mr-1" /> Reset
+                      </Button>
+                    </div>
                   </div>
-                  
-                  <Button 
-                    className={`ml-2 ${isUsernameVerified 
-                      ? 'bg-green-600 hover:bg-green-700' 
-                      : 'bg-midasbuy-blue hover:bg-blue-600'} text-white`}
-                    onClick={isUsernameVerified ? handleResetUsername : handleSaveUsername}
-                  >
-                    {isUsernameVerified ? (
-                      <>
-                        <RefreshCw className="w-4 h-4 mr-1" /> Reset Username
-                      </>
-                    ) : (
-                      <>
-                        <Shield className="w-4 h-4 mr-1" /> Verify Username
-                      </>
-                    )}
-                  </Button>
-                </div>
+                ) : (
+                  <div className="flex">
+                    <div className="flex-grow relative">
+                      <Input 
+                        id="username"
+                        value={tempUsername}
+                        onChange={(e) => setTempUsername(e.target.value)}
+                        placeholder="Enter your PUBG Mobile username"
+                        className="bg-midasbuy-navy/50 border-midasbuy-blue/30 text-white focus:border-midasbuy-blue focus:ring-midasbuy-blue/20"
+                      />
+                    </div>
+                    
+                    <div className="flex ml-2">
+                      <Button 
+                        className="bg-midasbuy-blue hover:bg-blue-600 text-white"
+                        onClick={handleSaveUsername}
+                      >
+                        {isEditing ? 'Save Changes' : 'Verify Username'}
+                      </Button>
+                      
+                      {isEditing && (
+                        <Button 
+                          className="bg-gray-600 hover:bg-gray-700 text-white ml-2"
+                          onClick={handleCancelEdit}
+                        >
+                          Cancel
+                        </Button>
+                      )}
+                    </div>
+                  </div>
+                )}
               </div>
               
               <div className="bg-midasbuy-navy/30 p-6 rounded-lg border border-midasbuy-blue/20">
