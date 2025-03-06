@@ -311,27 +311,30 @@ const HonorOfKingsPurchasePage = ({ onLogout }: HonorOfKingsPurchasePageProps) =
                 </div>
                 
                 {isPlayerIDValid ? (
-                  <div className="bg-midasbuy-navy/30 p-5 rounded-lg border border-midasbuy-blue/20">
+                  <div className="bg-[#0D1729] p-5 rounded-lg border border-midasbuy-blue/20 backdrop-blur-sm">
                     <div className="flex justify-between items-center">
-                      <div>
-                        <div className="flex items-center mb-2">
-                          <span className="text-green-400 flex items-center font-medium">
-                            <Check className="w-4 h-4 mr-1" /> ID Verified
-                          </span>
-                        </div>
-                        <div className="grid grid-cols-2 gap-x-8 gap-y-2">
-                          <div>
-                            <div className="text-gray-400 text-sm">Player ID:</div>
-                            <div className="text-white font-medium">{playerID}</div>
+                      <div className="space-y-3">
+                        <div className="flex items-center">
+                          <div className="bg-gradient-to-r from-green-500 to-green-400 text-white text-xs px-3 py-1 rounded-full flex items-center font-medium">
+                            <Check className="w-3 h-3 mr-1" /> Verified Account
                           </div>
-                          <div>
-                            <div className="text-gray-400 text-sm">Username:</div>
-                            <div className="text-midasbuy-gold font-medium">{username}</div>
+                        </div>
+                        <div className="bg-[#162338] p-3 rounded-md border border-midasbuy-blue/10">
+                          <div className="flex flex-col space-y-1">
+                            <div className="flex items-center justify-between">
+                              <span className="text-gray-400 text-sm">Player ID:</span>
+                              <span className="text-white font-medium">{playerID}</span>
+                            </div>
+                            <div className="border-t border-gray-700/40 my-1"></div>
+                            <div className="flex items-center justify-between">
+                              <span className="text-gray-400 text-sm">Username:</span>
+                              <span className="text-midasbuy-gold font-medium">{username}</span>
+                            </div>
                           </div>
                         </div>
                       </div>
                       <Button 
-                        className="bg-gray-700 hover:bg-gray-600 text-white"
+                        className="bg-[#1F2A3C] hover:bg-[#2A3A52] text-white shadow-md"
                         onClick={handleResetPlayerID}
                       >
                         <RefreshCw className="w-4 h-4 mr-1" /> Change ID
@@ -339,14 +342,19 @@ const HonorOfKingsPurchasePage = ({ onLogout }: HonorOfKingsPurchasePageProps) =
                     </div>
                   </div>
                 ) : (
-                  <div className="bg-midasbuy-navy/30 p-5 rounded-lg border border-midasbuy-blue/20">
+                  <div className="bg-[#0D1729] p-5 rounded-lg border border-midasbuy-blue/20 backdrop-blur-sm">
                     <div className="text-center py-3">
-                      <p className="text-gray-300 mb-3">Please enter your Player ID to continue</p>
+                      <div className="mb-4">
+                        <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-[#162338] border border-midasbuy-blue/30 mb-3">
+                          <User className="h-6 w-6 text-midasbuy-blue" />
+                        </div>
+                        <p className="text-gray-300 mb-4">Please enter your Player ID to continue</p>
+                      </div>
                       <Button 
-                        className="bg-midasbuy-blue hover:bg-blue-600 text-white font-medium"
+                        className="bg-gradient-to-r from-midasbuy-blue to-blue-500 hover:from-blue-600 hover:to-blue-500 text-white font-medium shadow-md transition-all duration-300 hover:shadow-lg px-6 py-5 h-auto"
                         onClick={openPlayerIdModal}
                       >
-                        <User className="w-4 h-4 mr-1" /> Enter Player ID
+                        <User className="w-4 h-4 mr-2" /> Enter Player ID
                       </Button>
                     </div>
                   </div>
