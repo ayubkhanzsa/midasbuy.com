@@ -1,4 +1,3 @@
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -103,7 +102,7 @@ body {
 
 /* PUBG Banner Styles */
 .pubg-banner-wrapper {
-  background-image: url('/lovable-uploads/c580fe21-eb14-4255-b516-32f21f66cccb.png');
+  background-image: url('/lovable-uploads/45ebd6c7-cba1-429c-9087-769e1d8e6076.png');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -127,4 +126,3 @@ body {
 .pubg-banner-overlay {
   pointer-events: none;
 }
-
