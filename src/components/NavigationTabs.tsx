@@ -28,26 +28,23 @@ const NavigationTabs = () => {
   }
 
   return (
-    <div className="hidden md:block relative z-20 bg-midasbuy-darkBlue border-b border-gray-800 shadow-md py-0 mt-[290px]">
-      <div className="container mx-auto">
-        <div className="flex justify-center items-center">
-          {navLinks.map((link, index) => (
-            <button 
-              key={link.path}
-              onClick={() => handleNavigate(link.path)}
-              className={cn(
-                "text-gray-400 font-bold tracking-wider px-10 py-4 relative hover:text-white transition-colors text-sm",
-                location.pathname === link.path ? "text-white" : "",
-                index < navLinks.length - 1 ? "border-r border-gray-700" : ""
-              )}
-            >
-              {link.name}
-              {location.pathname === link.path && (
-                <span className="absolute bottom-0 left-0 w-full h-1 bg-midasbuy-blue"></span>
-              )}
-            </button>
-          ))}
-        </div>
+    <div className="mb-6 overflow-x-auto pb-1 mt-6 hidden md:block">
+      <div className="flex min-w-max border-b border-gray-700">
+        {navLinks.map((link) => (
+          <button 
+            key={link.path}
+            onClick={() => handleNavigate(link.path)}
+            className={cn(
+              "text-gray-400 font-bold tracking-wide px-6 py-3 relative hover:text-white transition-colors text-sm",
+              location.pathname === link.path ? "text-white" : ""
+            )}
+          >
+            {link.name}
+            {location.pathname === link.path && (
+              <span className="absolute bottom-0 left-0 w-full h-1 bg-midasbuy-blue"></span>
+            )}
+          </button>
+        ))}
       </div>
     </div>
   );

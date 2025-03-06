@@ -1,3 +1,4 @@
+
 import { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import Header from "@/components/Header";
@@ -106,10 +107,8 @@ const Index = ({ onLogout }: IndexProps) => {
           </div>
         )}
         
-        <NavigationTabs />
-        
         <div className={`container mx-auto px-4 ${isMobile ? 'mobile-main-container' : ''}`}>
-          <div className="flex flex-col md:flex-row items-start mb-6 relative mt-6">
+          <div className="flex flex-col md:flex-row items-start mb-6 relative">
             <div className="flex-grow z-10">
               <div className="flex items-center mb-3">
                 <img 
@@ -144,6 +143,7 @@ const Index = ({ onLogout }: IndexProps) => {
             </div>
           </div>
           
+          <NavigationTabs />
           <MobileNavigationTabs />
           
           {showPromotion && <PromotionBanner onClose={() => setShowPromotion(false)} />}
