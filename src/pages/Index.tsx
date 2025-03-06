@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import Header from "@/components/Header";
 import { ucPackages, getSelectedCountry } from "@/data/ucPackages";
@@ -29,6 +28,16 @@ const Index = ({ onLogout }: IndexProps) => {
     }, 1200);
 
     return () => clearTimeout(timer);
+  }, []);
+
+  useEffect(() => {
+    const styleTimer = setTimeout(() => {
+      const banner = document.querySelector('.celebration-banner');
+      if (banner) {
+        banner.classList.add('force-visible');
+      }
+    }, 500);
+    return () => clearTimeout(styleTimer);
   }, []);
 
   useEffect(() => {
@@ -79,7 +88,7 @@ const Index = ({ onLogout }: IndexProps) => {
     <div className="min-h-screen bg-midasbuy-darkBlue overflow-x-hidden relative">
       <Header onLogout={onLogout} />
       
-      <div className="celebration-banner">
+      <div className="celebration-banner force-visible">
         <div className="celebration-banner-overlay"></div>
       </div>
       
