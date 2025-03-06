@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
@@ -253,11 +254,9 @@ const Index = ({ onLogout }: IndexProps) => {
         </>
       )}
       
-      <div className={isMobile ? 'mobile-header' : ''}>
-        <Header onLogout={onLogout} />
-      </div>
+      <Header onLogout={onLogout} />
       
-      <main className={`pt-20 pb-20 relative ${isMobile ? 'mobile-content mobile-main-container' : 'z-10'}`}>
+      <main className={`pt-20 pb-20 relative ${isMobile ? 'mobile-content' : 'z-10'}`}>
         <div className="absolute top-0 left-0 w-full flex justify-center items-center">
           {!isMobile && (
             <img 
@@ -273,16 +272,16 @@ const Index = ({ onLogout }: IndexProps) => {
           )}
         </div>
         
-        <div className={`container mx-auto px-4 ${isMobile ? 'mobile-main-container' : ''}`}>
+        <div className="container mx-auto px-4">
           <div className="flex flex-col md:flex-row items-start mb-6 relative">
             <div className="flex-grow z-10">
               <div className="flex items-center mb-3">
                 <img 
                   src="/lovable-uploads/072f88f4-7402-4591-b3e4-11f57bb0e9ea.png" 
                   alt="PUBG Mobile" 
-                  className={`w-[35px] mr-3 rounded-md ${isMobile ? 'mobile-pubg-icon' : ''}`}
+                  className="w-[35px] mr-3 rounded-md"
                 />
-                <h1 className={`text-3xl md:text-4xl text-white font-bold tracking-wide ${isMobile ? 'mobile-pubg-title' : ''}`}>PUBG MOBILE</h1>
+                <h1 className="text-3xl md:text-4xl text-white font-bold tracking-wide">PUBG MOBILE</h1>
               </div>
               
               <div className="flex items-center space-x-2 mb-3">
