@@ -5,8 +5,11 @@ export function useMobile(breakpoint = 768): boolean {
   const [isMobile, setIsMobile] = useState<boolean>(
     typeof window !== 'undefined' ? window.innerWidth < breakpoint : false
   );
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    setMounted(true);
+    
     const handleResize = () => {
       setIsMobile(window.innerWidth < breakpoint);
     };
@@ -19,7 +22,7 @@ export function useMobile(breakpoint = 768): boolean {
     return () => window.removeEventListener('resize', handleResize);
   }, [breakpoint]);
 
-  return isMobile;
+  return mounted ? isMobile : false;
 }
 
 // Custom hook to detect if the device is a tablet
@@ -29,8 +32,11 @@ export function useTablet(minBreakpoint = 768, maxBreakpoint = 1024): boolean {
       ? window.innerWidth >= minBreakpoint && window.innerWidth < maxBreakpoint 
       : false
   );
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    setMounted(true);
+    
     const handleResize = () => {
       setIsTablet(window.innerWidth >= minBreakpoint && window.innerWidth < maxBreakpoint);
     };
@@ -43,7 +49,7 @@ export function useTablet(minBreakpoint = 768, maxBreakpoint = 1024): boolean {
     return () => window.removeEventListener('resize', handleResize);
   }, [minBreakpoint, maxBreakpoint]);
 
-  return isTablet;
+  return mounted ? isTablet : false;
 }
 
 // Custom hook for responsive design with improved detection
@@ -57,8 +63,11 @@ export function useResponsive(): {
     isTablet: false,
     isDesktop: false
   });
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    setMounted(true);
+    
     const handleResize = () => {
       const width = window.innerWidth;
       setScreenSize({
@@ -75,7 +84,7 @@ export function useResponsive(): {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  return screenSize;
+  return mounted ? screenSize : { isMobile: false, isTablet: false, isDesktop: true };
 }
 
 // Custom hook for triggering animations with different durations

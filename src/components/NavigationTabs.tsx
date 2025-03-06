@@ -1,10 +1,12 @@
 
 import { useNavigate, useLocation } from "react-router-dom";
 import { cn } from "@/lib/utils";
+import { useEffect, useState } from "react";
 
 const NavigationTabs = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const [mounted, setMounted] = useState(false);
   
   const navLinks = [
     { name: "PURCHASE", path: "/" },
@@ -13,9 +15,17 @@ const NavigationTabs = () => {
     { name: "EVENTS", path: "/events" },
   ];
 
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   const handleNavigate = (path: string) => {
     navigate(path);
   };
+
+  if (!mounted) {
+    return null;
+  }
 
   return (
     <div className="mb-6 overflow-x-auto pb-1 mt-6 hidden md:block">
