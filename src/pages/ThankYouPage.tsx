@@ -2,7 +2,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState, useRef } from "react";
 import Header from "@/components/Header";
 import { motion } from "framer-motion";
-import { CheckCircle2, ArrowLeft, Printer, FileText, Shield, QrCode, HelpCircle, DollarSign } from "lucide-react";
+import { CheckCircle2, ArrowLeft, Printer, FileText, Shield, QrCode, HelpCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { downloadReceipt } from "@/utils/receiptUtils";
 
@@ -188,7 +188,7 @@ const ThankYouPage = ({ onLogout }: ThankYouPageProps) => {
                     <p className="text-xs text-gray-900 font-medium mt-1 print:text-black">Authorized Gaming Top-Up Platform</p>
                   </div>
                   <div className="text-right">
-                    <h3 className="text-xl font-bold text-orange-500 print:text-orange-500">TRANSACTION RECEIPT</h3>
+                    <h3 className="text-xl font-bold text-orange-500 print:text-orange-500">OFFICIAL TRANSACTION RECEIPT</h3>
                     <p className="text-sm text-midasbuy-blue print:text-midasbuy-blue">{transactionDetails.date}</p>
                     <p className="font-mono text-xs mt-1 text-midasbuy-gold print:text-white">
                       Order #{transactionDetails.orderId}
@@ -258,7 +258,11 @@ const ThankYouPage = ({ onLogout }: ThankYouPageProps) => {
                         <tr>
                           <td className="py-4">
                             <div className="flex items-center">
-                              <DollarSign className="w-8 h-8 text-midasbuy-gold mr-3" />
+                              <img 
+                                src="/lovable-uploads/761111e0-3658-46db-b3d2-11cf3617f3d1.png"
+                                alt="UC Coins" 
+                                className="w-10 h-8 mr-3 object-contain"
+                              />
                               <div>
                                 <p className="font-medium text-white">Unknown Cash (UC)</p>
                                 <p className="text-xs text-gray-400 print:text-white">PUBG Mobile Currency</p>
