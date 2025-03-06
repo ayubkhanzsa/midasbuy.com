@@ -239,8 +239,9 @@ const GamingShopPage = ({ onLogout }: GamingShopProps) => {
             </div>
           ) : (
             <>
-              {/* Carousel moved to the top */}
-              <FeatureBoxesCarousel className="mb-8" />
+              <div className="mb-8">
+                <FeatureBoxesCarousel className="mt-2" showHeading={true} />
+              </div>
               
               <div className="mb-8">
                 <div className="flex items-center gap-2 mb-4">
@@ -302,7 +303,6 @@ const GamingShopPage = ({ onLogout }: GamingShopProps) => {
                 </div>
               </div>
               
-              {/* Show promotion banner here instead of at the top */}
               {showBanner && <PromotionBanner onClose={() => setShowBanner(false)} />}
               
               <div className="mb-8">

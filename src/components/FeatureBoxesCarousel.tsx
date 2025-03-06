@@ -56,13 +56,18 @@ const FeatureBoxesCarousel: React.FC<FeatureBoxesCarouselProps> = ({ className, 
     return () => clearInterval(interval);
   }, [carouselImages.length, imagesLoaded]);
 
+  // Indicator dots for navigation
+  const handleDotClick = (index: number) => {
+    setActiveIndex(index);
+  };
+
   return (
     <div className={`w-full ${className}`}>
       {showHeading && (
-        <h3 className="text-xl text-white font-bold mb-6 z-10 relative">MIDASBUY CAN OFFER YOU</h3>
+        <h3 className="text-xl text-white font-bold mb-4 text-center">MIDASBUY CAN OFFER YOU</h3>
       )}
       
-      <div className="relative w-full rounded-xl overflow-hidden h-[280px] md:h-[320px] lg:h-[380px] max-w-full mx-auto">
+      <div className="relative w-full rounded-xl overflow-hidden h-[240px] md:h-[280px] lg:h-[320px] max-w-5xl mx-auto shadow-lg">
         {carouselImages.map((image, index) => (
           <div 
             key={index}
@@ -79,6 +84,22 @@ const FeatureBoxesCarousel: React.FC<FeatureBoxesCarouselProps> = ({ className, 
             />
           </div>
         ))}
+        
+        {/* Navigation dots */}
+        <div className="absolute bottom-4 left-0 right-0 flex justify-center space-x-2">
+          {carouselImages.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => handleDotClick(index)}
+              className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                activeIndex === index 
+                  ? 'bg-white w-4' 
+                  : 'bg-white/50 hover:bg-white/80'
+              }`}
+              aria-label={`Go to slide ${index + 1}`}
+            />
+          ))}
+        </div>
       </div>
     </div>
   );
