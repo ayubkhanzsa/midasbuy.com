@@ -78,16 +78,9 @@ const FeatureBoxesCarousel: React.FC<FeatureBoxesCarouselProps> = ({ className }
               className="w-full h-full object-contain md:object-cover"
               loading="eager"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+            {/* Removed the black gradient overlay */}
           </div>
         ))}
-        
-        {/* Loading indicator */}
-        {!imagesLoaded && (
-          <div className="absolute inset-0 flex items-center justify-center bg-midasbuy-darkBlue/50">
-            <div className="w-10 h-10 border-4 border-midasbuy-gold border-t-transparent rounded-full animate-spin"></div>
-          </div>
-        )}
         
         {/* Navigation dots */}
         <div className="absolute bottom-4 left-0 right-0 flex justify-center gap-2 z-10">
