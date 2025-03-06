@@ -134,7 +134,7 @@ const Index = ({ onLogout }: IndexProps) => {
         
         <div className={`container mx-auto px-4 ${isMobile ? 'mobile-main-container' : ''}`}>
           <div className="flex flex-col md:flex-row items-start mb-6 relative">
-            <div className="flex-grow z-10 md:ml-24">
+            <div className="flex-grow z-10 md:ml-12">
               {/* PUBG Title with Logo */}
               <div className="flex items-center mb-2">
                 <img 
