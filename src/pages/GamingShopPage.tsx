@@ -14,6 +14,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { ChevronDown } from "lucide-react";
 import { format } from "date-fns";
 import AboutMidasbuy from "@/components/AboutMidasbuy";
+import FeatureBoxesCarousel from "@/components/FeatureBoxesCarousel";
 
 interface GamingShopProps {
   onLogout: () => void;
@@ -238,6 +239,8 @@ const GamingShopPage = ({ onLogout }: GamingShopProps) => {
             </div>
           ) : (
             <>
+              <FeatureBoxesCarousel className="mb-8" />
+              
               <div className="mb-8">
                 <div className="flex items-center gap-2 mb-4">
                   <h2 className="text-xl text-white font-bold uppercase">POPULAR GAMES</h2>

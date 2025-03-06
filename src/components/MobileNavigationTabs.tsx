@@ -6,6 +6,9 @@ const MobileNavigationTabs = () => {
   const navigate = useNavigate();
   const location = useLocation();
   
+  // Don't render mobile tabs on the gaming shop page
+  if (location.pathname === "/gaming-shop") return null;
+  
   const navLinks = [
     { name: "PURCHASE", path: "/" },
     { name: "REDEEM", path: "/redeem" },
@@ -22,9 +25,6 @@ const MobileNavigationTabs = () => {
       navigate(path);
     }
   };
-
-  // Don't render mobile tabs on the gaming shop page
-  if (location.pathname === "/gaming-shop") return null;
 
   const isActive = (path: string) => {
     if (path === "/" && location.pathname === "/") return true;
