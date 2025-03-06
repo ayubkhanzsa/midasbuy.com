@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useRef } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 
@@ -63,11 +62,7 @@ const FeatureBoxesCarousel: React.FC<FeatureBoxesCarouselProps> = ({ className, 
 
   return (
     <div className={`w-full ${className}`}>
-      {showHeading && (
-        <h3 className="text-xl text-white font-bold mb-4 text-center">MIDASBUY CAN OFFER YOU</h3>
-      )}
-      
-      <div className="relative w-full rounded-xl overflow-hidden h-[240px] md:h-[280px] lg:h-[320px] max-w-5xl mx-auto shadow-lg">
+      <div className="relative w-full rounded-xl overflow-hidden h-[240px] md:h-[280px] lg:h-[320px] max-w-5xl mx-auto shadow-lg mt-10">
         {carouselImages.map((image, index) => (
           <div 
             key={index}

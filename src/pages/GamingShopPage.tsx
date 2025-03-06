@@ -240,10 +240,6 @@ const GamingShopPage = ({ onLogout }: GamingShopProps) => {
           ) : (
             <>
               <div className="mb-8">
-                <FeatureBoxesCarousel className="mt-2" showHeading={true} />
-              </div>
-              
-              <div className="mb-8">
                 <div className="flex items-center gap-2 mb-4">
                   <h2 className="text-xl text-white font-bold uppercase">POPULAR GAMES</h2>
                   <div className="text-xs text-gray-400 flex items-center">
@@ -304,6 +300,10 @@ const GamingShopPage = ({ onLogout }: GamingShopProps) => {
               </div>
               
               {showBanner && <PromotionBanner onClose={() => setShowBanner(false)} />}
+              
+              <div className="mb-8 mt-12">
+                <FeatureBoxesCarousel className="" />
+              </div>
               
               <div className="mb-8">
                 <div className="flex justify-between items-center mb-6">
