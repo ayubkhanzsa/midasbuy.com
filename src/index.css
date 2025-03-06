@@ -100,3 +100,50 @@ body {
   background: linear-gradient(to right, rgba(85, 85, 85, 0.3), rgba(100, 100, 100, 0.2));
   border-radius: 0.5rem;
 }
+
+/* Celebration Banner Styles */
+.celebration-banner {
+  background-image: url('/lovable-uploads/2b3b8bba-f6b9-47d3-ab08-c7e7b7ffe9a6.png');
+  background-size: cover;
+  background-position: center top;
+  background-repeat: no-repeat;
+  height: 200px;
+  width: 100%;
+  position: relative;
+  margin-bottom: 1rem;
+}
+
+.celebration-banner-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 50px;
+  background: linear-gradient(to bottom, transparent, #0A1629);
+  pointer-events: none;
+}
+
+/* Responsive adjustments for banner */
+@media (min-width: 640px) {
+  .celebration-banner {
+    height: 250px;
+  }
+}
+
+@media (min-width: 768px) {
+  .celebration-banner {
+    height: 300px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .celebration-banner {
+    height: 350px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .celebration-banner {
+    height: 400px;
+  }
+}

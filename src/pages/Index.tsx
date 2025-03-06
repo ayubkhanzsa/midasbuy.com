@@ -79,7 +79,11 @@ const Index = ({ onLogout }: IndexProps) => {
     <div className="min-h-screen bg-midasbuy-darkBlue overflow-x-hidden relative">
       <Header onLogout={onLogout} />
       
-      <main className="pb-20 pt-20">
+      <div className="celebration-banner">
+        <div className="celebration-banner-overlay"></div>
+      </div>
+      
+      <main className="pb-20">
         <div className="container mx-auto px-4">
           <NavigationTabs />
           
