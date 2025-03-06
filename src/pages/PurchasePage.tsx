@@ -1,3 +1,4 @@
+
 import { useState, useEffect, useRef } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
@@ -247,22 +248,22 @@ const PurchasePage = ({ onLogout }: PurchasePageProps) => {
                     
                     <div className="ml-7 space-y-4">
                       <div>
-                        <p className="text-sm text-gray-300 mb-2">1. Or view your ID in the game lobby</p>
+                        <p className="text-sm text-gray-300 mb-2">1. Find your ID in your profile page</p>
                         <div className="rounded-md overflow-hidden mb-4">
                           <img 
-                            src="/lovable-uploads/d8a0389b-81ee-4c91-bd70-8e9e7b0d765b.png" 
-                            alt="Finding Player ID in Game Lobby" 
+                            src="/lovable-uploads/a11f7ec0-260b-4785-89db-c8478d536442.png" 
+                            alt="Finding Player ID in Profile Page" 
                             className="w-full rounded-md border border-gray-700"
                           />
                         </div>
                       </div>
                       
                       <div>
-                        <p className="text-sm text-gray-300 mb-2">2. Find your ID in your profile page</p>
+                        <p className="text-sm text-gray-300 mb-2">2. Or view your ID in the game lobby</p>
                         <div className="rounded-md overflow-hidden">
                           <img 
-                            src="/lovable-uploads/a11f7ec0-260b-4785-89db-c8478d536442.png" 
-                            alt="Finding Player ID in Profile Page" 
+                            src="/lovable-uploads/d8a0389b-81ee-4c91-bd70-8e9e7b0d765b.png" 
+                            alt="Finding Player ID in Game Lobby" 
                             className="w-full rounded-md border border-gray-700"
                           />
                         </div>
@@ -289,7 +290,8 @@ const PurchasePage = ({ onLogout }: PurchasePageProps) => {
           </div>
           
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            <div className="lg:col-span-2 order-2 lg:order-1">
+            {/* Swapped order - Player Information first */}
+            <div className="lg:col-span-2 order-1">
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -338,13 +340,15 @@ const PurchasePage = ({ onLogout }: PurchasePageProps) => {
                     </div>
                   </div>
                 ) : (
-                  <div className="bg-[#0D1729] p-5 rounded-lg border border-midasbuy-blue/20 backdrop-blur-sm">
+                  <div className="bg-midasbuy-darkBlue/90 p-5 rounded-lg border border-midasbuy-blue/20 backdrop-blur-sm">
                     <div className="text-center py-3">
                       <div className="mb-4">
-                        <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-[#162338] border border-midasbuy-blue/30 mb-3">
-                          <User className="h-6 w-6 text-midasbuy-blue" />
-                        </div>
-                        <p className="text-gray-300 mb-4">Please enter your Player ID to continue</p>
+                        <img 
+                          src="/lovable-uploads/02bb433c-783b-4512-b8bd-c2d8c0cb3d0e.png" 
+                          alt="PUBG Mobile Logo" 
+                          className="h-24 w-auto mx-auto rounded-lg mb-4"
+                        />
+                        <p className="text-gray-300 mb-4 text-lg font-medium">Enter Your Player ID Now &gt;</p>
                       </div>
                       <Button 
                         className="bg-gradient-to-r from-midasbuy-blue to-blue-500 hover:from-blue-600 hover:to-blue-500 text-white font-medium shadow-md transition-all duration-300 hover:shadow-lg px-6 py-5 h-auto"
@@ -394,7 +398,8 @@ const PurchasePage = ({ onLogout }: PurchasePageProps) => {
               </motion.div>
             </div>
             
-            <div className="lg:col-span-1 order-1 lg:order-2">
+            {/* Order Summary moved to bottom on mobile, right on desktop */}
+            <div className="lg:col-span-1 order-2">
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
