@@ -1,3 +1,4 @@
+
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState, useRef } from "react";
 import Header from "@/components/Header";
@@ -16,8 +17,8 @@ const ThankYouPage = ({ onLogout }: ThankYouPageProps) => {
   const receiptRef = useRef<HTMLDivElement>(null);
   const [transactionDetails, setTransactionDetails] = useState({
     orderId: `MIDAS-${Math.floor(Math.random() * 1000000)}`,
-    playerId: localStorage.getItem("playerId") || "Unknown",
-    playerName: localStorage.getItem("playerName") || "Customer",
+    playerId: localStorage.getItem("playerID") || "Unknown",
+    playerName: localStorage.getItem("pubgUsername") || "Customer",
     amount: localStorage.getItem("purchaseAmount") || "Unknown",
     ucAmount: localStorage.getItem("ucAmount") || "Unknown",
     date: new Date().toLocaleString(),

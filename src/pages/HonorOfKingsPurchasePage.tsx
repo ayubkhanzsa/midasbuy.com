@@ -1,3 +1,4 @@
+
 import { useState, useEffect, useRef } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
@@ -100,6 +101,9 @@ const HonorOfKingsPurchasePage = ({ onLogout }: HonorOfKingsPurchasePageProps) =
 
     setIsVerifying(true);
 
+    // Instead of generating a random username, we'll use a fixed "Player" name with the ID
+    const verifiedUsername = `Player_${tempPlayerID.substring(0, 4)}`;
+
     setTimeout(() => {
       setIsVerifying(false);
       setIsPlayerIDValid(true);
@@ -111,10 +115,8 @@ const HonorOfKingsPurchasePage = ({ onLogout }: HonorOfKingsPurchasePageProps) =
       });
       
       localStorage.setItem("playerID", tempPlayerID);
-      
-      const mockUsername = `Player${Math.floor(Math.random() * 10000)}`;
-      localStorage.setItem("pubgUsername", mockUsername);
-      setUsername(mockUsername);
+      localStorage.setItem("pubgUsername", verifiedUsername);
+      setUsername(verifiedUsername);
       
       setShowPlayerIdModal(false);
     }, 1500);
@@ -307,41 +309,44 @@ const HonorOfKingsPurchasePage = ({ onLogout }: HonorOfKingsPurchasePageProps) =
                 </div>
                 
                 {isPlayerIDValid ? (
-                  <div className="p-5">
-                    <div className="flex justify-between items-center">
-                      <div className="space-y-3 w-full">
-                        <div className="flex items-center mb-4">
-                          <div className="bg-gradient-to-r from-[#2C6ECF] to-[#4D8CF5] text-white text-xs px-3 py-1 rounded-full flex items-center font-medium shadow-sm">
-                            <Check className="w-3 h-3 mr-1" /> Verified Account
-                          </div>
-                        </div>
-                        <div className="space-y-3 w-full">
-                          <div className="flex justify-between border-b border-gray-700/30 pb-3">
-                            <span className="text-gray-400 text-sm font-medium mr-10">Player ID:</span>
-                            <span className="text-white font-semibold tracking-wide text-right">{playerID}</span>
-                          </div>
-                          <div className="flex justify-between pt-2">
-                            <span className="text-gray-400 text-sm font-medium mr-10">Username:</span>
-                            <span className="text-white font-semibold text-right">{username}</span>
-                          </div>
+                  <div>
+                    <div className="flex flex-col items-start">
+                      <div className="flex items-center mb-6 w-full justify-start">
+                        <div className="bg-gradient-to-r from-[#1a5fb4] to-[#3584e4] text-white text-xs px-3 py-1 rounded-full flex items-center font-medium shadow-md">
+                          <Check className="w-3 h-3 mr-1" /> Verified Account
                         </div>
                       </div>
-                      <Button 
-                        className="ml-4 bg-[#1F2A3C] hover:bg-[#2A3A52] text-white shadow-md transition-all duration-200"
-                        onClick={handleResetPlayerID}
-                      >
-                        <RefreshCw className="w-4 h-4 mr-1" /> Change ID
-                      </Button>
+                      
+                      <div className="w-full space-y-5">
+                        <div className="flex items-center justify-between border-b border-gray-700/30 pb-3">
+                          <span className="text-gray-400 text-sm font-medium w-32">Player ID:</span>
+                          <span className="text-white font-semibold tracking-wide text-right">{playerID}</span>
+                        </div>
+                        
+                        <div className="flex items-center justify-between pt-2">
+                          <span className="text-gray-400 text-sm font-medium w-32">Username:</span>
+                          <span className="text-white font-semibold text-right">{username}</span>
+                        </div>
+                      </div>
+                      
+                      <div className="mt-6 w-full flex justify-end">
+                        <Button 
+                          className="bg-[#1F2A3C] hover:bg-[#2A3A52] text-white shadow-md transition-all duration-200"
+                          onClick={handleResetPlayerID}
+                        >
+                          <RefreshCw className="w-4 h-4 mr-1" /> Change ID
+                        </Button>
+                      </div>
                     </div>
                   </div>
                 ) : (
-                  <div className="bg-midasbuy-darkBlue/90 p-5 rounded-lg border border-midasbuy-blue/20 backdrop-blur-sm">
+                  <div className="p-5">
                     <div className="text-center py-3">
                       <div className="mb-4">
                         <img 
                           src="/lovable-uploads/02bb433c-783b-4512-b8bd-c2d8c0cb3d0e.png" 
                           alt="Honor of Kings Logo" 
-                          className="h-12 w-auto mx-auto rounded-lg mb-4"
+                          className="h-10 w-auto mx-auto rounded-lg mb-4"
                         />
                         <p className="text-gray-300 mb-4 text-lg font-medium">Please enter your Player ID to continue</p>
                       </div>
