@@ -10,22 +10,33 @@ const AboutMidasbuy = () => {
   const [isImageLoaded, setIsImageLoaded] = useState(false);
 
   useEffect(() => {
+    // Preload the background image with higher priority
     const img = new Image();
     img.src = "/lovable-uploads/decafc18-49f3-42c9-83f5-64a5c5f9c3c7.png";
     img.onload = () => setIsImageLoaded(true);
+    img.loading = "eager"; // Browser hint to load this image with high priority
+    
+    // Also preload the Tencent logo
+    const logoImg = new Image();
+    logoImg.src = "/lovable-uploads/edac9bb3-e3c4-4e95-b6ac-a20ef2194d6f.png";
+    logoImg.loading = "eager";
   }, []);
 
   return (
     <div className="py-12 relative">
       <div className="absolute inset-0 z-0 overflow-hidden">
-        <motion.img 
-          src="/lovable-uploads/decafc18-49f3-42c9-83f5-64a5c5f9c3c7.png" 
-          alt="Games Background" 
-          className={`w-full h-full object-cover transition-opacity duration-300 ${isImageLoaded ? 'opacity-25' : 'opacity-0'}`}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: isImageLoaded ? 0.25 : 0 }}
-          transition={{ duration: 0.3 }}
-        />
+        {/* Use picture element for better loading */}
+        <picture>
+          <motion.img 
+            src="/lovable-uploads/decafc18-49f3-42c9-83f5-64a5c5f9c3c7.png" 
+            alt="Games Background" 
+            className={`w-full h-full object-cover transition-opacity duration-200 ${isImageLoaded ? 'opacity-25' : 'opacity-0'}`}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: isImageLoaded ? 0.25 : 0 }}
+            transition={{ duration: 0.2 }}
+            loading="eager"
+          />
+        </picture>
         <div className="absolute inset-0 bg-midasbuy-navy/70"></div>
       </div>
       
@@ -48,7 +59,8 @@ const AboutMidasbuy = () => {
                   className="h-6"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
-                  transition={{ duration: 0.3 }}
+                  transition={{ duration: 0.2 }}
+                  loading="eager"
                 />
               </div>
               

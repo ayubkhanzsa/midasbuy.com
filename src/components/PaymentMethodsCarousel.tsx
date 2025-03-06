@@ -1,8 +1,11 @@
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './SocialMediaIcons.css';
 
 const PaymentMethodsCarousel = () => {
+  const [imagesLoaded, setImagesLoaded] = useState(0);
+  const [renderComplete, setRenderComplete] = useState(false);
+  
   const paymentMethods = [
     { src: "/lovable-uploads/472b4a57-816e-438a-9263-5def84a255d4.png", alt: "WeChat Pay", link: "#" },
     { src: "/lovable-uploads/49c6d1b3-3f65-4564-abb7-4508f09f1be4.png", alt: "Paysafecard", link: "#" },
@@ -20,10 +23,31 @@ const PaymentMethodsCarousel = () => {
   // Duplicate the array for seamless looping
   const duplicatedMethods = [...paymentMethods, ...paymentMethods];
 
+  useEffect(() => {
+    // Preload all payment method images in parallel
+    const preloadPromises = paymentMethods.map(method => {
+      return new Promise<void>((resolve) => {
+        const img = new Image();
+        img.src = method.src;
+        img.loading = "eager";
+        img.onload = () => {
+          setImagesLoaded(prev => prev + 1);
+          resolve();
+        };
+        img.onerror = () => resolve();
+      });
+    });
+    
+    // Mark component as ready to render when all images are loaded
+    Promise.all(preloadPromises).then(() => {
+      setRenderComplete(true);
+    });
+  }, []);
+
   return (
     <div className="mt-4">
       <h3 className="text-white font-bold mb-4 text-center">Payment Methods</h3>
-      <div className="payment-methods-container">
+      <div className={`payment-methods-container transition-opacity duration-300 ${renderComplete ? 'opacity-100' : 'opacity-0'}`}>
         <div className="payment-methods-scroll">
           {duplicatedMethods.map((method, index) => (
             <a
@@ -38,6 +62,7 @@ const PaymentMethodsCarousel = () => {
                 alt={method.alt} 
                 className="h-full w-auto object-contain"
                 style={{ display: 'block', maxWidth: '100%', maxHeight: '100%' }}
+                loading="eager"
               />
             </a>
           ))}

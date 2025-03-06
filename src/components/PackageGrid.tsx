@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { useAnimationDuration } from "@/hooks/use-mobile";
 import { convertAndFormatPrice } from "@/utils/currencyUtils";
+import { useEffect, useState } from "react";
 
 interface Package {
   id: string;
@@ -25,6 +26,29 @@ interface PackageGridProps {
 
 const PackageGrid = ({ packages, selectedCountry }: PackageGridProps) => {
   const slowAnimationDuration = useAnimationDuration('slow');
+  const [imagesLoaded, setImagesLoaded] = useState<Record<string, boolean>>({});
+
+  useEffect(() => {
+    // Preload all package images
+    packages.forEach(pkg => {
+      const img = new Image();
+      img.src = pkg.image;
+      img.onload = () => {
+        setImagesLoaded(prev => ({
+          ...prev,
+          [pkg.id]: true
+        }));
+      };
+    });
+
+    // Also preload the UC icon for better performance
+    const ucIcon = new Image();
+    ucIcon.src = "/lovable-uploads/f6594fcb-d2eb-4e92-9f21-fe5959fa5360.png";
+    
+    // And the Midasbuy logo
+    const midasbuyLogo = new Image();
+    midasbuyLogo.src = "/lovable-uploads/7ef942ba-efa8-4e8f-9282-d86c01b1e909.png";
+  }, [packages]);
 
   return (
     <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-6">
@@ -33,7 +57,7 @@ const PackageGrid = ({ packages, selectedCountry }: PackageGridProps) => {
           key={pkg.id}
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.3, delay: index * 0.1 }}
+          transition={{ duration: 0.2, delay: index * 0.05 }}
         >
           <Link to={`/purchase/${pkg.id}`} className="block">
             <div className="bg-midasbuy-navy rounded-lg overflow-hidden h-full transition-all duration-300 hover:shadow-[0_0_15px_rgba(0,145,255,0.3)] border border-midasbuy-navy hover:border-midasbuy-blue/50">
@@ -41,7 +65,7 @@ const PackageGrid = ({ packages, selectedCountry }: PackageGridProps) => {
                 <motion.img 
                   src={pkg.image}
                   alt="UC Coins" 
-                  className={`object-contain ${['60uc', '300uc'].includes(pkg.id) ? 'h-10 sm:h-12' : ['600uc', '1500uc'].includes(pkg.id) ? 'h-12 sm:h-16' : 'h-16 sm:h-20'}`}
+                  className={`object-contain ${['60uc', '300uc'].includes(pkg.id) ? 'h-10 sm:h-12' : ['600uc', '1500uc'].includes(pkg.id) ? 'h-12 sm:h-16' : 'h-16 sm:h-20'} transition-opacity duration-200 ${imagesLoaded[pkg.id] ? 'opacity-100' : 'opacity-0'}`}
                   animate={{ 
                     y: [0, -8, 0, 8, 0] 
                   }}
@@ -51,6 +75,7 @@ const PackageGrid = ({ packages, selectedCountry }: PackageGridProps) => {
                     repeat: Infinity,
                     repeatType: "reverse"
                   }}
+                  loading="eager"
                 />
               </div>
               
@@ -65,7 +90,12 @@ const PackageGrid = ({ packages, selectedCountry }: PackageGridProps) => {
                 
                 <div className="flex items-center mb-2 sm:mb-3">
                   <div className="uc-icon mr-1 sm:mr-2">
-                    <img src="/lovable-uploads/f6594fcb-d2eb-4e92-9f21-fe5959fa5360.png" alt="UC" className="w-4 h-4 sm:w-5 sm:h-5" />
+                    <img 
+                      src="/lovable-uploads/f6594fcb-d2eb-4e92-9f21-fe5959fa5360.png" 
+                      alt="UC" 
+                      className="w-4 h-4 sm:w-5 sm:h-5" 
+                      loading="eager"
+                    />
                   </div>
                   <span className="text-xl sm:text-2xl font-bold text-white">{pkg.baseAmount}</span>
                   {pkg.bonusAmount > 0 && (
@@ -93,7 +123,12 @@ const PackageGrid = ({ packages, selectedCountry }: PackageGridProps) => {
                 </div>
                 <div className="bg-white text-black font-semibold py-1 px-1 sm:px-3 text-xs sm:text-sm flex-grow flex items-center ml-1 justify-between">
                   <span className="font-bold truncate">Midasbuy Only</span>
-                  <img src="/lovable-uploads/7ef942ba-efa8-4e8f-9282-d86c01b1e909.png" alt="Midasbuy Logo" className="h-5 sm:h-6 ml-1" />
+                  <img 
+                    src="/lovable-uploads/7ef942ba-efa8-4e8f-9282-d86c01b1e909.png" 
+                    alt="Midasbuy Logo" 
+                    className="h-5 sm:h-6 ml-1" 
+                    loading="eager"
+                  />
                 </div>
               </div>
             </div>

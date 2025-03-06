@@ -1,3 +1,4 @@
+
 import React, { useRef, useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { ScrollArea } from '@/components/ui/scroll-area';
@@ -70,15 +71,29 @@ const FeatureBoxesCarousel: React.FC<FeatureBoxesCarouselProps> = ({ className }
   const [loadedImages, setLoadedImages] = useState<Set<string>>(new Set());
   
   useEffect(() => {
-    // Preload feature box images
-    featureBoxes.forEach(feature => {
-      if (feature.image) {
+    // Preload all feature box images at once with higher priority
+    const imagesToLoad = featureBoxes
+      .filter(feature => feature.image)
+      .map(feature => feature.image!);
+    
+    // Use Promise.all to track when all images are loaded
+    const imagePromises = imagesToLoad.map(imageSrc => {
+      return new Promise<string>((resolve) => {
         const img = new Image();
-        img.src = feature.image;
+        img.src = imageSrc;
+        img.loading = "eager"; // Mark as high priority
         img.onload = () => {
-          setLoadedImages(prev => new Set([...prev, feature.image!]));
+          setLoadedImages(prev => new Set([...prev, imageSrc]));
+          resolve(imageSrc);
         };
-      }
+        img.onerror = () => resolve(imageSrc); // Resolve even on error to avoid blocking
+      });
+    });
+    
+    // Execute all image loading in parallel
+    Promise.all(imagePromises).then(() => {
+      // All images loaded
+      console.log("All feature box images loaded");
     });
     
     // Auto-scroll effect
@@ -163,12 +178,13 @@ const FeatureBoxesCarousel: React.FC<FeatureBoxesCarouselProps> = ({ className }
                       <motion.img 
                         src={feature.image}
                         alt={feature.title}
-                        className={`max-h-[100px] object-contain transition-opacity duration-300 ${
+                        className={`max-h-[100px] object-contain transition-opacity duration-200 ${
                           loadedImages.has(feature.image) ? 'opacity-100' : 'opacity-0'
                         }`}
                         initial={{ opacity: 0 }}
                         animate={{ opacity: loadedImages.has(feature.image) ? 1 : 0 }}
-                        transition={{ duration: 0.3 }}
+                        transition={{ duration: 0.2 }}
+                        loading="eager"
                       />
                     </div>
                   </div>
