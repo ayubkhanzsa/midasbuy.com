@@ -12,6 +12,7 @@ import PurchasePage from "./pages/PurchasePage";
 import CheckoutPage from "./pages/CheckoutPage";
 import ThankYouPage from "./pages/ThankYouPage";
 import EventsPage from "./pages/EventsPage";
+import PlayerIdPage from "./pages/PlayerIdPage";
 import AuthRoute from "./components/AuthRoute";
 
 const queryClient = new QueryClient();
@@ -62,6 +63,11 @@ const App = () => {
             <Route path="/" element={
               <AuthRoute isAuthenticated={isAuthenticated} redirectTo="/login">
                 <Index onLogout={logout} />
+              </AuthRoute>
+            } />
+            <Route path="/player-id" element={
+              <AuthRoute isAuthenticated={isAuthenticated} redirectTo="/login">
+                <PlayerIdPage onLogout={logout} />
               </AuthRoute>
             } />
             <Route path="/purchase/:id" element={
