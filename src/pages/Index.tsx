@@ -81,7 +81,12 @@ const Index = ({ onLogout }: IndexProps) => {
     <div className="min-h-screen bg-midasbuy-darkBlue overflow-x-hidden relative">
       {isMobile && (
         <>
-          <div className="mobile-header-banner"></div>
+          <div 
+            className="mobile-header-banner"
+            style={{
+              backgroundImage: `url('/lovable-uploads/0fbc8835-de81-43f1-b68d-6b85ab444851.png')`,
+            }}
+          ></div>
           <div className="mobile-header-overlay"></div>
         </>
       )}
@@ -94,19 +99,21 @@ const Index = ({ onLogout }: IndexProps) => {
         <div className="absolute top-0 left-0 w-full flex justify-center items-center">
           {!isMobile && (
             <img 
-              src="/lovable-uploads/28985189-d7e6-4b78-b392-1c1c9fcaff88.png" 
+              src="/lovable-uploads/0fbc8835-de81-43f1-b68d-6b85ab444851.png" 
               alt="Banner"
               className="w-full h-auto object-cover md:object-contain"
               style={{ 
                 width: '100%', 
                 maxWidth: '1440px',
                 maxHeight: isDesktop ? '350px' : isTablet ? '300px' : '180px',
+                position: 'absolute',
+                zIndex: 0
               }}
             />
           )}
         </div>
         
-        <div className={`container mx-auto px-4 ${isMobile ? 'mobile-main-container' : ''}`}>
+        <div className={`container mx-auto px-4 ${isMobile ? 'mobile-main-container' : ''} relative z-10`}>
           <div className="flex flex-col md:flex-row items-start mb-6 relative">
             <div className="flex-grow z-10">
               <div className="flex items-center mb-3">
@@ -133,7 +140,7 @@ const Index = ({ onLogout }: IndexProps) => {
                 </span>
               </div>
               
-              <div className="mt-1">
+              <div className="mt-1 mb-6">
                 <button className="btn-primary inline-flex items-center text-sm py-1 px-3">
                   <span>Enter Your Player ID Now</span>
                   <ChevronDown className="ml-1 w-3 h-3" />

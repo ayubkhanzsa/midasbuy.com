@@ -10,9 +10,18 @@ const LoadingScreen = ({ message = "Loading PUBG Mobile..." }: LoadingScreenProp
     initial={{ opacity: 0 }}
     animate={{ opacity: 1 }}
     exit={{ opacity: 0 }}
-    className="min-h-screen flex items-center justify-center bg-midasbuy-darkBlue"
+    className="min-h-screen flex items-center justify-center bg-midasbuy-darkBlue relative overflow-hidden"
   >
-    <div className="text-center">
+    <div className="absolute top-0 left-0 w-full h-full">
+      <img 
+        src="/lovable-uploads/0fbc8835-de81-43f1-b68d-6b85ab444851.png" 
+        alt="Background" 
+        className="w-full h-full object-cover opacity-50"
+      />
+      <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-midasbuy-darkBlue/60 to-midasbuy-darkBlue/95"></div>
+    </div>
+    
+    <div className="text-center relative z-10">
       <img 
         src="/lovable-uploads/c6fd77e7-3682-428e-8154-140308b4a06b.png" 
         alt="Logo" 
