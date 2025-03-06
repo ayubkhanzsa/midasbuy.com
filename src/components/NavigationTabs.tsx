@@ -35,13 +35,9 @@ const NavigationTabs = () => {
                 key={link.path}
                 onClick={() => handleNavigate(link.path)}
                 className={cn(
-                  "text-gray-300 font-bold tracking-wide px-8 py-3 relative hover:text-white transition-colors text-sm",
-                  location.pathname === link.path ? "text-white" : "",
-                  "text-shadow-sm"
+                  "text-white font-bold tracking-wide px-8 py-3 relative hover:text-white transition-colors text-sm",
+                  location.pathname === link.path ? "text-white" : ""
                 )}
-                style={{
-                  textShadow: location.pathname === link.path ? "0 0 8px rgba(51, 195, 240, 0.6)" : "0 0 4px rgba(0, 0, 0, 0.5)"
-                }}
               >
                 {link.name}
                 {location.pathname === link.path && (
