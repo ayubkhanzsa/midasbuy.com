@@ -4,9 +4,10 @@ import { Card, CardContent } from '@/components/ui/card';
 
 interface FeatureBoxesCarouselProps {
   className?: string;
+  showHeading?: boolean;
 }
 
-const FeatureBoxesCarousel: React.FC<FeatureBoxesCarouselProps> = ({ className }) => {
+const FeatureBoxesCarousel: React.FC<FeatureBoxesCarouselProps> = ({ className, showHeading = false }) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [imagesLoaded, setImagesLoaded] = useState(false);
   const imageRefs = useRef<HTMLImageElement[]>([]);
