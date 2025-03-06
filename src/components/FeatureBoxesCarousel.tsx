@@ -62,7 +62,7 @@ const FeatureBoxesCarousel: React.FC<FeatureBoxesCarouselProps> = ({ className, 
         <h3 className="text-xl text-white font-bold mb-6 z-10 relative">MIDASBUY CAN OFFER YOU</h3>
       )}
       
-      <div className="relative w-full rounded-xl overflow-hidden h-[400px] md:h-[500px] lg:h-[600px] max-w-full mx-auto">
+      <div className="relative w-full rounded-xl overflow-hidden h-[280px] md:h-[320px] lg:h-[380px] max-w-full mx-auto">
         {carouselImages.map((image, index) => (
           <div 
             key={index}

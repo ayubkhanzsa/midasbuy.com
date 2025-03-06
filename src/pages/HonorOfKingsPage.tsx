@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Header from "@/components/Header";
@@ -15,7 +14,6 @@ import { ArrowRight, Download, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
-import FeatureBoxesCarousel from "@/components/FeatureBoxesCarousel";
 
 interface HonorOfKingsPageProps {
   onLogout: () => void;
@@ -31,7 +29,6 @@ const HonorOfKingsPage = ({ onLogout }: HonorOfKingsPageProps) => {
   const { toast } = useToast();
   
   useEffect(() => {
-    // Preload banner image
     const bannerImg = new Image();
     bannerImg.src = "/lovable-uploads/ec01c36c-6925-4ab3-8d01-c1ef4b766ce9.png";
     bannerImg.onload = () => {
@@ -42,7 +39,6 @@ const HonorOfKingsPage = ({ onLogout }: HonorOfKingsPageProps) => {
   }, []);
 
   useEffect(() => {
-    // Handle country changes
     const handleStorageChange = (e: StorageEvent) => {
       if (e.key === 'selectedCountry' && e.newValue) {
         try {
@@ -198,9 +194,6 @@ const HonorOfKingsPage = ({ onLogout }: HonorOfKingsPageProps) => {
           <NavigationTabs />
           <MobileNavigationTabs />
           
-          {/* Carousel at the top */}
-          <FeatureBoxesCarousel className="mb-8" />
-          
           <FilterBar onFilterChange={setFilter} />
           
           <div className="mb-4">
@@ -211,14 +204,12 @@ const HonorOfKingsPage = ({ onLogout }: HonorOfKingsPageProps) => {
           
           <HonorOfKingsPackageGrid packages={filteredPackages} selectedCountry={selectedCountry} />
           
-          {/* Show promotion banner below the packages */}
           {showPromotion && (
             <div className="mt-8">
               <PromotionBanner onClose={() => setShowPromotion(false)} />
             </div>
           )}
           
-          {/* Special promotion for Honor of Kings */}
           <div className="mt-8 bg-gradient-to-r from-blue-600/30 to-purple-600/30 rounded-xl p-6 border border-blue-500/20">
             <h2 className="text-2xl font-bold text-white mb-4">Honor of Kings Global Launch!</h2>
             <p className="text-gray-200 mb-6">Enjoy extra 100% bonus on your first purchase only at Midasbuy! Limited time offer.</p>
