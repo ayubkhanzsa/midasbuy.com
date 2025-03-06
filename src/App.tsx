@@ -1,3 +1,4 @@
+
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -18,6 +19,17 @@ import HonorOfKingsPage from "./pages/HonorOfKingsPage";
 import HonorOfKingsPurchasePage from "./pages/HonorOfKingsPurchasePage";
 import HonorOfKingsCheckoutPage from "@/pages/HonorOfKingsCheckoutPage";
 import AuthRoute from "./components/AuthRoute";
+
+// Import the pages that exist
+import AboutMidasbuy from "./components/AboutMidasbuy";
+import { HelpCenterPage } from "./pages/HelpCenterPage";
+import { SecurityPage } from "./pages/SecurityPage";
+import { FAQsPage } from "./pages/FAQsPage";
+import { PaymentIssuesPage } from "./pages/PaymentIssuesPage";
+import { RefundPolicyPage } from "./pages/RefundPolicyPage";
+import { TermsOfServicePage } from "./pages/TermsOfServicePage";
+import { CopyrightNoticePage } from "./pages/CopyrightNoticePage";
+import { ContactUsPage } from "./pages/ContactUsPage";
 
 const queryClient = new QueryClient();
 
