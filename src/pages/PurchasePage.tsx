@@ -185,8 +185,8 @@ const PurchasePage = ({ onLogout }: PurchasePageProps) => {
       
       <AnimatePresence>
         <Dialog open={showPlayerIdModal} onOpenChange={setShowPlayerIdModal}>
-          <DialogContent className="sm:max-w-md bg-[#121B2E] border-none text-white">
-            <DialogHeader>
+          <DialogContent className="sm:max-w-md bg-[#121B2E] border-none text-white p-0 overflow-hidden">
+            <div className="p-6">
               <div className="flex items-center justify-between">
                 <DialogTitle className="text-2xl font-bold text-white">Enter Your Player ID Now</DialogTitle>
                 <Button 
@@ -197,48 +197,50 @@ const PurchasePage = ({ onLogout }: PurchasePageProps) => {
                   <X className="h-6 w-6" />
                 </Button>
               </div>
-            </DialogHeader>
             
-            <div className="py-4">
-              <div className="flex items-center justify-between mb-2">
-                <h4 className="text-xl font-medium text-white">Player ID</h4>
+              <div className="py-6">
+                <div className="flex items-center justify-between mb-2">
+                  <h4 className="text-xl font-medium text-white">Player ID</h4>
+                  <Button 
+                    variant="ghost" 
+                    className="flex items-center text-blue-400 hover:text-blue-300 p-0 hover:bg-transparent"
+                  >
+                    <HelpCircle className="w-5 h-5 mr-1" />
+                    <span>Couldn't find your Player ID?</span>
+                  </Button>
+                </div>
+                
+                <div className="mb-4">
+                  <div className="bg-[#00A8FF] bg-opacity-20 p-3 rounded-t-md">
+                    <p className="text-white">Please select or fill in your Player ID you want to recharge.</p>
+                  </div>
+                  <div className="bg-[#1A1F2E] rounded-b-md p-3 border border-[#182238]">
+                    <Input
+                      value={tempPlayerID}
+                      onChange={(e) => setTempPlayerID(e.target.value)}
+                      placeholder="Enter Player ID"
+                      variant="blue"
+                    />
+                  </div>
+                </div>
+                
                 <Button 
-                  variant="ghost" 
-                  className="flex items-center text-blue-400 hover:text-blue-300 p-0 hover:bg-transparent"
+                  className="w-full"
+                  variant="gradient"
+                  size="xl"
+                  onClick={handleVerifyPlayerID}
+                  disabled={isVerifying || !tempPlayerID}
                 >
-                  <HelpCircle className="w-5 h-5 mr-1" />
-                  <span>Couldn't find your Player ID?</span>
+                  {isVerifying ? (
+                    <>
+                      <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin mr-2"></div>
+                      Verifying...
+                    </>
+                  ) : (
+                    "OK"
+                  )}
                 </Button>
               </div>
-              
-              <div className="mb-4">
-                <div className="bg-[#00A8FF] bg-opacity-20 p-3 rounded-t-md">
-                  <p className="text-white">Please select or fill in your Player ID you want to recharge.</p>
-                </div>
-                <div className="bg-[#1A1F2E] rounded-b-md p-3 border border-[#182238]">
-                  <Input
-                    value={tempPlayerID}
-                    onChange={(e) => setTempPlayerID(e.target.value)}
-                    placeholder="Enter Player ID"
-                    className="bg-transparent border-none text-white text-lg placeholder:text-gray-500 focus-visible:ring-0 h-12"
-                  />
-                </div>
-              </div>
-              
-              <Button 
-                className="w-full bg-gradient-to-r from-[#0099FF] to-[#0062FF] hover:opacity-90 text-white font-medium text-xl py-6"
-                onClick={handleVerifyPlayerID}
-                disabled={isVerifying || !tempPlayerID}
-              >
-                {isVerifying ? (
-                  <>
-                    <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin mr-2"></div>
-                    Verifying...
-                  </>
-                ) : (
-                  "OK"
-                )}
-              </Button>
             </div>
           </DialogContent>
         </Dialog>
