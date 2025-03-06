@@ -28,11 +28,11 @@ const AboutMidasbuy = () => {
       {/* Background image with overlay */}
       <div className="absolute inset-0 z-0 overflow-hidden">
         <img 
-          src="/lovable-uploads/b1a17274-74d2-487f-b2d9-06bb58698657.png" 
+          src="/lovable-uploads/decafc18-49f3-42c9-83f5-64a5c5f9c3c7.png" 
           alt="Games Background" 
-          className="w-full h-full object-cover opacity-15"
+          className="w-full h-full object-cover opacity-25"
         />
-        <div className="absolute inset-0 bg-midasbuy-navy/80"></div>
+        <div className="absolute inset-0 bg-midasbuy-navy/70"></div>
       </div>
       
       <div className="max-w-5xl mx-auto px-4 relative z-10">
@@ -41,10 +41,6 @@ const AboutMidasbuy = () => {
           
           <div className="mt-8">
             <div className="bg-gradient-to-br from-midasbuy-navy/80 to-midasbuy-navy/40 rounded-xl p-6 backdrop-blur-sm border border-white/10">
-              <div className="flex items-center gap-4 mb-4">
-                <img src="/midasbuy-logo.png" alt="Tencent" className="h-8" />
-              </div>
-              
               <h3 className="text-3xl md:text-4xl text-white font-bold mb-6">
                 PAY SAFE, FAST AND FUN WITH MIDASBUY.
               </h3>
