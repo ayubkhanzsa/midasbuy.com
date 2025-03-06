@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 
 interface FeatureBoxesCarouselProps {
@@ -8,6 +8,8 @@ interface FeatureBoxesCarouselProps {
 
 const FeatureBoxesCarousel: React.FC<FeatureBoxesCarouselProps> = ({ className }) => {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [imagesLoaded, setImagesLoaded] = useState(false);
+  const imageRefs = useRef<HTMLImageElement[]>([]);
 
   const carouselImages = [
     "/lovable-uploads/9a7e56eb-e7ca-4352-acd8-fd90978164a9.png",
@@ -16,14 +18,42 @@ const FeatureBoxesCarousel: React.FC<FeatureBoxesCarouselProps> = ({ className }
     "/lovable-uploads/58ab0999-9b9a-4134-99be-0ed63f5b99d5.png"
   ];
 
+  // Preload images
+  useEffect(() => {
+    let loadedCount = 0;
+    const totalImages = carouselImages.length;
+    
+    // Create image objects to preload
+    const preloadImages = carouselImages.map((src, index) => {
+      const img = new Image();
+      img.src = src;
+      img.onload = () => {
+        loadedCount++;
+        if (loadedCount === totalImages) {
+          setImagesLoaded(true);
+        }
+      };
+      img.onerror = () => {
+        console.error(`Failed to load image: ${src}`);
+        loadedCount++;
+        if (loadedCount === totalImages) {
+          setImagesLoaded(true);
+        }
+      };
+      return img;
+    });
+  }, []);
+
   // Auto rotate carousel
   useEffect(() => {
+    if (!imagesLoaded) return;
+    
     const interval = setInterval(() => {
       setActiveIndex((prevIndex) => (prevIndex + 1) % carouselImages.length);
     }, 5000); // Change image every 5 seconds
     
     return () => clearInterval(interval);
-  }, [carouselImages.length]);
+  }, [carouselImages.length, imagesLoaded]);
 
   const handleDotClick = (index: number) => {
     setActiveIndex(index);
@@ -33,20 +63,31 @@ const FeatureBoxesCarousel: React.FC<FeatureBoxesCarouselProps> = ({ className }
     <div className={`w-full ${className}`}>
       <h3 className="text-xl text-white font-bold mb-6 z-10 relative">MIDASBUY CAN OFFER YOU</h3>
       
-      <div className="relative w-full rounded-xl overflow-hidden h-[400px] md:h-[500px]">
+      <div className="relative w-full rounded-xl overflow-hidden h-[400px] md:h-[500px] lg:h-[600px] max-w-full mx-auto">
         {carouselImages.map((image, index) => (
           <div 
             key={index}
             className={`absolute inset-0 w-full h-full transition-opacity duration-1000 ease-in-out ${activeIndex === index ? 'opacity-100' : 'opacity-0'}`}
           >
             <img 
+              ref={el => {
+                if (el) imageRefs.current[index] = el;
+              }}
               src={image} 
               alt={`Feature ${index + 1}`} 
-              className="w-full h-full object-cover"
+              className="w-full h-full object-contain md:object-cover"
+              loading="eager"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
           </div>
         ))}
+        
+        {/* Loading indicator */}
+        {!imagesLoaded && (
+          <div className="absolute inset-0 flex items-center justify-center bg-midasbuy-darkBlue/50">
+            <div className="w-10 h-10 border-4 border-midasbuy-gold border-t-transparent rounded-full animate-spin"></div>
+          </div>
+        )}
         
         {/* Navigation dots */}
         <div className="absolute bottom-4 left-0 right-0 flex justify-center gap-2 z-10">
