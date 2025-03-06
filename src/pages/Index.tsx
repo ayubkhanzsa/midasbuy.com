@@ -1,3 +1,4 @@
+
 import { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import Header from "@/components/Header";
@@ -78,6 +79,7 @@ const Index = ({ onLogout }: IndexProps) => {
 
   return (
     <div className="min-h-screen bg-midasbuy-darkBlue overflow-x-hidden relative">
+      {/* Mobile banner */}
       {isMobile && (
         <>
           <div className="mobile-header-banner"></div>

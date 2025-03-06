@@ -1,4 +1,3 @@
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -93,7 +92,7 @@
     left: 0;
     width: 100%;
     height: 300px; /* Adjusted height to show banner down to the Player ID button */
-    background-image: url('/lovable-uploads/af3d5704-db1f-4e3b-ae85-983b98c7cabd.png');
+    background-image: url('/lovable-uploads/c2ecfe7e-3f13-4aa5-a795-ca9fc23bd875.png');
     background-size: cover;
     background-position: center top;
     background-repeat: no-repeat;
@@ -143,7 +142,7 @@
     left: 0;
     width: 100%;
     height: 250px;
-    background-image: url('/lovable-uploads/af3d5704-db1f-4e3b-ae85-983b98c7cabd.png');
+    background-image: url('/lovable-uploads/c2ecfe7e-3f13-4aa5-a795-ca9fc23bd875.png');
     background-size: cover;
     background-position: center top;
     background-repeat: no-repeat;
