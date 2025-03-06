@@ -26,9 +26,9 @@ const NavigationTabs = () => {
   if (!mounted) return null;
 
   return (
-    <div className="mb-6 pb-1 mt-10 hidden md:block">
+    <div className="mb-6 pb-1 mt-16 hidden md:block">
       <div className="flex justify-center">
-        <div className="rounded-md bg-[#D3E4FD]/10 backdrop-blur-sm border border-[#33C3F0]/20 px-1 shadow-lg">
+        <div className="rounded-md bg-midasbuy-darkBlue px-1 shadow-lg border border-[#33C3F0]/10">
           {navLinks.map((link, index) => (
             <>
               <button 
@@ -40,9 +40,6 @@ const NavigationTabs = () => {
                 )}
               >
                 {link.name}
-                {location.pathname === link.path && (
-                  <span className="absolute bottom-0 left-0 w-full h-1 bg-[#1EAEDB] shadow-[0_0_8px_rgba(30,174,219,0.8)]"></span>
-                )}
               </button>
               {index < navLinks.length - 1 && (
                 <span className="h-6 w-px bg-gray-700/50 self-center mx-1"></span>
