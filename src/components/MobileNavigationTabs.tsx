@@ -23,6 +23,14 @@ const MobileNavigationTabs = () => {
     }
   };
 
+  const isActive = (path: string) => {
+    if (path === "/" && location.pathname === "/") return true;
+    if (path === "/redeem" && location.pathname === "/purchase-history") return true;
+    if (path === "/shop" && location.pathname === "/gaming-shop") return true;
+    if (path === "/events" && location.pathname === "/events") return true;
+    return false;
+  };
+
   return (
     <div className="mb-4 overflow-x-auto pb-1 mt-4 md:hidden">
       <div className="flex min-w-max border-b border-gray-700">
@@ -32,15 +40,11 @@ const MobileNavigationTabs = () => {
             onClick={() => handleNavigate(link.path)}
             className={cn(
               "text-gray-400 font-bold tracking-wide px-4 py-2 relative hover:text-white transition-colors text-xs",
-              (location.pathname === link.path || 
-               (link.path === "/redeem" && location.pathname === "/purchase-history") ||
-               (link.path === "/shop" && location.pathname === "/gaming-shop")) ? "text-white" : ""
+              isActive(link.path) ? "text-white" : ""
             )}
           >
             {link.name}
-            {(location.pathname === link.path || 
-              (link.path === "/redeem" && location.pathname === "/purchase-history") ||
-              (link.path === "/shop" && location.pathname === "/gaming-shop")) && (
+            {isActive(link.path) && (
               <span className="absolute bottom-0 left-0 w-full h-1 bg-midasbuy-blue"></span>
             )}
           </button>
