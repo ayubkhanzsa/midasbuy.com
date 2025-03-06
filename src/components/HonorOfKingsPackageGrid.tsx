@@ -44,7 +44,7 @@ const HonorOfKingsPackageGrid = ({ packages, selectedCountry }: HonorOfKingsPack
 
     // Also preload the token icon for better performance
     const tokenIcon = new Image();
-    tokenIcon.src = "/lovable-uploads/794540d1-fb13-4f21-be3d-e9c525cdbbfe.png";
+    tokenIcon.src = "/lovable-uploads/66f224af-167c-45ac-9981-180dd2bf927d.png";
     
     // And the Midasbuy logo
     const midasbuyLogo = new Image();
@@ -96,7 +96,7 @@ const HonorOfKingsPackageGrid = ({ packages, selectedCountry }: HonorOfKingsPack
                 <div className="flex items-center mb-2 sm:mb-3">
                   <div className="token-icon mr-1 sm:mr-2">
                     <img 
-                      src="/lovable-uploads/794540d1-fb13-4f21-be3d-e9c525cdbbfe.png" 
+                      src="/lovable-uploads/66f224af-167c-45ac-9981-180dd2bf927d.png" 
                       alt="Token" 
                       className="w-4 h-4 sm:w-5 sm:h-5" 
                       loading="eager"
