@@ -283,113 +283,6 @@ const HonorOfKingsPurchasePage = ({ onLogout }: HonorOfKingsPurchasePageProps) =
           </div>
           
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            <div className="lg:col-span-2 order-2 lg:order-1">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="glass-effect rounded-xl p-6 mb-6"
-              >
-                <div className="flex items-center justify-between mb-4">
-                  <h2 className="text-xl font-bold text-white flex items-center">
-                    <User className="w-5 h-5 mr-2 text-midasbuy-blue" />
-                    Player Information
-                  </h2>
-                  <div className="bg-midasbuy-navy/50 px-3 py-1 rounded-full text-xs text-gray-300 flex items-center">
-                    <Shield className="w-3 h-3 mr-1 text-midasbuy-blue" />
-                    Secure Verification
-                  </div>
-                </div>
-                
-                {isPlayerIDValid ? (
-                  <div>
-                    <div className="flex flex-col items-start">
-                      <div className="flex items-center mb-6 w-full justify-start">
-                        <div className="bg-gradient-to-r from-[#1a5fb4] to-[#3584e4] text-white text-xs px-3 py-1 rounded-full flex items-center font-medium shadow-md">
-                          <Check className="w-3 h-3 mr-1" /> Verified Account
-                        </div>
-                      </div>
-                      
-                      <div className="w-full space-y-5">
-                        <div className="flex items-center justify-between border-b border-gray-700/30 pb-3">
-                          <span className="text-gray-400 text-sm font-medium w-32">Player ID:</span>
-                          <span className="text-white font-semibold tracking-wide text-right">{playerID}</span>
-                        </div>
-                        
-                        <div className="flex items-center justify-between pt-2">
-                          <span className="text-gray-400 text-sm font-medium w-32">Username:</span>
-                          <span className="text-white font-semibold text-right">{username}</span>
-                        </div>
-                      </div>
-                      
-                      <div className="mt-6 w-full flex justify-end">
-                        <Button 
-                          className="bg-[#1F2A3C] hover:bg-[#2A3A52] text-white shadow-md transition-all duration-200"
-                          onClick={handleResetPlayerID}
-                        >
-                          <RefreshCw className="w-4 h-4 mr-1" /> Change ID
-                        </Button>
-                      </div>
-                    </div>
-                  </div>
-                ) : (
-                  <div className="p-5">
-                    <div className="text-center py-3">
-                      <div className="mb-4">
-                        <img 
-                          src="/lovable-uploads/02bb433c-783b-4512-b8bd-c2d8c0cb3d0e.png" 
-                          alt="Honor of Kings Logo" 
-                          className="h-10 w-auto mx-auto rounded-lg mb-4"
-                        />
-                        <p className="text-gray-300 mb-4 text-lg font-medium">Please enter your Player ID to continue</p>
-                      </div>
-                      <Button 
-                        className="bg-gradient-to-r from-midasbuy-blue to-blue-500 hover:from-blue-600 hover:to-blue-500 text-white font-medium shadow-md transition-all duration-300 hover:shadow-lg px-6 py-5 h-auto"
-                        onClick={openPlayerIdModal}
-                      >
-                        <User className="w-4 h-4 mr-2" /> Enter Your Player ID Now &gt;
-                      </Button>
-                    </div>
-                  </div>
-                )}
-                
-                <div className="mt-3 flex items-start">
-                  <AlertCircle className="w-4 h-4 text-midasbuy-gold mr-2 flex-shrink-0 mt-0.5" />
-                  <p className="text-xs text-gray-300">
-                    Your Player ID can be found in your Honor of Kings game. Go to your profile and copy the ID number. 
-                    This ID is required to deliver credits directly to your account.
-                  </p>
-                </div>
-              </motion.div>
-              
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.1 }}
-                className="glass-effect rounded-xl p-6"
-              >
-                <h2 className="text-xl font-bold mb-4 text-white">Important Information</h2>
-                
-                <div className="space-y-4 text-sm text-gray-300">
-                  <p className="flex items-start">
-                    <span className="text-midasbuy-gold mr-2">•</span>
-                    Credits will be directly added to the Honor of Kings account with the Player ID you provide.
-                  </p>
-                  <p className="flex items-start">
-                    <span className="text-midasbuy-gold mr-2">•</span>
-                    Please ensure that the Player ID is correct before proceeding with the purchase.
-                  </p>
-                  <p className="flex items-start">
-                    <span className="text-midasbuy-gold mr-2">•</span>
-                    Credit delivery is instant but may take up to 5 minutes in some cases.
-                  </p>
-                  <p className="flex items-start">
-                    <span className="text-midasbuy-gold mr-2">•</span>
-                    For any issues with your purchase, please contact our support team.
-                  </p>
-                </div>
-              </motion.div>
-            </div>
-            
             <div className="lg:col-span-1 order-1 lg:order-2">
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
@@ -467,6 +360,113 @@ const HonorOfKingsPurchasePage = ({ onLogout }: HonorOfKingsPurchasePageProps) =
                 >
                   Proceed to Checkout
                 </Button>
+              </motion.div>
+            </div>
+            
+            <div className="lg:col-span-2 order-2 lg:order-1">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="glass-effect rounded-xl p-6 mb-6"
+              >
+                <div className="flex items-center justify-between mb-4">
+                  <h2 className="text-xl font-bold text-white flex items-center">
+                    <User className="w-5 h-5 mr-2 text-midasbuy-blue" />
+                    Player Information
+                  </h2>
+                  <div className="bg-midasbuy-navy/50 px-3 py-1 rounded-full text-xs text-gray-300 flex items-center">
+                    <Shield className="w-3 h-3 mr-1 text-midasbuy-blue" />
+                    Secure Verification
+                  </div>
+                </div>
+                
+                {isPlayerIDValid ? (
+                  <div>
+                    <div className="flex flex-col items-start">
+                      <div className="flex items-center mb-6 w-full justify-start">
+                        <div className="bg-gradient-to-r from-[#1a5fb4] to-[#3584e4] text-white text-xs px-3 py-1 rounded-full flex items-center font-medium shadow-md">
+                          <Check className="w-3 h-3 mr-1" /> Verified Account
+                        </div>
+                      </div>
+                      
+                      <div className="w-full space-y-5">
+                        <div className="flex items-center justify-between border-b border-gray-700/30 pb-3">
+                          <span className="text-gray-400 text-sm font-medium w-32">Player ID:</span>
+                          <span className="text-white font-semibold tracking-wide text-right">{playerID}</span>
+                        </div>
+                        
+                        <div className="flex items-center justify-between pt-2">
+                          <span className="text-gray-400 text-sm font-medium w-32">Username:</span>
+                          <span className="text-white font-semibold text-right">{username}</span>
+                        </div>
+                      </div>
+                      
+                      <div className="mt-6 w-full flex justify-center">
+                        <Button 
+                          className="bg-[#1F2A3C] hover:bg-[#2A3A52] text-white shadow-md transition-all duration-200"
+                          onClick={handleResetPlayerID}
+                        >
+                          <RefreshCw className="w-4 h-4 mr-1" /> Change ID
+                        </Button>
+                      </div>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="p-5">
+                    <div className="text-center py-3">
+                      <div className="mb-4">
+                        <img 
+                          src="/lovable-uploads/02bb433c-783b-4512-b8bd-c2d8c0cb3d0e.png" 
+                          alt="Honor of Kings Logo" 
+                          className="h-10 w-auto mx-auto rounded-lg mb-4"
+                        />
+                        <p className="text-gray-300 mb-4 text-lg font-medium">Please enter your Player ID to continue</p>
+                      </div>
+                      <Button 
+                        className="w-[80%] py-4 h-auto bg-gradient-to-r from-midasbuy-blue to-blue-500 hover:from-blue-600 hover:to-blue-500 text-white font-medium shadow-md transition-all duration-300 hover:shadow-lg"
+                        onClick={openPlayerIdModal}
+                      >
+                        <User className="w-4 h-4 mr-2" /> Enter Your Player ID Now &gt;
+                      </Button>
+                    </div>
+                  </div>
+                )}
+                
+                <div className="mt-3 flex items-start">
+                  <AlertCircle className="w-4 h-4 text-midasbuy-gold mr-2 flex-shrink-0 mt-0.5" />
+                  <p className="text-xs text-gray-300">
+                    Your Player ID can be found in your Honor of Kings game. Go to your profile and copy the ID number. 
+                    This ID is required to deliver credits directly to your account.
+                  </p>
+                </div>
+              </motion.div>
+              
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.1 }}
+                className="glass-effect rounded-xl p-6"
+              >
+                <h2 className="text-xl font-bold mb-4 text-white">Important Information</h2>
+                
+                <div className="space-y-4 text-sm text-gray-300">
+                  <p className="flex items-start">
+                    <span className="text-midasbuy-gold mr-2">•</span>
+                    Credits will be directly added to the Honor of Kings account with the Player ID you provide.
+                  </p>
+                  <p className="flex items-start">
+                    <span className="text-midasbuy-gold mr-2">•</span>
+                    Please ensure that the Player ID is correct before proceeding with the purchase.
+                  </p>
+                  <p className="flex items-start">
+                    <span className="text-midasbuy-gold mr-2">•</span>
+                    Credit delivery is instant but may take up to 5 minutes in some cases.
+                  </p>
+                  <p className="flex items-start">
+                    <span className="text-midasbuy-gold mr-2">•</span>
+                    For any issues with your purchase, please contact our support team.
+                  </p>
+                </div>
               </motion.div>
             </div>
           </div>
