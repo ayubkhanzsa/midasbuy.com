@@ -251,22 +251,22 @@ const HonorOfKingsPurchasePage = ({ onLogout }: HonorOfKingsPurchasePageProps) =
                     
                     <div className="ml-7 space-y-4">
                       <div>
-                        <p className="text-sm text-gray-300 mb-2">1. Find your ID in your profile page</p>
+                        <p className="text-sm text-gray-300 mb-2">1. Or view your ID in the game lobby</p>
                         <div className="rounded-md overflow-hidden mb-4">
                           <img 
-                            src="/lovable-uploads/a11f7ec0-260b-4785-89db-c8478d536442.png" 
-                            alt="Finding Player ID in Profile Page" 
+                            src="/lovable-uploads/d8a0389b-81ee-4c91-bd70-8e9e7b0d765b.png" 
+                            alt="Finding Player ID in Game Lobby" 
                             className="w-full rounded-md border border-gray-700"
                           />
                         </div>
                       </div>
                       
                       <div>
-                        <p className="text-sm text-gray-300 mb-2">2. Or view your ID in the game lobby</p>
+                        <p className="text-sm text-gray-300 mb-2">2. Find your ID in your profile page</p>
                         <div className="rounded-md overflow-hidden">
                           <img 
-                            src="/lovable-uploads/d8a0389b-81ee-4c91-bd70-8e9e7b0d765b.png" 
-                            alt="Finding Player ID in Game Lobby" 
+                            src="/lovable-uploads/a11f7ec0-260b-4785-89db-c8478d536442.png" 
+                            alt="Finding Player ID in Profile Page" 
                             className="w-full rounded-md border border-gray-700"
                           />
                         </div>
