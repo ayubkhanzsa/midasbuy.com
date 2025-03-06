@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils"
 
 export interface InputProps
   extends React.InputHTMLAttributes<HTMLInputElement> {
-  variant?: "default" | "blue"
+  variant?: "default" | "blue" | "dark"
 }
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
@@ -15,7 +15,8 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
         type={type}
         className={cn(
           "flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm",
-          variant === "blue" && "bg-[#00A8FF]/20 border-none text-white text-lg placeholder:text-gray-400 focus-visible:ring-0 h-12",
+          variant === "blue" && "bg-[#0099FF]/10 border-none text-white text-lg placeholder:text-gray-400 focus-visible:ring-0 h-12",
+          variant === "dark" && "bg-[#1E293B] border-none text-white placeholder:text-gray-400 focus-visible:ring-0",
           className
         )}
         ref={ref}

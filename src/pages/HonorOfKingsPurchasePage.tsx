@@ -10,7 +10,6 @@ import { Button } from "@/components/ui/button";
 import { toast } from "@/components/ui/use-toast";
 import { convertAndFormatPrice, setupCurrencyChangeListener } from "@/utils/currencyUtils";
 import { useResponsive } from "@/hooks/use-mobile";
-import { Label } from "@/components/ui/label";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 
 interface HonorOfKingsPurchasePageProps {
@@ -218,22 +217,23 @@ const HonorOfKingsPurchasePage = ({ onLogout }: HonorOfKingsPurchasePageProps) =
                 </div>
                 
                 <div className="mb-4">
-                  <div className="bg-[#00A8FF] bg-opacity-20 p-3 rounded-t-md">
-                    <p className="text-white">Please select or fill in your Player ID you want to recharge.</p>
+                  <div className="bg-[#0099FF]/10 p-3 rounded-t-md">
+                    <p className="text-white">Start by entering your Game player ID to ensure a smooth purchase!</p>
                   </div>
                   <div className="bg-[#1A1F2E] rounded-b-md p-3 border border-[#182238]">
                     <Input
                       value={tempPlayerID}
                       onChange={(e) => setTempPlayerID(e.target.value)}
                       placeholder="Enter Player ID"
-                      variant="blue"
+                      variant="dark"
+                      className="h-12"
                     />
                   </div>
                 </div>
                 
                 <Button 
                   className="w-full"
-                  variant="gradient"
+                  variant="blue"
                   size="xl"
                   onClick={handleVerifyPlayerID}
                   disabled={isVerifying || !tempPlayerID}
@@ -247,6 +247,35 @@ const HonorOfKingsPurchasePage = ({ onLogout }: HonorOfKingsPurchasePageProps) =
                     "OK"
                   )}
                 </Button>
+                
+                <div className="mt-6 space-y-4">
+                  <div>
+                    <h5 className="text-white font-medium mb-2 flex items-center">
+                      <HelpCircle className="w-4 h-4 mr-2 text-[#0099FF]" />
+                      Couldn't find your Player ID?
+                    </h5>
+                    
+                    <div className="ml-6">
+                      <p className="text-sm text-gray-300 mb-1">1.1. Enter the game</p>
+                      <div className="rounded-md overflow-hidden mb-4">
+                        <img 
+                          src="/lovable-uploads/e8dbeab5-139d-48a8-be8c-c65c04e63967.png" 
+                          alt="Finding Player ID Step 1" 
+                          className="w-full rounded-md"
+                        />
+                      </div>
+                      
+                      <p className="text-sm text-gray-300 mb-1">1.2. Go to your profile and find the ID</p>
+                      <div className="rounded-md overflow-hidden">
+                        <img 
+                          src="/lovable-uploads/e8dbeab5-139d-48a8-be8c-c65c04e63967.png" 
+                          alt="Finding Player ID Step 2" 
+                          className="w-full rounded-md"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </DialogContent>

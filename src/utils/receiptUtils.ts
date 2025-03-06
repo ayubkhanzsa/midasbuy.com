@@ -8,7 +8,7 @@ export const downloadReceipt = async (receiptElement: HTMLElement | null, orderI
     // Create a canvas from the receipt element
     const canvas = await html2canvas(receiptElement, {
       scale: 2,
-      backgroundColor: "#0A1629", // Dark blue background
+      backgroundColor: "#081020", // Darker blue background
       logging: false,
       useCORS: true,
     });
