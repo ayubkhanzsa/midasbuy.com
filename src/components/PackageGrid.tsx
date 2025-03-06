@@ -62,7 +62,21 @@ const PackageGrid = ({ packages, selectedCountry }: PackageGridProps) => {
           <Link to={`/purchase/${pkg.id}`} className="block">
             <div className="bg-midasbuy-navy rounded-lg overflow-hidden h-full transition-all duration-300 hover:shadow-[0_0_15px_rgba(0,145,255,0.3)] border border-midasbuy-navy hover:border-midasbuy-blue/50">
               <div className="p-4 flex justify-center">
-                {/* Image removed as requested */}
+                <motion.img 
+                  src={pkg.image}
+                  alt="UC Coins" 
+                  className={`object-contain ${['60uc', '300uc'].includes(pkg.id) ? 'h-10 sm:h-12' : ['600uc', '1500uc'].includes(pkg.id) ? 'h-12 sm:h-16' : 'h-16 sm:h-20'} transition-opacity duration-200 ${imagesLoaded[pkg.id] ? 'opacity-100' : 'opacity-0'}`}
+                  animate={{ 
+                    y: [0, -8, 0, 8, 0] 
+                  }}
+                  transition={{ 
+                    duration: slowAnimationDuration,
+                    ease: "easeInOut",
+                    repeat: Infinity,
+                    repeatType: "reverse"
+                  }}
+                  loading="eager"
+                />
               </div>
               
               <div className="p-3 sm:p-4 pt-1">
