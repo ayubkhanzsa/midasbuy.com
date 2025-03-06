@@ -10,6 +10,7 @@ import { ShoppingCart, Star, ArrowRight } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import PromotionBanner from "@/components/PromotionBanner";
 import { useNavigate } from "react-router-dom";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 interface GamingShopProps {
   onLogout: () => void;
@@ -185,85 +186,47 @@ const GamingShopPage = ({ onLogout }: GamingShopProps) => {
       
       <main className={`pb-20 relative ${isMobile ? 'mobile-content mobile-main-container' : 'z-10'}`}>
         <div className="w-full max-w-5xl mx-auto px-4">
-          {/* PUBG Title with Logo Section */}
-          <div className="flex flex-col md:flex-row items-start mb-6 relative mt-4">
-            <div className="flex-grow z-10 md:ml-8 md:mt-2">
-              <div className="flex items-center mb-2">
-                <img 
-                  src="/lovable-uploads/072f88f4-7402-4591-b3e4-11f57bb0e9ea.png" 
-                  alt="PUBG Mobile" 
-                  className={`w-[75px] mr-3 rounded-md ${isMobile ? 'mobile-pubg-icon' : ''}`}
-                />
-                <div>
-                  <div className="flex items-center">
-                    <h1 className={`text-2xl md:text-3xl text-white font-bold tracking-wide ${isMobile ? 'mobile-pubg-title' : ''}`}>PUBG MOBILE</h1>
-                    <div className="ml-3 flex space-x-2">
-                      <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-white text-black">
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3 mr-1" viewBox="0 0 24 24" fill="currentColor">
-                          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
-                        </svg>
-                        Official
-                      </span>
-                    </div>
-                  </div>
-                  
-                  <div className="mt-2">
-                    <button 
-                      className="bg-gradient-to-r from-midasbuy-blue to-midasbuy-blue/90 text-white font-medium rounded-md px-5 py-1 text-sm hover:from-midasbuy-blue/90 hover:to-midasbuy-blue transition-all shadow-lg flex items-center gap-2 border border-midasbuy-blue/30"
-                      onClick={handlePlayerIdClick}
-                    >
-                      <span className="font-semibold">Enter Your Player ID</span>
-                      <ArrowRight className="h-4 w-4" />
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
           <NavigationTabs />
           <MobileNavigationTabs />
           
           {showBanner && <PromotionBanner onClose={() => setShowBanner(false)} />}
           
-          {/* Rest of the content */}
           {isLoading ? (
             <div className="flex justify-center py-12">
               <div className="w-12 h-12 border-4 border-midasbuy-blue border-t-transparent rounded-full animate-spin"></div>
             </div>
           ) : (
             <>
-              {/* Banner section */}
-              <div className="relative rounded-lg overflow-hidden mb-4">
-                <img 
-                  src="/lovable-uploads/55214c0a-5aad-45f3-b1e0-ab96c659a72e.png" 
-                  alt="Midasbuy Promo" 
-                  className="w-full h-48 object-cover object-center"
-                />
-                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4">
-                  <div className="text-white text-xl font-bold mb-1">
-                    EXTRA BONUS UPSIZE <span className="text-green-400">ONLY ON MIDASBUY</span>
-                  </div>
-                  <div className="text-white text-lg">
-                    ENJOY UP TO <span className="text-green-400 font-bold">45%</span> BONUS NOW
+              <ScrollArea className="h-[400px] rounded-lg mb-4">
+                <div className="relative rounded-lg overflow-hidden mb-4">
+                  <img 
+                    src="/lovable-uploads/55214c0a-5aad-45f3-b1e0-ab96c659a72e.png" 
+                    alt="Midasbuy Promo" 
+                    className="w-full h-48 object-cover object-center"
+                  />
+                  <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4">
+                    <div className="text-white text-xl font-bold mb-1">
+                      EXTRA BONUS UPSIZE <span className="text-green-400">ONLY ON MIDASBUY</span>
+                    </div>
+                    <div className="text-white text-lg">
+                      ENJOY UP TO <span className="text-green-400 font-bold">45%</span> BONUS NOW
+                    </div>
                   </div>
                 </div>
-              </div>
+                
+                {showBanner && (
+                  <div className="bg-gradient-to-r from-blue-600 to-blue-400 text-white p-3 rounded-lg flex justify-between items-center mb-6">
+                    <span className="font-medium">EXTRA BONUS UPSIZE only on Midasbuy. Enjoy up to 45% Bonus now.</span>
+                    <Button 
+                      size="sm" 
+                      className="bg-white text-blue-700 hover:bg-white/90 rounded-full px-4"
+                    >
+                      GO
+                    </Button>
+                  </div>
+                )}
+              </ScrollArea>
               
-              {/* Blue promotional banner */}
-              {showBanner && (
-                <div className="bg-gradient-to-r from-blue-600 to-blue-400 text-white p-3 rounded-lg flex justify-between items-center mb-6">
-                  <span className="font-medium">EXTRA BONUS UPSIZE only on Midasbuy. Enjoy up to 45% Bonus now.</span>
-                  <Button 
-                    size="sm" 
-                    className="bg-white text-blue-700 hover:bg-white/90 rounded-full px-4"
-                  >
-                    GO
-                  </Button>
-                </div>
-              )}
-              
-              {/* Popular Games Section */}
               <div className="mb-8">
                 <div className="flex items-center gap-2 mb-4">
                   <h2 className="text-xl text-white font-bold uppercase">POPULAR GAMES</h2>
@@ -298,7 +261,6 @@ const GamingShopPage = ({ onLogout }: GamingShopProps) => {
                   ))}
                 </div>
                 
-                {/* Additional Games Row */}
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-4">
                   {popularGames.slice(8, 13).map((game) => (
                     <div 
@@ -325,7 +287,6 @@ const GamingShopPage = ({ onLogout }: GamingShopProps) => {
                 </div>
               </div>
               
-              {/* Latest News Section */}
               <div className="mb-8">
                 <div className="flex justify-between items-center mb-4">
                   <h2 className="text-xl text-white font-bold uppercase">LATEST NEWS</h2>
@@ -366,7 +327,6 @@ const GamingShopPage = ({ onLogout }: GamingShopProps) => {
                 </div>
               </div>
               
-              {/* Social Media Follow Section */}
               <div className="bg-midasbuy-navy/40 rounded-lg p-4 flex items-center justify-between">
                 <div>
                   <div className="text-white font-bold mb-1">Follow Midasbuy</div>
