@@ -1,8 +1,8 @@
-
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
+import { motion } from "framer-motion";
 import Header from "@/components/Header";
 import { ucPackages, getSelectedCountry } from "@/data/ucPackages";
-import { useResponsive } from "@/hooks/use-mobile";
+import { useMobile, useResponsive } from "@/hooks/use-mobile";
 import NavigationTabs from "@/components/NavigationTabs";
 import PrivacyPolicyModal from "@/components/PrivacyPolicyModal";
 import LoadingScreen from "@/components/LoadingScreen";
@@ -10,6 +10,7 @@ import PromotionBanner from "@/components/PromotionBanner";
 import PackageGrid from "@/components/PackageGrid";
 import FilterBar from "@/components/FilterBar";
 import Footer from "@/components/Footer";
+import { ChevronDown } from "lucide-react";
 
 interface IndexProps {
   onLogout: () => void;
@@ -30,19 +31,6 @@ const Index = ({ onLogout }: IndexProps) => {
 
     return () => clearTimeout(timer);
   }, []);
-
-  // Force banner to be visible after component mounts
-  useEffect(() => {
-    // Ensure the banner is displayed by adding a class and setting inline styles
-    const banner = document.querySelector('.celebration-banner');
-    if (banner) {
-      banner.classList.add('force-visible');
-      (banner as HTMLElement).style.display = 'block';
-      (banner as HTMLElement).style.opacity = '1';
-      (banner as HTMLElement).style.visibility = 'visible';
-      console.log("Banner should be visible now:", banner);
-    }
-  }, [isLoading]); // Run after loading completes
 
   useEffect(() => {
     const handleStorageChange = (e: StorageEvent) => {
@@ -90,18 +78,57 @@ const Index = ({ onLogout }: IndexProps) => {
 
   return (
     <div className="min-h-screen bg-midasbuy-darkBlue overflow-x-hidden relative">
-      <Header onLogout={onLogout} />
+      {isMobile && (
+        <>
+          <div className="mobile-header-banner"></div>
+          <div className="mobile-header-overlay"></div>
+        </>
+      )}
       
-      <div 
-        className="celebration-banner force-visible" 
-        style={{display: 'block', opacity: 1, visibility: 'visible'}}
-      >
-        <div className="celebration-banner-overlay"></div>
+      <div className={isMobile ? 'mobile-header' : ''}>
+        <Header onLogout={onLogout} />
       </div>
       
-      <main className="pb-20">
-        <div className="container mx-auto px-4">
-          <NavigationTabs />
+      <main className={`pt-20 pb-20 ${isMobile ? 'mobile-content mobile-main-container' : 'desktop-content desktop-main-container'}`}>
+        <div className={`container mx-auto px-4 ${isMobile ? 'mobile-main-container' : 'desktop-main-container'}`}>
+          <div className="flex flex-col md:flex-row items-start mb-6 relative">
+            <div className="flex-grow z-10">
+              <div className="flex items-center mb-3">
+                <img 
+                  src="/lovable-uploads/072f88f4-7402-4591-b3e4-11f57bb0e9ea.png" 
+                  alt="PUBG Mobile" 
+                  className={`w-[35px] mr-3 rounded-md ${isMobile ? 'mobile-pubg-icon' : ''}`}
+                />
+                <h1 className={`text-3xl md:text-4xl text-white font-bold tracking-wide ${isMobile ? 'mobile-pubg-title' : ''}`}>PUBG MOBILE</h1>
+              </div>
+              
+              <div className="flex items-center space-x-2 mb-3">
+                <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-white/90 text-black">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3 mr-1" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                  </svg>
+                  Official
+                </span>
+                <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-white/90 text-black">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3 mr-1" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 2C6.48 2 2 6.44 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                  </svg>
+                  Subscribed
+                </span>
+              </div>
+              
+              <div className="mt-1 mb-6">
+                <button className="btn-primary inline-flex items-center text-sm py-1 px-3">
+                  <span>Enter Your Player ID Now</span>
+                  <ChevronDown className="ml-1 w-3 h-3" />
+                </button>
+              </div>
+            </div>
+          </div>
+          
+          <div className="navigation-tabs">
+            <NavigationTabs />
+          </div>
           
           {showPromotion && <PromotionBanner onClose={() => setShowPromotion(false)} />}
           

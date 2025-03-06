@@ -85,75 +85,125 @@
   }
 }
 
-body {
-  background-color: #0A1629 !important;
+/* Desktop and Tablet Banner Styling */
+@media (min-width: 769px) {
+  .desktop-header-banner {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 300px; /* Adjusted height to show banner down to the Player ID button */
+    background-image: url('/lovable-uploads/af3d5704-db1f-4e3b-ae85-983b98c7cabd.png');
+    background-size: cover;
+    background-position: center top;
+    background-repeat: no-repeat;
+    z-index: 0;
+  }
+  
+  .desktop-header-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 300px; /* Match banner height */
+    background: linear-gradient(to bottom, rgba(10, 22, 41, 0.3) 0%, rgba(10, 22, 41, 0.6) 80%, #0A1629 100%);
+    z-index: 1;
+  }
+  
+  /* Ensure content is properly positioned */
+  .desktop-content {
+    position: relative;
+    z-index: 5;
+  }
+  
+  /* Adjust header so it appears over the banner */
+  .desktop-header {
+    position: relative;
+    z-index: 10;
+    background: transparent !important;
+  }
+  
+  /* Force all content to be on top of the background */
+  .desktop-main-container {
+    position: relative;
+    z-index: 5;
+  }
 }
 
-/* Make sure navigation tabs are properly styled */
-.navigation-tabs {
-  position: relative;
-  z-index: 10;
-}
-
-/* Style for promotion banner */
-.promotion-banner {
-  background: linear-gradient(to right, rgba(85, 85, 85, 0.3), rgba(100, 100, 100, 0.2));
-  border-radius: 0.5rem;
-}
-
-/* Celebration Banner Styles */
-.celebration-banner {
-  background-image: url('/lovable-uploads/045e7511-5b53-4804-a20b-cfd5599fa533.png');
-  background-size: cover;
-  background-position: center top;
-  background-repeat: no-repeat;
-  height: 200px;
-  width: 100%;
-  position: relative;
-  margin-bottom: 1rem;
-  display: block !important; /* Force display */
-  z-index: 5;
-  opacity: 1 !important; /* Ensure visibility */
-  visibility: visible !important; /* Force visibility */
-}
-
-.celebration-banner-overlay {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 70px;
-  background: linear-gradient(to bottom, transparent, rgba(10, 22, 41, 0.95));
-  pointer-events: none;
-}
-
-/* Responsive adjustments for banner */
-@media (min-width: 640px) {
-  .celebration-banner {
+/* Mobile specific adjustments for PUBG Mobile landing page */
+@media (max-width: 768px) {
+  body {
+    background-color: #0A1629 !important;
+  }
+  
+  /* Mobile banner styling */
+  .mobile-header-banner {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
     height: 250px;
+    background-image: url('/lovable-uploads/af3d5704-db1f-4e3b-ae85-983b98c7cabd.png');
+    background-size: cover;
+    background-position: center top;
+    background-repeat: no-repeat;
+    z-index: 0;
   }
-}
-
-@media (min-width: 768px) {
-  .celebration-banner {
-    height: 300px;
+  
+  /* Add overlay for better text visibility */
+  .mobile-header-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 250px; /* Match the banner height */
+    background: linear-gradient(to bottom, rgba(10, 22, 41, 0.2) 0%, rgba(10, 22, 41, 0.5) 70%, #0A1629 100%);
+    z-index: 1;
   }
-}
-
-@media (min-width: 1024px) {
-  .celebration-banner {
-    height: 350px;
+  
+  /* Ensure content is above the banner */
+  .mobile-content {
+    position: relative;
+    z-index: 5;
+    padding-top: 2rem;
   }
-}
-
-@media (min-width: 1280px) {
-  .celebration-banner {
-    height: 400px;
+  
+  /* Adjust header for mobile so it appears over the banner */
+  .mobile-header {
+    position: relative;
+    z-index: 10;
+    background: transparent !important;
   }
-}
+  
+  /* Force all content to be on top of the background */
+  .mobile-main-container {
+    position: relative;
+    z-index: 5;
+  }
+  
+  /* Adjust PUBG Mobile title on mobile */
+  .mobile-pubg-title {
+    font-size: 1.5rem !important;
+    margin-top: 1.5rem;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  }
+  
+  /* Adjust PUBG Mobile icon on mobile */
+  .mobile-pubg-icon {
+    width: 28px !important;
+    margin-top: 1.5rem;
+  }
 
-.force-visible {
-  display: block !important;
-  opacity: 1 !important;
-  visibility: visible !important;
+  /* Ensure the player ID button is visible against the banner */
+  .btn-primary {
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
+  }
+  
+  /* Navigation should be below the banner */
+  .navigation-tabs {
+    position: relative;
+    z-index: 10;
+    margin-top: 0.5rem;
+  }
 }

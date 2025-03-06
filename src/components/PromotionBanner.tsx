@@ -9,19 +9,19 @@ const PromotionBanner = ({ onClose }: PromotionBannerProps) => (
   <motion.div 
     initial={{ opacity: 0, y: -10 }}
     animate={{ opacity: 1, y: 0 }}
-    className="mb-6 bg-gradient-to-r from-gray-800/60 to-gray-700/50 rounded-md p-3 flex items-center relative overflow-hidden"
+    className="mb-6 bg-gradient-to-r from-midasbuy-darkGold/30 to-midasbuy-gold/20 rounded-lg p-3 flex items-center relative overflow-hidden"
   >
-    <div className="absolute left-0 top-0 text-xs text-black font-medium bg-yellow-500 py-1 px-2 rounded-br-md">
+    <div className="absolute left-0 top-0 text-xs text-black font-medium bg-midasbuy-gold py-1 px-2 rounded-br-md">
       Ends in 2023-03-08
     </div>
     
     <div className="ml-8 flex-grow py-2">
       <p className="text-gray-200 font-medium text-sm">
-        <span className="text-yellow-500 font-bold">Recharging 60UC, 300UC, or 600UC</span> will get you the Classic Crate Voucher (30 UC). One purchase per day, three times in total.
+        <span className="text-midasbuy-gold font-bold">Recharging 60UC, 300UC, or 600UC</span> will get you the Classic Crate Voucher (30 UC). One purchase per day, three times in total.
       </p>
     </div>
     
-    <button className="flex-shrink-0 bg-white text-gray-800 font-bold rounded-full h-8 w-8 flex items-center justify-center mr-6">
+    <button className="flex-shrink-0 bg-white text-midasbuy-navy font-bold rounded-full h-8 w-8 flex items-center justify-center">
       GO
     </button>
     

@@ -124,8 +124,6 @@ export default {
 				'hero-pattern': "url('/lovable-uploads/f1df18f8-bc28-4c2c-a700-74015fdfaf5b.png')",
 				'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
 				'glass-gradient': 'linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05))',
-				'pubg-banner': "url('/lovable-uploads/c580fe21-eb14-4255-b516-32f21f66cccb.png')",
-				'new-pubg-banner': "url('/lovable-uploads/45ebd6c7-cba1-429c-9087-769e1d8e6076.png')",
 			}
 		}
 	},
