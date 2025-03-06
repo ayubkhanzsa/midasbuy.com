@@ -1,4 +1,3 @@
-
 import { useState, useEffect, useRef } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
@@ -101,9 +100,8 @@ const PurchasePage = ({ onLogout }: PurchasePageProps) => {
 
     setIsVerifying(true);
 
-    // Instead of generating a random username, we'll use a fixed "Player" name with the ID
-    const verifiedUsername = `Player_${tempPlayerID.substring(0, 4)}`;
-
+    const savedUsername = localStorage.getItem("pubgUsername");
+    
     setTimeout(() => {
       setIsVerifying(false);
       setIsPlayerIDValid(true);
@@ -115,8 +113,14 @@ const PurchasePage = ({ onLogout }: PurchasePageProps) => {
       });
       
       localStorage.setItem("playerID", tempPlayerID);
-      localStorage.setItem("pubgUsername", verifiedUsername);
-      setUsername(verifiedUsername);
+      
+      if (savedUsername) {
+        setUsername(savedUsername);
+      } else {
+        const placeholderUsername = `Player_${tempPlayerID.substring(0, 4)}`;
+        localStorage.setItem("pubgUsername", placeholderUsername);
+        setUsername(placeholderUsername);
+      }
       
       setShowPlayerIdModal(false);
     }, 1500);
