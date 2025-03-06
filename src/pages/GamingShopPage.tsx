@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -231,14 +232,13 @@ const GamingShopPage = ({ onLogout }: GamingShopProps) => {
           <NavigationTabs />
           <MobileNavigationTabs />
           
-          {showBanner && <PromotionBanner onClose={() => setShowBanner(false)} />}
-          
           {isLoading ? (
             <div className="flex justify-center py-12">
               <div className="w-12 h-12 border-4 border-midasbuy-blue border-t-transparent rounded-full animate-spin"></div>
             </div>
           ) : (
             <>
+              {/* Carousel moved to the top */}
               <FeatureBoxesCarousel className="mb-8" />
               
               <div className="mb-8">
@@ -300,6 +300,9 @@ const GamingShopPage = ({ onLogout }: GamingShopProps) => {
                   ))}
                 </div>
               </div>
+              
+              {/* Show promotion banner here instead of at the top */}
+              {showBanner && <PromotionBanner onClose={() => setShowBanner(false)} />}
               
               <div className="mb-8">
                 <div className="flex justify-between items-center mb-6">

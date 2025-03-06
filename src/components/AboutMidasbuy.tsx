@@ -72,7 +72,7 @@ const AboutMidasbuy = () => {
         </div>
 
         <div className="mt-12">
-          <FeatureBoxesCarousel />
+          <FeatureBoxesCarousel showHeading={true} />
         </div>
       </div>
     </div>
