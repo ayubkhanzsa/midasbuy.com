@@ -103,7 +103,7 @@ body {
 
 /* Celebration Banner Styles */
 .celebration-banner {
-  background-image: url('/lovable-uploads/045e7511-5b53-4804-a20b-cfd5599fa533.png');
+  background-image: url('/lovable-uploads/2b3b8bba-f6b9-47d3-ab08-c7e7b7ffe9a6.png');
   background-size: cover;
   background-position: center top;
   background-repeat: no-repeat;
@@ -111,8 +111,6 @@ body {
   width: 100%;
   position: relative;
   margin-bottom: 1rem;
-  display: block;  /* Ensure the banner is displayed */
-  z-index: 5;  /* Make sure banner has proper z-index */
 }
 
 .celebration-banner-overlay {
@@ -120,8 +118,8 @@ body {
   bottom: 0;
   left: 0;
   right: 0;
-  height: 70px;
-  background: linear-gradient(to bottom, transparent, rgba(10, 22, 41, 0.95));
+  height: 50px;
+  background: linear-gradient(to bottom, transparent, #0A1629);
   pointer-events: none;
 }
 
