@@ -34,17 +34,25 @@ const PlayerIdPage = ({ onLogout }: { onLogout: () => void }) => {
       return;
     }
 
+    // Check if username is verified in events page
+    const savedUsername = localStorage.getItem("pubgUsername");
+    if (!savedUsername) {
+      toast({
+        title: "Username Not Verified",
+        description: "Please verify your username in the Events page first",
+        variant: "destructive",
+      });
+      return;
+    }
+
     setLoading(true);
     // Simulate API call
     setTimeout(() => {
       if (playerId.length >= 8 && playerId.length <= 12) {
         setPlayerVerified(true);
         
-        // Use the username from Events page if available, otherwise use a fallback
-        const savedUsername = localStorage.getItem("pubgUsername");
-        if (!savedUsername) {
-          setPlayerName("PUBG_Player" + playerId.substring(0, 4));
-        }
+        // Always use the username from Events page
+        setPlayerName(savedUsername);
         
         // Save the player ID to localStorage
         localStorage.setItem("playerID", playerId);

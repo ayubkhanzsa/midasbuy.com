@@ -53,22 +53,11 @@ const PurchasePage = ({ onLogout }: PurchasePageProps) => {
       const savedUsername = localStorage.getItem("pubgUsername");
       if (savedUsername) {
         setUsername(savedUsername);
+      } else {
+        setUsername("");
       }
     }
     
-    const handleStorageChange = (event: StorageEvent) => {
-      if (event.key === "pubgUsername") {
-        const newUsername = event.newValue;
-        if (newUsername !== null) {
-          setUsername(newUsername);
-        } else {
-          setUsername("");
-        }
-      }
-    };
-
-    window.addEventListener('storage', handleStorageChange);
-
     const handleCountryChange = () => {
       const newSelectedCountry = getSelectedCountry();
       if (newSelectedCountry.currency !== selectedCountry.currency) {
@@ -84,7 +73,6 @@ const PurchasePage = ({ onLogout }: PurchasePageProps) => {
     return () => {
       storageCleanup();
       currencyCleanup();
-      window.removeEventListener('storage', handleStorageChange);
     };
   }, []);
 
@@ -98,9 +86,17 @@ const PurchasePage = ({ onLogout }: PurchasePageProps) => {
       return;
     }
 
-    setIsVerifying(true);
-
     const savedUsername = localStorage.getItem("pubgUsername");
+    if (!savedUsername) {
+      toast({
+        title: "Username Not Verified",
+        description: "Please verify your username in the Events page first",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    setIsVerifying(true);
     
     setTimeout(() => {
       setIsVerifying(false);
@@ -114,13 +110,7 @@ const PurchasePage = ({ onLogout }: PurchasePageProps) => {
       
       localStorage.setItem("playerID", tempPlayerID);
       
-      if (savedUsername) {
-        setUsername(savedUsername);
-      } else {
-        const placeholderUsername = `Player_${tempPlayerID.substring(0, 4)}`;
-        localStorage.setItem("pubgUsername", placeholderUsername);
-        setUsername(placeholderUsername);
-      }
+      setUsername(savedUsername);
       
       setShowPlayerIdModal(false);
     }, 1500);
@@ -129,9 +119,7 @@ const PurchasePage = ({ onLogout }: PurchasePageProps) => {
   const handleResetPlayerID = () => {
     setPlayerID("");
     setIsPlayerIDValid(false);
-    setUsername("");
     localStorage.removeItem("playerID");
-    localStorage.removeItem("pubgUsername");
     
     toast({
       title: "Player ID Reset",
