@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -10,13 +9,21 @@ import { Button } from "@/components/ui/button";
 import { ShoppingCart, Star, ArrowRight } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import PromotionBanner from "@/components/PromotionBanner";
+import { useNavigate } from "react-router-dom";
 
 interface GamingShopProps {
   onLogout: () => void;
 }
 
-// Updated gaming products data with new images and rearranged logos
+// Reordered games list with PUBG MOBILE first
 const popularGames = [
+  {
+    id: "pubg-001",
+    name: "PUBG MOBILE",
+    image: "/lovable-uploads/1ebc2015-cced-4512-97ef-41ea5b45cbb3.png",
+    tag: "FEATURED",
+    tagColor: "bg-yellow-500"
+  },
   {
     id: "honor-001",
     name: "HONOR OF KINGS",
@@ -51,13 +58,6 @@ const popularGames = [
     image: "/lovable-uploads/3bcb2d3b-038e-4c45-9758-d69a9aa66a4d.png",
     tag: "TOP RATED",
     tagColor: "bg-blue-500"
-  },
-  {
-    id: "pubg-001",
-    name: "PUBG MOBILE",
-    image: "/lovable-uploads/1ebc2015-cced-4512-97ef-41ea5b45cbb3.png",
-    tag: "FEATURED",
-    tagColor: "bg-yellow-500"
   },
   {
     id: "assasin-007",
@@ -151,9 +151,9 @@ const GamingShopPage = ({ onLogout }: GamingShopProps) => {
   const [showBanner, setShowBanner] = useState(true);
   const { isMobile, isTablet, isDesktop } = useResponsive();
   const { toast } = useToast();
+  const navigate = useNavigate();
 
   useEffect(() => {
-    // Simulate loading
     const timer = setTimeout(() => {
       setIsLoading(false);
     }, 800);
@@ -162,11 +162,19 @@ const GamingShopPage = ({ onLogout }: GamingShopProps) => {
   }, []);
 
   const handleGameClick = (game: typeof popularGames[0]) => {
-    toast({
-      title: `${game.name} Selected`,
-      description: "This product is not available yet. Coming soon!",
-      variant: "default",
-    });
+    if (game.name === "PUBG MOBILE") {
+      navigate("/");
+    } else {
+      toast({
+        title: `${game.name} Selected`,
+        description: "This product is not available yet. Coming soon!",
+        variant: "default",
+      });
+    }
+  };
+
+  const handlePlayerIdClick = () => {
+    navigate("/player-id");
   };
 
   return (
@@ -177,9 +185,48 @@ const GamingShopPage = ({ onLogout }: GamingShopProps) => {
       
       <main className={`pb-20 relative ${isMobile ? 'mobile-content mobile-main-container' : 'z-10'}`}>
         <div className="w-full max-w-5xl mx-auto px-4">
+          {/* PUBG Title with Logo Section */}
+          <div className="flex flex-col md:flex-row items-start mb-6 relative mt-4">
+            <div className="flex-grow z-10 md:ml-8 md:mt-2">
+              <div className="flex items-center mb-2">
+                <img 
+                  src="/lovable-uploads/072f88f4-7402-4591-b3e4-11f57bb0e9ea.png" 
+                  alt="PUBG Mobile" 
+                  className={`w-[75px] mr-3 rounded-md ${isMobile ? 'mobile-pubg-icon' : ''}`}
+                />
+                <div>
+                  <div className="flex items-center">
+                    <h1 className={`text-2xl md:text-3xl text-white font-bold tracking-wide ${isMobile ? 'mobile-pubg-title' : ''}`}>PUBG MOBILE</h1>
+                    <div className="ml-3 flex space-x-2">
+                      <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-white text-black">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3 mr-1" viewBox="0 0 24 24" fill="currentColor">
+                          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                        </svg>
+                        Official
+                      </span>
+                    </div>
+                  </div>
+                  
+                  <div className="mt-2">
+                    <button 
+                      className="bg-gradient-to-r from-midasbuy-blue to-midasbuy-blue/90 text-white font-medium rounded-md px-5 py-1 text-sm hover:from-midasbuy-blue/90 hover:to-midasbuy-blue transition-all shadow-lg flex items-center gap-2 border border-midasbuy-blue/30"
+                      onClick={handlePlayerIdClick}
+                    >
+                      <span className="font-semibold">Enter Your Player ID</span>
+                      <ArrowRight className="h-4 w-4" />
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
           <NavigationTabs />
           <MobileNavigationTabs />
           
+          {showBanner && <PromotionBanner onClose={() => setShowBanner(false)} />}
+          
+          {/* Rest of the content */}
           {isLoading ? (
             <div className="flex justify-center py-12">
               <div className="w-12 h-12 border-4 border-midasbuy-blue border-t-transparent rounded-full animate-spin"></div>
