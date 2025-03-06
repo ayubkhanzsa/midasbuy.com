@@ -134,7 +134,7 @@ const Index = ({ onLogout }: IndexProps) => {
         
         <div className={`container mx-auto px-4 ${isMobile ? 'mobile-main-container' : ''}`}>
           <div className="flex flex-col md:flex-row items-start mb-6 relative">
-            <div className="flex-grow z-10 md:ml-12">
+            <div className="flex-grow z-10 md:ml-8 md:mt-2">
               {/* PUBG Title with Logo */}
               <div className="flex items-center mb-2">
                 <img 
@@ -166,7 +166,7 @@ const Index = ({ onLogout }: IndexProps) => {
                   
                   <div className="mt-2">
                     <button 
-                      className="bg-gradient-to-r from-midasbuy-blue to-midasbuy-blue/90 text-white font-medium rounded-md px-5 py-1.5 text-sm hover:from-midasbuy-blue/90 hover:to-midasbuy-blue transition-all shadow-lg flex items-center gap-2 border border-midasbuy-blue/30"
+                      className="bg-gradient-to-r from-midasbuy-blue to-midasbuy-blue/90 text-white font-medium rounded-md px-5 py-1 text-sm hover:from-midasbuy-blue/90 hover:to-midasbuy-blue transition-all shadow-lg flex items-center gap-2 border border-midasbuy-blue/30"
                       onClick={handlePlayerIdClick}
                     >
                       <span className="font-semibold">Enter Your Player ID</span>

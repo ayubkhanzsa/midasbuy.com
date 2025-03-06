@@ -20,7 +20,13 @@ const NavigationTabs = () => {
   ];
 
   const handleNavigate = (path: string) => {
-    navigate(path);
+    if (path === "/redeem") {
+      navigate("/purchase-history");
+    } else if (path === "/shop") {
+      navigate("/gaming-shop");
+    } else {
+      navigate(path);
+    }
   };
 
   if (!mounted) return null;
@@ -36,7 +42,9 @@ const NavigationTabs = () => {
                 onClick={() => handleNavigate(link.path)}
                 className={cn(
                   "text-white font-bold tracking-wide px-8 py-3 relative hover:text-white transition-colors text-sm",
-                  location.pathname === link.path ? "text-white" : ""
+                  (location.pathname === link.path || 
+                   (link.path === "/redeem" && location.pathname === "/purchase-history") ||
+                   (link.path === "/shop" && location.pathname === "/gaming-shop")) ? "text-white" : ""
                 )}
               >
                 {link.name}

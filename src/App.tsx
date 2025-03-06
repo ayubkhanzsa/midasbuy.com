@@ -13,6 +13,8 @@ import CheckoutPage from "./pages/CheckoutPage";
 import ThankYouPage from "./pages/ThankYouPage";
 import EventsPage from "./pages/EventsPage";
 import PlayerIdPage from "./pages/PlayerIdPage";
+import PurchaseHistoryPage from "./pages/PurchaseHistoryPage";
+import GamingShopPage from "./pages/GamingShopPage";
 import AuthRoute from "./components/AuthRoute";
 
 const queryClient = new QueryClient();
@@ -68,6 +70,16 @@ const App = () => {
             <Route path="/player-id" element={
               <AuthRoute isAuthenticated={isAuthenticated} redirectTo="/login">
                 <PlayerIdPage onLogout={logout} />
+              </AuthRoute>
+            } />
+            <Route path="/purchase-history" element={
+              <AuthRoute isAuthenticated={isAuthenticated} redirectTo="/login">
+                <PurchaseHistoryPage onLogout={logout} />
+              </AuthRoute>
+            } />
+            <Route path="/gaming-shop" element={
+              <AuthRoute isAuthenticated={isAuthenticated} redirectTo="/login">
+                <GamingShopPage onLogout={logout} />
               </AuthRoute>
             } />
             <Route path="/purchase/:id" element={

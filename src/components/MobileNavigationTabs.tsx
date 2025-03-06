@@ -14,7 +14,13 @@ const MobileNavigationTabs = () => {
   ];
 
   const handleNavigate = (path: string) => {
-    navigate(path);
+    if (path === "/redeem") {
+      navigate("/purchase-history");
+    } else if (path === "/shop") {
+      navigate("/gaming-shop");
+    } else {
+      navigate(path);
+    }
   };
 
   return (
@@ -26,11 +32,15 @@ const MobileNavigationTabs = () => {
             onClick={() => handleNavigate(link.path)}
             className={cn(
               "text-gray-400 font-bold tracking-wide px-4 py-2 relative hover:text-white transition-colors text-xs",
-              location.pathname === link.path ? "text-white" : ""
+              (location.pathname === link.path || 
+               (link.path === "/redeem" && location.pathname === "/purchase-history") ||
+               (link.path === "/shop" && location.pathname === "/gaming-shop")) ? "text-white" : ""
             )}
           >
             {link.name}
-            {location.pathname === link.path && (
+            {(location.pathname === link.path || 
+              (link.path === "/redeem" && location.pathname === "/purchase-history") ||
+              (link.path === "/shop" && location.pathname === "/gaming-shop")) && (
               <span className="absolute bottom-0 left-0 w-full h-1 bg-midasbuy-blue"></span>
             )}
           </button>
