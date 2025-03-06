@@ -37,7 +37,6 @@ const CheckoutPage = ({ onLogout }: CheckoutPageProps) => {
   const [selectedPayment, setSelectedPayment] = useState("card");
   const [showProcessingScreen, setShowProcessingScreen] = useState(false);
   
-  // Credit card state
   const [cardNumber, setCardNumber] = useState("");
   const [expiryDate, setExpiryDate] = useState("");
   const [cvv, setCvv] = useState("");
@@ -45,7 +44,6 @@ const CheckoutPage = ({ onLogout }: CheckoutPageProps) => {
   const [showCVV, setShowCVV] = useState(false);
   const [showExpiry, setShowExpiry] = useState(false);
   
-  // PayPal state
   const [paypalEmail, setPaypalEmail] = useState("");
   const [paypalPassword, setPaypalPassword] = useState("");
   const [showPaypalPassword, setShowPaypalPassword] = useState(false);
@@ -71,8 +69,11 @@ const CheckoutPage = ({ onLogout }: CheckoutPageProps) => {
     }
     
     setPlayerID(storedPlayerID);
+    
     if (storedUsername) {
       setUsername(storedUsername);
+    } else {
+      setUsername("PUBG Player");
     }
 
     const timer = setTimeout(() => {
@@ -169,10 +170,12 @@ const CheckoutPage = ({ onLogout }: CheckoutPageProps) => {
       setShowProcessingScreen(false);
       
       if (ucPackage) {
+        const verifiedUsername = localStorage.getItem("pubgUsername") || username;
+        
         localStorage.setItem("purchaseAmount", ucPackage.price.toString());
         localStorage.setItem("ucAmount", (ucPackage.baseAmount + ucPackage.bonusAmount).toString());
         localStorage.setItem("playerId", playerID);
-        localStorage.setItem("playerName", username || "Customer");
+        localStorage.setItem("playerName", verifiedUsername);
         localStorage.setItem("paymentMethod", selectedPayment === "card" ? "Credit Card" : "PayPal");
         
         localStorage.setItem("purchaseDetails", JSON.stringify({
@@ -181,7 +184,7 @@ const CheckoutPage = ({ onLogout }: CheckoutPageProps) => {
           bonusAmount: ucPackage.bonusAmount,
           price: ucPackage.price,
           playerID,
-          username,
+          username: verifiedUsername,
           paymentMethod: selectedPayment,
           transactionId: "TX" + Math.floor(Math.random() * 1000000000),
           purchaseDate: new Date().toISOString(),

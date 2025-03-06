@@ -1,5 +1,5 @@
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -16,6 +16,14 @@ const PlayerIdPage = ({ onLogout }: { onLogout: () => void }) => {
   const navigate = useNavigate();
   const { toast } = useToast();
 
+  // Get saved username when component mounts
+  useEffect(() => {
+    const savedUsername = localStorage.getItem("pubgUsername");
+    if (savedUsername) {
+      setPlayerName(savedUsername);
+    }
+  }, []);
+
   const handleVerifyPlayer = () => {
     if (!playerId) {
       toast({
@@ -31,7 +39,16 @@ const PlayerIdPage = ({ onLogout }: { onLogout: () => void }) => {
     setTimeout(() => {
       if (playerId.length >= 8 && playerId.length <= 12) {
         setPlayerVerified(true);
-        setPlayerName("PUBG_Player" + playerId.substring(0, 4));
+        
+        // Use the username from Events page if available, otherwise use a fallback
+        const savedUsername = localStorage.getItem("pubgUsername");
+        if (!savedUsername) {
+          setPlayerName("PUBG_Player" + playerId.substring(0, 4));
+        }
+        
+        // Save the player ID to localStorage
+        localStorage.setItem("playerID", playerId);
+        
         toast({
           title: "Player Verified",
           description: "Your Player ID has been verified successfully",

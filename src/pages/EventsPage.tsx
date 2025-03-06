@@ -1,6 +1,4 @@
-
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { RefreshCw, User, Shield, Check } from "lucide-react";
 import Header from "@/components/Header";
@@ -20,7 +18,6 @@ const EventsPage = ({ onLogout }: EventsPageProps) => {
   const [isUsernameVerified, setIsUsernameVerified] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
-  const navigate = useNavigate();
   const { isMobile } = useResponsive();
   
   useEffect(() => {
@@ -35,8 +32,6 @@ const EventsPage = ({ onLogout }: EventsPageProps) => {
       setIsLoading(false);
     }, 800);
 
-    // We'll only update the username if explicitly triggered by the user
-    // not automatically when storage changes
     return () => {
       clearTimeout(timer);
     };
