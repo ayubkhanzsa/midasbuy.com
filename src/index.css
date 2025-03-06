@@ -111,10 +111,8 @@ body {
   width: 100%;
   position: relative;
   margin-bottom: 1rem;
-  display: block !important; /* Force display */
-  z-index: 5;
-  opacity: 1 !important; /* Ensure visibility */
-  visibility: visible !important; /* Force visibility */
+  display: block;  /* Ensure the banner is displayed */
+  z-index: 5;  /* Make sure banner has proper z-index */
 }
 
 .celebration-banner-overlay {
@@ -150,10 +148,4 @@ body {
   .celebration-banner {
     height: 400px;
   }
-}
-
-.force-visible {
-  display: block !important;
-  opacity: 1 !important;
-  visibility: visible !important;
 }

@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import Header from "@/components/Header";
 import { ucPackages, getSelectedCountry } from "@/data/ucPackages";
@@ -31,18 +30,15 @@ const Index = ({ onLogout }: IndexProps) => {
     return () => clearTimeout(timer);
   }, []);
 
-  // Force banner to be visible after component mounts
   useEffect(() => {
-    // Ensure the banner is displayed by adding a class and setting inline styles
-    const banner = document.querySelector('.celebration-banner');
-    if (banner) {
-      banner.classList.add('force-visible');
-      (banner as HTMLElement).style.display = 'block';
-      (banner as HTMLElement).style.opacity = '1';
-      (banner as HTMLElement).style.visibility = 'visible';
-      console.log("Banner should be visible now:", banner);
-    }
-  }, [isLoading]); // Run after loading completes
+    const styleTimer = setTimeout(() => {
+      const banner = document.querySelector('.celebration-banner');
+      if (banner) {
+        banner.classList.add('force-visible');
+      }
+    }, 500);
+    return () => clearTimeout(styleTimer);
+  }, []);
 
   useEffect(() => {
     const handleStorageChange = (e: StorageEvent) => {
@@ -92,10 +88,7 @@ const Index = ({ onLogout }: IndexProps) => {
     <div className="min-h-screen bg-midasbuy-darkBlue overflow-x-hidden relative">
       <Header onLogout={onLogout} />
       
-      <div 
-        className="celebration-banner force-visible" 
-        style={{display: 'block', opacity: 1, visibility: 'visible'}}
-      >
+      <div className="celebration-banner force-visible">
         <div className="celebration-banner-overlay"></div>
       </div>
       
