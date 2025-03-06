@@ -1,3 +1,4 @@
+
 import { useState, useEffect, useRef } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Menu, X, Bell, Globe, ChevronDown, Flag, Search } from "lucide-react";
@@ -270,7 +271,7 @@ const Header = ({ onLogout }: HeaderProps) => {
       <div className="container mx-auto px-4 py-2 flex items-center justify-between relative z-10">
         <div className="flex items-center">
           <Link to="/" className="mr-4">
-            <img src="/lovable-uploads/c6fd77e7-3682-428e-8154-140308b4a06b.png" alt="Logo" className="h-6" />
+            <img src="/lovable-uploads/c6fd77e7-3682-428e-8154-140308b4a06b.png" alt="Logo" className="h-8 md:h-9" />
           </Link>
         </div>
 
@@ -293,23 +294,29 @@ const Header = ({ onLogout }: HeaderProps) => {
             {isCountryMenuOpen && renderCountryMenu()}
           </div>
           
-          <button className="relative p-1 text-gray-300 hover:text-white transition-colors">
-            <Bell className="w-4 h-4" />
-            <span className="absolute top-0 right-0 w-2 h-2 bg-red-500 rounded-full"></span>
+          <button className="relative p-1.5 text-gray-300 hover:text-white transition-colors group">
+            <Bell className="w-5 h-5" />
+            <span className="absolute top-0 right-0 w-2.5 h-2.5 bg-red-500 rounded-full animate-pulse"></span>
+            <span className="absolute -top-1 -right-1 w-5 h-5 bg-red-500/20 rounded-full scale-0 group-hover:scale-100 transition-transform"></span>
           </button>
           
           <button 
             onClick={onLogout} 
-            className="btn-outline text-xs px-3 py-1"
+            className="flex items-center gap-1 text-xs px-4 py-1.5 bg-gradient-to-r from-midasbuy-blue to-midasbuy-blue/80 text-white rounded-md hover:shadow-md hover:shadow-midasbuy-blue/20 transition-all border border-midasbuy-blue/30"
           >
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+              <polyline points="16 17 21 12 16 7"></polyline>
+              <line x1="21" y1="12" x2="9" y2="12"></line>
+            </svg>
             Sign Out
           </button>
         </div>
 
         <div className="md:hidden flex items-center space-x-3">
-          <button className="relative p-1 text-gray-300 hover:text-white transition-colors">
-            <Bell className="w-4 h-4" />
-            <span className="absolute top-0 right-0 w-1.5 h-1.5 bg-red-500 rounded-full"></span>
+          <button className="relative p-1.5 text-gray-300 hover:text-white transition-colors">
+            <Bell className="w-5 h-5" />
+            <span className="absolute top-0 right-0 w-2 h-2 bg-red-500 rounded-full animate-pulse"></span>
           </button>
           
           <div className="relative" ref={countryMenuRef}>
@@ -365,8 +372,13 @@ const Header = ({ onLogout }: HeaderProps) => {
                 <div className="flex justify-between pt-3 border-t border-gray-700">
                   <button 
                     onClick={onLogout} 
-                    className="text-midasbuy-blue hover:text-midasbuy-blue/80 transition-colors"
+                    className="flex items-center gap-1 text-xs px-3 py-1.5 bg-gradient-to-r from-midasbuy-blue to-midasbuy-blue/80 text-white rounded-md transition-all border border-midasbuy-blue/30"
                   >
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                      <polyline points="16 17 21 12 16 7"></polyline>
+                      <line x1="21" y1="12" x2="9" y2="12"></line>
+                    </svg>
                     Sign Out
                   </button>
                 </div>
