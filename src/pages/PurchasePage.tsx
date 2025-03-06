@@ -290,7 +290,7 @@ const PurchasePage = ({ onLogout }: PurchasePageProps) => {
           </div>
           
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            {/* Swapped order - Player Information first */}
+            {/* Player Information first */}
             <div className="lg:col-span-2 order-1">
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
@@ -346,15 +346,15 @@ const PurchasePage = ({ onLogout }: PurchasePageProps) => {
                         <img 
                           src="/lovable-uploads/02bb433c-783b-4512-b8bd-c2d8c0cb3d0e.png" 
                           alt="PUBG Mobile Logo" 
-                          className="h-24 w-auto mx-auto rounded-lg mb-4"
+                          className="h-16 w-auto mx-auto rounded-2xl mb-4"
                         />
-                        <p className="text-gray-300 mb-4 text-lg font-medium">Enter Your Player ID Now &gt;</p>
+                        <p className="text-gray-300 mb-4 text-lg font-medium">Please enter your Player ID to continue</p>
                       </div>
                       <Button 
                         className="bg-gradient-to-r from-midasbuy-blue to-blue-500 hover:from-blue-600 hover:to-blue-500 text-white font-medium shadow-md transition-all duration-300 hover:shadow-lg px-6 py-5 h-auto"
                         onClick={openPlayerIdModal}
                       >
-                        <User className="w-4 h-4 mr-2" /> Enter Player ID
+                        <User className="w-4 h-4 mr-2" /> Enter Your Player ID Now &gt;
                       </Button>
                     </div>
                   </div>

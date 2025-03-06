@@ -1,15 +1,15 @@
-
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowLeft, AlertCircle, Check, RefreshCw, User, Shield, X, HelpCircle } from "lucide-react";
 import Header from "@/components/Header";
-import { getHonorOfKingsPackageById, getSelectedCountry, setupCountryChangeListener } from "@/data/honorOfKingsPackages";
+import { getPackageById, getSelectedCountry, setupCountryChangeListener } from "@/data/ucPackages";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { toast } from "@/components/ui/use-toast";
 import { convertAndFormatPrice, setupCurrencyChangeListener } from "@/utils/currencyUtils";
 import { useResponsive } from "@/hooks/use-mobile";
+import { Label } from "@/components/ui/label";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 
 interface HonorOfKingsPurchasePageProps {
@@ -29,11 +29,11 @@ const HonorOfKingsPurchasePage = ({ onLogout }: HonorOfKingsPurchasePageProps) =
   const [showPlayerIdModal, setShowPlayerIdModal] = useState(false);
   const [tempPlayerID, setTempPlayerID] = useState("");
 
-  const honorPackage = id ? getHonorOfKingsPackageById(id) : undefined;
+  const honorPackage = id ? getPackageById(id) : undefined;
 
   useEffect(() => {
     if (!honorPackage) {
-      navigate("/honor-of-kings");
+      navigate("/");
       return;
     }
 
@@ -45,19 +45,19 @@ const HonorOfKingsPurchasePage = ({ onLogout }: HonorOfKingsPurchasePageProps) =
   }, [honorPackage, navigate]);
 
   useEffect(() => {
-    const savedPlayerID = localStorage.getItem("honorPlayerID");
+    const savedPlayerID = localStorage.getItem("playerID");
     if (savedPlayerID) {
       setPlayerID(savedPlayerID);
       setIsPlayerIDValid(true);
       
-      const savedUsername = localStorage.getItem("honorUsername");
+      const savedUsername = localStorage.getItem("pubgUsername");
       if (savedUsername) {
         setUsername(savedUsername);
       }
     }
     
     const handleStorageChange = (event: StorageEvent) => {
-      if (event.key === "honorUsername") {
+      if (event.key === "pubgUsername") {
         const newUsername = event.newValue;
         if (newUsername !== null) {
           setUsername(newUsername);
@@ -92,7 +92,7 @@ const HonorOfKingsPurchasePage = ({ onLogout }: HonorOfKingsPurchasePageProps) =
     if (!tempPlayerID || tempPlayerID.length < 8) {
       toast({
         title: "Invalid Player ID",
-        description: "Please enter a valid Honor of Kings Player ID",
+        description: "Please enter a valid Player ID",
         variant: "destructive",
       });
       return;
@@ -110,10 +110,10 @@ const HonorOfKingsPurchasePage = ({ onLogout }: HonorOfKingsPurchasePageProps) =
         description: "ID verification successful",
       });
       
-      localStorage.setItem("honorPlayerID", tempPlayerID);
+      localStorage.setItem("playerID", tempPlayerID);
       
-      const mockUsername = `HonorPlayer${Math.floor(Math.random() * 10000)}`;
-      localStorage.setItem("honorUsername", mockUsername);
+      const mockUsername = `Player${Math.floor(Math.random() * 10000)}`;
+      localStorage.setItem("pubgUsername", mockUsername);
       setUsername(mockUsername);
       
       setShowPlayerIdModal(false);
@@ -124,8 +124,8 @@ const HonorOfKingsPurchasePage = ({ onLogout }: HonorOfKingsPurchasePageProps) =
     setPlayerID("");
     setIsPlayerIDValid(false);
     setUsername("");
-    localStorage.removeItem("honorPlayerID");
-    localStorage.removeItem("honorUsername");
+    localStorage.removeItem("playerID");
+    localStorage.removeItem("pubgUsername");
     
     toast({
       title: "Player ID Reset",
@@ -135,8 +135,8 @@ const HonorOfKingsPurchasePage = ({ onLogout }: HonorOfKingsPurchasePageProps) =
     setShowPlayerIdModal(true);
   };
 
-  const handleBackToPackages = () => {
-    navigate("/honor-of-kings");
+  const handleBackToHome = () => {
+    navigate("/");
   };
 
   const handleProceedToCheckout = () => {
@@ -151,12 +151,7 @@ const HonorOfKingsPurchasePage = ({ onLogout }: HonorOfKingsPurchasePageProps) =
     }
 
     if (id) {
-      toast({
-        title: "Proceeding to Checkout",
-        description: `Package: ${honorPackage?.baseAmount} Tokens`,
-      });
-      
-      navigate(`/honor-of-kings`);
+      navigate(`/checkout/${id}`);
     }
   };
   
@@ -285,7 +280,7 @@ const HonorOfKingsPurchasePage = ({ onLogout }: HonorOfKingsPurchasePageProps) =
         <div className="container mx-auto px-4">
           <div className="mb-4">
             <button 
-              onClick={handleBackToPackages}
+              onClick={handleBackToHome}
               className="inline-flex items-center text-gray-300 hover:text-white transition-colors"
             >
               <ArrowLeft className="w-5 h-5 mr-2" />
@@ -294,7 +289,7 @@ const HonorOfKingsPurchasePage = ({ onLogout }: HonorOfKingsPurchasePageProps) =
           </div>
           
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            {/* Swapped order - Player Information first */}
+            {/* Player Information first */}
             <div className="lg:col-span-2 order-1">
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
@@ -349,16 +344,16 @@ const HonorOfKingsPurchasePage = ({ onLogout }: HonorOfKingsPurchasePageProps) =
                       <div className="mb-4">
                         <img 
                           src="/lovable-uploads/02bb433c-783b-4512-b8bd-c2d8c0cb3d0e.png" 
-                          alt="PUBG Mobile Logo" 
-                          className="h-24 w-auto mx-auto rounded-lg mb-4"
+                          alt="Honor of Kings Logo" 
+                          className="h-16 w-auto mx-auto rounded-2xl mb-4"
                         />
-                        <p className="text-gray-300 mb-4 text-lg font-medium">Enter Your Player ID Now &gt;</p>
+                        <p className="text-gray-300 mb-4 text-lg font-medium">Please enter your Player ID to continue</p>
                       </div>
                       <Button 
                         className="bg-gradient-to-r from-midasbuy-blue to-blue-500 hover:from-blue-600 hover:to-blue-500 text-white font-medium shadow-md transition-all duration-300 hover:shadow-lg px-6 py-5 h-auto"
                         onClick={openPlayerIdModal}
                       >
-                        <User className="w-4 h-4 mr-2" /> Enter Player ID
+                        <User className="w-4 h-4 mr-2" /> Enter Your Player ID Now &gt;
                       </Button>
                     </div>
                   </div>
@@ -367,8 +362,8 @@ const HonorOfKingsPurchasePage = ({ onLogout }: HonorOfKingsPurchasePageProps) =
                 <div className="mt-3 flex items-start">
                   <AlertCircle className="w-4 h-4 text-midasbuy-gold mr-2 flex-shrink-0 mt-0.5" />
                   <p className="text-xs text-gray-300">
-                    Your Player ID can be found in your Honor of Kings game profile. 
-                    This ID is required to deliver Tokens directly to your account.
+                    Your Player ID can be found in your Honor of Kings game. Go to your profile and copy the ID number. 
+                    This ID is required to deliver credits directly to your account.
                   </p>
                 </div>
               </motion.div>
@@ -384,7 +379,7 @@ const HonorOfKingsPurchasePage = ({ onLogout }: HonorOfKingsPurchasePageProps) =
                 <div className="space-y-4 text-sm text-gray-300">
                   <p className="flex items-start">
                     <span className="text-midasbuy-gold mr-2">•</span>
-                    Tokens will be directly added to the Honor of Kings account with the Player ID you provide.
+                    Credits will be directly added to the Honor of Kings account with the Player ID you provide.
                   </p>
                   <p className="flex items-start">
                     <span className="text-midasbuy-gold mr-2">•</span>
@@ -392,7 +387,7 @@ const HonorOfKingsPurchasePage = ({ onLogout }: HonorOfKingsPurchasePageProps) =
                   </p>
                   <p className="flex items-start">
                     <span className="text-midasbuy-gold mr-2">•</span>
-                    Token delivery is instant but may take up to 5 minutes in some cases.
+                    Credit delivery is instant but may take up to 5 minutes in some cases.
                   </p>
                   <p className="flex items-start">
                     <span className="text-midasbuy-gold mr-2">•</span>
@@ -402,7 +397,7 @@ const HonorOfKingsPurchasePage = ({ onLogout }: HonorOfKingsPurchasePageProps) =
               </motion.div>
             </div>
             
-            {/* Order Summary moved to bottom on mobile, right on desktop */}
+            {/* Order Summary section */}
             <div className="lg:col-span-1 order-2">
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
@@ -412,11 +407,7 @@ const HonorOfKingsPurchasePage = ({ onLogout }: HonorOfKingsPurchasePageProps) =
                 <h2 className="text-xl font-bold mb-4 text-white">Order Summary</h2>
                 
                 <div className="flex items-center mb-6 pb-4 border-b border-gray-700">
-                  <img 
-                    src={honorPackage.image} 
-                    alt="Honor of Kings Tokens" 
-                    className="w-[70px] mr-4"
-                  />
+                  <img src="/lovable-uploads/f6594fcb-d2eb-4e92-9f21-fe5959fa5360.png" alt="Credits" className="w-[70px] mr-4" />
                   
                   <div>
                     <div className="flex items-baseline">
@@ -424,7 +415,7 @@ const HonorOfKingsPurchasePage = ({ onLogout }: HonorOfKingsPurchasePageProps) =
                       {honorPackage?.bonusAmount > 0 && (
                         <span className="text-midasbuy-gold ml-1">+{honorPackage?.bonusAmount}</span>
                       )}
-                      <span className="text-white ml-1">Tokens</span>
+                      <span className="text-white ml-1">Credits</span>
                       
                       {honorPackage?.bonusPercent && (
                         <span className="ml-2 text-xs px-2 py-0.5 rounded bg-midasbuy-gold/20 text-midasbuy-gold">
