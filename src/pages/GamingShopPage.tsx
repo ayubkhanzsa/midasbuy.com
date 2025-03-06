@@ -11,6 +11,7 @@ import { useToast } from "@/hooks/use-toast";
 import PromotionBanner from "@/components/PromotionBanner";
 import { useNavigate } from "react-router-dom";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { ChevronDown } from "lucide-react";
 
 interface GamingShopProps {
   onLogout: () => void;
@@ -111,11 +112,11 @@ const popularGames = [
   }
 ];
 
-// Sample news items
+// Updated newsItems array with more professional formatting
 const newsItems = [
   {
     id: "news-001",
-    title: "Purchase 2 packs in total for a gift draw opportunity.",
+    title: "Purchase 2 packs in total for a gift draw opportunity",
     image: "/lovable-uploads/42cba23d-8136-416a-ab7f-891c674cbce4.png",
     date: "2025-03-05",
     endDate: "",
@@ -126,12 +127,12 @@ const newsItems = [
     title: "EXTRA BONUS UPSIZE only on Midasbuy. Enjoy up to 45% Bonus now.",
     image: "/lovable-uploads/e9f85ba7-1e65-424b-b3c7-335c54e95606.png",
     date: "2025-01-18",
-    endDate: "2025-02-24",
+    endDate: "2025-04-24",
     publisher: "Midasbuy"
   },
   {
     id: "news-003",
-    title: "First recharge of the season gets free props.",
+    title: "First recharge of the season gets free props",
     image: "/lovable-uploads/c79df0c5-b617-4df7-9a31-a4c7bff7adf1.png",
     date: "2025-01-12",
     endDate: "2025-03-11",
@@ -228,6 +229,57 @@ const GamingShopPage = ({ onLogout }: GamingShopProps) => {
               </ScrollArea>
               
               <div className="mb-8">
+                <div className="flex justify-between items-center mb-6">
+                  <h2 className="text-2xl text-white font-bold tracking-wide">LATEST NEWS</h2>
+                  <Button 
+                    variant="ghost" 
+                    size="sm" 
+                    className="text-gray-400 hover:text-white hover:bg-gray-800"
+                  >
+                    All
+                    <ChevronDown className="ml-1 h-4 w-4" />
+                  </Button>
+                </div>
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {newsItems.map((item) => (
+                    <div 
+                      key={item.id} 
+                      className="group bg-midasbuy-navy/40 rounded-lg overflow-hidden cursor-pointer hover:bg-midasbuy-navy/60 transition-all duration-300"
+                    >
+                      <div className="relative">
+                        <img 
+                          src={item.image} 
+                          alt={item.title} 
+                          className="w-full h-48 object-cover transform transition-transform group-hover:scale-105 duration-300"
+                        />
+                        {item.endDate && (
+                          <div className="absolute top-3 right-3 bg-blue-500 text-white text-xs px-3 py-1 rounded-full font-medium">
+                            Ends in {item.endDate}
+                          </div>
+                        )}
+                      </div>
+                      
+                      <div className="p-4">
+                        <h3 className="text-white text-lg font-medium mb-2 line-clamp-2 group-hover:text-blue-400 transition-colors">
+                          {item.title}
+                        </h3>
+                        <div className="flex items-center text-xs text-gray-400">
+                          <span className="font-medium">{item.publisher}</span>
+                          <span className="mx-2">•</span>
+                          <span>{new Date(item.date).toLocaleDateString("en-US", {
+                            year: "numeric",
+                            month: "short",
+                            day: "numeric"
+                          })}</span>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              
+              <div className="mb-8">
                 <div className="flex items-center gap-2 mb-4">
                   <h2 className="text-xl text-white font-bold uppercase">POPULAR GAMES</h2>
                   <div className="text-xs text-gray-400 flex items-center">
@@ -281,46 +333,6 @@ const GamingShopPage = ({ onLogout }: GamingShopProps) => {
                       )}
                       <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-2">
                         <h3 className="text-white text-sm font-bold">{game.name}</h3>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-              
-              <div className="mb-8">
-                <div className="flex justify-between items-center mb-4">
-                  <h2 className="text-xl text-white font-bold uppercase">LATEST NEWS</h2>
-                  <Button variant="outline" size="sm" className="text-gray-300 border-gray-600 hover:bg-gray-800">
-                    All
-                  </Button>
-                </div>
-                
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  {newsItems.map((item) => (
-                    <div 
-                      key={item.id} 
-                      className="bg-midasbuy-navy/40 rounded-lg overflow-hidden cursor-pointer hover:bg-midasbuy-navy/60 transition-colors"
-                    >
-                      <div className="relative">
-                        <img 
-                          src={item.image} 
-                          alt={item.title} 
-                          className="w-full h-40 object-cover"
-                        />
-                        {item.endDate && (
-                          <div className="absolute top-2 left-2 bg-blue-500 text-white text-xs px-2 py-1 rounded">
-                            Ends in {item.endDate}
-                          </div>
-                        )}
-                      </div>
-                      
-                      <div className="p-3">
-                        <p className="text-white text-sm mb-2">{item.title}</p>
-                        <div className="flex items-center text-xs text-gray-400">
-                          <span>{item.publisher}</span>
-                          <span className="mx-2">•</span>
-                          <span>{item.date}</span>
-                        </div>
                       </div>
                     </div>
                   ))}
