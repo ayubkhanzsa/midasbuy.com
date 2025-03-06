@@ -17,7 +17,6 @@ interface GamingShopProps {
   onLogout: () => void;
 }
 
-// Reordered games list with PUBG MOBILE first
 const popularGames = [
   {
     id: "pubg-001",
@@ -112,39 +111,86 @@ const popularGames = [
   }
 ];
 
-// Updated newsItems array with more professional formatting
 const newsItems = [
   {
     id: "news-001",
-    title: "Purchase 2 packs in total for a gift draw opportunity",
-    image: "/lovable-uploads/42cba23d-8136-416a-ab7f-891c674cbce4.png",
+    title: "Get extra 100% NIKKE bonus on first top-up!",
+    image: "/lovable-uploads/dfb25af0-bb1f-4633-96bd-82035761c5b8.png",
+    date: "2025-03-10",
+    endDate: "2025-04-10",
+    publisher: "Midasbuy"
+  },
+  {
+    id: "news-002",
+    title: "Register to get free skin",
+    image: "/lovable-uploads/ccdccbbc-23f6-4c12-8ce8-2e6c870ef1ac.png",
+    date: "2025-03-08",
+    endDate: "2025-04-08",
+    publisher: "Arena Breakout"
+  },
+  {
+    id: "news-003",
+    title: "Follow Midasbuy For Exclusive Gifts!",
+    image: "/lovable-uploads/4d4bf07c-2e94-4e1c-9822-8e17a6cce8a7.png",
     date: "2025-03-05",
     endDate: "",
     publisher: "Midasbuy"
   },
   {
-    id: "news-002",
-    title: "EXTRA BONUS UPSIZE only on Midasbuy. Enjoy up to 45% Bonus now.",
-    image: "/lovable-uploads/e9f85ba7-1e65-424b-b3c7-335c54e95606.png",
-    date: "2025-01-18",
-    endDate: "2025-04-24",
-    publisher: "Midasbuy"
-  },
-  {
-    id: "news-003",
-    title: "First recharge of the season gets free props",
-    image: "/lovable-uploads/c79df0c5-b617-4df7-9a31-a4c7bff7adf1.png",
-    date: "2025-01-12",
-    endDate: "2025-03-11",
-    publisher: "Midasbuy"
-  },
-  {
     id: "news-004",
-    title: "100% winning rate! Come and participate in the points lottery!",
-    image: "/lovable-uploads/c58f845b-2ba6-4172-ab82-be1b39ac0320.png",
-    date: "2024-12-29",
-    endDate: "2025-06-30",
-    publisher: "Midasbuy"
+    title: "Mad Dog Games Lucky Treasure Hunt",
+    image: "/lovable-uploads/70aa4e1a-aaa1-4c17-86df-b193db69edda.png",
+    date: "2025-03-01",
+    endDate: "2025-04-01",
+    publisher: "Arena Breakout"
+  },
+  {
+    id: "news-005",
+    title: "Honor of Kings Points Lottery",
+    image: "/lovable-uploads/58cd039f-6539-4372-b355-7e539896a7b2.png",
+    date: "2025-02-28",
+    endDate: "2025-03-28",
+    publisher: "Honor of Kings"
+  },
+  {
+    id: "news-006",
+    title: "Apex Coin Bonanza: First Buy, 2x Value!",
+    image: "/lovable-uploads/efcede1b-7e48-4ba0-81b9-875826d9b87a.png",
+    date: "2025-02-25",
+    endDate: "2025-03-25",
+    publisher: "Age of Empires"
+  },
+  {
+    id: "news-007",
+    title: "PUBG MOBILE VIP Benefits",
+    image: "/lovable-uploads/93d886d7-d872-4c31-850e-9938cfb8da17.png",
+    date: "2025-02-20",
+    endDate: "2025-03-20",
+    publisher: "PUBG MOBILE"
+  },
+  {
+    id: "news-008",
+    title: "Purchase Bonus",
+    image: "/lovable-uploads/949a4bdb-d126-4908-bf41-15b6af918ea8.png",
+    date: "2025-02-15",
+    endDate: "2025-03-15",
+    publisher: "PUBG MOBILE"
+  },
+  {
+    id: "news-009",
+    title: "EXTRA BONUS ONLY ON MIDASBUY ENJOY UP TO 45% BONUS NOW",
+    image: "/lovable-uploads/2a70916a-be50-4ce2-a7ef-882b961fe54d.png",
+    date: "2025-02-10",
+    endDate: "2025-03-10",
+    publisher: "Delta Force"
+  },
+  {
+    id: "news-010",
+    title: "Age of Empires Daily Packs",
+    image: "/lovable-uploads/cbd92d2e-e670-4c2c-b5dd-4edd925ea8c4.png",
+    date: "2025-02-05",
+    endDate: "2025-03-05",
+    publisher: "Age of Empires"
   }
 ];
 
@@ -198,87 +244,6 @@ const GamingShopPage = ({ onLogout }: GamingShopProps) => {
             </div>
           ) : (
             <>
-              <ScrollArea className="h-[400px] rounded-lg mb-4">
-                <div className="relative rounded-lg overflow-hidden mb-4">
-                  <img 
-                    src="/lovable-uploads/55214c0a-5aad-45f3-b1e0-ab96c659a72e.png" 
-                    alt="Midasbuy Promo" 
-                    className="w-full h-48 object-cover object-center"
-                  />
-                  <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4">
-                    <div className="text-white text-xl font-bold mb-1">
-                      EXTRA BONUS UPSIZE <span className="text-green-400">ONLY ON MIDASBUY</span>
-                    </div>
-                    <div className="text-white text-lg">
-                      ENJOY UP TO <span className="text-green-400 font-bold">45%</span> BONUS NOW
-                    </div>
-                  </div>
-                </div>
-                
-                {showBanner && (
-                  <div className="bg-gradient-to-r from-blue-600 to-blue-400 text-white p-3 rounded-lg flex justify-between items-center mb-6">
-                    <span className="font-medium">EXTRA BONUS UPSIZE only on Midasbuy. Enjoy up to 45% Bonus now.</span>
-                    <Button 
-                      size="sm" 
-                      className="bg-white text-blue-700 hover:bg-white/90 rounded-full px-4"
-                    >
-                      GO
-                    </Button>
-                  </div>
-                )}
-              </ScrollArea>
-              
-              <div className="mb-8">
-                <div className="flex justify-between items-center mb-6">
-                  <h2 className="text-2xl text-white font-bold tracking-wide">LATEST NEWS</h2>
-                  <Button 
-                    variant="ghost" 
-                    size="sm" 
-                    className="text-gray-400 hover:text-white hover:bg-gray-800"
-                  >
-                    All
-                    <ChevronDown className="ml-1 h-4 w-4" />
-                  </Button>
-                </div>
-                
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  {newsItems.map((item) => (
-                    <div 
-                      key={item.id} 
-                      className="group bg-midasbuy-navy/40 rounded-lg overflow-hidden cursor-pointer hover:bg-midasbuy-navy/60 transition-all duration-300"
-                    >
-                      <div className="relative">
-                        <img 
-                          src={item.image} 
-                          alt={item.title} 
-                          className="w-full h-48 object-cover transform transition-transform group-hover:scale-105 duration-300"
-                        />
-                        {item.endDate && (
-                          <div className="absolute top-3 right-3 bg-blue-500 text-white text-xs px-3 py-1 rounded-full font-medium">
-                            Ends in {item.endDate}
-                          </div>
-                        )}
-                      </div>
-                      
-                      <div className="p-4">
-                        <h3 className="text-white text-lg font-medium mb-2 line-clamp-2 group-hover:text-blue-400 transition-colors">
-                          {item.title}
-                        </h3>
-                        <div className="flex items-center text-xs text-gray-400">
-                          <span className="font-medium">{item.publisher}</span>
-                          <span className="mx-2">•</span>
-                          <span>{new Date(item.date).toLocaleDateString("en-US", {
-                            year: "numeric",
-                            month: "short",
-                            day: "numeric"
-                          })}</span>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-              
               <div className="mb-8">
                 <div className="flex items-center gap-2 mb-4">
                   <h2 className="text-xl text-white font-bold uppercase">POPULAR GAMES</h2>
@@ -333,6 +298,57 @@ const GamingShopPage = ({ onLogout }: GamingShopProps) => {
                       )}
                       <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-2">
                         <h3 className="text-white text-sm font-bold">{game.name}</h3>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              
+              <div className="mb-8">
+                <div className="flex justify-between items-center mb-6">
+                  <h2 className="text-2xl text-white font-bold tracking-wide">LATEST NEWS</h2>
+                  <Button 
+                    variant="ghost" 
+                    size="sm" 
+                    className="text-gray-400 hover:text-white hover:bg-gray-800"
+                  >
+                    All
+                    <ChevronDown className="ml-1 h-4 w-4" />
+                  </Button>
+                </div>
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {newsItems.map((item) => (
+                    <div 
+                      key={item.id} 
+                      className="group bg-midasbuy-navy/40 rounded-lg overflow-hidden cursor-pointer hover:bg-midasbuy-navy/60 transition-all duration-300"
+                    >
+                      <div className="relative">
+                        <img 
+                          src={item.image} 
+                          alt={item.title} 
+                          className="w-full h-48 object-cover transform transition-transform group-hover:scale-105 duration-300"
+                        />
+                        {item.endDate && (
+                          <div className="absolute top-3 right-3 bg-blue-500 text-white text-xs px-3 py-1 rounded-full font-medium">
+                            Ends in {item.endDate}
+                          </div>
+                        )}
+                      </div>
+                      
+                      <div className="p-4">
+                        <h3 className="text-white text-lg font-medium mb-2 line-clamp-2 group-hover:text-blue-400 transition-colors">
+                          {item.title}
+                        </h3>
+                        <div className="flex items-center text-xs text-gray-400">
+                          <span className="font-medium">{item.publisher}</span>
+                          <span className="mx-2">•</span>
+                          <span>{new Date(item.date).toLocaleDateString("en-US", {
+                            year: "numeric",
+                            month: "short",
+                            day: "numeric"
+                          })}</span>
+                        </div>
                       </div>
                     </div>
                   ))}
