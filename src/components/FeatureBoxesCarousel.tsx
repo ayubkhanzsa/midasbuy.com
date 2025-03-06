@@ -1,12 +1,12 @@
+
 import React, { useState, useEffect, useRef } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 
 interface FeatureBoxesCarouselProps {
   className?: string;
-  showHeading?: boolean;
 }
 
-const FeatureBoxesCarousel: React.FC<FeatureBoxesCarouselProps> = ({ className, showHeading = false }) => {
+const FeatureBoxesCarousel: React.FC<FeatureBoxesCarouselProps> = ({ className }) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [imagesLoaded, setImagesLoaded] = useState(false);
   const imageRefs = useRef<HTMLImageElement[]>([]);
@@ -62,7 +62,7 @@ const FeatureBoxesCarousel: React.FC<FeatureBoxesCarouselProps> = ({ className, 
 
   return (
     <div className={`w-full ${className}`}>
-      <div className="relative w-full rounded-xl overflow-hidden h-[240px] md:h-[280px] lg:h-[320px] max-w-5xl mx-auto shadow-lg mt-10">
+      <div className="relative w-full rounded-xl overflow-hidden h-[220px] md:h-[260px] lg:h-[300px] max-w-5xl mx-auto shadow-lg">
         {carouselImages.map((image, index) => (
           <div 
             key={index}

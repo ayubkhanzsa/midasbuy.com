@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -239,6 +240,12 @@ const GamingShopPage = ({ onLogout }: GamingShopProps) => {
             </div>
           ) : (
             <>
+              {showBanner && <PromotionBanner onClose={() => setShowBanner(false)} />}
+              
+              <div className="mb-8 mt-6">
+                <FeatureBoxesCarousel className="" />
+              </div>
+              
               <div className="mb-8">
                 <div className="flex items-center gap-2 mb-4">
                   <h2 className="text-xl text-white font-bold uppercase">POPULAR GAMES</h2>

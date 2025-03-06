@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { useAnimationDuration } from "@/hooks/use-mobile";
 import { convertAndFormatPrice } from "@/utils/currencyUtils";
 import { useEffect, useState } from "react";
+import { Coins } from "lucide-react";
 
 interface Package {
   id: string;
@@ -105,12 +106,15 @@ const HonorOfKingsPackageGrid = ({ packages, selectedCountry }: HonorOfKingsPack
                 
                 <div className="flex flex-col">
                   <span className="text-midasbuy-gold text-xs sm:text-sm">From</span>
-                  <span className="text-lg sm:text-xl font-bold text-white">
-                    {convertAndFormatPrice(pkg.price, selectedCountry.currency)}
-                  </span>
+                  <div className="flex items-center">
+                    <Coins className="text-midasbuy-gold h-4 w-4 mr-1" />
+                    <span className="text-lg sm:text-xl font-bold text-white">
+                      {convertAndFormatPrice(pkg.price, selectedCountry.currency)}
+                    </span>
+                  </div>
                   
                   {pkg.originalPrice > pkg.price && (
-                    <span className="text-xs sm:text-sm text-gray-400 line-through">
+                    <span className="text-xs sm:text-sm text-gray-400 line-through ml-5">
                       {convertAndFormatPrice(pkg.originalPrice, selectedCountry.currency)}
                     </span>
                   )}
