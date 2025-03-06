@@ -2,7 +2,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState, useRef } from "react";
 import Header from "@/components/Header";
 import { motion } from "framer-motion";
-import { CheckCircle2, ArrowLeft, Printer, FileText, Shield, QrCode, HelpCircle } from "lucide-react";
+import { CheckCircle2, ArrowLeft, Printer, FileText, Shield, QrCode, HelpCircle, DollarSign } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { downloadReceipt } from "@/utils/receiptUtils";
 
@@ -17,7 +17,7 @@ const ThankYouPage = ({ onLogout }: ThankYouPageProps) => {
   const [transactionDetails, setTransactionDetails] = useState({
     orderId: `MIDAS-${Math.floor(Math.random() * 1000000)}`,
     playerId: localStorage.getItem("playerId") || "Unknown",
-    playerName: localStorage.getItem("playerName") || "Customer",
+    playerName: "Customer",
     amount: localStorage.getItem("purchaseAmount") || "Unknown",
     ucAmount: localStorage.getItem("ucAmount") || "Unknown",
     date: new Date().toLocaleString(),
@@ -125,13 +125,6 @@ const ThankYouPage = ({ onLogout }: ThankYouPageProps) => {
                   <span className="font-medium">{transactionDetails.playerId}</span>
                 </div>
                 
-                {transactionDetails.playerName !== "Customer" && (
-                  <div className="flex justify-between py-2 border-b border-gray-800">
-                    <span className="text-gray-400">Username:</span>
-                    <span className="font-medium text-midasbuy-gold">{transactionDetails.playerName}</span>
-                  </div>
-                )}
-                
                 <div className="flex justify-between py-2 border-b border-gray-800">
                   <span className="text-gray-400">UC Amount:</span>
                   <span className="font-medium">{transactionDetails.ucAmount} UC</span>
@@ -181,14 +174,14 @@ const ThankYouPage = ({ onLogout }: ThankYouPageProps) => {
                 <div className="flex justify-between items-start mb-6 print:mb-8 relative z-10">
                   <div className="flex flex-col items-start">
                     <img 
-                      src="/lovable-uploads/86affa87-1852-48cc-bad6-3a1680ce4f05.png" 
+                      src="/lovable-uploads/e7b8b5a5-5911-40e4-b3fe-b449462a9216.png" 
                       alt="Midasbuy Logo" 
                       className="h-14 mb-1" 
                     />
                     <p className="text-xs text-gray-900 font-medium mt-1 print:text-black">Authorized Gaming Top-Up Platform</p>
                   </div>
                   <div className="text-right">
-                    <h3 className="text-xl font-bold text-orange-500 print:text-orange-500">OFFICIAL TRANSACTION RECEIPT</h3>
+                    <h3 className="text-xl font-bold text-orange-500 print:text-orange-500">TRANSACTION RECEIPT</h3>
                     <p className="text-sm text-midasbuy-blue print:text-midasbuy-blue">{transactionDetails.date}</p>
                     <p className="font-mono text-xs mt-1 text-midasbuy-gold print:text-white">
                       Order #{transactionDetails.orderId}
@@ -258,11 +251,7 @@ const ThankYouPage = ({ onLogout }: ThankYouPageProps) => {
                         <tr>
                           <td className="py-4">
                             <div className="flex items-center">
-                              <img 
-                                src="/lovable-uploads/761111e0-3658-46db-b3d2-11cf3617f3d1.png"
-                                alt="UC Coins" 
-                                className="w-10 h-8 mr-3 object-contain"
-                              />
+                              <DollarSign className="w-8 h-8 text-midasbuy-gold mr-3" />
                               <div>
                                 <p className="font-medium text-white">Unknown Cash (UC)</p>
                                 <p className="text-xs text-gray-400 print:text-white">PUBG Mobile Currency</p>
@@ -350,7 +339,7 @@ const ThankYouPage = ({ onLogout }: ThankYouPageProps) => {
                 </div>
                 
                 <div className="hidden print:block text-center mt-8 pt-8 border-t border-gray-300 text-xs text-white">
-                  <p>© 2025 Midasbuy. All Rights Reserved.</p>
+                  <p>© 2023 Midasbuy. All Rights Reserved.</p>
                 </div>
               </div>
               
