@@ -82,9 +82,9 @@ const Index = ({ onLogout }: IndexProps) => {
       
       <main className="pb-20">
         <div className="container mx-auto px-4">
-          <div className="flex flex-col md:flex-row items-start mb-6 pt-10 relative">
+          <div className="flex flex-col md:flex-row items-start mb-6 pt-16 md:pt-20 relative">
             <div className="flex-grow">
-              <div className="flex items-center mb-4 mt-2">
+              <div className="flex items-center mb-5">
                 <img 
                   src="/lovable-uploads/072f88f4-7402-4591-b3e4-11f57bb0e9ea.png" 
                   alt="PUBG Mobile" 
@@ -93,7 +93,7 @@ const Index = ({ onLogout }: IndexProps) => {
                 <h1 className="text-3xl md:text-4xl text-white font-bold tracking-wide">PUBG MOBILE</h1>
               </div>
               
-              <div className="flex items-center space-x-2 mb-4">
+              <div className="flex items-center space-x-2 mb-5">
                 <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-midasbuy-darkBlue border border-gray-700 text-white">
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3 mr-1" viewBox="0 0 24 24" fill="currentColor">
                     <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
@@ -108,7 +108,7 @@ const Index = ({ onLogout }: IndexProps) => {
                 </span>
               </div>
               
-              <div className="mt-2 mb-8">
+              <div className="mt-3 mb-10">
                 <button className="bg-blue-500 text-white rounded-md py-2.5 px-4 flex items-center text-sm hover:bg-blue-600 transition-colors">
                   <span>Enter Your Player ID Now</span>
                   <ChevronDown className="ml-1 w-4 h-4" />
