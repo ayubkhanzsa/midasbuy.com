@@ -19,7 +19,7 @@ const featureBoxes: FeatureBox[] = [
     number: '01',
     title: 'DELTA FORCE X MIDASBUY',
     description: 'EXTRA BONUS UPSIZE ONLY ON MIDASBUY. ENJOY UP TO 45% BONUS NOW',
-    backgroundImage: '/lovable-uploads/0b34b282-16b2-4e05-b721-00d292f36b90.png'
+    backgroundImage: '/lovable-uploads/ae6928bb-6078-4303-a9de-9cccb846be95.png'
   },
   {
     id: '02',
@@ -28,21 +28,21 @@ const featureBoxes: FeatureBox[] = [
     description: 'Get exclusive VIP benefits and up to 42% UC bonus on your purchases',
     highlight: '42% UC',
     subtext: 'BONUS',
-    backgroundImage: '/lovable-uploads/c4d7c825-56b5-4320-98f0-714677da34be.png'
+    backgroundImage: '/lovable-uploads/d4ffbe4b-295b-443d-ba38-ddd9b6cb728b.png'
   },
   {
     id: '03',
     number: '03',
     title: 'HONOR OF KINGS',
     description: 'GET FREE EPIC AND RARE PERMANENT SKINS & UP TO 100% EXTRA BONUS',
-    backgroundImage: '/lovable-uploads/f11e1091-4ecb-4e7a-8075-3d07f281f2da.png'
+    backgroundImage: '/lovable-uploads/2d6c3545-f499-41ae-89fe-f2e0b9a652ee.png'
   },
   {
     id: '04',
     number: '04',
     title: 'PAYMENT METHODS',
     description: 'Multiple payment options including Apple Pay and Google Pay for your convenience',
-    backgroundImage: '/lovable-uploads/033f325b-60e8-44ed-8046-d29687c59e27.png'
+    backgroundImage: '/lovable-uploads/300a100a-76ff-4f3f-87df-49bbba68026d.png'
   },
   {
     id: '05',
@@ -51,7 +51,7 @@ const featureBoxes: FeatureBox[] = [
     description: 'We cover over 850 payment channels around the world, including SMS&Mobile, Physical Vouchers, and Redeem Code.',
     highlight: '850+',
     subtext: 'Payment Channels',
-    backgroundImage: '/lovable-uploads/033f325b-60e8-44ed-8046-d29687c59e27.png'
+    backgroundImage: '/lovable-uploads/300a100a-76ff-4f3f-87df-49bbba68026d.png'
   },
   {
     id: '06',
@@ -60,7 +60,7 @@ const featureBoxes: FeatureBox[] = [
     description: 'We offer more than dozens of different marketing activities to our users in every region of the world.',
     highlight: '20+',
     subtext: 'MARKETING ACTIVITIES',
-    backgroundImage: '/lovable-uploads/0b34b282-16b2-4e05-b721-00d292f36b90.png'
+    backgroundImage: '/lovable-uploads/ae6928bb-6078-4303-a9de-9cccb846be95.png'
   }
 ];
 
@@ -74,7 +74,6 @@ const FeatureBoxesCarousel: React.FC<FeatureBoxesCarouselProps> = ({ className }
   const [isPaused, setIsPaused] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
   
-  // Preload all background images
   useEffect(() => {
     const imagesToLoad = featureBoxes.map(feature => feature.backgroundImage);
     
@@ -94,7 +93,6 @@ const FeatureBoxesCarousel: React.FC<FeatureBoxesCarouselProps> = ({ className }
     });
   }, []);
   
-  // Auto-scroll behavior
   useEffect(() => {
     if (!isLoaded || isPaused) return;
     
@@ -108,12 +106,11 @@ const FeatureBoxesCarousel: React.FC<FeatureBoxesCarouselProps> = ({ className }
           behavior: 'smooth'
         });
       }
-    }, 3000);
+    }, 5000);
     
     return () => clearInterval(interval);
   }, [activeIndex, isLoaded, isPaused]);
   
-  // Handle manual navigation
   const scrollToIndex = (index: number) => {
     setActiveIndex(index);
     if (containerRef.current) {
@@ -125,7 +122,6 @@ const FeatureBoxesCarousel: React.FC<FeatureBoxesCarouselProps> = ({ className }
     }
   };
   
-  // Handle manual interaction
   const handleMouseEnter = () => {
     setIsPaused(true);
   };
@@ -139,11 +135,9 @@ const FeatureBoxesCarousel: React.FC<FeatureBoxesCarouselProps> = ({ className }
   };
   
   const handleTouchEnd = () => {
-    // Keep paused for a moment after touch to allow user to interact
-    setTimeout(() => setIsPaused(false), 5000);
+    setTimeout(() => setIsPaused(false), 7000);
   };
   
-  // Handle scroll sync
   const handleScroll = () => {
     if (!containerRef.current) return;
     
@@ -163,7 +157,12 @@ const FeatureBoxesCarousel: React.FC<FeatureBoxesCarouselProps> = ({ className }
       <div 
         ref={containerRef}
         className="flex gap-6 overflow-x-auto pb-4 hide-scrollbar"
-        style={{ scrollBehavior: 'smooth', scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+        style={{ 
+          scrollBehavior: isPaused ? 'auto' : 'smooth', 
+          scrollbarWidth: 'none', 
+          msOverflowStyle: 'none',
+          transition: isPaused ? 'all 0.3s ease' : 'all 0.8s ease-in-out'
+        }}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
         onTouchStart={handleTouchStart}
@@ -194,7 +193,7 @@ const FeatureBoxesCarousel: React.FC<FeatureBoxesCarouselProps> = ({ className }
                     className="w-full h-full object-cover object-center"
                     loading="eager"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/70 to-black/90" />
+                  <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/80 to-black/90" />
                 </motion.div>
               </div>
               
