@@ -141,7 +141,9 @@ const Index = ({ onLogout }: IndexProps) => {
             </div>
           </div>
           
-          <NavigationTabs />
+          <div className="navigation-tabs">
+            <NavigationTabs />
+          </div>
           
           {showPromotion && <PromotionBanner onClose={() => setShowPromotion(false)} />}
           
