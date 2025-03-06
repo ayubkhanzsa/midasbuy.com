@@ -59,7 +59,7 @@ export const honorOfKingsPackages: HonorOfKingsPackage[] = [
     price: 2.99,
     originalPrice: 3.33,
     bonusPercent: "20%",
-    image: "/lovable-uploads/2e9671ef-3fb8-44fe-99d8-23e8770e0184.png"
+    image: "/lovable-uploads/7a1260dc-a150-4ffe-9b1b-fb5c14d3ccb5.png"
   },
   {
     id: "400tokens",
@@ -69,7 +69,7 @@ export const honorOfKingsPackages: HonorOfKingsPackage[] = [
     price: 4.99,
     originalPrice: 5.55,
     bonusPercent: "20%",
-    image: "/lovable-uploads/2e9671ef-3fb8-44fe-99d8-23e8770e0184.png"
+    image: "/lovable-uploads/7a1260dc-a150-4ffe-9b1b-fb5c14d3ccb5.png"
   },
   {
     id: "560tokens",
@@ -79,7 +79,7 @@ export const honorOfKingsPackages: HonorOfKingsPackage[] = [
     price: 6.99,
     originalPrice: 7.77,
     bonusPercent: "20%",
-    image: "/lovable-uploads/2e9671ef-3fb8-44fe-99d8-23e8770e0184.png"
+    image: "/lovable-uploads/7a1260dc-a150-4ffe-9b1b-fb5c14d3ccb5.png"
   },
   {
     id: "800tokens",
@@ -89,7 +89,7 @@ export const honorOfKingsPackages: HonorOfKingsPackage[] = [
     price: 9.99,
     originalPrice: 11.11,
     bonusPercent: "20%",
-    image: "/lovable-uploads/2e9671ef-3fb8-44fe-99d8-23e8770e0184.png"
+    image: "/lovable-uploads/7a1260dc-a150-4ffe-9b1b-fb5c14d3ccb5.png"
   },
   {
     id: "1200tokens",
@@ -99,7 +99,7 @@ export const honorOfKingsPackages: HonorOfKingsPackage[] = [
     price: 14.99,
     originalPrice: 16.66,
     bonusPercent: "20%",
-    image: "/lovable-uploads/fc52979d-4c60-4eeb-b9a4-ccd58beaa934.png"
+    image: "/lovable-uploads/7a1260dc-a150-4ffe-9b1b-fb5c14d3ccb5.png"
   },
   {
     id: "2400tokens",
@@ -109,7 +109,7 @@ export const honorOfKingsPackages: HonorOfKingsPackage[] = [
     price: 29.99,
     originalPrice: 33.33,
     bonusPercent: "20%",
-    image: "/lovable-uploads/fc52979d-4c60-4eeb-b9a4-ccd58beaa934.png"
+    image: "/lovable-uploads/7a1260dc-a150-4ffe-9b1b-fb5c14d3ccb5.png"
   },
   {
     id: "4000tokens",
@@ -119,7 +119,7 @@ export const honorOfKingsPackages: HonorOfKingsPackage[] = [
     price: 49.99,
     originalPrice: 55.55,
     bonusPercent: "20%",
-    image: "/lovable-uploads/7a1260dc-a150-4ffe-9b1b-fb5c14d3ccb5.png"
+    image: "/lovable-uploads/fc52979d-4c60-4eeb-b9a4-ccd58beaa934.png"
   },
   {
     id: "8000tokens",
@@ -129,7 +129,7 @@ export const honorOfKingsPackages: HonorOfKingsPackage[] = [
     price: 99.99,
     originalPrice: 111.11,
     bonusPercent: "20%",
-    image: "/lovable-uploads/7a1260dc-a150-4ffe-9b1b-fb5c14d3ccb5.png"
+    image: "/lovable-uploads/fc52979d-4c60-4eeb-b9a4-ccd58beaa934.png"
   }
 ];
 
