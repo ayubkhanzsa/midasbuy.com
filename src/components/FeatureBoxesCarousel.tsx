@@ -1,3 +1,4 @@
+
 import React, { useRef, useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Card, CardContent } from '@/components/ui/card';
@@ -19,7 +20,7 @@ const featureBoxes: FeatureBox[] = [
     number: '01',
     title: 'DELTA FORCE X MIDASBUY',
     description: 'EXTRA BONUS UPSIZE ONLY ON MIDASBUY. ENJOY UP TO 45% BONUS NOW',
-    backgroundImage: '/lovable-uploads/ae6928bb-6078-4303-a9de-9cccb846be95.png'
+    backgroundImage: '/lovable-uploads/96dcf71f-b919-40f7-95a7-47d66e3d3527.png'
   },
   {
     id: '02',
@@ -28,21 +29,21 @@ const featureBoxes: FeatureBox[] = [
     description: 'Get exclusive VIP benefits and up to 42% UC bonus on your purchases',
     highlight: '42% UC',
     subtext: 'BONUS',
-    backgroundImage: '/lovable-uploads/d4ffbe4b-295b-443d-ba38-ddd9b6cb728b.png'
+    backgroundImage: '/lovable-uploads/0f15b743-31d1-4b9a-9c20-1e741e00afdc.png'
   },
   {
     id: '03',
     number: '03',
     title: 'HONOR OF KINGS',
     description: 'GET FREE EPIC AND RARE PERMANENT SKINS & UP TO 100% EXTRA BONUS',
-    backgroundImage: '/lovable-uploads/2d6c3545-f499-41ae-89fe-f2e0b9a652ee.png'
+    backgroundImage: '/lovable-uploads/0e111052-aaa5-4b23-914b-6e10702525de.png'
   },
   {
     id: '04',
     number: '04',
     title: 'PAYMENT METHODS',
     description: 'Multiple payment options including Apple Pay and Google Pay for your convenience',
-    backgroundImage: '/lovable-uploads/300a100a-76ff-4f3f-87df-49bbba68026d.png'
+    backgroundImage: '/lovable-uploads/8ef7e337-4e5f-4d1d-94e0-dfee5d239199.png'
   },
   {
     id: '05',
@@ -51,7 +52,7 @@ const featureBoxes: FeatureBox[] = [
     description: 'We cover over 850 payment channels around the world, including SMS&Mobile, Physical Vouchers, and Redeem Code.',
     highlight: '850+',
     subtext: 'Payment Channels',
-    backgroundImage: '/lovable-uploads/300a100a-76ff-4f3f-87df-49bbba68026d.png'
+    backgroundImage: '/lovable-uploads/8ef7e337-4e5f-4d1d-94e0-dfee5d239199.png'
   },
   {
     id: '06',
@@ -60,7 +61,7 @@ const featureBoxes: FeatureBox[] = [
     description: 'We offer more than dozens of different marketing activities to our users in every region of the world.',
     highlight: '20+',
     subtext: 'MARKETING ACTIVITIES',
-    backgroundImage: '/lovable-uploads/ae6928bb-6078-4303-a9de-9cccb846be95.png'
+    backgroundImage: '/lovable-uploads/96dcf71f-b919-40f7-95a7-47d66e3d3527.png'
   }
 ];
 
@@ -193,30 +194,31 @@ const FeatureBoxesCarousel: React.FC<FeatureBoxesCarouselProps> = ({ className }
                     className="w-full h-full object-cover object-center"
                     loading="eager"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/80 to-black/90" />
+                  {/* Using a very light, partially transparent overlay to ensure text readability */}
+                  <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/10 to-black/30" />
                 </motion.div>
               </div>
               
               <CardContent className="p-6 h-full flex flex-col relative z-10">
                 <div className="mb-2">
-                  <span className="text-midasbuy-blue text-lg font-bold">{feature.number}</span>
+                  <span className="text-midasbuy-blue text-lg font-bold text-shadow">{feature.number}</span>
                 </div>
                 
-                <h4 className="text-xl text-midasbuy-blue font-bold mb-4 text-shadow-blue">{feature.title}</h4>
+                <h4 className="text-xl text-white font-bold mb-4 text-shadow">{feature.title}</h4>
                 
                 {feature.highlight && (
                   <div className="mb-2">
-                    <div className="text-4xl text-midasbuy-blue font-bold">{feature.highlight}</div>
-                    {feature.subtext && <div className="text-sm text-gray-400">{feature.subtext}</div>}
+                    <div className="text-4xl text-midasbuy-gold font-bold text-shadow">{feature.highlight}</div>
+                    {feature.subtext && <div className="text-sm text-white text-shadow">{feature.subtext}</div>}
                   </div>
                 )}
                 
-                <p className="text-gray-300 mb-4">{feature.description}</p>
+                <p className="text-white text-shadow mb-4">{feature.description}</p>
                 
                 <div className="mt-auto">
                   <Button 
                     variant="link" 
-                    className="text-midasbuy-blue p-0 hover:text-midasbuy-gold"
+                    className="text-midasbuy-gold p-0 hover:text-white text-shadow"
                   >
                     Learn more →
                   </Button>
