@@ -419,6 +419,22 @@ const HonorOfKingsPurchasePage = ({ onLogout }: HonorOfKingsPurchasePageProps) =
                   </div>
                 </div>
                 
+                <div className="mb-4">
+                  <div className="text-sm text-gray-300 mb-1">Player Information:</div>
+                  <div className="p-3 bg-midasbuy-navy/50 rounded-md">
+                    <div className="flex justify-between">
+                      <span className="text-gray-400">ID:</span>
+                      <span className="text-white font-medium">{playerID}</span>
+                    </div>
+                    {username && (
+                      <div className="flex justify-between mt-1 border-t border-midasbuy-navy/80 pt-1">
+                        <span className="text-gray-400">Username:</span>
+                        <span className="text-white font-medium">{username}</span>
+                      </div>
+                    )}
+                  </div>
+                </div>
+                
                 <div className="space-y-3 mb-6">
                   <div className="flex justify-between text-sm">
                     <span className="text-gray-300">Subtotal</span>
@@ -482,3 +498,4 @@ const HonorOfKingsPurchasePage = ({ onLogout }: HonorOfKingsPurchasePageProps) =
 };
 
 export default HonorOfKingsPurchasePage;
+
