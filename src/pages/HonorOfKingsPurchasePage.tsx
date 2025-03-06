@@ -187,7 +187,7 @@ const HonorOfKingsPurchasePage = ({ onLogout }: HonorOfKingsPurchasePageProps) =
         <Dialog open={showPlayerIdModal} onOpenChange={setShowPlayerIdModal}>
           <DialogContent className="sm:max-w-md bg-[#121B2E] border-none text-white p-0 overflow-hidden">
             <div className="p-6">
-              <div className="flex items-center justify-between">
+              <div className="flex items-center justify-between mb-4">
                 <DialogTitle className="text-2xl font-bold text-white">Enter Your Player ID Now</DialogTitle>
                 <Button 
                   variant="ghost" 
@@ -198,8 +198,8 @@ const HonorOfKingsPurchasePage = ({ onLogout }: HonorOfKingsPurchasePageProps) =
                 </Button>
               </div>
             
-              <div className="py-6">
-                <div className="flex items-center justify-between mb-2">
+              <div className="py-4">
+                <div className="flex items-center justify-between mb-3">
                   <h4 className="text-xl font-medium text-white">Player ID</h4>
                   <Button 
                     variant="ghost" 
@@ -210,23 +210,23 @@ const HonorOfKingsPurchasePage = ({ onLogout }: HonorOfKingsPurchasePageProps) =
                   </Button>
                 </div>
                 
-                <div className="mb-4">
-                  <div className="bg-[#0099FF]/10 p-3 rounded-t-md">
+                <div className="mb-5">
+                  <div className="bg-[#0099FF]/10 p-4 rounded-t-md">
                     <p className="text-white">Start by entering your Game player ID to ensure a smooth purchase!</p>
                   </div>
-                  <div className="bg-[#1A1F2E] rounded-b-md p-3 border border-[#182238]">
+                  <div className="bg-[#1A1F2E] rounded-b-md p-4 border border-[#182238]">
                     <Input
                       value={tempPlayerID}
                       onChange={(e) => setTempPlayerID(e.target.value)}
                       placeholder="Enter Player ID"
                       variant="dark"
-                      className="h-12"
+                      className="h-12 text-lg"
                     />
                   </div>
                 </div>
                 
                 <Button 
-                  className="w-full"
+                  className="w-full mb-8"
                   variant="blue"
                   size="xl"
                   onClick={handleVerifyPlayerID}
@@ -242,30 +242,34 @@ const HonorOfKingsPurchasePage = ({ onLogout }: HonorOfKingsPurchasePageProps) =
                   )}
                 </Button>
                 
-                <div className="mt-6 space-y-4">
+                <div className="space-y-5">
                   <div>
-                    <h5 className="text-white font-medium mb-2 flex items-center">
-                      <HelpCircle className="w-4 h-4 mr-2 text-[#0099FF]" />
+                    <h5 className="text-white font-medium mb-3 flex items-center">
+                      <HelpCircle className="w-5 h-5 mr-2 text-[#0099FF]" />
                       Couldn't find your Player ID?
                     </h5>
                     
-                    <div className="ml-6">
-                      <p className="text-sm text-gray-300 mb-1">1. Find your ID in your profile page</p>
-                      <div className="rounded-md overflow-hidden mb-4">
-                        <img 
-                          src="/lovable-uploads/a11f7ec0-260b-4785-89db-c8478d536442.png" 
-                          alt="Finding Player ID in Profile Page" 
-                          className="w-full rounded-md border border-gray-700"
-                        />
+                    <div className="ml-7 space-y-4">
+                      <div>
+                        <p className="text-sm text-gray-300 mb-2">1. Find your ID in your profile page</p>
+                        <div className="rounded-md overflow-hidden mb-4">
+                          <img 
+                            src="/lovable-uploads/a11f7ec0-260b-4785-89db-c8478d536442.png" 
+                            alt="Finding Player ID in Profile Page" 
+                            className="w-full rounded-md border border-gray-700"
+                          />
+                        </div>
                       </div>
                       
-                      <p className="text-sm text-gray-300 mb-1">2. Or view your ID in the game lobby</p>
-                      <div className="rounded-md overflow-hidden">
-                        <img 
-                          src="/lovable-uploads/d8a0389b-81ee-4c91-bd70-8e9e7b0d765b.png" 
-                          alt="Finding Player ID in Game Lobby" 
-                          className="w-full rounded-md border border-gray-700"
-                        />
+                      <div>
+                        <p className="text-sm text-gray-300 mb-2">2. Or view your ID in the game lobby</p>
+                        <div className="rounded-md overflow-hidden">
+                          <img 
+                            src="/lovable-uploads/d8a0389b-81ee-4c91-bd70-8e9e7b0d765b.png" 
+                            alt="Finding Player ID in Game Lobby" 
+                            className="w-full rounded-md border border-gray-700"
+                          />
+                        </div>
                       </div>
                     </div>
                   </div>
