@@ -1,4 +1,3 @@
-
 import { useState, useEffect, useRef } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Menu, X, BellRing, Globe, ChevronDown, Flag, Search } from "lucide-react";
@@ -167,7 +166,6 @@ const Header = ({ onLogout }: HeaderProps) => {
     }
   }, [searchQuery]);
 
-  // Simulating receiving a notification
   useEffect(() => {
     const notificationTimer = setTimeout(() => {
       if (!isNotificationOpen) {
@@ -405,7 +403,7 @@ const Header = ({ onLogout }: HeaderProps) => {
           
           <button 
             onClick={onLogout} 
-            className="bg-midasbuy-blue/10 hover:bg-midasbuy-blue/20 text-white text-xs px-4 py-1.5 rounded-md transition-all border border-midasbuy-blue/20"
+            className="text-white text-xs px-4 py-1.5 rounded-md transition-all"
           >
             Sign Out
           </button>
@@ -480,7 +478,7 @@ const Header = ({ onLogout }: HeaderProps) => {
                 <div className="flex justify-between pt-3 border-t border-gray-700">
                   <button 
                     onClick={onLogout} 
-                    className="bg-midasbuy-blue/10 hover:bg-midasbuy-blue/20 text-white text-xs px-3 py-1.5 rounded-md transition-all border border-midasbuy-blue/20"
+                    className="text-white text-xs px-3 py-1.5 rounded-md transition-all"
                   >
                     Sign Out
                   </button>
