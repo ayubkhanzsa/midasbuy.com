@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
@@ -50,7 +49,6 @@ const HonorOfKingsPurchasePage = ({ onLogout }: HonorOfKingsPurchasePageProps) =
       setPlayerID(savedPlayerID);
       setIsPlayerIDValid(true);
       
-      // Only get the username if player ID is valid
       const savedUsername = localStorage.getItem("honorUsername");
       if (savedUsername) {
         setUsername(savedUsername);
@@ -113,7 +111,6 @@ const HonorOfKingsPurchasePage = ({ onLogout }: HonorOfKingsPurchasePageProps) =
       
       localStorage.setItem("honorPlayerID", tempPlayerID);
       
-      // Generate random username for demonstration
       const mockUsername = `HonorPlayer${Math.floor(Math.random() * 10000)}`;
       localStorage.setItem("honorUsername", mockUsername);
       setUsername(mockUsername);
@@ -125,7 +122,7 @@ const HonorOfKingsPurchasePage = ({ onLogout }: HonorOfKingsPurchasePageProps) =
   const handleResetPlayerID = () => {
     setPlayerID("");
     setIsPlayerIDValid(false);
-    setUsername(""); // Clear username when player ID is reset
+    setUsername("");
     localStorage.removeItem("honorPlayerID");
     localStorage.removeItem("honorUsername");
     
@@ -134,7 +131,6 @@ const HonorOfKingsPurchasePage = ({ onLogout }: HonorOfKingsPurchasePageProps) =
       description: "Please enter a new Player ID",
     });
     
-    // Open the modal for entering a new player ID
     setShowPlayerIdModal(true);
   };
 
@@ -159,8 +155,6 @@ const HonorOfKingsPurchasePage = ({ onLogout }: HonorOfKingsPurchasePageProps) =
         description: `Package: ${honorPackage?.baseAmount} Tokens`,
       });
       
-      // For now, we'll just navigate back to honor of kings page
-      // In a real implementation, this would go to a checkout page
       navigate(`/honor-of-kings`);
     }
   };
@@ -256,21 +250,21 @@ const HonorOfKingsPurchasePage = ({ onLogout }: HonorOfKingsPurchasePageProps) =
                     </h5>
                     
                     <div className="ml-6">
-                      <p className="text-sm text-gray-300 mb-1">1.1. Enter the game</p>
+                      <p className="text-sm text-gray-300 mb-1">1. Find your ID in your profile page</p>
                       <div className="rounded-md overflow-hidden mb-4">
                         <img 
-                          src="/lovable-uploads/e8dbeab5-139d-48a8-be8c-c65c04e63967.png" 
-                          alt="Finding Player ID Step 1" 
-                          className="w-full rounded-md"
+                          src="/lovable-uploads/a11f7ec0-260b-4785-89db-c8478d536442.png" 
+                          alt="Finding Player ID in Profile Page" 
+                          className="w-full rounded-md border border-gray-700"
                         />
                       </div>
                       
-                      <p className="text-sm text-gray-300 mb-1">1.2. Go to your profile and find the ID</p>
+                      <p className="text-sm text-gray-300 mb-1">2. Or view your ID in the game lobby</p>
                       <div className="rounded-md overflow-hidden">
                         <img 
-                          src="/lovable-uploads/e8dbeab5-139d-48a8-be8c-c65c04e63967.png" 
-                          alt="Finding Player ID Step 2" 
-                          className="w-full rounded-md"
+                          src="/lovable-uploads/d8a0389b-81ee-4c91-bd70-8e9e7b0d765b.png" 
+                          alt="Finding Player ID in Game Lobby" 
+                          className="w-full rounded-md border border-gray-700"
                         />
                       </div>
                     </div>
