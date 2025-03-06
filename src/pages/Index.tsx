@@ -1,3 +1,4 @@
+
 import { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import Header from "@/components/Header";
@@ -83,7 +84,7 @@ const Index = ({ onLogout }: IndexProps) => {
           <div 
             className="mobile-header-banner"
             style={{
-              backgroundImage: `url('/lovable-uploads/0292fab1-682b-4520-8470-7fd8094f4d15.png')`,
+              backgroundImage: `url('/lovable-uploads/737422f1-9910-4120-b706-101f74baebee.png')`,
             }}
           ></div>
           <div className="mobile-header-overlay"></div>
@@ -98,7 +99,7 @@ const Index = ({ onLogout }: IndexProps) => {
         {!isMobile && (
           <div className="banner-container w-full overflow-hidden relative">
             <img 
-              src="/lovable-uploads/0292fab1-682b-4520-8470-7fd8094f4d15.png" 
+              src="/lovable-uploads/737422f1-9910-4120-b706-101f74baebee.png" 
               alt="Banner"
               className="w-full h-auto object-cover top-banner"
             />
