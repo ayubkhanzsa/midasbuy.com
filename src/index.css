@@ -100,3 +100,31 @@ body {
   background: linear-gradient(to right, rgba(85, 85, 85, 0.3), rgba(100, 100, 100, 0.2));
   border-radius: 0.5rem;
 }
+
+/* PUBG Banner Styles */
+.pubg-banner-wrapper {
+  background-image: url('/lovable-uploads/c580fe21-eb14-4255-b516-32f21f66cccb.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 280px;
+  position: relative;
+  margin-bottom: 20px;
+}
+
+@media (min-width: 768px) {
+  .pubg-banner-wrapper {
+    min-height: 320px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .pubg-banner-wrapper {
+    min-height: 360px;
+  }
+}
+
+.pubg-banner-overlay {
+  pointer-events: none;
+}
+
