@@ -72,8 +72,8 @@ const CreditCardDisplay = ({ cardNumber, cardholderName, expiryDate }: CreditCar
           )}
         </div>
         
-        {/* Card number - Moved back to top */}
-        <div className="w-full mt-2" onClick={toggleCardNumberVisibility}>
+        {/* Card number - Moved closer to the header */}
+        <div className="w-full mt-1" onClick={toggleCardNumberVisibility}>
           <div className="text-lg md:text-xl font-mono tracking-widest cursor-pointer text-yellow-400 font-semibold">
             {displayNumber}
           </div>
@@ -82,8 +82,8 @@ const CreditCardDisplay = ({ cardNumber, cardholderName, expiryDate }: CreditCar
           </div>
         </div>
         
-        {/* Cardholder info and expiry - Moved below card number */}
-        <div className="w-full mt-2">
+        {/* Cardholder info and expiry - Below card number with smaller size */}
+        <div className="w-full mt-auto">
           <div className="flex">
             <div className="w-1/2">
               <div className="text-[8px] text-white/70 uppercase tracking-wider">Card Holder</div>
