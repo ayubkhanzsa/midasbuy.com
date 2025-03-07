@@ -51,26 +51,27 @@ const CreditCardDisplay = ({ cardNumber, cardholderName, expiryDate }: CreditCar
       </div>
       
       <div className="flex justify-between items-start h-full flex-col relative z-10">
-        {/* Card type and chip */}
+        {/* Card type and logo in top right */}
         <div className="w-full flex justify-between items-start">
           <div>
             <div className="text-xl font-bold text-white/90">
               {getCardTypeLabel(cardType)}
             </div>
-            
-            {/* Chip image replacing the old icons */}
-            <div className="mt-2">
-              <img 
-                src={getChipImage()} 
-                alt="Card Chip" 
-                className="w-10 h-10 object-contain"
-              />
-            </div>
           </div>
+          
+          {/* Visa Gold logo in top right for Visa cards */}
+          {cardType === 'visa' && (
+            <div className="flex flex-col items-end">
+              <div className="text-white text-lg font-bold italic uppercase flex items-center">
+                <span className="text-white">VISA</span>
+                <span className="text-[10px] ml-1 text-yellow-400/90">Gold</span>
+              </div>
+            </div>
+          )}
         </div>
         
         {/* Card number - Moved up slightly */}
-        <div className="w-full mt-1" onClick={toggleCardNumberVisibility}>
+        <div className="w-full mt-6" onClick={toggleCardNumberVisibility}>
           <div className="text-lg font-mono tracking-widest cursor-pointer text-yellow-400 font-semibold">
             {displayNumber}
           </div>
@@ -79,8 +80,8 @@ const CreditCardDisplay = ({ cardNumber, cardholderName, expiryDate }: CreditCar
           </div>
         </div>
         
-        {/* Cardholder info and expiry - Made smaller and more professional */}
-        <div className="w-full mt-auto mb-6 flex flex-col gap-1">
+        {/* Cardholder info and expiry */}
+        <div className="w-full mt-auto mb-2 flex flex-col gap-1">
           <div className="flex">
             <div className="w-1/2">
               <div className="text-[8px] text-white/70 uppercase tracking-wider">Card Holder</div>
@@ -97,48 +98,6 @@ const CreditCardDisplay = ({ cardNumber, cardholderName, expiryDate }: CreditCar
               </div>
             </div>
           </div>
-        </div>
-        
-        {/* Card brand logo with your custom chip logo */}
-        <div className="absolute bottom-2 right-2">
-          {cardType === 'visa' && (
-            <div className="flex flex-col items-end">
-              <div className="text-white text-2xl font-bold italic uppercase flex items-center">
-                <span className="text-white">VISA</span>
-                <span className="text-[10px] ml-1 text-yellow-400/90">Gold</span>
-              </div>
-              <img 
-                src={getCardLogo(cardType)} 
-                alt="Card Logo" 
-                className="h-6 w-auto mt-1"
-              />
-            </div>
-          )}
-          {cardType === 'mastercard' && (
-            <div className="flex flex-col items-end space-y-1">
-              <div className="flex items-center space-x-1">
-                <div className="w-8 h-8 rounded-full bg-red-500 opacity-80"></div>
-                <div className="w-8 h-8 rounded-full bg-yellow-400 opacity-80 -ml-4"></div>
-              </div>
-              <img 
-                src={getCardLogo(cardType)} 
-                alt="Card Logo" 
-                className="h-6 w-auto"
-              />
-            </div>
-          )}
-          {(cardType !== 'visa' && cardType !== 'mastercard') && (
-            <div className="flex flex-col items-end space-y-1">
-              <div className="text-white text-lg font-bold opacity-80">
-                {cardType.toUpperCase()}
-              </div>
-              <img 
-                src={getCardLogo(cardType)} 
-                alt="Card Logo" 
-                className="h-6 w-auto"
-              />
-            </div>
-          )}
         </div>
       </div>
     </div>
