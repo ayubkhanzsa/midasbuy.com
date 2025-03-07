@@ -23,7 +23,7 @@ export function useMobile(breakpoint = 768): boolean {
 }
 
 // Custom hook to detect if the device is a tablet
-export function useTablet(minBreakpoint = 768, maxBreakpoint = 1024): boolean {
+export function useTablet(minBreakpoint = 640, maxBreakpoint = 1024): boolean {
   const [isTablet, setIsTablet] = useState<boolean>(
     typeof window !== 'undefined' 
       ? window.innerWidth >= minBreakpoint && window.innerWidth < maxBreakpoint 
