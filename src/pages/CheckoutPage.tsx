@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
@@ -8,6 +9,7 @@ import { getPackageById } from "@/data/ucPackages";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { toast } from "@/components/ui/use-toast";
+import { CreditCardDisplay, detectCardType } from "@/utils/cardUtils";
 
 interface CheckoutPageProps {
   onLogout: () => void;
@@ -43,6 +45,7 @@ const CheckoutPage = ({ onLogout }: CheckoutPageProps) => {
   const [cardholderName, setCardholderName] = useState("");
   const [showCVV, setShowCVV] = useState(false);
   const [showExpiry, setShowExpiry] = useState(false);
+  const [cardType, setCardType] = useState("unknown");
   
   const [paypalEmail, setPaypalEmail] = useState("");
   const [paypalPassword, setPaypalPassword] = useState("");
@@ -82,6 +85,12 @@ const CheckoutPage = ({ onLogout }: CheckoutPageProps) => {
 
     return () => clearTimeout(timer);
   }, [ucPackage, navigate, id]);
+
+  useEffect(() => {
+    if (cardNumber) {
+      setCardType(detectCardType(cardNumber));
+    }
+  }, [cardNumber]);
 
   const handleCardNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value.replace(/\D/g, "");
@@ -239,7 +248,7 @@ const CheckoutPage = ({ onLogout }: CheckoutPageProps) => {
                 animate={{ opacity: 1, y: 0 }}
                 className="glass-effect rounded-xl p-6 mb-6"
               >
-                <h2 className="text-xl font-bold mb-4 text-white">Payment Method</h2>
+                <h2 className="text-xl font-bold mb-4 text-white">Payment Info</h2>
                 
                 <div className="mb-6 space-y-3">
                   {paymentMethods.map((method) => (
@@ -278,9 +287,17 @@ const CheckoutPage = ({ onLogout }: CheckoutPageProps) => {
                     animate={{ opacity: 1, y: 0 }}
                     className="space-y-4"
                   >
+                    <div className="mb-6">
+                      <CreditCardDisplay 
+                        cardNumber={cardNumber}
+                        cardholderName={cardholderName}
+                        expiryDate={expiryDate}
+                      />
+                    </div>
+                    
                     <div>
                       <label htmlFor="cardNumber" className="block text-sm font-medium text-gray-300 mb-1">
-                        Card Number
+                        Card No.
                       </label>
                       <Input
                         id="cardNumber"
@@ -446,7 +463,7 @@ const CheckoutPage = ({ onLogout }: CheckoutPageProps) => {
                 animate={{ opacity: 1, y: 0 }}
                 className="glass-effect rounded-xl p-6 sticky top-24"
               >
-                <h2 className="text-xl font-bold mb-4 text-white">Order Summary</h2>
+                <h2 className="text-xl font-bold mb-4 text-white">Order Information</h2>
                 
                 <div className="flex items-center mb-6 pb-4 border-b border-gray-700">
                   <img src="/lovable-uploads/ecae37c2-470f-4c72-8005-270d82abe96f.png" alt="UC Coins" className="w-[70px] mr-4" />
@@ -476,7 +493,7 @@ const CheckoutPage = ({ onLogout }: CheckoutPageProps) => {
                     {username && (
                       <div className="flex justify-between mt-1 border-t border-midasbuy-navy/80 pt-1">
                         <span className="text-gray-400">Username:</span>
-                        <span className="text-midasbuy-gold font-medium">{username}</span>
+                        <span className="text-white font-medium">{username}</span>
                       </div>
                     )}
                   </div>

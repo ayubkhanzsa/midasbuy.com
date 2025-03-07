@@ -1,3 +1,4 @@
+
 import { useState, useEffect, useRef } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
@@ -386,7 +387,7 @@ const HonorOfKingsPurchasePage = ({ onLogout }: HonorOfKingsPurchasePageProps) =
                 animate={{ opacity: 1, y: 0 }}
                 className="glass-effect rounded-xl p-6 sticky top-24"
               >
-                <h2 className="text-xl font-bold mb-4 text-white">Order Summary</h2>
+                <h2 className="text-xl font-bold mb-4 text-white">Order Information</h2>
                 
                 <div className="flex items-center mb-6 pb-4 border-b border-gray-700">
                   <img src="/lovable-uploads/f6594fcb-d2eb-4e92-9f21-fe5959fa5360.png" alt="Credits" className="w-[70px] mr-4" />
@@ -498,4 +499,3 @@ const HonorOfKingsPurchasePage = ({ onLogout }: HonorOfKingsPurchasePageProps) =
 };
 
 export default HonorOfKingsPurchasePage;
-
