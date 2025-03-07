@@ -102,6 +102,22 @@ const Index = ({ onLogout }: IndexProps) => {
     }
   }, []);
 
+  const handleSubscribeClick = () => {
+    toast({
+      title: "Subscribe to PUBG Mobile",
+      description: "Sign up to receive updates and exclusive offers!",
+      action: (
+        <Button 
+          variant="default" 
+          size="sm" 
+          onClick={() => window.open("mailto:signup@pubgmobile.com", "_blank")}
+        >
+          Sign Up
+        </Button>
+      ),
+    });
+  };
+
   const handlePlayerIdClick = () => {
     setTempPlayerID("");
     setShowPlayerIdModal(true);
