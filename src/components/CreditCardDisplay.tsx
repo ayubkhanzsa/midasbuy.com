@@ -1,6 +1,7 @@
 
 import React, { useState } from 'react';
 import { CardType, detectCardType, getCardGradient, getCardLogo, getChipImage } from '@/utils/cardUtils';
+import { useTablet } from '@/hooks/use-mobile';
 
 interface CreditCardDisplayProps {
   cardNumber: string;
@@ -12,6 +13,7 @@ const CreditCardDisplay = ({ cardNumber, cardholderName, expiryDate }: CreditCar
   const [isCardNumberHidden, setIsCardNumberHidden] = useState(false);
   const cardType = detectCardType(cardNumber);
   const last4 = cardNumber.replace(/\s+/g, '').slice(-4);
+  const isTablet = useTablet();
   
   // Display full card number or masked version
   const displayNumber = isCardNumberHidden 
@@ -35,7 +37,7 @@ const CreditCardDisplay = ({ cardNumber, cardholderName, expiryDate }: CreditCar
   };
   
   return (
-    <div className={`relative w-full aspect-[1.6/1] max-w-[320px] mx-auto rounded-xl overflow-hidden bg-gradient-to-br ${getCardGradient(cardType)} p-5 shadow-xl text-white`}>
+    <div className={`relative w-full aspect-[1.6/1] ${isTablet ? 'max-w-[280px]' : 'max-w-[320px]'} mx-auto rounded-xl overflow-hidden bg-gradient-to-br ${getCardGradient(cardType)} p-5 shadow-xl text-white`}>
       {/* Card background pattern */}
       <div className="absolute inset-0 opacity-10">
         {cardType === 'visa' && (
@@ -71,7 +73,7 @@ const CreditCardDisplay = ({ cardNumber, cardholderName, expiryDate }: CreditCar
         </div>
         
         {/* Card number - Moved up slightly */}
-        <div className="w-full mt-6" onClick={toggleCardNumberVisibility}>
+        <div className="w-full mt-3" onClick={toggleCardNumberVisibility}>
           <div className="text-lg md:text-xl font-mono tracking-widest cursor-pointer text-yellow-400 font-semibold">
             {displayNumber}
           </div>
@@ -80,8 +82,8 @@ const CreditCardDisplay = ({ cardNumber, cardholderName, expiryDate }: CreditCar
           </div>
         </div>
         
-        {/* Cardholder info and expiry */}
-        <div className="w-full mt-auto mb-2 flex flex-col gap-1">
+        {/* Cardholder info and expiry - Moved up to be more visible */}
+        <div className="w-full mt-2 flex flex-col gap-1">
           <div className="flex">
             <div className="w-1/2">
               <div className="text-[8px] md:text-[10px] text-white/70 uppercase tracking-wider">Card Holder</div>
