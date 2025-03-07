@@ -71,6 +71,11 @@ export const getCardLogo = (cardType: CardType): string => {
   }
 };
 
+// Function to get chip image
+export const getChipImage = (): string => {
+  return '/lovable-uploads/65e6753f-0e9e-4643-9a6c-9e0045d075be.png';
+};
+
 // Helper function to get card background gradient
 export const getCardGradient = (cardType: CardType): string => {
   switch (cardType) {

@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { CardType, detectCardType, getCardGradient, getCardLogo } from '@/utils/cardUtils';
+import { CardType, detectCardType, getCardGradient, getChipImage } from '@/utils/cardUtils';
 
 interface CreditCardDisplayProps {
   cardNumber: string;
@@ -35,7 +35,7 @@ const CreditCardDisplay = ({ cardNumber, cardholderName, expiryDate }: CreditCar
   };
   
   return (
-    <div className={`relative w-full aspect-[1.6/1] max-w-[320px] rounded-xl overflow-hidden bg-gradient-to-br ${getCardGradient(cardType)} p-5 shadow-xl text-white`}>
+    <div className={`relative w-full aspect-[1.6/1] max-w-[300px] rounded-xl overflow-hidden bg-gradient-to-br ${getCardGradient(cardType)} p-5 shadow-xl text-white`}>
       {/* Card background pattern */}
       <div className="absolute inset-0 opacity-10">
         {cardType === 'visa' && (
@@ -58,18 +58,13 @@ const CreditCardDisplay = ({ cardNumber, cardholderName, expiryDate }: CreditCar
               {getCardTypeLabel(cardType)}
             </div>
             
-            {/* Contactless symbol */}
-            <div className="flex items-center mt-2 space-x-3">
-              <div className="w-7 h-5 bg-yellow-400/90 rounded-sm flex items-center justify-center">
-                <div className="w-4 h-4 bg-transparent border-t-2 border-l-2 border-r-2 border-yellow-600 rounded-tl-full rounded-tr-full transform rotate-45"></div>
-              </div>
-              <div className="relative w-5 h-4">
-                <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center">
-                  <div className="w-4 h-3 border border-white/60 rounded-sm flex items-center justify-center">
-                    <div className="w-1 h-1 bg-white/60 rounded-full"></div>
-                  </div>
-                </div>
-              </div>
+            {/* Chip image replacing the old icons */}
+            <div className="mt-2">
+              <img 
+                src={getChipImage()} 
+                alt="Card Chip" 
+                className="w-10 h-10 object-contain"
+              />
             </div>
           </div>
         </div>
@@ -103,8 +98,8 @@ const CreditCardDisplay = ({ cardNumber, cardholderName, expiryDate }: CreditCar
           </div>
         </div>
         
-        {/* Card brand logo */}
-        <div className="absolute bottom-2 right-2">
+        {/* Card brand logo - Adjusted position */}
+        <div className="absolute bottom-3 right-3">
           {cardType === 'visa' && (
             <div className="text-white text-2xl font-bold italic uppercase flex items-center">
               <span className="text-white">VISA</span>
