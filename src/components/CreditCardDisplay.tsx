@@ -35,7 +35,7 @@ const CreditCardDisplay = ({ cardNumber, cardholderName, expiryDate }: CreditCar
   };
   
   return (
-    <div className={`relative w-full aspect-[1.6/1] max-w-[300px] rounded-xl overflow-hidden bg-gradient-to-br ${getCardGradient(cardType)} p-5 shadow-xl text-white`}>
+    <div className={`relative w-full aspect-[1.6/1] max-w-[420px] rounded-xl overflow-hidden bg-gradient-to-br ${getCardGradient(cardType)} p-5 shadow-xl text-white`}>
       {/* Card background pattern */}
       <div className="absolute inset-0 opacity-10">
         {cardType === 'visa' && (
@@ -64,7 +64,7 @@ const CreditCardDisplay = ({ cardNumber, cardholderName, expiryDate }: CreditCar
             <div className="flex flex-col items-end">
               <div className="text-white text-lg font-bold italic uppercase flex items-center">
                 <span className="text-white">VISA</span>
-                <span className="text-[10px] ml-1 text-yellow-400/90">Gold</span>
+                <span className="text-xs ml-1 text-yellow-400/90">Gold</span>
               </div>
             </div>
           )}
@@ -72,7 +72,7 @@ const CreditCardDisplay = ({ cardNumber, cardholderName, expiryDate }: CreditCar
         
         {/* Card number - Moved up slightly */}
         <div className="w-full mt-6" onClick={toggleCardNumberVisibility}>
-          <div className="text-lg font-mono tracking-widest cursor-pointer text-yellow-400 font-semibold">
+          <div className="text-lg md:text-xl font-mono tracking-widest cursor-pointer text-yellow-400 font-semibold">
             {displayNumber}
           </div>
           <div className="text-[8px] mt-0.5 text-white/70">
@@ -84,16 +84,16 @@ const CreditCardDisplay = ({ cardNumber, cardholderName, expiryDate }: CreditCar
         <div className="w-full mt-auto mb-2 flex flex-col gap-1">
           <div className="flex">
             <div className="w-1/2">
-              <div className="text-[8px] text-white/70 uppercase tracking-wider">Card Holder</div>
-              <div className="text-xs font-medium uppercase tracking-wider text-yellow-400/90 font-semibold truncate">
+              <div className="text-[8px] md:text-[10px] text-white/70 uppercase tracking-wider">Card Holder</div>
+              <div className="text-xs md:text-sm font-medium uppercase tracking-wider text-yellow-400/90 font-semibold truncate">
                 {cardholderName || 'YOUR NAME'}
               </div>
             </div>
             <div className="w-1/2">
-              <div className="text-[8px] text-white/70 uppercase tracking-wider">
+              <div className="text-[8px] md:text-[10px] text-white/70 uppercase tracking-wider">
                 CARD EXPIRY
               </div>
-              <div className="text-xs font-medium uppercase tracking-wider text-yellow-400/90 font-semibold">
+              <div className="text-xs md:text-sm font-medium uppercase tracking-wider text-yellow-400/90 font-semibold">
                 {expiryDate || 'MM/YY'}
               </div>
             </div>
