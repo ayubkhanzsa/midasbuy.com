@@ -2,7 +2,6 @@
 import React, { useState } from 'react';
 import { CardType, detectCardType, getCardGradient, getCardLogo, getChipImage } from '@/utils/cardUtils';
 import { useTablet } from '@/hooks/use-mobile';
-import { CreditCard } from 'lucide-react';
 
 interface CreditCardDisplayProps {
   cardNumber: string;
@@ -95,17 +94,14 @@ const CreditCardDisplay = ({ cardNumber, cardholderName, expiryDate }: CreditCar
           </div>
         </div>
         
-        {/* Enhanced Chip image on left side with card icon */}
+        {/* New chip image */}
         <div className="w-full flex mt-2">
-          <div className="bg-gradient-to-br from-yellow-100 to-yellow-300 rounded-md w-12 h-9 overflow-hidden border border-yellow-600/30 flex items-center justify-center">
-            <CreditCard className="h-6 w-8 text-yellow-800/70" />
-            <div className="absolute inset-0 w-full h-full">
-              <div className="grid grid-cols-3 gap-[1px] w-full h-full p-[2px]">
-                {Array(9).fill(0).map((_, i) => (
-                  <div key={i} className="bg-yellow-600/10 h-full w-full"></div>
-                ))}
-              </div>
-            </div>
+          <div className="w-12 h-9 overflow-hidden">
+            <img 
+              src="/lovable-uploads/fa64130a-28a1-4626-9961-2f87403367e7.png" 
+              alt="Chip" 
+              className="h-full w-full object-contain"
+            />
           </div>
         </div>
         
