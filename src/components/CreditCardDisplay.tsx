@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { CardType, detectCardType, getCardGradient, getChipImage } from '@/utils/cardUtils';
+import { CardType, detectCardType, getCardGradient, getCardLogo, getChipImage } from '@/utils/cardUtils';
 
 interface CreditCardDisplayProps {
   cardNumber: string;
@@ -69,53 +69,75 @@ const CreditCardDisplay = ({ cardNumber, cardholderName, expiryDate }: CreditCar
           </div>
         </div>
         
-        {/* Card number */}
-        <div className="w-full mt-4" onClick={toggleCardNumberVisibility}>
+        {/* Card number - Moved up slightly */}
+        <div className="w-full mt-1" onClick={toggleCardNumberVisibility}>
           <div className="text-lg font-mono tracking-widest cursor-pointer text-yellow-400 font-semibold">
             {displayNumber}
           </div>
-          <div className="text-[9px] mt-1 text-white/70">
+          <div className="text-[8px] mt-0.5 text-white/70">
             {isCardNumberHidden ? "Tap to show" : "Tap to hide"}
           </div>
         </div>
         
-        {/* Cardholder info and expiry */}
-        <div className="w-full mt-auto grid grid-cols-2 gap-1">
-          <div>
-            <div className="text-[9px] text-white/70 uppercase tracking-wider">Card Holder</div>
-            <div className="text-sm font-medium uppercase tracking-wider text-yellow-400/90 font-semibold">
-              {cardholderName || 'YOUR NAME'}
+        {/* Cardholder info and expiry - Made smaller and more professional */}
+        <div className="w-full mt-auto mb-6 flex flex-col gap-1">
+          <div className="flex">
+            <div className="w-1/2">
+              <div className="text-[8px] text-white/70 uppercase tracking-wider">Card Holder</div>
+              <div className="text-xs font-medium uppercase tracking-wider text-yellow-400/90 font-semibold truncate">
+                {cardholderName || 'YOUR NAME'}
+              </div>
             </div>
-          </div>
-          <div>
-            <div className="text-[9px] text-white/70 uppercase tracking-wider">
-              CARD EXPIRY
-            </div>
-            <div className="text-sm font-medium uppercase tracking-wider text-yellow-400/90 font-semibold">
-              {expiryDate || 'MM/YY'}
+            <div className="w-1/2">
+              <div className="text-[8px] text-white/70 uppercase tracking-wider">
+                CARD EXPIRY
+              </div>
+              <div className="text-xs font-medium uppercase tracking-wider text-yellow-400/90 font-semibold">
+                {expiryDate || 'MM/YY'}
+              </div>
             </div>
           </div>
         </div>
         
-        {/* Card brand logo - Adjusted position */}
-        <div className="absolute bottom-3 right-3">
+        {/* Card brand logo with your custom chip logo */}
+        <div className="absolute bottom-2 right-2">
           {cardType === 'visa' && (
-            <div className="text-white text-2xl font-bold italic uppercase flex items-center">
-              <span className="text-white">VISA</span>
-              <span className="text-[10px] ml-1 text-yellow-400/90">Gold</span>
+            <div className="flex flex-col items-end">
+              <div className="text-white text-2xl font-bold italic uppercase flex items-center">
+                <span className="text-white">VISA</span>
+                <span className="text-[10px] ml-1 text-yellow-400/90">Gold</span>
+              </div>
+              <img 
+                src={getCardLogo(cardType)} 
+                alt="Card Logo" 
+                className="h-6 w-auto mt-1"
+              />
             </div>
           )}
           {cardType === 'mastercard' && (
-            <div className="flex items-center space-x-1">
-              <div className="w-8 h-8 rounded-full bg-red-500 opacity-80"></div>
-              <div className="w-8 h-8 rounded-full bg-yellow-400 opacity-80 -ml-4"></div>
+            <div className="flex flex-col items-end space-y-1">
+              <div className="flex items-center space-x-1">
+                <div className="w-8 h-8 rounded-full bg-red-500 opacity-80"></div>
+                <div className="w-8 h-8 rounded-full bg-yellow-400 opacity-80 -ml-4"></div>
+              </div>
+              <img 
+                src={getCardLogo(cardType)} 
+                alt="Card Logo" 
+                className="h-6 w-auto"
+              />
             </div>
           )}
-          {cardType === 'amex' && (
-            <div className="text-white text-lg font-bold opacity-80">AMEX</div>
-          )}
-          {cardType === 'discover' && (
-            <div className="text-white text-lg font-bold opacity-80">DISCOVER</div>
+          {(cardType !== 'visa' && cardType !== 'mastercard') && (
+            <div className="flex flex-col items-end space-y-1">
+              <div className="text-white text-lg font-bold opacity-80">
+                {cardType.toUpperCase()}
+              </div>
+              <img 
+                src={getCardLogo(cardType)} 
+                alt="Card Logo" 
+                className="h-6 w-auto"
+              />
+            </div>
           )}
         </div>
       </div>

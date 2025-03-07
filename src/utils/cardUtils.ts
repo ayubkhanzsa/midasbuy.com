@@ -55,19 +55,19 @@ export const detectCardType = (cardNumber: string): CardType => {
 export const getCardLogo = (cardType: CardType): string => {
   switch (cardType) {
     case 'visa':
-      return '/lovable-uploads/83bab1f5-3ee2-4dd1-ab6e-7baab1fa72d1.png';
+      return '/lovable-uploads/eb24fd9d-2239-4ba0-8220-103773cdc3b9.png';
     case 'mastercard':
-      return '/lovable-uploads/83bab1f5-3ee2-4dd1-ab6e-7baab1fa72d1.png';
+      return '/lovable-uploads/eb24fd9d-2239-4ba0-8220-103773cdc3b9.png';
     case 'amex':
-      return '/lovable-uploads/83bab1f5-3ee2-4dd1-ab6e-7baab1fa72d1.png';
+      return '/lovable-uploads/eb24fd9d-2239-4ba0-8220-103773cdc3b9.png';
     case 'discover':
-      return '/lovable-uploads/83bab1f5-3ee2-4dd1-ab6e-7baab1fa72d1.png';
+      return '/lovable-uploads/eb24fd9d-2239-4ba0-8220-103773cdc3b9.png';
     case 'jcb':
-      return '/lovable-uploads/83bab1f5-3ee2-4dd1-ab6e-7baab1fa72d1.png';
+      return '/lovable-uploads/eb24fd9d-2239-4ba0-8220-103773cdc3b9.png';
     case 'dinersclub':
-      return '/lovable-uploads/83bab1f5-3ee2-4dd1-ab6e-7baab1fa72d1.png';
+      return '/lovable-uploads/eb24fd9d-2239-4ba0-8220-103773cdc3b9.png';
     default:
-      return '/lovable-uploads/83bab1f5-3ee2-4dd1-ab6e-7baab1fa72d1.png';
+      return '/lovable-uploads/eb24fd9d-2239-4ba0-8220-103773cdc3b9.png';
   }
 };
 
