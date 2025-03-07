@@ -176,49 +176,38 @@ const HonorOfKingsPurchasePage = ({ onLogout }: HonorOfKingsPurchasePageProps) =
       <AnimatePresence>
         <Dialog open={showPlayerIdModal} onOpenChange={setShowPlayerIdModal}>
           <DialogContent className="sm:max-w-md bg-[#121B2E] border-none text-white p-0 overflow-hidden">
-            <div className="p-6">
-              <div className="flex items-center justify-between mb-4">
-                <DialogTitle className="text-2xl font-bold text-white">Enter Your Player ID Now</DialogTitle>
+            <div className="p-4 sm:p-5">
+              <div className="flex items-center justify-between mb-3">
+                <DialogTitle className="text-lg sm:text-xl font-bold text-white">Enter Your Player ID</DialogTitle>
                 <Button 
                   variant="ghost" 
-                  className="h-8 w-8 p-0 text-gray-400 hover:text-white hover:bg-transparent"
+                  className="h-7 w-7 p-0 text-gray-400 hover:text-white hover:bg-transparent"
                   onClick={() => setShowPlayerIdModal(false)}
                 >
-                  <X className="h-6 w-6" />
+                  <X className="h-5 w-5" />
                 </Button>
               </div>
             
-              <div className="py-4">
-                <div className="flex items-center justify-between mb-3">
-                  <h4 className="text-xl font-medium text-white">Player ID</h4>
-                  <Button 
-                    variant="ghost" 
-                    className="flex items-center text-blue-400 hover:text-blue-300 p-0 hover:bg-transparent"
-                  >
-                    <HelpCircle className="w-5 h-5 mr-1" />
-                    <span>Couldn't find your Player ID?</span>
-                  </Button>
-                </div>
-                
-                <div className="mb-5">
-                  <div className="bg-[#0099FF]/10 p-4 rounded-t-md">
-                    <p className="text-white">Start by entering your Game player ID to ensure a smooth purchase!</p>
+              <div className="py-2">
+                <div className="mb-3">
+                  <div className="bg-[#0099FF] p-2 rounded-md text-center text-white text-sm">
+                    Start by entering your Game player ID to ensure a smooth purchase!
                   </div>
-                  <div className="bg-[#1A1F2E] rounded-b-md p-4 border border-[#182238]">
+                  <div className="bg-[#1A1F2E] rounded-b-md p-3 border border-[#182238]">
                     <Input
                       value={tempPlayerID}
                       onChange={(e) => setTempPlayerID(e.target.value)}
                       placeholder="Enter Player ID"
                       variant="dark"
-                      className="h-12 text-lg"
+                      className="h-10 text-base"
                     />
                   </div>
                 </div>
                 
                 <Button 
-                  className="w-full mb-8"
+                  className="w-full mb-4"
                   variant="blue"
-                  size="xl"
+                  size="lg"
                   onClick={handleVerifyPlayerID}
                   disabled={isVerifying || !tempPlayerID}
                 >
@@ -232,17 +221,17 @@ const HonorOfKingsPurchasePage = ({ onLogout }: HonorOfKingsPurchasePageProps) =
                   )}
                 </Button>
                 
-                <div className="space-y-5">
+                <div className="space-y-3">
                   <div>
-                    <h5 className="text-white font-medium mb-3 flex items-center">
-                      <HelpCircle className="w-5 h-5 mr-2 text-[#0099FF]" />
+                    <h5 className="text-white font-medium mb-2 flex items-center text-sm">
+                      <HelpCircle className="w-4 h-4 mr-1 text-[#0099FF]" />
                       Couldn't find your Player ID?
                     </h5>
                     
-                    <div className="ml-7 space-y-4">
+                    <div className="ml-5 space-y-3">
                       <div>
-                        <p className="text-sm text-gray-300 mb-2">1. Or view your ID in the game lobby</p>
-                        <div className="rounded-md overflow-hidden mb-4">
+                        <p className="text-xs text-gray-300 mb-1">1. Or view your ID in the game lobby</p>
+                        <div className="rounded-md overflow-hidden mb-3">
                           <img 
                             src="/lovable-uploads/d8a0389b-81ee-4c91-bd70-8e9e7b0d765b.png" 
                             alt="Finding Player ID in Game Lobby" 
@@ -252,7 +241,7 @@ const HonorOfKingsPurchasePage = ({ onLogout }: HonorOfKingsPurchasePageProps) =
                       </div>
                       
                       <div>
-                        <p className="text-sm text-gray-300 mb-2">2. Find your ID in your profile page</p>
+                        <p className="text-xs text-gray-300 mb-1">2. Find your ID in your profile page</p>
                         <div className="rounded-md overflow-hidden">
                           <img 
                             src="/lovable-uploads/a11f7ec0-260b-4785-89db-c8478d536442.png" 
@@ -498,4 +487,3 @@ const HonorOfKingsPurchasePage = ({ onLogout }: HonorOfKingsPurchasePageProps) =
 };
 
 export default HonorOfKingsPurchasePage;
-

@@ -21,6 +21,7 @@ const buttonVariants = cva(
         link: "text-primary underline-offset-4 hover:underline",
         gradient: "bg-gradient-to-r from-[#0099FF] to-[#0062FF] hover:opacity-90 text-white",
         blue: "bg-[#0099FF] hover:bg-[#0088FF] text-white",
+        compact: "bg-[#0099FF] hover:bg-[#0088FF] text-white font-normal",
       },
       size: {
         default: "h-10 px-4 py-2",
@@ -28,6 +29,7 @@ const buttonVariants = cva(
         lg: "h-11 rounded-md px-8",
         xl: "h-14 rounded-md px-8 text-xl py-6",
         icon: "h-10 w-10",
+        compact: "h-8 px-3 py-1 text-xs",
       },
     },
     defaultVariants: {
