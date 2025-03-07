@@ -35,7 +35,7 @@ const CreditCardDisplay = ({ cardNumber, cardholderName, expiryDate }: CreditCar
   };
   
   return (
-    <div className={`relative w-full aspect-[1.6/1] max-w-[420px] rounded-xl overflow-hidden bg-gradient-to-br ${getCardGradient(cardType)} p-5 shadow-xl text-white`}>
+    <div className={`relative w-full aspect-[1.6/1] max-w-[320px] mx-auto rounded-xl overflow-hidden bg-gradient-to-br ${getCardGradient(cardType)} p-5 shadow-xl text-white`}>
       {/* Card background pattern */}
       <div className="absolute inset-0 opacity-10">
         {cardType === 'visa' && (
