@@ -133,9 +133,13 @@ const CreditCardDisplay = ({ cardNumber, cardholderName, expiryDate }: CreditCar
             </div>
           </div>
           
-          <div className="flex justify-between items-end mt-1">
-            <div>
-              <div className="text-xs font-medium uppercase tracking-wider text-white/90 truncate max-w-[140px]">
+          {/* Modified cardholder section with label above and centered content */}
+          <div className="flex justify-center mt-3">
+            <div className="text-center">
+              <div className="text-[8px] text-white/70 uppercase tracking-wider mb-1">
+                CARDHOLDER NAME
+              </div>
+              <div className="text-xs font-medium uppercase tracking-wider text-white/90 truncate max-w-[200px]">
                 {cardholderName || 'CARDHOLDER NAME'}
               </div>
             </div>
