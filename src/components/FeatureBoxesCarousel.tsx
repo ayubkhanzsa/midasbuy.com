@@ -13,8 +13,8 @@ const FeatureBoxesCarousel: React.FC<FeatureBoxesCarouselProps> = ({ className, 
   const imageRefs = useRef<HTMLImageElement[]>([]);
 
   const carouselImages = [
-    "/lovable-uploads/9a7e56eb-e7ca-4352-acd8-fd90978164a9.png",
     "/lovable-uploads/5d84e606-83ab-4ccd-8186-132fa1fca79c.png",
+    "/lovable-uploads/9a7e56eb-e7ca-4352-acd8-fd90978164a9.png",
     "/lovable-uploads/e0945660-8538-49d8-ad3a-652079b6f0e2.png",
     "/lovable-uploads/58ab0999-9b9a-4134-99be-0ed63f5b99d5.png"
   ];
