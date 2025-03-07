@@ -122,26 +122,22 @@ const CreditCardDisplay = ({ cardNumber, cardholderName, expiryDate }: CreditCar
           </div>
         </div>
         
-        {/* Bottom section with expiry date and cardholder name */}
-        <div className="w-full mt-auto flex flex-col">
-          <div className="flex text-xs">
-            <div>
-              <div className="text-[8px] text-white/70 uppercase tracking-wider">VALID THRU</div>
-              <div className="text-xs font-medium uppercase tracking-wider text-white/90">
-                {expiryDate || 'MM/YY'}
-              </div>
+        {/* Bottom section with expiry date and cardholder name side by side */}
+        <div className="w-full mt-auto flex flex-row justify-between">
+          <div className="flex flex-col">
+            <div className="text-[8px] text-white/70 uppercase tracking-wider">VALID THRU</div>
+            <div className="text-xs font-medium uppercase tracking-wider text-white/90">
+              {expiryDate || 'MM/YY'}
             </div>
           </div>
           
-          {/* Modified cardholder section with label above and centered content */}
-          <div className="flex justify-center mt-3">
-            <div className="text-center">
-              <div className="text-[8px] text-white/70 uppercase tracking-wider mb-1">
-                CARDHOLDER NAME
-              </div>
-              <div className="text-xs font-medium uppercase tracking-wider text-white/90 truncate max-w-[200px]">
-                {cardholderName || 'CARDHOLDER NAME'}
-              </div>
+          {/* Cardholder name positioned to the right */}
+          <div className="flex flex-col items-end">
+            <div className="text-[8px] text-white/70 uppercase tracking-wider">
+              CARDHOLDER NAME
+            </div>
+            <div className="text-xs font-medium uppercase tracking-wider text-white/90 truncate max-w-[200px]">
+              {cardholderName || 'CARDHOLDER NAME'}
             </div>
           </div>
         </div>
