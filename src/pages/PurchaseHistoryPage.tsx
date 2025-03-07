@@ -28,7 +28,9 @@ import {
   DialogContent,
   DialogHeader,
   DialogTitle,
+  DialogDescription
 } from "@/components/ui/dialog";
+import { toast } from "@/components/ui/use-toast";
 
 interface PurchaseHistoryProps {
   onLogout: () => void;
@@ -59,20 +61,37 @@ const PurchaseHistoryPage = ({ onLogout }: PurchaseHistoryProps) => {
   const [selectedOrder, setSelectedOrder] = useState<OrderRecord | null>(null);
   const receiptRef = useRef<HTMLDivElement>(null);
   const { isMobile, isTablet, isDesktop } = useResponsive();
+  const [sessionUsername, setSessionUsername] = useState<string | null>(null);
 
   useEffect(() => {
-    // Load purchase history from localStorage
+    // Get the logged in username to associate with orders
+    const username = localStorage.getItem("username");
+    setSessionUsername(username);
+    
+    // Load purchase history from localStorage and sessionStorage
     const loadPurchaseHistory = () => {
       try {
         // Get purchase details from localStorage
         const purchaseDetails = localStorage.getItem("purchaseDetails");
         const existingOrders = localStorage.getItem("orderHistory");
+        const sessionOrders = sessionStorage.getItem("sessionOrderHistory");
         
         let allOrders: OrderRecord[] = [];
         
         // Parse existing orders if available
         if (existingOrders) {
           allOrders = JSON.parse(existingOrders);
+        }
+        
+        // Parse session orders and merge if available
+        if (sessionOrders) {
+          const parsedSessionOrders = JSON.parse(sessionOrders);
+          // Merge avoiding duplicates
+          parsedSessionOrders.forEach((sessionOrder: OrderRecord) => {
+            if (!allOrders.some(order => order.id === sessionOrder.id)) {
+              allOrders.push(sessionOrder);
+            }
+          });
         }
         
         // Add new purchase details if available
@@ -99,7 +118,17 @@ const PurchaseHistoryPage = ({ onLogout }: PurchaseHistoryProps) => {
           // Check if this order already exists to avoid duplicates
           if (!allOrders.some(order => order.id === newOrder.id)) {
             allOrders = [newOrder, ...allOrders];
+            
+            // Store in both localStorage and sessionStorage for cross-device sync
             localStorage.setItem("orderHistory", JSON.stringify(allOrders));
+            sessionStorage.setItem("sessionOrderHistory", JSON.stringify(allOrders));
+            
+            // Show success toast
+            toast({
+              title: "Purchase Recorded",
+              description: "Your purchase has been added to your history.",
+              variant: "default",
+            });
           }
           
           // Clear the purchase details to avoid duplicating it on refresh
@@ -117,7 +146,7 @@ const PurchaseHistoryPage = ({ onLogout }: PurchaseHistoryProps) => {
               currency: "USD",
               status: "Completed",
               playerID: "267272727272",
-              username: "admin",
+              username: username || "admin",
               paymentMethod: "PayPal",
               packageDetails: {
                 baseAmount: 600,
@@ -132,7 +161,7 @@ const PurchaseHistoryPage = ({ onLogout }: PurchaseHistoryProps) => {
               currency: "USD",
               status: "Completed",
               playerID: "5247896321",
-              username: "TigerGamer",
+              username: username || "TigerGamer",
               paymentMethod: "Credit Card",
               packageDetails: {
                 baseAmount: 600,
@@ -147,7 +176,7 @@ const PurchaseHistoryPage = ({ onLogout }: PurchaseHistoryProps) => {
               currency: "USD",
               status: "Completed",
               playerID: "5247896321",
-              username: "TigerGamer",
+              username: username || "TigerGamer",
               paymentMethod: "PayPal",
               packageDetails: {
                 baseAmount: 1800,
@@ -162,7 +191,7 @@ const PurchaseHistoryPage = ({ onLogout }: PurchaseHistoryProps) => {
               currency: "USD",
               status: "Completed",
               playerID: "5247896321",
-              username: "TigerGamer",
+              username: username || "TigerGamer",
               paymentMethod: "Credit Card",
               packageDetails: {
                 baseAmount: 0,
@@ -170,7 +199,14 @@ const PurchaseHistoryPage = ({ onLogout }: PurchaseHistoryProps) => {
               }
             }
           ];
+          
+          // Store sample data in both storage types
+          localStorage.setItem("orderHistory", JSON.stringify(allOrders));
+          sessionStorage.setItem("sessionOrderHistory", JSON.stringify(allOrders));
         }
+        
+        // Sort orders by date (newest first)
+        allOrders.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
         
         setPurchases(allOrders);
         setIsLoading(false);
@@ -185,7 +221,24 @@ const PurchaseHistoryPage = ({ onLogout }: PurchaseHistoryProps) => {
       loadPurchaseHistory();
     }, 800);
     
-    return () => clearTimeout(timer);
+    // Sync with other tabs/windows using storage event
+    const handleStorageChange = (event: StorageEvent) => {
+      if (event.key === "orderHistory" && event.newValue) {
+        try {
+          const updatedOrders = JSON.parse(event.newValue);
+          setPurchases(updatedOrders);
+        } catch (error) {
+          console.error("Error parsing updated orders:", error);
+        }
+      }
+    };
+    
+    window.addEventListener("storage", handleStorageChange);
+    
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener("storage", handleStorageChange);
+    };
   }, []);
 
   const formatDate = (dateString: string) => {
@@ -422,6 +475,9 @@ const PurchaseHistoryPage = ({ onLogout }: PurchaseHistoryProps) => {
         <DialogContent className="bg-midasbuy-navy border-gray-700 text-white max-w-md">
           <DialogHeader>
             <DialogTitle>Generating Receipt...</DialogTitle>
+            <DialogDescription className="text-gray-400">
+              Your receipt is being prepared for download
+            </DialogDescription>
           </DialogHeader>
           
           {selectedOrder && (
