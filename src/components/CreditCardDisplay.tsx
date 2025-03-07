@@ -1,7 +1,6 @@
 
 import React, { useState } from 'react';
 import { CardType, detectCardType, getCardGradient, getCardLogo, getChipImage } from '@/utils/cardUtils';
-import { EyeOff, Eye } from 'lucide-react';
 
 interface CreditCardDisplayProps {
   cardNumber: string;
@@ -36,10 +35,7 @@ const CreditCardDisplay = ({ cardNumber, cardholderName, expiryDate }: CreditCar
   };
   
   return (
-    <div className="relative w-full aspect-[1.6/1] max-w-[420px] mx-auto rounded-xl overflow-hidden bg-gradient-to-br shadow-xl text-white">
-      {/* Card background with gradient based on card type */}
-      <div className={`absolute inset-0 ${getCardGradient(cardType)}`}></div>
-      
+    <div className={`relative w-full aspect-[1.6/1] max-w-[300px] rounded-xl overflow-hidden bg-gradient-to-br ${getCardGradient(cardType)} p-5 shadow-xl text-white`}>
       {/* Card background pattern */}
       <div className="absolute inset-0 opacity-10">
         {cardType === 'visa' && (
@@ -54,61 +50,52 @@ const CreditCardDisplay = ({ cardNumber, cardholderName, expiryDate }: CreditCar
         <div className="absolute bottom-10 left-10 w-40 h-40 rounded-full bg-white/10 blur-xl"></div>
       </div>
       
-      <div className="relative z-10 flex flex-col justify-between h-full p-6">
-        {/* Top row with card type and logo */}
-        <div className="flex justify-between items-start w-full">
+      <div className="flex justify-between items-start h-full flex-col relative z-10">
+        {/* Card type and logo in top right */}
+        <div className="w-full flex justify-between items-start">
           <div>
             <div className="text-xl font-bold text-white/90">
               {getCardTypeLabel(cardType)}
             </div>
           </div>
           
-          {/* Card brand logo */}
-          <div className="flex items-center h-8">
-            {cardType === 'visa' ? (
+          {/* Visa Gold logo in top right for Visa cards */}
+          {cardType === 'visa' && (
+            <div className="flex flex-col items-end">
               <div className="text-white text-lg font-bold italic uppercase flex items-center">
                 <span className="text-white">VISA</span>
                 <span className="text-[10px] ml-1 text-yellow-400/90">Gold</span>
               </div>
-            ) : (
-              <img src={getCardLogo(cardType)} alt={cardType} className="h-8 object-contain" />
-            )}
-          </div>
+            </div>
+          )}
         </div>
         
-        {/* Chip image */}
-        <div className="mt-2 mb-3">
-          <img src={getChipImage()} alt="Chip" className="h-10 w-14 object-contain" />
-        </div>
-        
-        {/* Card number with toggle visibility */}
-        <div 
-          className="cursor-pointer group transition-all duration-300 py-2 select-none"
-          onClick={toggleCardNumberVisibility}
-        >
-          <div className="text-xl font-mono tracking-widest text-white">
+        {/* Card number - Moved up slightly */}
+        <div className="w-full mt-6" onClick={toggleCardNumberVisibility}>
+          <div className="text-lg font-mono tracking-widest cursor-pointer text-yellow-400 font-semibold">
             {displayNumber}
           </div>
-          <div className="mt-1 text-[10px] text-white/70 opacity-0 group-hover:opacity-100 transition-opacity">
+          <div className="text-[8px] mt-0.5 text-white/70">
             {isCardNumberHidden ? "Tap to show" : "Tap to hide"}
           </div>
         </div>
         
-        {/* Card holder details */}
-        <div className="mt-auto grid grid-cols-2 gap-4">
-          <div>
-            <div className="text-[10px] text-white/70 uppercase tracking-wider">Card Holder</div>
-            <div className="text-sm font-medium uppercase tracking-wider truncate mt-1 text-white">
-              {cardholderName || 'YOUR NAME'}
+        {/* Cardholder info and expiry */}
+        <div className="w-full mt-auto mb-2 flex flex-col gap-1">
+          <div className="flex">
+            <div className="w-1/2">
+              <div className="text-[8px] text-white/70 uppercase tracking-wider">Card Holder</div>
+              <div className="text-xs font-medium uppercase tracking-wider text-yellow-400/90 font-semibold truncate">
+                {cardholderName || 'YOUR NAME'}
+              </div>
             </div>
-          </div>
-          
-          <div>
-            <div className="text-[10px] text-white/70 uppercase tracking-wider">
-              Expires
-            </div>
-            <div className="text-sm font-medium uppercase tracking-wider mt-1 text-white">
-              {expiryDate || 'MM/YY'}
+            <div className="w-1/2">
+              <div className="text-[8px] text-white/70 uppercase tracking-wider">
+                CARD EXPIRY
+              </div>
+              <div className="text-xs font-medium uppercase tracking-wider text-yellow-400/90 font-semibold">
+                {expiryDate || 'MM/YY'}
+              </div>
             </div>
           </div>
         </div>
