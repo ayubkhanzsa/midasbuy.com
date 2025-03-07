@@ -82,15 +82,14 @@ const CreditCardDisplay = ({ cardNumber, cardholderName, expiryDate }: CreditCar
         {/* Cardholder info and expiry */}
         <div className="w-full mt-auto grid grid-cols-2 gap-1">
           <div>
-            <div className="text-[10px] text-white/70 uppercase tracking-wider">Card Holder</div>
+            <div className="text-[9px] text-white/70 uppercase tracking-wider">Card Holder</div>
             <div className="text-sm font-medium uppercase tracking-wider text-yellow-400/90 font-semibold">
               {cardholderName || 'YOUR NAME'}
             </div>
           </div>
           <div>
-            <div className="text-[10px] text-white/70 uppercase tracking-wider flex items-center space-x-1">
-              <span>GOOD</span>
-              <span>THRU</span>
+            <div className="text-[9px] text-white/70 uppercase tracking-wider">
+              CARD EXPIRY
             </div>
             <div className="text-sm font-medium uppercase tracking-wider text-yellow-400/90 font-semibold">
               {expiryDate || 'MM/YY'}
