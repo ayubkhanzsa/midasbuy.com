@@ -1,4 +1,3 @@
-
 import { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import Header from "@/components/Header";
@@ -103,23 +102,8 @@ const Index = ({ onLogout }: IndexProps) => {
     }
   }, []);
 
-  const handleSubscribeClick = () => {
-    toast({
-      title: "Subscribe to PUBG Mobile",
-      description: "Sign up to receive updates and exclusive offers!",
-      action: (
-        <Button 
-          variant="default" 
-          size="sm" 
-          onClick={() => window.open("mailto:signup@pubgmobile.com", "_blank")}
-        >
-          Sign Up
-        </Button>
-      ),
-    });
-  };
-
   const handlePlayerIdClick = () => {
+    setTempPlayerID("");
     setShowPlayerIdModal(true);
   };
 
@@ -133,13 +117,24 @@ const Index = ({ onLogout }: IndexProps) => {
       return;
     }
 
+    const savedUsername = localStorage.getItem("pubgUsername");
+    if (!savedUsername) {
+      toast({
+        title: "Username Not Verified",
+        description: "Please verify your username in the Events page first",
+        variant: "destructive",
+      });
+      setShowPlayerIdModal(false);
+      navigate("/events");
+      return;
+    }
+
     setIsVerifying(true);
     
     setTimeout(() => {
       setIsVerifying(false);
       
       localStorage.setItem("playerID", tempPlayerID);
-      localStorage.setItem("pubgUsername", "PUBG_Player" + Math.floor(Math.random() * 1000));
       
       toast({
         title: "Player ID Verified",

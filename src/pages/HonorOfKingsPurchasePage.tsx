@@ -1,4 +1,3 @@
-
 import { useState, useEffect, useRef } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
@@ -47,15 +46,18 @@ const HonorOfKingsPurchasePage = ({ onLogout }: HonorOfKingsPurchasePageProps) =
 
   useEffect(() => {
     const savedPlayerID = localStorage.getItem("playerID");
+    const savedUsername = localStorage.getItem("pubgUsername");
+    
     if (savedPlayerID) {
       setPlayerID(savedPlayerID);
       setIsPlayerIDValid(true);
       
-      const savedUsername = localStorage.getItem("pubgUsername");
       if (savedUsername) {
         setUsername(savedUsername);
       } else {
-        setUsername("");
+        setPlayerID("");
+        setIsPlayerIDValid(false);
+        localStorage.removeItem("playerID");
       }
     }
     
@@ -94,6 +96,8 @@ const HonorOfKingsPurchasePage = ({ onLogout }: HonorOfKingsPurchasePageProps) =
         description: "Please verify your username in the Events page first",
         variant: "destructive",
       });
+      setShowPlayerIdModal(false);
+      navigate("/events");
       return;
     }
 
