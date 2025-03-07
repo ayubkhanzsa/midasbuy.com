@@ -1,11 +1,12 @@
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { useResponsive } from "@/hooks/use-mobile";
-import NavigationTabs from "@/components/NavigationTabs";
-import MobileNavigationTabs from "@/components/MobileNavigationTabs";
-import { Card } from "@/components/ui/card";
+import { 
+  Card,
+  CardContent
+} from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { 
   Clock, 
@@ -17,8 +18,17 @@ import {
   ShoppingBag, 
   Gift, 
   CheckCircle2, 
-  Calendar
+  Calendar,
+  ChevronDown,
+  ChevronUp
 } from "lucide-react";
+import { downloadReceipt } from "@/utils/receiptUtils";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 
 interface PurchaseHistoryProps {
   onLogout: () => void;
@@ -44,6 +54,10 @@ const PurchaseHistoryPage = ({ onLogout }: PurchaseHistoryProps) => {
   const [isLoading, setIsLoading] = useState(true);
   const [purchases, setPurchases] = useState<OrderRecord[]>([]);
   const [activeTab, setActiveTab] = useState("purchase");
+  const [expandedOrder, setExpandedOrder] = useState<string | null>(null);
+  const [receiptDialogOpen, setReceiptDialogOpen] = useState(false);
+  const [selectedOrder, setSelectedOrder] = useState<OrderRecord | null>(null);
+  const receiptRef = useRef<HTMLDivElement>(null);
   const { isMobile, isTablet, isDesktop } = useResponsive();
 
   useEffect(() => {
@@ -185,6 +199,27 @@ const PurchaseHistoryPage = ({ onLogout }: PurchaseHistoryProps) => {
     });
   };
 
+  const handleOrderClick = (orderId: string) => {
+    if (expandedOrder === orderId) {
+      setExpandedOrder(null);
+    } else {
+      setExpandedOrder(orderId);
+    }
+  };
+
+  const handleDownloadReceipt = (order: OrderRecord) => {
+    setSelectedOrder(order);
+    setReceiptDialogOpen(true);
+    
+    // Use setTimeout to ensure the receipt is rendered before downloading
+    setTimeout(() => {
+      if (receiptRef.current) {
+        downloadReceipt(receiptRef.current, order.id);
+        setReceiptDialogOpen(false);
+      }
+    }, 500);
+  };
+
   const navigationItems = [
     { id: "purchase", label: "PURCHASE", icon: <ShoppingBag className="w-4 h-4" /> },
     { id: "redeem", label: "REDEEM", icon: <Gift className="w-4 h-4" /> },
@@ -240,8 +275,12 @@ const PurchaseHistoryPage = ({ onLogout }: PurchaseHistoryProps) => {
                       key={purchase.id} 
                       className="bg-midasbuy-navy/50 border-gray-700 overflow-hidden hover:bg-midasbuy-navy/60 transition-colors"
                     >
-                      <div className="p-0">
-                        <div className="grid grid-cols-[auto_1fr] border-b border-blue-900/30">
+                      {/* Compact Order Header (Always Visible) */}
+                      <div 
+                        className="p-0 cursor-pointer"
+                        onClick={() => handleOrderClick(purchase.id)}
+                      >
+                        <div className="grid grid-cols-[auto_1fr_auto] border-b border-blue-900/30">
                           <div className="p-4 flex items-center gap-3 bg-midasbuy-blue/10">
                             <div className="flex-shrink-0">
                               <div className="bg-midasbuy-blue/20 p-2 rounded-full">
@@ -258,90 +297,108 @@ const PurchaseHistoryPage = ({ onLogout }: PurchaseHistoryProps) => {
                             </div>
                           </div>
                           
-                          <div className="bg-midasbuy-navy/80 py-2 px-4 flex items-center justify-between">
+                          <div className="bg-midasbuy-navy/80 py-2 px-4 flex items-center">
                             <div className="flex items-center text-sm text-gray-400">
                               <Clock className="w-4 h-4 mr-1" />
                               <span>{formatDate(purchase.date)}</span>
                             </div>
-                            
-                            <div className="flex items-center">
+                          </div>
+                          
+                          <div className="bg-midasbuy-navy/80 py-2 px-4 flex items-center justify-between">
+                            <div className="flex items-center gap-2">
                               <span className="text-xs bg-green-500/20 text-green-400 px-2 py-1 rounded-full flex items-center">
                                 <CheckCircle2 className="w-3 h-3 mr-1" />
                                 {purchase.status}
                               </span>
+                              <span className="text-midasbuy-gold font-bold">{purchase.price}</span>
                             </div>
+                            {expandedOrder === purchase.id ? (
+                              <ChevronUp className="w-5 h-5 text-gray-400" />
+                            ) : (
+                              <ChevronDown className="w-5 h-5 text-gray-400" />
+                            )}
                           </div>
-                        </div>
-                        
-                        <div className="p-4 grid grid-cols-1 md:grid-cols-3 gap-4">
-                          <div className="space-y-3">
-                            <div>
-                              <div className="text-xs text-gray-500 mb-1">Player Information</div>
-                              <div className="flex gap-3 items-start p-3 bg-midasbuy-navy/40 rounded-md">
-                                <User className="w-4 h-4 text-midasbuy-blue mt-0.5" />
-                                <div className="space-y-2 flex-1">
-                                  <div className="flex justify-between">
-                                    <span className="text-gray-400 text-sm">ID:</span>
-                                    <span className="text-white font-medium text-sm">{purchase.playerID}</span>
-                                  </div>
-                                  
-                                  <div className="flex justify-between border-t border-gray-700/50 pt-2">
-                                    <span className="text-gray-400 text-sm">Username:</span>
-                                    <span className="text-white font-medium text-sm">{purchase.username}</span>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          
-                          <div className="space-y-3">
-                            <div>
-                              <div className="text-xs text-gray-500 mb-1">Payment Details</div>
-                              <div className="flex gap-3 items-start p-3 bg-midasbuy-navy/40 rounded-md">
-                                <CreditCard className="w-4 h-4 text-midasbuy-blue mt-0.5" />
-                                <div className="space-y-2 flex-1">
-                                  <div className="flex justify-between">
-                                    <span className="text-gray-400 text-sm">Method:</span>
-                                    <span className="text-white font-medium text-sm">{purchase.paymentMethod}</span>
-                                  </div>
-                                  
-                                  <div className="flex justify-between border-t border-gray-700/50 pt-2">
-                                    <span className="text-gray-400 text-sm">Order ID:</span>
-                                    <span className="text-white font-medium text-sm">{purchase.id}</span>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          
-                          <div className="space-y-3">
-                            <div>
-                              <div className="text-xs text-gray-500 mb-1">Transaction Summary</div>
-                              <div className="flex gap-3 items-start p-3 bg-midasbuy-navy/40 rounded-md">
-                                <DollarSign className="w-4 h-4 text-midasbuy-gold mt-0.5" />
-                                <div className="space-y-2 flex-1">
-                                  <div className="flex justify-between">
-                                    <span className="text-gray-400 text-sm">Amount:</span>
-                                    <span className="text-midasbuy-gold font-bold text-lg">{purchase.price}</span>
-                                  </div>
-                                  
-                                  <div className="flex justify-between border-t border-gray-700/50 pt-2">
-                                    <span className="text-gray-400 text-sm">Currency:</span>
-                                    <span className="text-white font-medium text-sm">{purchase.currency}</span>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        
-                        <div className="px-4 pb-4 flex justify-end">
-                          <Button variant="outline" size="sm" className="text-xs border-midasbuy-blue/30 text-midasbuy-blue">
-                            <Download className="w-3 h-3 mr-1" />
-                            Download Receipt
-                          </Button>
                         </div>
                       </div>
+                      
+                      {/* Expanded Details (Only Visible When Clicked) */}
+                      {expandedOrder === purchase.id && (
+                        <CardContent className="p-4 bg-midasbuy-navy/30 animate-accordion-down">
+                          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div className="space-y-3">
+                              <div>
+                                <div className="text-xs text-gray-500 mb-1">Player Information</div>
+                                <div className="flex gap-3 items-start p-3 bg-midasbuy-navy/40 rounded-md">
+                                  <User className="w-4 h-4 text-midasbuy-blue mt-0.5" />
+                                  <div className="space-y-2 flex-1">
+                                    <div className="flex justify-between">
+                                      <span className="text-gray-400 text-sm">ID:</span>
+                                      <span className="text-white font-medium text-sm">{purchase.playerID}</span>
+                                    </div>
+                                    
+                                    <div className="flex justify-between border-t border-gray-700/50 pt-2">
+                                      <span className="text-gray-400 text-sm">Username:</span>
+                                      <span className="text-white font-medium text-sm">{purchase.username}</span>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            
+                            <div className="space-y-3">
+                              <div>
+                                <div className="text-xs text-gray-500 mb-1">Payment Details</div>
+                                <div className="flex gap-3 items-start p-3 bg-midasbuy-navy/40 rounded-md">
+                                  <CreditCard className="w-4 h-4 text-midasbuy-blue mt-0.5" />
+                                  <div className="space-y-2 flex-1">
+                                    <div className="flex justify-between">
+                                      <span className="text-gray-400 text-sm">Method:</span>
+                                      <span className="text-white font-medium text-sm">{purchase.paymentMethod}</span>
+                                    </div>
+                                    
+                                    <div className="flex justify-between border-t border-gray-700/50 pt-2">
+                                      <span className="text-gray-400 text-sm">Order ID:</span>
+                                      <span className="text-white font-medium text-sm">{purchase.id}</span>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            
+                            <div className="space-y-3">
+                              <div>
+                                <div className="text-xs text-gray-500 mb-1">Transaction Summary</div>
+                                <div className="flex gap-3 items-start p-3 bg-midasbuy-navy/40 rounded-md">
+                                  <DollarSign className="w-4 h-4 text-midasbuy-gold mt-0.5" />
+                                  <div className="space-y-2 flex-1">
+                                    <div className="flex justify-between">
+                                      <span className="text-gray-400 text-sm">Amount:</span>
+                                      <span className="text-midasbuy-gold font-bold text-lg">{purchase.price}</span>
+                                    </div>
+                                    
+                                    <div className="flex justify-between border-t border-gray-700/50 pt-2">
+                                      <span className="text-gray-400 text-sm">Currency:</span>
+                                      <span className="text-white font-medium text-sm">{purchase.currency}</span>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          
+                          <div className="flex justify-end mt-4">
+                            <Button 
+                              variant="outline" 
+                              size="sm" 
+                              className="text-xs border-midasbuy-blue/30 text-midasbuy-blue"
+                              onClick={() => handleDownloadReceipt(purchase)}
+                            >
+                              <Download className="w-3 h-3 mr-1" />
+                              Download Receipt
+                            </Button>
+                          </div>
+                        </CardContent>
+                      )}
                     </Card>
                   ))}
                 </div>
@@ -359,6 +416,81 @@ const PurchaseHistoryPage = ({ onLogout }: PurchaseHistoryProps) => {
       </main>
       
       <Footer />
+      
+      {/* Receipt dialog for download */}
+      <Dialog open={receiptDialogOpen} onOpenChange={setReceiptDialogOpen}>
+        <DialogContent className="bg-midasbuy-navy border-gray-700 text-white max-w-md">
+          <DialogHeader>
+            <DialogTitle>Generating Receipt...</DialogTitle>
+          </DialogHeader>
+          
+          {selectedOrder && (
+            <div ref={receiptRef} className="p-6 bg-midasbuy-darkBlue rounded-lg border border-midasbuy-blue/30">
+              <div className="text-center mb-4">
+                <h2 className="text-xl font-bold text-midasbuy-gold">MIDASBUY RECEIPT</h2>
+                <p className="text-gray-400 text-sm">Transaction Details</p>
+              </div>
+              
+              <div className="space-y-4">
+                <div className="border-b border-gray-700 pb-2">
+                  <h3 className="text-md font-medium text-white mb-2">Order Information</h3>
+                  <div className="grid grid-cols-2 gap-2 text-sm">
+                    <span className="text-gray-400">Order ID:</span>
+                    <span className="text-white font-medium">{selectedOrder.id}</span>
+                    <span className="text-gray-400">Date:</span>
+                    <span className="text-white">{formatDate(selectedOrder.date)}</span>
+                    <span className="text-gray-400">Status:</span>
+                    <span className="text-green-400 font-medium">{selectedOrder.status}</span>
+                  </div>
+                </div>
+                
+                <div className="border-b border-gray-700 pb-2">
+                  <h3 className="text-md font-medium text-white mb-2">Product Details</h3>
+                  <div className="grid grid-cols-2 gap-2 text-sm">
+                    <span className="text-gray-400">Product:</span>
+                    <span className="text-white font-medium">{selectedOrder.product}</span>
+                    {selectedOrder.packageDetails && selectedOrder.packageDetails.bonusAmount > 0 && (
+                      <>
+                        <span className="text-gray-400">Base Amount:</span>
+                        <span className="text-white">{selectedOrder.packageDetails.baseAmount} UC</span>
+                        <span className="text-gray-400">Bonus:</span>
+                        <span className="text-midasbuy-gold">{selectedOrder.packageDetails.bonusAmount} UC</span>
+                      </>
+                    )}
+                  </div>
+                </div>
+                
+                <div className="border-b border-gray-700 pb-2">
+                  <h3 className="text-md font-medium text-white mb-2">User Information</h3>
+                  <div className="grid grid-cols-2 gap-2 text-sm">
+                    <span className="text-gray-400">Player ID:</span>
+                    <span className="text-white">{selectedOrder.playerID}</span>
+                    <span className="text-gray-400">Username:</span>
+                    <span className="text-white">{selectedOrder.username}</span>
+                  </div>
+                </div>
+                
+                <div>
+                  <h3 className="text-md font-medium text-white mb-2">Payment Information</h3>
+                  <div className="grid grid-cols-2 gap-2 text-sm">
+                    <span className="text-gray-400">Amount:</span>
+                    <span className="text-midasbuy-gold font-bold">{selectedOrder.price}</span>
+                    <span className="text-gray-400">Method:</span>
+                    <span className="text-white">{selectedOrder.paymentMethod}</span>
+                    <span className="text-gray-400">Currency:</span>
+                    <span className="text-white">{selectedOrder.currency}</span>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="mt-6 text-center">
+                <p className="text-xs text-gray-400">Thank you for your purchase!</p>
+                <p className="text-xs text-gray-500">For support: support@midasbuy.com</p>
+              </div>
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
