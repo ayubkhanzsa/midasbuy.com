@@ -1,8 +1,7 @@
-
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowLeft, AlertCircle, Check, RefreshCw, User, Shield, X, HelpCircle, Loader2 } from "lucide-react";
+import { ArrowLeft, AlertCircle, Check, RefreshCw, User, Shield, X, HelpCircle } from "lucide-react";
 import Header from "@/components/Header";
 import { getPackageById, getSelectedCountry, setupCountryChangeListener } from "@/data/ucPackages";
 import { Input } from "@/components/ui/input";
@@ -10,8 +9,9 @@ import { Button } from "@/components/ui/button";
 import { toast } from "@/components/ui/use-toast";
 import { convertAndFormatPrice, setupCurrencyChangeListener } from "@/utils/currencyUtils";
 import { useResponsive } from "@/hooks/use-mobile";
+import { Label } from "@/components/ui/label";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { fetchPlayerUsername } from "@/utils/pubgApiService";
+import { fetchPlayerUsername } from "@/utils/playerUtils";
 
 interface HonorOfKingsPurchasePageProps {
   onLogout: () => void;
@@ -29,7 +29,6 @@ const HonorOfKingsPurchasePage = ({ onLogout }: HonorOfKingsPurchasePageProps) =
   const { isMobile, isTablet } = useResponsive();
   const [showPlayerIdModal, setShowPlayerIdModal] = useState(false);
   const [tempPlayerID, setTempPlayerID] = useState("");
-  const [isFetchingUsername, setIsFetchingUsername] = useState(false);
 
   const honorPackage = id ? getPackageById(id) : undefined;
 
@@ -56,8 +55,7 @@ const HonorOfKingsPurchasePage = ({ onLogout }: HonorOfKingsPurchasePageProps) =
       if (savedUsername) {
         setUsername(savedUsername);
       } else {
-        // Try to fetch username from API if we have a player ID but no username
-        fetchUsernameFromApi(savedPlayerID);
+        setUsername("");
       }
     }
     
@@ -79,25 +77,6 @@ const HonorOfKingsPurchasePage = ({ onLogout }: HonorOfKingsPurchasePageProps) =
     };
   }, []);
 
-  const fetchUsernameFromApi = async (id: string) => {
-    if (!id) return;
-    
-    setIsFetchingUsername(true);
-    try {
-      const result = await fetchPlayerUsername(id);
-      if (result.success && result.username) {
-        setUsername(result.username);
-        localStorage.setItem("pubgUsername", result.username);
-      } else {
-        console.log("Failed to fetch username:", result.error);
-      }
-    } catch (error) {
-      console.error("Error fetching username:", error);
-    } finally {
-      setIsFetchingUsername(false);
-    }
-  };
-
   const handleVerifyPlayerID = async () => {
     if (!tempPlayerID || tempPlayerID.length < 8) {
       toast({
@@ -111,52 +90,48 @@ const HonorOfKingsPurchasePage = ({ onLogout }: HonorOfKingsPurchasePageProps) =
     setIsVerifying(true);
     
     try {
-      // Attempt to fetch the username from the PUBG API
-      const result = await fetchPlayerUsername(tempPlayerID);
+      const fetchedUsername = await fetchPlayerUsername(tempPlayerID);
       
-      if (result.success) {
-        setIsVerifying(false);
-        setIsPlayerIDValid(true);
-        setPlayerID(tempPlayerID);
-        
-        if (result.username) {
-          setUsername(result.username);
-          localStorage.setItem("pubgUsername", result.username);
-        }
-        
-        localStorage.setItem("playerID", tempPlayerID);
-        
-        toast({
-          title: "Player ID Verified",
-          description: "ID verification successful",
-        });
-        
-        setShowPlayerIdModal(false);
+      if (fetchedUsername) {
+        setTimeout(() => {
+          setIsVerifying(false);
+          setIsPlayerIDValid(true);
+          setPlayerID(tempPlayerID);
+          
+          toast({
+            title: "Player ID Verified",
+            description: "ID verification successful",
+          });
+          
+          localStorage.setItem("playerID", tempPlayerID);
+          
+          setUsername(fetchedUsername);
+          localStorage.setItem("pubgUsername", fetchedUsername);
+          
+          setShowPlayerIdModal(false);
+        }, 1000);
       } else {
+        setIsVerifying(false);
         toast({
           title: "Verification Failed",
-          description: result.error || "Could not verify player ID",
+          description: "Could not retrieve username for this Player ID",
           variant: "destructive",
         });
-        setIsVerifying(false);
       }
     } catch (error) {
-      console.error("Error during verification:", error);
+      setIsVerifying(false);
       toast({
         title: "Verification Error",
-        description: "An error occurred during verification",
+        description: "An error occurred while verifying your Player ID",
         variant: "destructive",
       });
-      setIsVerifying(false);
     }
   };
 
   const handleResetPlayerID = () => {
     setPlayerID("");
     setIsPlayerIDValid(false);
-    setUsername("");
     localStorage.removeItem("playerID");
-    localStorage.removeItem("pubgUsername");
     
     toast({
       title: "Player ID Reset",
@@ -354,14 +329,7 @@ const HonorOfKingsPurchasePage = ({ onLogout }: HonorOfKingsPurchasePageProps) =
                         
                         <div className="flex items-center justify-between pt-2">
                           <span className="text-gray-400 text-sm font-medium w-32">Username:</span>
-                          {isFetchingUsername ? (
-                            <div className="flex items-center text-gray-300">
-                              <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                              Fetching...
-                            </div>
-                          ) : (
-                            <span className="text-white font-semibold text-right">{username || "Unknown"}</span>
-                          )}
+                          <span className="text-white font-semibold text-right">{username}</span>
                         </div>
                       </div>
                       
@@ -542,3 +510,4 @@ const HonorOfKingsPurchasePage = ({ onLogout }: HonorOfKingsPurchasePageProps) =
 };
 
 export default HonorOfKingsPurchasePage;
+

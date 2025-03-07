@@ -77,6 +77,22 @@ const CheckoutPage = ({ onLogout }: CheckoutPageProps) => {
       setUsername(storedUsername);
     } else {
       setUsername("PUBG Player");
+      
+      const fetchUsername = async () => {
+        try {
+          const result = await import("@/utils/playerUtils").then(module => 
+            module.fetchPlayerUsername(storedPlayerID)
+          );
+          if (result) {
+            setUsername(result);
+            localStorage.setItem("pubgUsername", result);
+          }
+        } catch (error) {
+          console.error("Error fetching username:", error);
+        }
+      };
+      
+      fetchUsername();
     }
 
     const timer = setTimeout(() => {
@@ -568,4 +584,3 @@ const CheckoutPage = ({ onLogout }: CheckoutPageProps) => {
 };
 
 export default CheckoutPage;
-
