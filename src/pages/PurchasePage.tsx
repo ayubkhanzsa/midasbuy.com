@@ -1,7 +1,8 @@
-import { useState, useEffect, useRef } from "react";
+
+import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowLeft, AlertCircle, Check, RefreshCw, User, Shield, X, HelpCircle } from "lucide-react";
+import { ArrowLeft, AlertCircle, Check, RefreshCw, User, Shield, X, HelpCircle, Loader2 } from "lucide-react";
 import Header from "@/components/Header";
 import { getPackageById, getSelectedCountry, setupCountryChangeListener } from "@/data/ucPackages";
 import { Input } from "@/components/ui/input";
@@ -9,8 +10,8 @@ import { Button } from "@/components/ui/button";
 import { toast } from "@/components/ui/use-toast";
 import { convertAndFormatPrice, setupCurrencyChangeListener } from "@/utils/currencyUtils";
 import { useResponsive } from "@/hooks/use-mobile";
-import { Label } from "@/components/ui/label";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { fetchPlayerUsername } from "@/utils/pubgApiService";
 
 interface PurchasePageProps {
   onLogout: () => void;
@@ -28,6 +29,7 @@ const PurchasePage = ({ onLogout }: PurchasePageProps) => {
   const { isMobile, isTablet } = useResponsive();
   const [showPlayerIdModal, setShowPlayerIdModal] = useState(false);
   const [tempPlayerID, setTempPlayerID] = useState("");
+  const [isFetchingUsername, setIsFetchingUsername] = useState(false);
 
   const ucPackage = id ? getPackageById(id) : undefined;
 
@@ -54,7 +56,8 @@ const PurchasePage = ({ onLogout }: PurchasePageProps) => {
       if (savedUsername) {
         setUsername(savedUsername);
       } else {
-        setUsername("");
+        // Try to fetch username from API if we have a player ID but no username
+        fetchUsernameFromApi(savedPlayerID);
       }
     }
     
@@ -76,7 +79,26 @@ const PurchasePage = ({ onLogout }: PurchasePageProps) => {
     };
   }, []);
 
-  const handleVerifyPlayerID = () => {
+  const fetchUsernameFromApi = async (id: string) => {
+    if (!id) return;
+    
+    setIsFetchingUsername(true);
+    try {
+      const result = await fetchPlayerUsername(id);
+      if (result.success && result.username) {
+        setUsername(result.username);
+        localStorage.setItem("pubgUsername", result.username);
+      } else {
+        console.log("Failed to fetch username:", result.error);
+      }
+    } catch (error) {
+      console.error("Error fetching username:", error);
+    } finally {
+      setIsFetchingUsername(false);
+    }
+  };
+
+  const handleVerifyPlayerID = async () => {
     if (!tempPlayerID || tempPlayerID.length < 8) {
       toast({
         title: "Invalid Player ID",
@@ -86,40 +108,55 @@ const PurchasePage = ({ onLogout }: PurchasePageProps) => {
       return;
     }
 
-    const savedUsername = localStorage.getItem("pubgUsername");
-    if (!savedUsername) {
-      toast({
-        title: "Username Not Verified",
-        description: "Please verify your username in the Events page first",
-        variant: "destructive",
-      });
-      return;
-    }
-
     setIsVerifying(true);
     
-    setTimeout(() => {
-      setIsVerifying(false);
-      setIsPlayerIDValid(true);
-      setPlayerID(tempPlayerID);
+    try {
+      // Attempt to fetch the username from the PUBG API
+      const result = await fetchPlayerUsername(tempPlayerID);
       
+      if (result.success) {
+        setIsVerifying(false);
+        setIsPlayerIDValid(true);
+        setPlayerID(tempPlayerID);
+        
+        if (result.username) {
+          setUsername(result.username);
+          localStorage.setItem("pubgUsername", result.username);
+        }
+        
+        localStorage.setItem("playerID", tempPlayerID);
+        
+        toast({
+          title: "Player ID Verified",
+          description: "ID verification successful",
+        });
+        
+        setShowPlayerIdModal(false);
+      } else {
+        toast({
+          title: "Verification Failed",
+          description: result.error || "Could not verify player ID",
+          variant: "destructive",
+        });
+        setIsVerifying(false);
+      }
+    } catch (error) {
+      console.error("Error during verification:", error);
       toast({
-        title: "Player ID Verified",
-        description: "ID verification successful",
+        title: "Verification Error",
+        description: "An error occurred during verification",
+        variant: "destructive",
       });
-      
-      localStorage.setItem("playerID", tempPlayerID);
-      
-      setUsername(savedUsername);
-      
-      setShowPlayerIdModal(false);
-    }, 1500);
+      setIsVerifying(false);
+    }
   };
 
   const handleResetPlayerID = () => {
     setPlayerID("");
     setIsPlayerIDValid(false);
+    setUsername("");
     localStorage.removeItem("playerID");
+    localStorage.removeItem("pubgUsername");
     
     toast({
       title: "Player ID Reset",
@@ -317,7 +354,14 @@ const PurchasePage = ({ onLogout }: PurchasePageProps) => {
                         
                         <div className="flex items-center justify-between pt-2">
                           <span className="text-gray-400 text-sm font-medium w-32">Username:</span>
-                          <span className="text-white font-semibold text-right">{username}</span>
+                          {isFetchingUsername ? (
+                            <div className="flex items-center text-gray-300">
+                              <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                              Fetching...
+                            </div>
+                          ) : (
+                            <span className="text-white font-semibold text-right">{username || "Unknown"}</span>
+                          )}
                         </div>
                       </div>
                       
