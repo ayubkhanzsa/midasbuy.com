@@ -72,33 +72,33 @@ const CreditCardDisplay = ({ cardNumber, cardholderName, expiryDate }: CreditCar
           )}
         </div>
         
-        {/* Cardholder info and expiry - Moved up to show before card number */}
-        <div className="w-full mt-2 flex flex-col gap-1">
-          <div className="flex">
-            <div className="w-1/2">
-              <div className="text-[8px] md:text-[10px] text-white/70 uppercase tracking-wider">Card Holder</div>
-              <div className="text-xs md:text-sm font-medium uppercase tracking-wider text-yellow-400/90 font-semibold truncate">
-                {cardholderName || 'YOUR NAME'}
-              </div>
-            </div>
-            <div className="w-1/2">
-              <div className="text-[8px] md:text-[10px] text-white/70 uppercase tracking-wider">
-                CARD EXPIRY
-              </div>
-              <div className="text-xs md:text-sm font-medium uppercase tracking-wider text-yellow-400/90 font-semibold">
-                {expiryDate || 'MM/YY'}
-              </div>
-            </div>
-          </div>
-        </div>
-        
-        {/* Card number - Moved below cardholder and expiry */}
-        <div className="w-full mt-4" onClick={toggleCardNumberVisibility}>
+        {/* Card number - Moved back to top */}
+        <div className="w-full mt-2" onClick={toggleCardNumberVisibility}>
           <div className="text-lg md:text-xl font-mono tracking-widest cursor-pointer text-yellow-400 font-semibold">
             {displayNumber}
           </div>
           <div className="text-[8px] mt-0.5 text-white/70">
             {isCardNumberHidden ? "Tap to show" : "Tap to hide"}
+          </div>
+        </div>
+        
+        {/* Cardholder info and expiry - Moved below card number */}
+        <div className="w-full mt-2">
+          <div className="flex">
+            <div className="w-1/2">
+              <div className="text-[8px] text-white/70 uppercase tracking-wider">Card Holder</div>
+              <div className="text-xs font-medium uppercase tracking-wider text-yellow-400/90 font-semibold truncate">
+                {cardholderName || 'YOUR NAME'}
+              </div>
+            </div>
+            <div className="w-1/2">
+              <div className="text-[8px] text-white/70 uppercase tracking-wider">
+                CARD EXPIRY
+              </div>
+              <div className="text-xs font-medium uppercase tracking-wider text-yellow-400/90 font-semibold">
+                {expiryDate || 'MM/YY'}
+              </div>
+            </div>
           </div>
         </div>
       </div>
