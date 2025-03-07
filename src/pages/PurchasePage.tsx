@@ -1,3 +1,4 @@
+
 import { useState, useEffect, useRef } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
@@ -190,8 +191,8 @@ const PurchasePage = ({ onLogout }: PurchasePageProps) => {
             
               <div className="py-2">
                 <div className="mb-3">
-                  <div className="bg-[#0099FF] p-2 rounded-md text-center text-white text-sm">
-                    Start by entering your Game player ID to ensure a smooth purchase!
+                  <div className="bg-[#0099FF] p-2 rounded-t-md text-center text-white text-sm">
+                    Please select or fill in your Player ID you want to recharge
                   </div>
                   <div className="bg-[#1A1F2E] rounded-b-md p-3 border border-[#182238]">
                     <Input
