@@ -75,7 +75,7 @@ export const getCardLogo = (cardType: CardType): string => {
 export const getCardGradient = (cardType: CardType): string => {
   switch (cardType) {
     case 'visa':
-      return 'from-blue-600 to-blue-800';
+      return 'from-blue-900 to-blue-800';
     case 'mastercard':
       return 'from-red-600 to-orange-500';
     case 'amex':
