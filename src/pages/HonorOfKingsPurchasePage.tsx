@@ -11,7 +11,6 @@ import { convertAndFormatPrice, setupCurrencyChangeListener } from "@/utils/curr
 import { useResponsive } from "@/hooks/use-mobile";
 import { Label } from "@/components/ui/label";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { fetchPlayerUsername } from "@/utils/playerUtils";
 
 interface HonorOfKingsPurchasePageProps {
   onLogout: () => void;
@@ -77,7 +76,7 @@ const HonorOfKingsPurchasePage = ({ onLogout }: HonorOfKingsPurchasePageProps) =
     };
   }, []);
 
-  const handleVerifyPlayerID = async () => {
+  const handleVerifyPlayerID = () => {
     if (!tempPlayerID || tempPlayerID.length < 8) {
       toast({
         title: "Invalid Player ID",
@@ -87,45 +86,34 @@ const HonorOfKingsPurchasePage = ({ onLogout }: HonorOfKingsPurchasePageProps) =
       return;
     }
 
-    setIsVerifying(true);
-    
-    try {
-      const fetchedUsername = await fetchPlayerUsername(tempPlayerID);
-      
-      if (fetchedUsername) {
-        setTimeout(() => {
-          setIsVerifying(false);
-          setIsPlayerIDValid(true);
-          setPlayerID(tempPlayerID);
-          
-          toast({
-            title: "Player ID Verified",
-            description: "ID verification successful",
-          });
-          
-          localStorage.setItem("playerID", tempPlayerID);
-          
-          setUsername(fetchedUsername);
-          localStorage.setItem("pubgUsername", fetchedUsername);
-          
-          setShowPlayerIdModal(false);
-        }, 1000);
-      } else {
-        setIsVerifying(false);
-        toast({
-          title: "Verification Failed",
-          description: "Could not retrieve username for this Player ID",
-          variant: "destructive",
-        });
-      }
-    } catch (error) {
-      setIsVerifying(false);
+    const savedUsername = localStorage.getItem("pubgUsername");
+    if (!savedUsername) {
       toast({
-        title: "Verification Error",
-        description: "An error occurred while verifying your Player ID",
+        title: "Username Not Verified",
+        description: "Please verify your username in the Events page first",
         variant: "destructive",
       });
+      return;
     }
+
+    setIsVerifying(true);
+    
+    setTimeout(() => {
+      setIsVerifying(false);
+      setIsPlayerIDValid(true);
+      setPlayerID(tempPlayerID);
+      
+      toast({
+        title: "Player ID Verified",
+        description: "ID verification successful",
+      });
+      
+      localStorage.setItem("playerID", tempPlayerID);
+      
+      setUsername(savedUsername);
+      
+      setShowPlayerIdModal(false);
+    }, 1500);
   };
 
   const handleResetPlayerID = () => {
