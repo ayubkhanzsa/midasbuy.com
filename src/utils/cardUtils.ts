@@ -76,59 +76,8 @@ export const getCardImagePath = (cardType: CardType): string => {
   }
 };
 
-// Credit card component that displays a professional looking card
-export const CreditCardDisplay = ({ cardNumber, cardholderName, expiryDate }: { 
-  cardNumber: string, 
-  cardholderName: string, 
-  expiryDate: string 
-}) => {
-  const cardType = detectCardType(cardNumber);
-  const last4 = cardNumber.replace(/\s+/g, '').slice(-4);
-  const displayNumber = last4 ? `•••• •••• •••• ${last4}` : '•••• •••• •••• ••••';
-  
-  return (
-    <div className={`relative w-full aspect-[1.6/1] max-w-md rounded-xl overflow-hidden bg-gradient-to-br ${getCardGradient(cardType)} p-5 shadow-lg text-white`}>
-      <div className="flex justify-between items-start h-full flex-col">
-        <div className="w-full flex justify-between items-center">
-          <div className="w-12 h-12 relative">
-            <img 
-              src={getCardLogo(cardType)} 
-              alt={`${cardType} logo`}
-              className="w-full h-full object-contain"
-            />
-          </div>
-          <div className="text-right">
-            <div className="text-xs opacity-70">Credit Card</div>
-          </div>
-        </div>
-        
-        <div className="w-full mt-4">
-          <div className="text-lg sm:text-xl font-mono tracking-wider">
-            {displayNumber}
-          </div>
-        </div>
-        
-        <div className="w-full mt-auto grid grid-cols-2 gap-4">
-          <div>
-            <div className="text-xs opacity-70">Card Holder</div>
-            <div className="text-sm font-medium truncate">
-              {cardholderName || 'YOUR NAME'}
-            </div>
-          </div>
-          <div>
-            <div className="text-xs opacity-70">Expires</div>
-            <div className="text-sm font-medium">
-              {expiryDate || 'MM/YY'}
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-};
-
 // Helper function to get card logo
-const getCardLogo = (cardType: CardType): string => {
+export const getCardLogo = (cardType: CardType): string => {
   switch (cardType) {
     case 'visa':
       return '/lovable-uploads/83bab1f5-3ee2-4dd1-ab6e-7baab1fa72d1.png';
@@ -144,7 +93,7 @@ const getCardLogo = (cardType: CardType): string => {
 };
 
 // Helper function to get card background gradient
-const getCardGradient = (cardType: CardType): string => {
+export const getCardGradient = (cardType: CardType): string => {
   switch (cardType) {
     case 'visa':
       return 'from-blue-700 to-blue-900';

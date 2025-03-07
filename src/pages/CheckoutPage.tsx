@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
@@ -9,7 +8,8 @@ import { getPackageById } from "@/data/ucPackages";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { toast } from "@/components/ui/use-toast";
-import { CreditCardDisplay, detectCardType } from "@/utils/cardUtils";
+import { detectCardType } from "@/utils/cardUtils";
+import CreditCardDisplay from "@/components/CreditCardDisplay";
 
 interface CheckoutPageProps {
   onLogout: () => void;
@@ -568,3 +568,4 @@ const CheckoutPage = ({ onLogout }: CheckoutPageProps) => {
 };
 
 export default CheckoutPage;
+
