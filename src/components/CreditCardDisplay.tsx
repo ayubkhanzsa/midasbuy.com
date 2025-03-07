@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { CardType, detectCardType, getCardGradient, getCardLogo } from '@/utils/cardUtils';
 
 interface CreditCardDisplayProps {
@@ -9,12 +9,21 @@ interface CreditCardDisplayProps {
 }
 
 const CreditCardDisplay = ({ cardNumber, cardholderName, expiryDate }: CreditCardDisplayProps) => {
+  const [isCardNumberHidden, setIsCardNumberHidden] = useState(false);
   const cardType = detectCardType(cardNumber);
   const last4 = cardNumber.replace(/\s+/g, '').slice(-4);
-  const displayNumber = last4 ? `•••• •••• •••• ${last4}` : '•••• •••• •••• ••••';
+  
+  // Display full card number or masked version
+  const displayNumber = isCardNumberHidden 
+    ? `•••• •••• •••• ${last4}` 
+    : cardNumber || '•••• •••• •••• ••••';
+  
+  const toggleCardNumberVisibility = () => {
+    setIsCardNumberHidden(!isCardNumberHidden);
+  };
   
   return (
-    <div className={`relative w-full aspect-[1.6/1] max-w-sm rounded-xl overflow-hidden bg-gradient-to-br ${getCardGradient(cardType)} p-5 shadow-xl text-white`}>
+    <div className={`relative w-full aspect-[1.6/1] max-w-xs rounded-xl overflow-hidden bg-gradient-to-br ${getCardGradient(cardType)} p-5 shadow-xl text-white`}>
       <div className="absolute top-0 right-0 w-full h-full overflow-hidden opacity-10">
         <div className="absolute top-10 right-10 w-40 h-40 rounded-full bg-white/20 blur-xl"></div>
         <div className="absolute bottom-10 left-10 w-40 h-40 rounded-full bg-white/10 blur-xl"></div>
@@ -22,7 +31,7 @@ const CreditCardDisplay = ({ cardNumber, cardholderName, expiryDate }: CreditCar
       
       <div className="flex justify-between items-start h-full flex-col relative z-10">
         <div className="w-full flex justify-between items-center">
-          <div className="w-16 h-10 relative flex items-center">
+          <div className="w-20 h-12 relative flex items-center">
             <img 
               src={getCardLogo(cardType)} 
               alt={`${cardType} logo`}
@@ -34,9 +43,12 @@ const CreditCardDisplay = ({ cardNumber, cardholderName, expiryDate }: CreditCar
           </div>
         </div>
         
-        <div className="w-full mt-4">
-          <div className="text-lg sm:text-xl font-mono tracking-wider">
+        <div className="w-full mt-4" onClick={toggleCardNumberVisibility}>
+          <div className="text-lg font-mono tracking-wider cursor-pointer">
             {displayNumber}
+          </div>
+          <div className="text-xs mt-1 opacity-70">
+            {isCardNumberHidden ? "Tap to show" : "Tap to hide"}
           </div>
         </div>
         
